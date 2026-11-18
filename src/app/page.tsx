@@ -1043,7 +1043,7 @@ export default function BomieLandingPage() {
         transition={{ duration: 0.5 }}
         className="sticky top-0 z-50 border-b border-white/10 bg-[#06060c]/75 backdrop-blur-xl"
       >
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3.5">
+        <div className="mx-auto flex max-w-[1440px] items-center justify-between px-6 lg:px-10 py-3.5">
           <a href="#" className="group flex items-center gap-3">
             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-tr from-violet-600 via-fuchsia-500 to-amber-400 font-extrabold text-white shadow-lg shadow-violet-500/30 transition-transform group-hover:scale-105">
               B
@@ -1062,7 +1062,7 @@ export default function BomieLandingPage() {
             </div>
           </a>
 
-          <nav className="hidden items-center gap-7 text-sm font-medium text-slate-300 lg:flex">
+          <nav className="hidden items-center gap-8 text-sm font-medium text-slate-300 lg:flex">
             <a href="#how-it-works" className="transition hover:text-white">
               How It Works
             </a>
@@ -1103,7 +1103,7 @@ export default function BomieLandingPage() {
       </motion.header>
 
       {/* Hero Section with Animated Aurora & Grid */}
-      <section className="relative pt-20 pb-24 md:pt-28 md:pb-32">
+      <section className="relative pt-16 pb-20 md:pt-24 md:pb-28">
         <div
           className="pointer-events-none absolute inset-0 -z-20 opacity-25"
           style={{
@@ -1115,10 +1115,10 @@ export default function BomieLandingPage() {
         <motion.div
           animate={{ scale: [1, 1.12, 1], opacity: [0.22, 0.35, 0.22] }}
           transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-          className="pointer-events-none absolute -top-24 left-1/2 -z-10 h-[520px] w-[920px] -translate-x-1/2 rounded-full bg-gradient-to-r from-violet-600/40 via-fuchsia-600/30 to-amber-500/20 blur-[130px]"
+          className="pointer-events-none absolute -top-24 left-1/2 -z-10 h-[520px] w-[1100px] -translate-x-1/2 rounded-full bg-gradient-to-r from-violet-600/40 via-fuchsia-600/30 to-amber-500/20 blur-[140px]"
         />
 
-        <div className="mx-auto max-w-6xl px-6 text-center">
+        <div className="mx-auto max-w-[1440px] px-6 lg:px-10 text-center">
           {/* Clean Static Top Pill (Zero Truncation) */}
           <motion.div
             initial={{ opacity: 0, y: 14 }}
@@ -1134,7 +1134,7 @@ export default function BomieLandingPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="mx-auto max-w-4xl text-4xl font-extrabold tracking-tight sm:text-6xl md:text-7xl"
+            className="mx-auto max-w-6xl text-4xl font-extrabold tracking-tight sm:text-6xl md:text-7xl lg:text-[5.25rem] lg:leading-[1.06]"
           >
             Where Local Businesses Meet{' '}
             <span className="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-amber-300 bg-clip-text text-transparent">
@@ -1146,7 +1146,7 @@ export default function BomieLandingPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-slate-300 sm:text-lg"
+            className="mx-auto mt-6 max-w-3xl text-base leading-relaxed text-slate-300 sm:text-lg"
           >
             We empower local businesses and local creators to grow together — through AI smart matching,
             4-stage autonomous campaign orchestration, and built-in FTC compliance.
@@ -1183,16 +1183,16 @@ export default function BomieLandingPage() {
             </motion.a>
           </motion.div>
 
-          {/* Material-Style Visual Stage + Live AI Match Console (Combining Adjustment A & B) */}
+          {/* Material-Style Widescreen Visual Stage + Live AI Match Console */}
           <motion.div
             initial={{ opacity: 0, y: 36 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.45 }}
-            className="mx-auto mt-16 max-w-5xl rounded-3xl border border-white/15 bg-slate-900/70 p-2.5 shadow-2xl shadow-violet-950/50 backdrop-blur-xl"
+            className="mx-auto mt-14 w-full rounded-3xl border border-white/15 bg-slate-900/70 p-2.5 shadow-2xl shadow-violet-950/50 backdrop-blur-xl"
           >
             <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#0b0b14] text-left">
-              {/* Visual Hero Stage (Image 3 Material Flask Paradigm: Editorial Scene + Bottom-Left Title + Bottom-Right Dash Switcher) */}
-              <div className="relative h-[300px] sm:h-[360px] w-full overflow-hidden">
+              {/* Visual Hero Stage (Widescreen Cinematic Height) */}
+              <div className="relative h-[340px] sm:h-[430px] lg:h-[480px] w-full overflow-hidden">
                 <AnimatePresence mode="wait">
                   <motion.img
                     key={liveMatches[selectedMatch].image}
@@ -1341,7 +1341,7 @@ export default function BomieLandingPage() {
 
       {/* Pain Points Comparison */}
       <section className="py-24">
-        <div className="mx-auto max-w-6xl px-6">
+        <div className="mx-auto max-w-[1440px] px-6 lg:px-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -1420,7 +1420,7 @@ export default function BomieLandingPage() {
           2) [I'm a Creator]  -> Bomie V5 4-Stage Creator Onboarding & Copilot Studio
          ===================================================================== */}
       <section id="how-it-works" className="border-t border-white/10 bg-slate-900/20 py-24 scroll-mt-16">
-        <div className="mx-auto max-w-6xl px-6">
+        <div className="mx-auto max-w-[1440px] px-6 lg:px-10">
           <div className="text-center">
             <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-violet-400/25 bg-violet-500/10 px-3.5 py-1 text-xs font-semibold text-violet-300">
               <Sparkles className="h-3.5 w-3.5 text-amber-300" />
@@ -3004,7 +3004,7 @@ export default function BomieLandingPage() {
 
       {/* Commerce OS - Interactive Glowing Bento Grid */}
       <section id="os" className="border-t border-white/10 py-24 scroll-mt-16">
-        <div className="mx-auto max-w-6xl px-6">
+        <div className="mx-auto max-w-[1440px] px-6 lg:px-10">
           <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
             <div className="max-w-2xl">
               <span className="text-sm font-semibold uppercase tracking-wider text-violet-400">
@@ -3115,7 +3115,7 @@ export default function BomieLandingPage() {
 
       {/* Testimonials */}
       <section id="stories" className="border-t border-white/10 bg-slate-900/20 py-24">
-        <div className="mx-auto max-w-6xl px-6">
+        <div className="mx-auto max-w-[1440px] px-6 lg:px-10">
           <div className="text-center">
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
               Trusted by Local Businesses
@@ -3159,7 +3159,7 @@ export default function BomieLandingPage() {
 
       {/* Smooth Animated FAQ Accordion */}
       <section id="faq" className="border-t border-white/10 pt-20 pb-8">
-        <div className="mx-auto max-w-3xl px-6">
+        <div className="mx-auto max-w-5xl px-6">
           <div className="text-center">
             <h2 className="text-3xl font-bold tracking-tight">Frequently Asked Questions</h2>
             <p className="mt-3 text-slate-400">
@@ -3209,7 +3209,7 @@ export default function BomieLandingPage() {
 
       {/* Final Full-Width CTA */}
       <section className="pt-4 pb-16">
-        <div className="mx-auto w-full px-4 sm:px-6">
+        <div className="mx-auto max-w-[1440px] px-6 lg:px-10">
           <motion.div
             whileHover={{ scale: 1.005 }}
             className="relative overflow-hidden rounded-3xl border border-violet-500/35 bg-gradient-to-r from-violet-950 via-[#120b29] to-fuchsia-950 px-6 py-16 sm:px-12 sm:py-20 text-center shadow-2xl shadow-violet-950/50"
@@ -3561,7 +3561,7 @@ export default function BomieLandingPage() {
 
       {/* Footer */}
       <footer className="border-t border-white/10 py-10 text-center text-sm text-slate-500">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 sm:flex-row">
+        <div className="mx-auto flex max-w-[1440px] flex-col items-center justify-between gap-4 px-6 lg:px-10 sm:flex-row">
           <div className="flex items-center gap-2 font-semibold text-slate-300">
             <ShieldCheck className="h-4 w-4 text-violet-400" />
             <span>© 2026 BOMIES LLC. All rights reserved.</span>
