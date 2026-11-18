@@ -1291,40 +1291,35 @@ export default function BomieLandingPage() {
         className="sticky top-0 z-50 border-b border-white/10 bg-[#06060c]/80 backdrop-blur-xl"
       >
         <div className="mx-auto flex max-w-[1440px] items-center justify-between px-6 lg:px-10 py-4">
-          {/* 1. Enlarged Logo + Stacked Editorial Tagline & Left-to-Right Shimmer Subtitle */}
-          <a href="#" className="group flex items-center gap-4">
-            <div className="flex h-12 w-12 sm:h-13 sm:w-13 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-tr from-violet-600 via-fuchsia-500 to-amber-400 text-xl sm:text-2xl font-extrabold text-white shadow-lg shadow-violet-500/35 transition-transform group-hover:scale-105">
+          {/* 1. Enlarged Logo + Single-Line Left-to-Right Shimmer Tagline */}
+          <a href="#" className="group flex items-center gap-3.5">
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-tr from-violet-600 via-fuchsia-500 to-amber-400 text-xl font-extrabold text-white shadow-lg shadow-violet-500/35 transition-transform group-hover:scale-105">
               B
             </div>
             <div className="flex flex-col sm:flex-row sm:items-center sm:gap-3.5">
               <span className="text-2xl sm:text-[28px] font-extrabold tracking-tight text-white leading-none">
                 bomie.ai
               </span>
-              <span className="hidden h-7 w-[1px] bg-white/20 lg:inline-block" />
-              <div className="flex flex-col justify-center space-y-0.5 mt-0.5 sm:mt-0">
-                <span className="font-[family-name:var(--font-playfair)] text-xs sm:text-sm xl:text-[15px] italic tracking-wide text-amber-200/95 leading-tight">
-                  Built for North America&apos;s 40M+ Small Businesses &amp; Local Creators
-                </span>
-                <div className="flex items-center gap-1.5">
-                  <Sparkles className="h-3 w-3 shrink-0 text-amber-300 animate-pulse" />
-                  <motion.span
-                    animate={{ backgroundPosition: ['115% 0%', '-15% 0%'] }}
-                    transition={{
-                      duration: 3.6,
-                      repeat: Infinity,
-                      repeatDelay: 0.8,
-                      ease: 'easeInOut',
-                    }}
-                    style={{
-                      backgroundImage:
-                        'linear-gradient(90deg, rgba(196,181,253,0.88) 0%, rgba(196,181,253,0.88) 38%, #ffffff 48%, #fde047 51%, #f472b6 55%, rgba(196,181,253,0.88) 64%, rgba(196,181,253,0.88) 100%)',
-                      backgroundSize: '240% 100%',
-                    }}
-                    className="bg-clip-text text-[11px] sm:text-xs font-semibold tracking-wide text-transparent leading-tight"
-                  >
-                    First Platform in North America for Local Businesses &amp; Local Creators
-                  </motion.span>
-                </div>
+              <span className="hidden h-5 w-[1px] bg-white/20 lg:inline-block" />
+              <div className="flex items-center gap-1.5 mt-0.5 sm:mt-0">
+                <Sparkles className="h-3.5 w-3.5 shrink-0 text-amber-300 animate-pulse" />
+                <motion.span
+                  animate={{ backgroundPosition: ['115% 0%', '-15% 0%'] }}
+                  transition={{
+                    duration: 3.6,
+                    repeat: Infinity,
+                    repeatDelay: 0.8,
+                    ease: 'easeInOut',
+                  }}
+                  style={{
+                    backgroundImage:
+                      'linear-gradient(90deg, rgba(221,214,254,0.92) 0%, rgba(221,214,254,0.92) 38%, #ffffff 48%, #fde047 51%, #f472b6 55%, rgba(221,214,254,0.92) 64%, rgba(221,214,254,0.92) 100%)',
+                    backgroundSize: '240% 100%',
+                  }}
+                  className="bg-clip-text text-xs sm:text-[13.5px] font-semibold tracking-wide text-transparent leading-none"
+                >
+                  First Platform in North America for Local Businesses &amp; Local Creators
+                </motion.span>
               </div>
             </div>
           </a>
