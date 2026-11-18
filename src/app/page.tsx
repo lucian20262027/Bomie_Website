@@ -1291,22 +1291,41 @@ export default function BomieLandingPage() {
         className="sticky top-0 z-50 border-b border-white/10 bg-[#06060c]/80 backdrop-blur-xl"
       >
         <div className="mx-auto flex max-w-[1440px] items-center justify-between px-6 lg:px-10 py-4">
-          {/* 1. Slightly Larger Logo & Editorial Serif Italic Motto */}
-          <a href="#" className="group flex items-center gap-3.5">
-            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-tr from-violet-600 via-fuchsia-500 to-amber-400 text-lg font-extrabold text-white shadow-lg shadow-violet-500/30 transition-transform group-hover:scale-105">
+          {/* 1. Enlarged Logo + Stacked Editorial Tagline & Left-to-Right Shimmer Subtitle */}
+          <a href="#" className="group flex items-center gap-4">
+            <div className="flex h-12 w-12 sm:h-13 sm:w-13 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-tr from-violet-600 via-fuchsia-500 to-amber-400 text-xl sm:text-2xl font-extrabold text-white shadow-lg shadow-violet-500/35 transition-transform group-hover:scale-105">
               B
             </div>
-            <div className="flex flex-col">
-              <div className="flex items-center gap-3">
-                <span className="text-2xl font-extrabold tracking-tight text-white">bomie.ai</span>
-                <span className="hidden h-4 w-[1px] bg-white/25 xl:inline-block" />
-                <span className="hidden font-[family-name:var(--font-playfair)] text-sm xl:text-[15px] italic tracking-wide text-amber-200/95 xl:inline-block">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:gap-3.5">
+              <span className="text-2xl sm:text-[28px] font-extrabold tracking-tight text-white leading-none">
+                bomie.ai
+              </span>
+              <span className="hidden h-7 w-[1px] bg-white/20 lg:inline-block" />
+              <div className="flex flex-col justify-center space-y-0.5 mt-0.5 sm:mt-0">
+                <span className="font-[family-name:var(--font-playfair)] text-xs sm:text-sm xl:text-[15px] italic tracking-wide text-amber-200/95 leading-tight">
                   Built for North America&apos;s 40M+ Small Businesses &amp; Local Creators
                 </span>
+                <div className="flex items-center gap-1.5">
+                  <Sparkles className="h-3 w-3 shrink-0 text-amber-300 animate-pulse" />
+                  <motion.span
+                    animate={{ backgroundPosition: ['115% 0%', '-15% 0%'] }}
+                    transition={{
+                      duration: 3.6,
+                      repeat: Infinity,
+                      repeatDelay: 0.8,
+                      ease: 'easeInOut',
+                    }}
+                    style={{
+                      backgroundImage:
+                        'linear-gradient(90deg, rgba(196,181,253,0.88) 0%, rgba(196,181,253,0.88) 38%, #ffffff 48%, #fde047 51%, #f472b6 55%, rgba(196,181,253,0.88) 64%, rgba(196,181,253,0.88) 100%)',
+                      backgroundSize: '240% 100%',
+                    }}
+                    className="bg-clip-text text-[11px] sm:text-xs font-semibold tracking-wide text-transparent leading-tight"
+                  >
+                    First Platform in North America for Local Businesses &amp; Local Creators
+                  </motion.span>
+                </div>
               </div>
-              <span className="font-[family-name:var(--font-playfair)] text-xs italic tracking-wide text-amber-200/90 xl:hidden">
-                Built for North America&apos;s 40M+ Small Businesses &amp; Local Creators
-              </span>
             </div>
           </a>
 
@@ -1466,8 +1485,8 @@ export default function BomieLandingPage() {
         </div>
       </motion.header>
 
-      {/* Hero Section with Animated Aurora & Grid */}
-      <section className="relative pt-16 pb-20 md:pt-24 md:pb-28">
+      {/* Hero Section with Animated Aurora & Grid (Tightened Top Padding) */}
+      <section className="relative pt-8 pb-14 md:pt-11 md:pb-16">
         <div
           className="pointer-events-none absolute inset-0 -z-20 opacity-25"
           style={{
@@ -1483,17 +1502,6 @@ export default function BomieLandingPage() {
         />
 
         <div className="mx-auto max-w-[1440px] px-6 lg:px-10 text-center">
-          {/* Clean Static Top Pill (Zero Truncation) */}
-          <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mb-7 inline-flex items-center gap-2.5 rounded-full border border-violet-400/35 bg-violet-500/10 px-5 py-2 text-xs sm:text-sm font-semibold tracking-wide text-violet-100 backdrop-blur-md shadow-lg shadow-violet-950/40"
-          >
-            <Sparkles className="h-4 w-4 shrink-0 text-amber-300" />
-            <span>First Platform in North America for Local Businesses &amp; Local Creators</span>
-          </motion.div>
-
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
