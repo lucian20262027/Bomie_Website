@@ -1697,7 +1697,7 @@ export default function BomieLandingPage() {
           </Link>
 
           {/* 2. Three Single-Line Center Dropdown Menus (Oura-Style Dedicated Pages) */}
-          <nav className="hidden items-center gap-2 lg:gap-4 md:flex shrink-0">
+          <nav className="hidden self-end pb-0.5 items-center gap-2 lg:gap-4 md:flex shrink-0">
             {/* Dropdown 1: Commerce OS */}
             <div
               className="relative"
@@ -1706,7 +1706,7 @@ export default function BomieLandingPage() {
               <button
                 type="button"
                 onClick={() => setOpenNavMenu(openNavMenu === 'os' ? null : 'os')}
-                className="flex items-center gap-1.5 whitespace-nowrap rounded-xl px-3.5 py-2 text-sm font-semibold text-slate-700 transition hover:bg-violet-200/50 hover:text-violet-950"
+                className="flex items-center gap-1.5 whitespace-nowrap rounded-lg px-3 py-1.5 text-sm font-semibold text-slate-700 transition hover:bg-violet-200/50 hover:text-violet-950"
               >
                 <span>Commerce OS</span>
                 <ChevronDown
@@ -1756,7 +1756,65 @@ export default function BomieLandingPage() {
               </AnimatePresence>
             </div>
 
-            {/* Dropdown 2: Success Stories (4 Dedicated City Pages) */}
+            {/* Dropdown 2: Why Bomie (Oura-Style Dedicated Pages) */}
+            <div
+              className="relative"
+              onMouseEnter={() => setOpenNavMenu('why')}
+            >
+              <button
+                type="button"
+                onClick={() => setOpenNavMenu(openNavMenu === 'why' ? null : 'why')}
+                className="flex items-center gap-1.5 whitespace-nowrap rounded-lg px-3 py-1.5 text-sm font-semibold text-slate-700 transition hover:bg-violet-200/50 hover:text-violet-950"
+              >
+                <span>Why Bomie</span>
+                <ChevronDown
+                  className={`h-4 w-4 text-slate-500 transition-transform duration-200 ${
+                    openNavMenu === 'why' ? 'rotate-180 text-emerald-600' : ''
+                  }`}
+                />
+              </button>
+
+              <AnimatePresence>
+                {openNavMenu === 'why' && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 8 }}
+                    transition={{ duration: 0.18 }}
+                    className="absolute left-0 top-full pt-2 w-52 z-50"
+                  >
+                    <div className="rounded-2xl border border-violet-200/80 bg-white/95 p-2 shadow-2xl shadow-violet-900/10 backdrop-blur-2xl space-y-1">
+                      <Link
+                        href="/why-bomie/founder"
+                        onClick={() => setOpenNavMenu(null)}
+                        className="flex items-center gap-3 rounded-xl px-3.5 py-2.5 transition hover:bg-violet-50"
+                      >
+                        <Award className="h-4 w-4 shrink-0 text-amber-500" />
+                        <span className="text-xs font-bold text-[#161224]">Founder</span>
+                      </Link>
+                      <Link
+                        href="/why-bomie/stories"
+                        onClick={() => setOpenNavMenu(null)}
+                        className="flex items-center gap-3 rounded-xl px-3.5 py-2.5 transition hover:bg-violet-50"
+                      >
+                        <Sparkles className="h-4 w-4 shrink-0 text-fuchsia-600" />
+                        <span className="text-xs font-bold text-[#161224]">Bomie Stories</span>
+                      </Link>
+                      <Link
+                        href="/why-bomie/research"
+                        onClick={() => setOpenNavMenu(null)}
+                        className="flex items-center gap-3 rounded-xl px-3.5 py-2.5 transition hover:bg-violet-50"
+                      >
+                        <FileText className="h-4 w-4 shrink-0 text-emerald-600" />
+                        <span className="text-xs font-bold text-[#161224]">Bomie Research</span>
+                      </Link>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            {/* Dropdown 3: Success Stories (4 Dedicated City Pages) */}
             <div
               className="relative"
               onMouseEnter={() => setOpenNavMenu('stories')}
@@ -1764,7 +1822,7 @@ export default function BomieLandingPage() {
               <button
                 type="button"
                 onClick={() => setOpenNavMenu(openNavMenu === 'stories' ? null : 'stories')}
-                className="flex items-center gap-1.5 whitespace-nowrap rounded-xl px-3.5 py-2 text-sm font-semibold text-slate-700 transition hover:bg-violet-200/50 hover:text-violet-950"
+                className="flex items-center gap-1.5 whitespace-nowrap rounded-lg px-3 py-1.5 text-sm font-semibold text-slate-700 transition hover:bg-violet-200/50 hover:text-violet-950"
               >
                 <span>Success Stories</span>
                 <ChevronDown
@@ -1829,70 +1887,12 @@ export default function BomieLandingPage() {
                 )}
               </AnimatePresence>
             </div>
-
-            {/* Dropdown 3: Why Bomie (Oura-Style Dedicated Pages) */}
-            <div
-              className="relative"
-              onMouseEnter={() => setOpenNavMenu('why')}
-            >
-              <button
-                type="button"
-                onClick={() => setOpenNavMenu(openNavMenu === 'why' ? null : 'why')}
-                className="flex items-center gap-1.5 whitespace-nowrap rounded-xl px-3.5 py-2 text-sm font-semibold text-slate-700 transition hover:bg-violet-200/50 hover:text-violet-950"
-              >
-                <span>Why Bomie</span>
-                <ChevronDown
-                  className={`h-4 w-4 text-slate-500 transition-transform duration-200 ${
-                    openNavMenu === 'why' ? 'rotate-180 text-emerald-600' : ''
-                  }`}
-                />
-              </button>
-
-              <AnimatePresence>
-                {openNavMenu === 'why' && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 8 }}
-                    transition={{ duration: 0.18 }}
-                    className="absolute left-0 top-full pt-2 w-52 z-50"
-                  >
-                    <div className="rounded-2xl border border-violet-200/80 bg-white/95 p-2 shadow-2xl shadow-violet-900/10 backdrop-blur-2xl space-y-1">
-                      <Link
-                        href="/why-bomie/founder"
-                        onClick={() => setOpenNavMenu(null)}
-                        className="flex items-center gap-3 rounded-xl px-3.5 py-2.5 transition hover:bg-violet-50"
-                      >
-                        <Award className="h-4 w-4 shrink-0 text-amber-500" />
-                        <span className="text-xs font-bold text-[#161224]">Founder</span>
-                      </Link>
-                      <Link
-                        href="/why-bomie/stories"
-                        onClick={() => setOpenNavMenu(null)}
-                        className="flex items-center gap-3 rounded-xl px-3.5 py-2.5 transition hover:bg-violet-50"
-                      >
-                        <Sparkles className="h-4 w-4 shrink-0 text-fuchsia-600" />
-                        <span className="text-xs font-bold text-[#161224]">Bomie Stories</span>
-                      </Link>
-                      <Link
-                        href="/why-bomie/research"
-                        onClick={() => setOpenNavMenu(null)}
-                        className="flex items-center gap-3 rounded-xl px-3.5 py-2.5 transition hover:bg-violet-50"
-                      >
-                        <FileText className="h-4 w-4 shrink-0 text-emerald-600" />
-                        <span className="text-xs font-bold text-[#161224]">Bomie Research</span>
-                      </Link>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
           </nav>
 
-          <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+          <div className="flex shrink-0 self-end pb-0.5 items-center gap-2 sm:gap-3">
             <button
               onClick={() => setShowLoginModal(true)}
-              className="hidden sm:inline-flex rounded-xl px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-violet-200/50 hover:text-violet-950"
+              className="hidden sm:inline-flex rounded-lg px-3.5 py-1.5 text-sm font-semibold text-slate-700 transition hover:bg-violet-200/50 hover:text-violet-950"
             >
               Log in
             </button>
@@ -1904,7 +1904,7 @@ export default function BomieLandingPage() {
                 setDemoError('');
                 setShowDemoModal(true);
               }}
-              className="inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-xl bg-gradient-to-r from-violet-600 via-fuchsia-600 to-violet-700 px-4 sm:px-5 py-2.5 text-xs sm:text-sm font-bold text-white shadow-lg shadow-violet-600/25 transition hover:opacity-95"
+              className="inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-lg bg-gradient-to-r from-violet-600 via-fuchsia-600 to-violet-700 px-4 sm:px-5 py-2 text-xs sm:text-sm font-bold text-white shadow-lg shadow-violet-600/25 transition hover:opacity-95"
             >
               Book a Demo
             </motion.button>

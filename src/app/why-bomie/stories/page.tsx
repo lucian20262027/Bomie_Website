@@ -56,10 +56,6 @@ export default function BomieStoriesPage() {
 
       <main className="mx-auto max-w-5xl px-6 py-16 space-y-14">
         <div className="space-y-4">
-          <div className="inline-flex items-center gap-2 rounded-full border border-fuchsia-500/35 bg-fuchsia-500/10 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-fuchsia-700">
-            <HeartHandshake className="h-3.5 w-3.5" />
-            Why Bomie · Our Vision
-          </div>
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-[#161224]">
             Powering Millions of Main Streets &amp; Local Storytellers Across America.
           </h1>

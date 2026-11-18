@@ -80,10 +80,6 @@ export default function BomieResearchPage() {
 
       <main className="mx-auto max-w-5xl px-6 py-16 space-y-12">
         <div className="space-y-4">
-          <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/35 bg-emerald-500/10 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-emerald-700">
-            <BookOpen className="h-3.5 w-3.5" />
-            Why Bomie · Research Lab
-          </div>
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-[#161224]">
             Bomie Research: Small Business &amp; Local Creator Economy
           </h1>

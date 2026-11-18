@@ -57,10 +57,6 @@ export default function FounderPage() {
       <main className="mx-auto max-w-5xl px-6 py-16 space-y-12">
         {/* Hero */}
         <div className="space-y-4">
-          <div className="inline-flex items-center gap-2 rounded-full border border-violet-500/35 bg-violet-500/10 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-violet-700">
-            <Sparkles className="h-3.5 w-3.5 text-amber-700" />
-            Why Bomie · Leadership
-          </div>
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-[#161224]">
             Built for Main Street, by Builders Who Care.
           </h1>
@@ -78,20 +74,6 @@ export default function FounderPage() {
               </div>
               <div>
                 <h2 className="text-2xl sm:text-3xl font-extrabold text-[#161224]">Lucian Wang</h2>
-                <p className="mt-1 text-sm font-semibold text-violet-700">
-                  Founder &amp; CEO · BOMIES LLC
-                </p>
-                <div className="mt-1.5 flex flex-wrap items-center gap-3 text-xs text-slate-600">
-                  <span className="inline-flex items-center gap-1">
-                    <MapPin className="h-3.5 w-3.5 text-amber-700" />
-                    San Francisco, California
-                  </span>
-                  <span>·</span>
-                  <span className="inline-flex items-center gap-1">
-                    <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" />
-                    U.S. Registered Entity
-                  </span>
-                </div>
               </div>
             </div>
             <span className="self-start rounded-full border border-emerald-400/35 bg-emerald-500/15 px-3.5 py-1.5 text-xs font-bold text-emerald-700">
@@ -116,17 +98,8 @@ export default function FounderPage() {
               href="mailto:lucian.wang@bomie.ai"
               className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 px-5 py-3 text-xs sm:text-sm font-bold text-white shadow-md shadow-violet-600/20 transition hover:opacity-95"
             >
-              <Mail className="h-4 w-4 text-violet-600" />
+              <Mail className="h-4 w-4 text-white" />
               Email Lucian: lucian.wang@bomie.ai
-            </a>
-            <a
-              href="https://www.linkedin.com/company/bomies"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-xl border border-violet-400/40 bg-violet-500/15 px-5 py-3 text-xs sm:text-sm font-semibold text-violet-900 transition hover:bg-violet-500/25"
-            >
-              LinkedIn Company Page
-              <ExternalLink className="h-4 w-4" />
             </a>
           </div>
         </div>
