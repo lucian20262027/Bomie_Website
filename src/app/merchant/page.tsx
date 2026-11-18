@@ -122,10 +122,9 @@ function buildCustomMerchantPlan(promptText: string): GeneratedMerchantPlan {
 
 export default function MerchantPage() {
   const [guideStep, setGuideStep] = useState<1 | 2 | 3>(1);
-  const [presetIdx, setPresetIdx] = useState<number>(0);
-  const [customPrompt, setCustomPrompt] = useState<string>(
-    'I run a Sichuan restaurant in San Francisco with a $1,800 budget. Match 3 local foodie creators for weekend dine-in traffic.'
-  );
+  const [presetIdx, setPresetIdx] = useState<number>(-1);
+  const [customPrompt, setCustomPrompt] = useState<string>('');
+  const [isInputFocused, setIsInputFocused] = useState<boolean>(false);
   const [activePlan, setActivePlan] = useState<GeneratedMerchantPlan>(() =>
     buildCustomMerchantPlan(
       'I run a Sichuan restaurant in San Francisco with a $1,800 budget. Match 3 local foodie creators for weekend dine-in traffic.'
@@ -354,26 +353,38 @@ export default function MerchantPage() {
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                runGeneration(customPrompt);
+                runGeneration(
+                  customPrompt.trim() ||
+                    'I run a boba shop in Seattle with a $1,000 budget.'
+                );
               }}
               className="flex flex-col sm:flex-row gap-3"
             >
-              <input
-                type="text"
-                value={customPrompt}
-                onChange={(e) => {
-                  setCustomPrompt(e.target.value);
-                  setGuideStep(1);
-                }}
-                placeholder="e.g., I run a boba shop in Seattle with a $1,000 budget..."
-                className="flex-1 rounded-2xl border border-violet-200 bg-[#f7f4ff] px-4 py-3.5 text-sm text-[#161224] placeholder-slate-400 focus:border-violet-500 focus:outline-none"
-              />
+              <div className="relative flex-1">
+                {!customPrompt && !isInputFocused && (
+                  <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 flex items-center text-sm text-slate-400">
+                    <span className="mr-0.5 inline-block h-4 w-[2px] bg-violet-600 animate-pulse" />
+                    <span>e.g., I run a boba shop in Seattle with a $1,000 budget...</span>
+                  </span>
+                )}
+                <input
+                  type="text"
+                  value={customPrompt}
+                  onFocus={() => setIsInputFocused(true)}
+                  onBlur={() => setIsInputFocused(false)}
+                  onChange={(e) => {
+                    setCustomPrompt(e.target.value);
+                    setGuideStep(1);
+                  }}
+                  placeholder={isInputFocused ? 'e.g., I run a boba shop in Seattle with a $1,000 budget...' : ''}
+                  className="w-full rounded-2xl border border-violet-200 bg-[#f7f4ff] px-4 py-3.5 text-sm text-[#161224] placeholder-slate-400 focus:border-violet-500 focus:outline-none"
+                />
+              </div>
               <button
                 type="submit"
                 disabled={thinkingStage > 0 && thinkingStage < 4}
-                className="inline-flex shrink-0 items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-violet-600 to-fuchsia-600 px-6 py-3.5 text-sm font-bold text-white shadow-md shadow-violet-600/20 transition hover:opacity-95 disabled:opacity-60"
+                className="inline-flex shrink-0 items-center justify-center rounded-2xl bg-gradient-to-r from-violet-600 to-fuchsia-600 px-6 py-3.5 text-sm font-bold text-white shadow-md shadow-violet-600/20 transition hover:opacity-95 disabled:opacity-60"
               >
-                <Sparkles className="h-4 w-4" />
                 {thinkingStage > 0 && thinkingStage < 4 ? 'AI Thinking...' : 'Generate Plan'}
               </button>
             </form>

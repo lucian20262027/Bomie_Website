@@ -80,10 +80,9 @@ function buildCreatorPlan(promptText: string): CreatorDealPlan {
 
 export default function CreatorPage() {
   const [guideStep, setGuideStep] = useState<1 | 2 | 3>(1);
-  const [presetIdx, setPresetIdx] = useState<number>(0);
-  const [customPrompt, setCustomPrompt] = useState<string>(
-    'I am @sfnoodleclub (34K) food & lifestyle creator in San Francisco looking for paid local restaurant deals.'
-  );
+  const [presetIdx, setPresetIdx] = useState<number>(-1);
+  const [customPrompt, setCustomPrompt] = useState<string>('');
+  const [isInputFocused, setIsInputFocused] = useState<boolean>(false);
   const [plan, setPlan] = useState<CreatorDealPlan>(() =>
     buildCreatorPlan('I am @sfnoodleclub (34K) food & lifestyle creator in San Francisco looking for paid local restaurant deals.')
   );
@@ -298,26 +297,38 @@ export default function CreatorPage() {
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                runMatch(customPrompt);
+                runMatch(
+                  customPrompt.trim() ||
+                    'I am @latte_lover in Seattle looking for paid cafe deals.'
+                );
               }}
               className="flex flex-col sm:flex-row gap-3"
             >
-              <input
-                type="text"
-                value={customPrompt}
-                onChange={(e) => {
-                  setCustomPrompt(e.target.value);
-                  setGuideStep(1);
-                }}
-                placeholder="e.g., I am @latte_lover in Seattle looking for paid cafe deals..."
-                className="flex-1 rounded-2xl border border-violet-200 bg-[#f7f4ff] px-4 py-3.5 text-sm text-[#161224] placeholder-slate-400 focus:border-fuchsia-500 focus:outline-none"
-              />
+              <div className="relative flex-1">
+                {!customPrompt && !isInputFocused && (
+                  <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 flex items-center text-sm text-slate-400">
+                    <span className="mr-0.5 inline-block h-4 w-[2px] bg-fuchsia-600 animate-pulse" />
+                    <span>e.g., I am @latte_lover in Seattle looking for paid cafe deals...</span>
+                  </span>
+                )}
+                <input
+                  type="text"
+                  value={customPrompt}
+                  onFocus={() => setIsInputFocused(true)}
+                  onBlur={() => setIsInputFocused(false)}
+                  onChange={(e) => {
+                    setCustomPrompt(e.target.value);
+                    setGuideStep(1);
+                  }}
+                  placeholder={isInputFocused ? 'e.g., I am @latte_lover in Seattle looking for paid cafe deals...' : ''}
+                  className="w-full rounded-2xl border border-violet-200 bg-[#f7f4ff] px-4 py-3.5 text-sm text-[#161224] placeholder-slate-400 focus:border-fuchsia-500 focus:outline-none"
+                />
+              </div>
               <button
                 type="submit"
                 disabled={thinkingStage > 0 && thinkingStage < 4}
-                className="inline-flex shrink-0 items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-fuchsia-600 to-violet-600 px-6 py-3.5 text-sm font-bold text-white shadow-md shadow-fuchsia-600/20"
+                className="inline-flex shrink-0 items-center justify-center rounded-2xl bg-gradient-to-r from-fuchsia-600 to-violet-600 px-6 py-3.5 text-sm font-bold text-white shadow-md shadow-fuchsia-600/20"
               >
-                <Sparkles className="h-4 w-4" />
                 {thinkingStage > 0 && thinkingStage < 4 ? 'AI Matching...' : 'Find Local Deals'}
               </button>
             </form>
