@@ -2193,53 +2193,44 @@ export default function BomieLandingPage() {
                 </div>
               </div>
 
-              {/* Bottom 3-Column Live Match Telemetry Strip */}
-              <div className="p-6 pt-4">
+              {/* Single-Line Live Match Summary Strip */}
+              <div className="border-t border-white/10 bg-black/40 px-6 py-3.5 backdrop-blur-md">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={selectedMatch}
-                    initial={{ opacity: 0, y: 8 }}
+                    initial={{ opacity: 0, y: 4 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -8 }}
-                    transition={{ duration: 0.25 }}
-                    className="grid gap-4 md:grid-cols-3"
+                    exit={{ opacity: 0, y: -4 }}
+                    transition={{ duration: 0.2 }}
+                    className="flex flex-wrap items-center justify-between gap-3 text-xs"
                   >
-                    <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
-                      <div className="text-xs text-slate-400">Local Merchant</div>
-                      <div className="mt-1 font-bold text-white">
+                    <div className="flex flex-wrap items-center gap-2.5 text-slate-200">
+                      <span className="font-bold text-white">
                         {liveMatches[selectedMatch].business}
-                      </div>
-                      <div className="mt-2 flex items-center gap-1 text-xs text-violet-300">
-                        <MapPin className="h-3.5 w-3.5" />
-                        {liveMatches[selectedMatch].location}
-                      </div>
-                    </div>
-
-                    <div className="rounded-xl border border-violet-500/30 bg-violet-500/10 p-4">
-                      <div className="flex items-center justify-between text-xs">
-                        <span className="text-violet-200">AI Matched Creator</span>
-                        <span className="rounded-full bg-emerald-500/20 px-2 py-0.5 font-semibold text-emerald-300">
-                          {liveMatches[selectedMatch].matchScore}
-                        </span>
-                      </div>
-                      <div className="mt-1 font-bold text-white">
+                      </span>
+                      <span className="text-slate-500">×</span>
+                      <span className="font-semibold text-violet-300">
                         {liveMatches[selectedMatch].creator}
-                      </div>
-                      <div className="mt-2 flex items-center gap-1 text-xs text-slate-300">
-                        <TrendingUp className="h-3.5 w-3.5 text-amber-300" />
-                        {liveMatches[selectedMatch].estReach}
-                      </div>
+                      </span>
+                      <span className="hidden sm:inline text-slate-500">·</span>
+                      <span className="hidden sm:inline-flex items-center gap-1 text-slate-400">
+                        <MapPin className="h-3 w-3 text-amber-300" />
+                        {liveMatches[selectedMatch].location}
+                      </span>
                     </div>
 
-                    <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
-                      <div className="text-xs text-slate-400">Compliance &amp; Escrow</div>
-                      <div className="mt-1 flex items-center gap-1.5 font-semibold text-emerald-400">
-                        <CheckCircle2 className="h-4 w-4 shrink-0" />
-                        <span className="text-sm">{liveMatches[selectedMatch].ftcStatus}</span>
-                      </div>
-                      <div className="mt-2 text-xs text-slate-400">
-                        Auto-payout upon verified post
-                      </div>
+                    <div className="flex flex-wrap items-center gap-2.5">
+                      <span className="inline-flex items-center gap-1 text-amber-300 font-medium">
+                        <TrendingUp className="h-3.5 w-3.5" />
+                        {liveMatches[selectedMatch].estReach}
+                      </span>
+                      <span className="rounded-full bg-emerald-500/20 px-2.5 py-0.5 font-semibold text-emerald-300">
+                        {liveMatches[selectedMatch].matchScore}
+                      </span>
+                      <span className="hidden md:inline-flex items-center gap-1 text-emerald-400 font-medium">
+                        <CheckCircle2 className="h-3.5 w-3.5" />
+                        FTC Verified
+                      </span>
                     </div>
                   </motion.div>
                 </AnimatePresence>
@@ -2287,54 +2278,22 @@ export default function BomieLandingPage() {
         </div>
       </section>
 
-      {/* Infinite Smooth Marquee */}
-      <div className="relative overflow-hidden border-y border-violet-200/70 bg-white/60 py-4">
-        <motion.div
-          animate={{ x: ['0%', '-50%'] }}
-          transition={{ duration: 24, repeat: Infinity, ease: 'linear' }}
-          className="flex w-max items-center gap-8"
-        >
-          {[...marqueeItems, ...marqueeItems].map((item, index) => (
-            <div key={index} className="flex items-center gap-8">
-              <span className="text-sm font-semibold tracking-wide text-slate-700 uppercase">
-                {item}
-              </span>
-              <Sparkles className="h-4 w-4 text-violet-600" />
-            </div>
-          ))}
-        </motion.div>
-      </div>
-
-      {/* Success Stories — Verified Pilot Traction + 4 City Hubs */}
+      {/* Success Stories — Clean Metric Strip + 4 City Hubs */}
       <section id="stories" className="border-t border-violet-200/70 bg-[#efe9ff]/55 py-14 scroll-mt-16">
-        <div className="mx-auto max-w-[1440px] px-6 lg:px-10 space-y-8">
-          {/* Verified Pilot Traction Strip Organically Integrated Above 4 Cities */}
-          <div className="rounded-3xl border border-violet-200/80 bg-white/90 p-6 sm:p-8 shadow-sm flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-            <div>
-              <span className="font-mono text-xs font-semibold uppercase tracking-widest text-violet-600">
-                Verified Pilot Traction
-              </span>
-              <h3 className="mt-1 text-xl sm:text-2xl font-bold text-[#161224]">
-                Real Neighborhood ROI, Built in the Bay Area
-              </h3>
+        <div className="mx-auto max-w-[1440px] px-6 lg:px-10 space-y-10">
+          {/* Lightweight Borderless 3-Metric Strip */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-violet-200/80 border-b border-violet-200/80 pb-8">
+            <div className="py-3 sm:py-0 sm:pr-8">
+              <div className="text-3xl sm:text-4xl font-extrabold tracking-tight text-amber-600">3.6x</div>
+              <div className="mt-1 text-xs sm:text-sm font-medium text-slate-600">Avg. Store-Visit ROAS</div>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 lg:min-w-[600px]">
-              <div className="rounded-2xl border border-violet-100 bg-[#f7f4ff] px-4 py-3.5">
-                <div className="text-2xl sm:text-3xl font-extrabold text-amber-600">3.6x</div>
-                <div className="mt-0.5 text-[11px] sm:text-xs text-slate-600">Avg. Store-Visit ROAS</div>
-              </div>
-              <div className="rounded-2xl border border-violet-100 bg-[#f7f4ff] px-4 py-3.5">
-                <div className="text-2xl sm:text-3xl font-extrabold text-[#161224]">&lt; 5m</div>
-                <div className="mt-0.5 text-[11px] sm:text-xs text-slate-600">AI Local Creator Match</div>
-              </div>
-              <div className="rounded-2xl border border-violet-100 bg-[#f7f4ff] px-4 py-3.5">
-                <div className="text-2xl sm:text-3xl font-extrabold text-emerald-600">100%</div>
-                <div className="mt-0.5 text-[11px] sm:text-xs text-slate-600">FTC 16 CFR Pass Rate</div>
-              </div>
-              <div className="rounded-2xl border border-violet-100 bg-[#f7f4ff] px-4 py-3.5">
-                <div className="text-2xl sm:text-3xl font-extrabold text-violet-700">4 Hubs</div>
-                <div className="mt-0.5 text-[11px] sm:text-xs text-slate-600">SF · LA · Seattle · Vegas</div>
-              </div>
+            <div className="py-3 sm:py-0 sm:px-8">
+              <div className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#161224]">&lt; 5m</div>
+              <div className="mt-1 text-xs sm:text-sm font-medium text-slate-600">AI Local Creator Match</div>
+            </div>
+            <div className="py-3 sm:py-0 sm:pl-8">
+              <div className="text-3xl sm:text-4xl font-extrabold tracking-tight text-emerald-600">100%</div>
+              <div className="mt-1 text-xs sm:text-sm font-medium text-slate-600">FTC 16 CFR Pass Rate</div>
             </div>
           </div>
 
