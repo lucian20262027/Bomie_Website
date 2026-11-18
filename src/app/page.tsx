@@ -1704,7 +1704,7 @@ export default function BomieLandingPage() {
       </div>
 
       {/* Pain Points Comparison */}
-      <section className="py-24">
+      <section className="py-14">
         <div className="mx-auto max-w-[1440px] px-6 lg:px-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -1783,7 +1783,7 @@ export default function BomieLandingPage() {
           1) [I'm a Merchant] -> Bomie V5 4-Stage Autonomous Campaign Orchestrator
           2) [I'm a Creator]  -> Bomie V5 4-Stage Creator Onboarding & Copilot Studio
          ===================================================================== */}
-      <section id="how-it-works" className="border-t border-white/10 bg-slate-900/20 py-24 scroll-mt-16">
+      <section id="how-it-works" className="border-t border-white/10 bg-slate-900/20 py-14 scroll-mt-16">
         <div className="mx-auto max-w-[1440px] px-6 lg:px-10">
           <div className="text-center">
             <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-violet-400/25 bg-violet-500/10 px-3.5 py-1 text-xs font-semibold text-violet-300">
@@ -3367,7 +3367,7 @@ export default function BomieLandingPage() {
       </section>
 
       {/* Commerce OS - 360° Closed-Loop Merchant ⇄ Creator Flywheel */}
-      <section id="os" className="border-t border-white/10 py-24 scroll-mt-16">
+      <section id="os" className="border-t border-white/10 py-14 scroll-mt-16">
         <div className="mx-auto max-w-[1440px] px-6 lg:px-10">
           <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
             <div className="max-w-3xl">
@@ -3375,16 +3375,16 @@ export default function BomieLandingPage() {
                 <Repeat className="h-3.5 w-3.5 text-fuchsia-400" />
                 <span>Commerce OS · 360° Closed-Loop Flywheel</span>
               </div>
-              <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
-                Where Merchants &amp; Creators Power Each Other in One Complete Circle
+              <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">
+                Where Merchants &amp; Creators Power Each Other in One Circle
               </h2>
-              <p className="mt-3 text-sm sm:text-base text-slate-400">
+              <p className="mt-2.5 text-sm sm:text-base text-slate-400">
                 Every campaign step connects business growth with creator rewards — forming a self-reinforcing neighborhood commerce loop.
               </p>
             </div>
 
             {/* Visual Closed-Loop Circle Indicator */}
-            <div className="flex flex-wrap items-center gap-2 rounded-2xl border border-white/10 bg-slate-950/90 px-4 py-3 text-xs font-mono">
+            <div className="flex flex-wrap shrink-0 items-center gap-2 rounded-2xl border border-white/10 bg-slate-950/90 px-4 py-3 text-xs font-mono">
               <span className="inline-flex items-center gap-1.5 text-violet-300 font-semibold">
                 <Store className="h-3.5 w-3.5" /> Merchant Brief
               </span>
@@ -3404,7 +3404,7 @@ export default function BomieLandingPage() {
           </div>
 
           {/* 6-Node Closed-Loop Circle Bento Grid (Each Card Shows Both Merchant & Creator Sides) */}
-          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {[
               {
                 step: 'NODE 01 · SMART MATCHING',
@@ -3521,23 +3521,27 @@ export default function BomieLandingPage() {
       </section>
 
       {/* Success Stories — 4 City Hubs (San Francisco, Los Angeles, Seattle, Las Vegas) */}
-      <section id="stories" className="border-t border-white/10 bg-slate-900/20 py-24 scroll-mt-16">
+      <section id="stories" className="border-t border-white/10 bg-slate-900/20 py-14 scroll-mt-16">
         <div className="mx-auto max-w-[1440px] px-6 lg:px-10">
           <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
-            <div>
-              <span className="text-sm font-semibold uppercase tracking-wider text-amber-300">
+            <div className="min-w-0">
+              <span className="text-xs font-mono font-semibold uppercase tracking-widest text-amber-300">
                 City Success Stories
               </span>
-              <h2 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
-                Proven Across North America&apos;s Cultural Hubs
+              <h2 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl leading-tight">
+                Proven Across North America&apos;s
+                <br />
+                <span className="bg-gradient-to-r from-white via-violet-200 to-amber-200 bg-clip-text text-transparent">
+                  Cultural Hubs
+                </span>
               </h2>
-              <p className="mt-2 text-slate-400">
+              <p className="mt-2 text-sm sm:text-base text-slate-400">
                 Select a city to view its local commerce overview, then click the city card to unfold 4 verified brand collaborations.
               </p>
             </div>
 
-            {/* 4 City Tabs */}
-            <div className="inline-flex flex-wrap gap-2 rounded-2xl border border-white/10 bg-slate-950 p-1.5">
+            {/* 4 City Tabs — Strictly 1 Single Row on Desktop */}
+            <div className="inline-flex flex-nowrap shrink-0 items-center gap-1.5 overflow-x-auto rounded-2xl border border-white/10 bg-slate-950 p-1.5">
               {(
                 [
                   { id: 'sf', label: 'San Francisco' },
@@ -3555,7 +3559,7 @@ export default function BomieLandingPage() {
                       setSelectedCity(c.id);
                       setCityExpanded(false);
                     }}
-                    className={`rounded-xl px-4 py-2.5 text-xs sm:text-sm font-semibold transition ${
+                    className={`whitespace-nowrap shrink-0 rounded-xl px-4 py-2.5 text-xs sm:text-sm font-semibold transition ${
                       active
                         ? 'bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white shadow-md'
                         : 'text-slate-400 hover:text-white'
@@ -3727,36 +3731,36 @@ export default function BomieLandingPage() {
       </section>
 
       {/* Right-Aligned Widescreen FAQ Accordion (1 Primary FAQ + [More] Trigger) */}
-      <section id="faq" className="border-t border-white/10 pt-20 pb-8 scroll-mt-16">
+      <section id="faq" className="border-t border-white/10 pt-12 pb-6 scroll-mt-16">
         <div className="mx-auto max-w-[1440px] px-6 lg:px-10">
-          <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 items-start">
-            {/* Left Column: Section Heading */}
-            <div className="lg:col-span-4 space-y-3">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 items-start">
+            {/* Left Column: Single-Line Heading & Single-Line Subtitle */}
+            <div className="lg:col-span-5 space-y-2">
               <span className="font-mono text-xs font-semibold uppercase tracking-widest text-violet-400">
                 Got Questions?
               </span>
-              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight lg:whitespace-nowrap">
                 Frequently Asked Questions
               </h2>
-              <p className="text-sm leading-relaxed text-slate-400">
+              <p className="text-xs sm:text-sm leading-relaxed text-slate-400 lg:whitespace-nowrap">
                 Everything you need to know about launching or creating on Bomie AI.
               </p>
             </div>
 
-            {/* Right Column: Aligned to Right Edge of 1440px Grid, Showing 1st FAQ + [More] Button */}
-            <div className="lg:col-span-8 space-y-4">
+            {/* Right Column: Shifted Right (lg:col-span-7), With Indented Question Text & [More] Button */}
+            <div className="lg:col-span-7 space-y-3">
               {(showAllFaqs ? faqs : faqs.slice(0, 1)).map((faq, idx) => {
                 const isOpen = openFaq === idx;
                 return (
                   <div
                     key={idx}
-                    className="overflow-hidden rounded-2xl border border-white/10 bg-slate-950"
+                    className="overflow-hidden rounded-2xl border border-white/10 bg-slate-950 shadow-lg"
                   >
                     <button
                       onClick={() => setOpenFaq(isOpen ? null : idx)}
-                      className="flex w-full items-center justify-between px-6 py-5 text-left font-semibold text-white transition hover:bg-white/5"
+                      className="flex w-full items-center justify-between pl-8 pr-6 py-5 text-left font-semibold text-white transition hover:bg-white/5"
                     >
-                      <span>{faq.q}</span>
+                      <span className="text-sm sm:text-base">{faq.q}</span>
                       <ChevronDown
                         className={`h-5 w-5 shrink-0 text-slate-400 transition-transform duration-300 ${
                           isOpen ? 'rotate-180' : ''
@@ -3771,7 +3775,7 @@ export default function BomieLandingPage() {
                           exit={{ height: 0, opacity: 0 }}
                           transition={{ duration: 0.25 }}
                         >
-                          <div className="border-t border-white/5 px-6 py-4 text-sm leading-relaxed text-slate-400">
+                          <div className="border-t border-white/5 pl-8 pr-6 py-4 text-sm leading-relaxed text-slate-400">
                             {faq.a}
                           </div>
                         </motion.div>
