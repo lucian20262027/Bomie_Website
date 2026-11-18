@@ -5,54 +5,122 @@ import Link from 'next/link';
 import {
   ArrowLeft,
   ArrowRight,
+  Camera,
   CheckCircle2,
+  MapPin,
   ShieldCheck,
   Sparkles,
+  Store,
   Video,
   Wallet,
   XCircle,
 } from 'lucide-react';
 
+interface CreatorDealPlan {
+  handle: string;
+  city: string;
+  offers: {
+    id: string;
+    merchant: string;
+    distance: string;
+    pay: number;
+    perk: string;
+    deliverable: string;
+  }[];
+  hooks: {
+    vlog: string;
+    asmr: string;
+    top3: string;
+  };
+}
+
+function buildCreatorPlan(promptText: string): CreatorDealPlan {
+  const lower = promptText.toLowerCase();
+  let city = 'San Francisco';
+  if (lower.includes('la') || lower.includes('los angeles')) city = 'Los Angeles';
+  else if (lower.includes('seattle')) city = 'Seattle';
+  else if (lower.includes('vegas')) city = 'Las Vegas';
+  else if (lower.includes('austin')) city = 'Austin';
+
+  const handleMatch = promptText.match(/@[a-zA-Z0-9_.]+/);
+  const handle = handleMatch ? handleMatch[0] : '@your_local_handle';
+
+  if (lower.includes('beauty') || lower.includes('spa') || lower.includes('skin') || lower.includes('fashion')) {
+    return {
+      handle: `${handle} · ${city}`,
+      city,
+      offers: [
+        { id: 'o1', merchant: 'Lumina Skin & Spa', distance: '0.9 mi away', pay: 520, perk: '+ Free Sculpting Facial', deliverable: '1x 30s Reel' },
+        { id: 'o2', merchant: 'Silver Lake Pilates Club', distance: '1.6 mi away', pay: 450, perk: '+ 4-Class VIP Pass', deliverable: '1x Morning Vlog' },
+      ],
+      hooks: {
+        vlog: '“Come with me to try the viral sculpting facial everyone in town is talking about…”',
+        asmr: '[Soft studio ambience] “30 seconds of pure self-care magic right down the street.”',
+        top3: '“3 hidden self-care spots in ' + city + ' you actually need to book this weekend.”',
+      },
+    };
+  }
+
+  return {
+    handle: `${handle} · ${city}`,
+    city,
+    offers: [
+      { id: 'o1', merchant: 'Sichuan Bistro ' + city.split(' ')[0], distance: '0.7 mi away', pay: 420, perk: '+ $80 Tasting Dinner', deliverable: '1x 30s TikTok/Reel' },
+      { id: 'o2', merchant: 'Fog City Matcha & Cafe', distance: '1.2 mi away', pay: 340, perk: '+ 2 Guest Drinks', deliverable: '1x 25s Drink Pour' },
+    ],
+    hooks: {
+      vlog: '“POV: You just found the best neighborhood spot in ' + city + ' with a 20% local QR perk.”',
+      asmr: '[Crisp pour & sizzle audio] “No talking—just 25 seconds of pure flavor.”',
+      top3: '“Top 3 reasons locals line up at this ' + city + ' gem every Friday night.”',
+    },
+  };
+}
+
 export default function CreatorPage() {
   const [presetIdx, setPresetIdx] = useState<number>(0);
   const [customPrompt, setCustomPrompt] = useState<string>(
-    'I am a 34K food & lifestyle creator in San Francisco looking for paid local restaurant collaborations.'
+    'I am @sfnoodleclub (34K) food & lifestyle creator in San Francisco looking for paid local restaurant deals.'
   );
+  const [plan, setPlan] = useState<CreatorDealPlan>(() =>
+    buildCreatorPlan('I am @sfnoodleclub (34K) food & lifestyle creator in San Francisco looking for paid local restaurant deals.')
+  );
+  const [isMatching, setIsMatching] = useState<boolean>(false);
+  const [activeTab, setActiveTab] = useState<'offers' | 'script' | 'payout'>('offers');
+  const [acceptedOfferId, setAcceptedOfferId] = useState<string>('o1');
+  const [hookStyle, setHookStyle] = useState<'vlog' | 'asmr' | 'top3'>('vlog');
+  const [checkedShots, setCheckedShots] = useState<number[]>([0, 1]);
+  const [withdrawn, setWithdrawn] = useState<boolean>(false);
 
   const presets = [
     {
       label: '🍜 @sfnoodleclub (34.2K)',
-      prompt:
-        'I am a 34K food & lifestyle creator in San Francisco looking for paid local restaurant collaborations.',
-      handle: '@sfnoodleclub (34.2K) · San Francisco',
-      deals: '3 Nearby Paid Offers ($380–$520 + Free Tasting)',
-      payout: 'Instant Stripe / Apple Pay Payout · 0% Creator Fee',
-      script: 'AI 30s Script & FTC #ad Tag Auto-Prepared for You',
+      prompt: 'I am @sfnoodleclub (34K) food & lifestyle creator in San Francisco looking for paid local restaurant deals.',
     },
     {
       label: '✨ @glowwithchloe_la (28.1K)',
-      prompt:
-        'I create clean beauty & wellness reels in Los Angeles and want recurring spa & boutique retainers.',
-      handle: '@glowwithchloe_la (28.1K) · Los Angeles',
-      deals: '4 Clean Beauty & Spa Retainers ($450–$650/mo)',
-      payout: '30/40/30 Escrow Locked · Zero Ghosting',
-      script: 'ASMR & GRWM Shot Checklist Included',
+      prompt: 'I am @glowwithchloe_la creating beauty & spa reels in Los Angeles.',
     },
     {
-      label: '🏠 @cozyhomewithsam (14.8K)',
-      prompt:
-        'I am a 14K home & craft nano-creator looking for zero-cold-DM paid local brand deals.',
-      handle: '@cozyhomewithsam (14.8K) · Austin / Seattle',
-      deals: '5 Local Craft & Cafe Invites ($240–$360 + QR Bonus)',
-      payout: 'Instant Withdrawal Upon Verified Post',
-      script: 'Commercial Audio & FTC Shield Verified',
+      label: '☕ @pnwcoffeeclub (15.7K)',
+      prompt: 'I am @pnwcoffeeclub in Seattle looking for local cafe & bakery collaborations.',
     },
   ];
 
-  const active = presets[presetIdx % presets.length];
+  const runMatch = (text: string) => {
+    setIsMatching(true);
+    setWithdrawn(false);
+    setTimeout(() => {
+      const next = buildCreatorPlan(text);
+      setPlan(next);
+      setAcceptedOfferId(next.offers[0].id);
+      setIsMatching(false);
+    }, 450);
+  };
+
+  const activeOffer = plan.offers.find((o) => o.id === acceptedOfferId) || plan.offers[0];
 
   return (
-    <div className="min-h-screen bg-[#f7f4ff] text-[#161224] selection:bg-fuchsia-500 selection:text-[#161224]">
+    <div className="min-h-screen bg-[#f7f4ff] text-[#161224] selection:bg-fuchsia-600 selection:text-white">
       <header className="sticky top-0 z-40 border-b border-violet-200/70 bg-[#f7f4ff]/85 backdrop-blur-xl">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
           <Link href="/" className="flex items-center gap-3">
@@ -123,9 +191,9 @@ export default function CreatorPage() {
             ].map((pain) => (
               <div
                 key={pain.title}
-                className="rounded-3xl border border-rose-500/20 bg-gradient-to-b from-rose-50 to-white p-6 space-y-2.5"
+                className="rounded-3xl border border-rose-500/20 bg-gradient-to-b from-rose-50 to-white p-6 space-y-2.5 shadow-sm"
               >
-                <XCircle className="h-5 w-5 text-rose-400" />
+                <XCircle className="h-5 w-5 text-rose-500" />
                 <h2 className="text-base font-bold text-[#161224]">{pain.title}</h2>
                 <p className="text-xs sm:text-sm leading-relaxed text-slate-600">{pain.desc}</p>
               </div>
@@ -133,25 +201,25 @@ export default function CreatorPage() {
           </div>
         </section>
 
-        {/* 2. How You Leverage Bomie Copilot */}
+        {/* 2. Interactive Creator Copilot */}
         <section className="space-y-8 border-t border-violet-200/70 pt-14">
           <div>
-            <span className="font-mono text-xs font-semibold uppercase tracking-widest text-fuchsia-400">
-              Creator Copilot · 0% Creator Fee (MVP Free)
+            <span className="font-mono text-xs font-semibold uppercase tracking-widest text-fuchsia-700">
+              Interactive Creator Copilot · 0% Creator Fee (MVP Free)
             </span>
             <h2 className="mt-1.5 text-3xl sm:text-4xl font-extrabold tracking-tight text-[#161224]">
               How Creators Leverage Bomie AI
             </h2>
             <p className="mt-2 text-sm sm:text-base text-slate-600">
-              Describe your city and content style—see nearby paid deals, AI-generated 30s scripts, and instant payouts waiting for you.
+              Type your handle, city, and niche below—then click through to accept a deal, customize your 30s script, and test instant payout.
             </p>
           </div>
 
-          <div className="rounded-3xl border border-fuchsia-400/30 bg-white/95 p-6 sm:p-7 shadow-2xl space-y-4">
+          <div className="rounded-3xl border border-fuchsia-300 bg-white p-6 sm:p-7 shadow-xl shadow-violet-900/5 space-y-4">
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                setPresetIdx((prev) => (prev + 1) % presets.length);
+                runMatch(customPrompt);
               }}
               className="flex flex-col sm:flex-row gap-3"
             >
@@ -159,14 +227,16 @@ export default function CreatorPage() {
                 type="text"
                 value={customPrompt}
                 onChange={(e) => setCustomPrompt(e.target.value)}
-                className="flex-1 rounded-2xl border border-violet-200/80 bg-[#f7f4ff] px-4 py-3.5 text-sm text-[#161224] focus:border-fuchsia-400 focus:outline-none"
+                placeholder="e.g., I am @latte_lover in Seattle looking for paid cafe deals..."
+                className="flex-1 rounded-2xl border border-violet-200 bg-[#f7f4ff] px-4 py-3.5 text-sm text-[#161224] placeholder-slate-400 focus:border-fuchsia-500 focus:outline-none"
               />
               <button
                 type="submit"
-                className="inline-flex shrink-0 items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-fuchsia-600 to-violet-600 px-6 py-3.5 text-sm font-bold text-white"
+                disabled={isMatching}
+                className="inline-flex shrink-0 items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-fuchsia-600 to-violet-600 px-6 py-3.5 text-sm font-bold text-white shadow-md shadow-fuchsia-600/20"
               >
                 <Sparkles className="h-4 w-4" />
-                Find Local Deals
+                {isMatching ? 'Finding Offers...' : 'Find Local Deals'}
               </button>
             </form>
 
@@ -179,11 +249,12 @@ export default function CreatorPage() {
                   onClick={() => {
                     setPresetIdx(idx);
                     setCustomPrompt(p.prompt);
+                    runMatch(p.prompt);
                   }}
                   className={`rounded-full border px-3 py-1 text-xs font-medium transition ${
-                    presetIdx === idx
-                      ? 'border-fuchsia-400/60 bg-fuchsia-500/20 text-[#161224]'
-                      : 'border-violet-200/70 bg-[#f7f4ff] text-slate-600 hover:bg-violet-50'
+                    presetIdx === idx && customPrompt === p.prompt
+                      ? 'border-fuchsia-500 bg-fuchsia-100 text-fuchsia-950 font-semibold'
+                      : 'border-violet-200 bg-[#f7f4ff] text-slate-700 hover:bg-fuchsia-50'
                   }`}
                 >
                   {p.label}
@@ -192,42 +263,174 @@ export default function CreatorPage() {
             </div>
           </div>
 
-          <div className="rounded-3xl border border-violet-200/80 bg-white shadow-sm p-6 sm:p-8 space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-violet-200/70 pb-5">
+          <div className="rounded-3xl border border-violet-200/80 bg-white p-6 sm:p-8 shadow-xl shadow-violet-900/5 space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-violet-100 pb-5">
               <div>
-                <span className="font-mono text-xs uppercase text-fuchsia-400">
-                  ✓ Creator Copilot Ready · Zero Cold DMs
-                </span>
-                <h3 className="mt-1 text-2xl font-bold text-[#161224]">{active.handle}</h3>
+                <div className="flex items-center gap-1.5 font-mono text-xs uppercase text-fuchsia-700">
+                  <MapPin className="h-3.5 w-3.5" />
+                  <span>Creator Copilot Ready · Zero Cold DMs</span>
+                </div>
+                <h3 className="mt-1 text-2xl font-bold text-[#161224]">{plan.handle}</h3>
               </div>
-              <span className="self-start rounded-full border border-emerald-400/40 bg-emerald-500/15 px-3.5 py-1 text-xs font-bold text-emerald-700">
+              <span className="self-start rounded-full border border-emerald-300 bg-emerald-50 px-3.5 py-1 text-xs font-bold text-emerald-700">
                 0% Creator Fee (MVP Free)
               </span>
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-3">
-              <div className="rounded-2xl border border-violet-200/70 bg-[#f7f4ff] p-4">
-                <div className="text-xs text-slate-600">1. Inbound Local Deals</div>
-                <div className="mt-1.5 text-sm font-bold text-[#161224]">{active.deals}</div>
-              </div>
-              <div className="rounded-2xl border border-violet-200/70 bg-[#f7f4ff] p-4">
-                <div className="text-xs text-slate-600">2. AI Shooting Copilot</div>
-                <div className="mt-1.5 text-sm font-bold text-fuchsia-700">{active.script}</div>
-              </div>
-              <div className="rounded-2xl border border-emerald-400/30 bg-emerald-500/10 p-4">
-                <div className="text-xs text-emerald-700">3. Guaranteed Payouts</div>
-                <div className="mt-1.5 text-sm font-bold text-[#161224]">{active.payout}</div>
-              </div>
+            {/* Interactive 3 Tabs */}
+            <div className="flex flex-wrap gap-2 border-b border-violet-100 pb-3">
+              {(
+                [
+                  { id: 'offers', label: '1. Inbound Paid Deals', icon: Store },
+                  { id: 'script', label: '2. 30s Shooting Copilot', icon: Camera },
+                  { id: 'payout', label: '3. Instant Wallet Payout', icon: Wallet },
+                ] as const
+              ).map((tab) => {
+                const Icon = tab.icon;
+                return (
+                  <button
+                    key={tab.id}
+                    type="button"
+                    onClick={() => setActiveTab(tab.id)}
+                    className={`inline-flex items-center gap-2 rounded-xl px-4 py-2 text-xs sm:text-sm font-semibold transition ${
+                      activeTab === tab.id
+                        ? 'bg-fuchsia-600 text-white shadow-sm'
+                        : 'bg-[#f7f4ff] text-slate-700 hover:bg-fuchsia-50'
+                    }`}
+                  >
+                    <Icon className="h-4 w-4" />
+                    {tab.label}
+                  </button>
+                );
+              })}
             </div>
 
-            <div className="flex flex-wrap items-center justify-between gap-4 pt-2 border-t border-violet-200/70">
+            {activeTab === 'offers' && (
+              <div className="grid gap-4 md:grid-cols-2">
+                {plan.offers.map((offer) => {
+                  const picked = acceptedOfferId === offer.id;
+                  return (
+                    <div
+                      key={offer.id}
+                      onClick={() => setAcceptedOfferId(offer.id)}
+                      className={`cursor-pointer rounded-2xl border p-5 transition ${
+                        picked
+                          ? 'border-fuchsia-500 bg-fuchsia-50/70 shadow-sm'
+                          : 'border-violet-100 bg-[#f7f4ff] hover:border-fuchsia-300'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-mono text-slate-500">{offer.distance}</span>
+                        <span className="rounded-full bg-emerald-100 px-2.5 py-0.5 text-xs font-bold text-emerald-700">
+                          ${offer.pay} Base
+                        </span>
+                      </div>
+                      <h4 className="mt-2 text-lg font-bold text-[#161224]">{offer.merchant}</h4>
+                      <p className="mt-1 text-xs text-slate-600">
+                        {offer.deliverable} · {offer.perk}
+                      </p>
+                      <div className="mt-4 flex justify-end">
+                        <span className="rounded-lg bg-white px-3 py-1.5 text-xs font-bold text-fuchsia-700 border border-fuchsia-200">
+                          {picked ? '✓ Offer Accepted' : 'Click to Accept →'}
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+
+            {activeTab === 'script' && (
+              <div className="rounded-2xl border border-violet-200 bg-[#f7f4ff] p-5 space-y-4">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <span className="text-xs font-bold text-[#161224]">
+                    Pick Your Voice Style for {activeOffer.merchant}:
+                  </span>
+                  <div className="flex gap-1.5">
+                    {(
+                      [
+                        { id: 'vlog', label: 'POV Vlog' },
+                        { id: 'asmr', label: 'ASMR' },
+                        { id: 'top3', label: 'Top 3 List' },
+                      ] as const
+                    ).map((st) => (
+                      <button
+                        key={st.id}
+                        type="button"
+                        onClick={() => setHookStyle(st.id)}
+                        className={`rounded-lg px-3 py-1 text-xs font-semibold transition ${
+                          hookStyle === st.id
+                            ? 'bg-fuchsia-600 text-white'
+                            : 'bg-white text-slate-700 border border-violet-200'
+                        }`}
+                      >
+                        {st.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <div className="rounded-xl bg-white p-4 border border-violet-100 text-sm font-bold text-[#161224]">
+                  {plan.hooks[hookStyle]}
+                </div>
+                <div className="grid gap-2 sm:grid-cols-3">
+                  {['Film 3s Hero Shot', 'Capture Natural Reaction', 'Include #ad & QR Code'].map((shot, i) => {
+                    const done = checkedShots.includes(i);
+                    return (
+                      <button
+                        key={shot}
+                        type="button"
+                        onClick={() =>
+                          setCheckedShots((prev) =>
+                            prev.includes(i) ? prev.filter((x) => x !== i) : [...prev, i]
+                          )
+                        }
+                        className={`rounded-xl border p-3 text-left text-xs font-semibold transition ${
+                          done
+                            ? 'border-emerald-300 bg-emerald-50 text-emerald-800'
+                            : 'border-violet-200 bg-white text-slate-600'
+                        }`}
+                      >
+                        {done ? '✓ ' : '○ '}
+                        {shot}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            {activeTab === 'payout' && (
+              <div className="rounded-2xl border border-emerald-200 bg-emerald-50/60 p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div>
+                  <div className="text-xs font-mono uppercase text-emerald-700">
+                    Escrow Locked for {activeOffer.merchant}
+                  </div>
+                  <div className="mt-1 text-3xl font-extrabold text-[#161224]">
+                    ${activeOffer.pay}.00{' '}
+                    <span className="text-sm font-medium text-slate-600">+ {activeOffer.perk}</span>
+                  </div>
+                  <p className="mt-1 text-xs text-slate-600">
+                    Instant withdrawal via Stripe or Apple Pay with $0 creator fee.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setWithdrawn(true)}
+                  className="shrink-0 rounded-xl bg-emerald-600 px-5 py-3 text-xs sm:text-sm font-bold text-white shadow-md transition hover:bg-emerald-500"
+                >
+                  {withdrawn ? '✓ Sent to Apple Pay!' : 'Test Instant Withdraw →'}
+                </button>
+              </div>
+            )}
+
+            <div className="flex flex-wrap items-center justify-between gap-4 pt-3 border-t border-violet-100">
               <div className="flex items-center gap-4 text-xs text-slate-600">
                 <span className="inline-flex items-center gap-1">
-                  <Wallet className="h-3.5 w-3.5 text-amber-700" />
+                  <Wallet className="h-3.5 w-3.5 text-amber-600" />
                   Stripe &amp; Apple Pay Payouts
                 </span>
                 <span className="inline-flex items-center gap-1">
-                  <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" />
+                  <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
                   Commercial Audio &amp; FTC Shield
                 </span>
               </div>
@@ -235,7 +438,7 @@ export default function CreatorPage() {
                 href="/#pricing"
                 className="inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 px-5 py-2.5 text-xs sm:text-sm font-bold text-white shadow-md shadow-violet-600/20 hover:opacity-95"
               >
-                <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+                <CheckCircle2 className="h-4 w-4 text-emerald-200" />
                 Claim Your Creator Handle (Free)
                 <ArrowRight className="h-3.5 w-3.5" />
               </Link>
