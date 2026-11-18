@@ -1727,28 +1727,28 @@ export default function BomieLandingPage() {
                   >
                     <div className="rounded-2xl border border-violet-200/80 bg-white/95 p-2 shadow-2xl shadow-violet-900/10 backdrop-blur-2xl space-y-1">
                       <Link
-                        href="/commerce-os/how-it-works"
+                        href="/commerce-os"
                         onClick={() => setOpenNavMenu(null)}
                         className="flex items-start gap-3 rounded-xl p-3 transition hover:bg-violet-50"
                       >
-                        <Zap className="mt-0.5 h-4 w-4 shrink-0 text-violet-600" />
+                        <Repeat className="mt-0.5 h-4 w-4 shrink-0 text-violet-600" />
                         <div>
-                          <div className="text-xs font-bold text-[#161224]">1. How It Works</div>
+                          <div className="text-xs font-bold text-[#161224]">1. Commerce OS</div>
                           <div className="text-[11px] text-slate-500">
-                            Chat-First Builder &amp; 4-Stage Sandbox Page
+                            360° System Architecture &amp; Guided Sandbox
                           </div>
                         </div>
                       </Link>
                       <Link
-                        href="/commerce-os/flywheel"
+                        href="/pricing"
                         onClick={() => setOpenNavMenu(null)}
                         className="flex items-start gap-3 rounded-xl p-3 transition hover:bg-violet-50"
                       >
-                        <Repeat className="mt-0.5 h-4 w-4 shrink-0 text-fuchsia-600" />
+                        <Wallet className="mt-0.5 h-4 w-4 shrink-0 text-fuchsia-600" />
                         <div>
-                          <div className="text-xs font-bold text-[#161224]">2. Commerce OS</div>
+                          <div className="text-xs font-bold text-[#161224]">2. Pricing</div>
                           <div className="text-[11px] text-slate-500">
-                            360° Merchant ⇄ Creator Closed-Loop Circle
+                            MVP 100% Free for Small Businesses &amp; Future Tiers
                           </div>
                         </div>
                       </Link>
@@ -1947,20 +1947,20 @@ export default function BomieLandingPage() {
                   </div>
                   <div className="grid grid-cols-1 gap-1.5">
                     <Link
-                      href="/commerce-os/how-it-works"
+                      href="/commerce-os"
                       onClick={() => setMobileMenuOpen(false)}
                       className="flex items-center gap-2.5 rounded-xl bg-white/[0.04] px-3.5 py-2.5 text-xs font-semibold text-white"
                     >
-                      <Zap className="h-4 w-4 text-violet-400" />
-                      1. How It Works
+                      <Repeat className="h-4 w-4 text-violet-400" />
+                      1. Commerce OS (System &amp; Sandbox)
                     </Link>
                     <Link
-                      href="/commerce-os/flywheel"
+                      href="/pricing"
                       onClick={() => setMobileMenuOpen(false)}
                       className="flex items-center gap-2.5 rounded-xl bg-white/[0.04] px-3.5 py-2.5 text-xs font-semibold text-white"
                     >
-                      <Repeat className="h-4 w-4 text-fuchsia-400" />
-                      2. Commerce OS (360° Flywheel)
+                      <Wallet className="h-4 w-4 text-fuchsia-400" />
+                      2. Pricing (MVP 100% Free)
                     </Link>
                     <button
                       type="button"
