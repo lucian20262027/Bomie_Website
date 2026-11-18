@@ -37,6 +37,7 @@ import {
   Send,
   MessageSquare,
   Bot,
+  Menu,
 } from 'lucide-react';
 
 type MerchantScenarioId = 'sichuan' | 'lumina' | 'glowmed';
@@ -822,8 +823,16 @@ export default function BomieLandingPage() {
   const [showDemoModal, setShowDemoModal] = useState<boolean>(false);
   const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
   const [demoSubmitted, setDemoSubmitted] = useState<boolean>(false);
+  const [demoName, setDemoName] = useState<string>('');
+  const [demoEmail, setDemoEmail] = useState<string>('');
+  const [demoHandle, setDemoHandle] = useState<string>('');
+  const [demoCity, setDemoCity] = useState<string>('');
+  const [isSubmittingDemo, setIsSubmittingDemo] = useState<boolean>(false);
+  const [demoLeadId, setDemoLeadId] = useState<string>('');
+  const [demoError, setDemoError] = useState<string>('');
   const [loginRole, setLoginRole] = useState<'merchant' | 'creator'>('merchant');
   const [openNavMenu, setOpenNavMenu] = useState<'os' | 'stories' | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const [selectedCity, setSelectedCity] = useState<'sf' | 'la' | 'seattle' | 'vegas'>('sf');
   const [cityExpanded, setCityExpanded] = useState<boolean>(false);
 
@@ -853,9 +862,40 @@ export default function BomieLandingPage() {
 
   const handleOpenFaqChatbot = () => {
     setOpenNavMenu(null);
+    setMobileMenuOpen(false);
     setIsChatOpen(true);
     setChatHighlight(true);
     setTimeout(() => setChatHighlight(false), 1800);
+  };
+
+  const handleDemoSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setDemoError('');
+    setIsSubmittingDemo(true);
+    try {
+      const res = await fetch('/api/demo', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: demoName,
+          email: demoEmail,
+          handle: demoHandle,
+          city: demoCity,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data?.ok) {
+        setDemoError(data?.error || 'Could not submit right now. Please try again.');
+        setIsSubmittingDemo(false);
+        return;
+      }
+      setDemoLeadId(data.leadId || '');
+      setDemoSubmitted(true);
+    } catch {
+      setDemoError('Network error — please try again or email lucian.wang@bomie.ai.');
+    } finally {
+      setIsSubmittingDemo(false);
+    }
   };
 
   const jumpToOsStage = (role: 'business' | 'creator', stageNum: 1 | 2 | 3 | 4) => {
@@ -1779,10 +1819,10 @@ export default function BomieLandingPage() {
             </div>
           </nav>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <button
               onClick={() => setShowLoginModal(true)}
-              className="rounded-xl px-4 py-2 text-sm font-medium text-slate-300 transition hover:bg-white/5 hover:text-white"
+              className="hidden sm:inline-flex rounded-xl px-4 py-2 text-sm font-medium text-slate-300 transition hover:bg-white/5 hover:text-white"
             >
               Log in
             </button>
@@ -1791,17 +1831,115 @@ export default function BomieLandingPage() {
               whileTap={{ scale: 0.97 }}
               onClick={() => {
                 setDemoSubmitted(false);
+                setDemoError('');
                 setShowDemoModal(true);
               }}
               className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-violet-600 via-fuchsia-600 to-amber-500 p-[1px] shadow-lg shadow-violet-600/25"
             >
-              <span className="flex items-center gap-1.5 rounded-[11px] bg-white px-4 py-2 text-sm font-bold text-slate-950 transition hover:bg-slate-100">
+              <span className="flex items-center gap-1.5 rounded-[11px] bg-white px-3.5 sm:px-4 py-2 text-xs sm:text-sm font-bold text-slate-950 transition hover:bg-slate-100">
                 <Sparkles className="h-3.5 w-3.5 text-violet-600" />
                 Book a Demo
               </span>
             </motion.button>
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen((prev) => !prev)}
+              className="inline-flex md:hidden items-center justify-center rounded-xl border border-white/15 bg-white/5 p-2 text-slate-200 transition hover:bg-white/10"
+              aria-label="Toggle Mobile Navigation"
+            >
+              {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </button>
           </div>
         </div>
+
+        {/* Mobile Navigation Drawer (< md) */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="overflow-hidden border-t border-white/10 bg-[#080812]/95 px-6 py-4 md:hidden"
+            >
+              <div className="space-y-4">
+                <div className="space-y-1.5">
+                  <div className="font-mono text-[10px] font-semibold uppercase tracking-wider text-violet-400">
+                    Commerce OS
+                  </div>
+                  <div className="grid grid-cols-1 gap-1.5">
+                    <a
+                      href="#how-it-works"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center gap-2.5 rounded-xl bg-white/[0.04] px-3.5 py-2.5 text-xs font-semibold text-white"
+                    >
+                      <Zap className="h-4 w-4 text-violet-400" />
+                      1. How It Works
+                    </a>
+                    <a
+                      href="#os"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center gap-2.5 rounded-xl bg-white/[0.04] px-3.5 py-2.5 text-xs font-semibold text-white"
+                    >
+                      <Repeat className="h-4 w-4 text-fuchsia-400" />
+                      2. Commerce OS (360° Flywheel)
+                    </a>
+                    <button
+                      type="button"
+                      onClick={handleOpenFaqChatbot}
+                      className="flex items-center gap-2.5 rounded-xl bg-white/[0.04] px-3.5 py-2.5 text-left text-xs font-semibold text-white"
+                    >
+                      <MessageSquare className="h-4 w-4 text-emerald-400" />
+                      3. FAQ &amp; AI Concierge Chatbot
+                    </button>
+                  </div>
+                </div>
+
+                <div className="space-y-1.5">
+                  <div className="font-mono text-[10px] font-semibold uppercase tracking-wider text-amber-300">
+                    Success Stories
+                  </div>
+                  <div className="grid grid-cols-2 gap-1.5">
+                    {(
+                      [
+                        { id: 'sf', label: 'San Francisco' },
+                        { id: 'la', label: 'Los Angeles' },
+                        { id: 'seattle', label: 'Seattle' },
+                        { id: 'vegas', label: 'Las Vegas' },
+                      ] as const
+                    ).map((city) => (
+                      <button
+                        key={city.id}
+                        type="button"
+                        onClick={() => {
+                          setMobileMenuOpen(false);
+                          handleNavCitySelect(city.id);
+                        }}
+                        className="flex items-center gap-1.5 rounded-xl bg-white/[0.04] px-3 py-2 text-left text-xs font-semibold text-slate-200"
+                      >
+                        <MapPin className="h-3.5 w-3.5 text-amber-400" />
+                        <span>{city.label}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="pt-1 border-t border-white/10">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      setShowLoginModal(true);
+                    }}
+                    className="w-full rounded-xl border border-white/15 bg-white/5 py-2.5 text-xs font-semibold text-slate-200"
+                  >
+                    Log in to Workspace
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.header>
 
       {/* Hero Section with Animated Aurora & Grid (Tightened Top Padding) */}
@@ -2022,6 +2160,44 @@ export default function BomieLandingPage() {
                   </motion.div>
                 </AnimatePresence>
               </div>
+            </div>
+          </motion.div>
+
+          {/* Silicon Valley Ecosystem & Compliance Trust Strip */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.55 }}
+            className="mt-10 flex flex-col items-center gap-3"
+          >
+            <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-500">
+              Native Attribution, Escrow &amp; Compliance Infrastructure
+            </span>
+            <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-xs sm:text-sm font-semibold text-slate-400">
+              <span className="flex items-center gap-1.5 transition hover:text-slate-200">
+                <Video className="h-3.5 w-3.5 text-violet-400" />
+                TikTok
+              </span>
+              <span className="flex items-center gap-1.5 transition hover:text-slate-200">
+                <Camera className="h-3.5 w-3.5 text-fuchsia-400" />
+                Instagram Reels
+              </span>
+              <span className="flex items-center gap-1.5 transition hover:text-slate-200">
+                <Play className="h-3.5 w-3.5 text-rose-400" />
+                YouTube Shorts
+              </span>
+              <span className="flex items-center gap-1.5 transition hover:text-slate-200">
+                <Lock className="h-3.5 w-3.5 text-indigo-400" />
+                Stripe 30/40/30 Escrow
+              </span>
+              <span className="flex items-center gap-1.5 transition hover:text-slate-200">
+                <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" />
+                FTC 16 CFR Part 255
+              </span>
+              <span className="flex items-center gap-1.5 transition hover:text-slate-200">
+                <Wallet className="h-3.5 w-3.5 text-amber-300" />
+                Apple Pay Instant Payout
+              </span>
             </div>
           </motion.div>
         </div>
@@ -4309,8 +4485,13 @@ export default function BomieLandingPage() {
                     <CheckCircle2 className="h-6 w-6" />
                   </div>
                   <h3 className="text-2xl font-bold text-white">Demo Request Confirmed!</h3>
+                  {demoLeadId && (
+                    <div className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-500/10 px-3 py-1 font-mono text-[11px] text-emerald-300">
+                      Ref: {demoLeadId}
+                    </div>
+                  )}
                   <p className="text-sm text-slate-400">
-                    Our founding team at Bomie AI will reach out within 24 hours to walk you through a custom campaign for your city.
+                    Our founding team at Bomie AI will reach out to <span className="text-white font-medium">{demoEmail}</span> within 24 hours to walk you through a custom campaign for <span className="text-white font-medium">{demoCity}</span>.
                   </p>
                   <div className="pt-2 flex flex-col sm:flex-row gap-3 justify-center">
                     <button
@@ -4322,22 +4503,20 @@ export default function BomieLandingPage() {
                     >
                       Try Live V5 Studio Right Now &rarr;
                     </button>
-                    <button
-                      onClick={() => setShowDemoModal(false)}
-                      className="rounded-xl border border-white/15 bg-white/5 px-5 py-2.5 text-xs font-semibold text-slate-300"
+                    <a
+                      href={`mailto:lucian.wang@bomie.ai?subject=${encodeURIComponent(
+                        `[Bomie Demo] ${demoHandle} (${demoCity})`
+                      )}&body=${encodeURIComponent(
+                        `Name: ${demoName}\nEmail: ${demoEmail}\nBusiness/Handle: ${demoHandle}\nCity: ${demoCity}\nRef: ${demoLeadId}`
+                      )}`}
+                      className="rounded-xl border border-white/15 bg-white/5 px-5 py-2.5 text-xs font-semibold text-slate-200 hover:bg-white/10"
                     >
-                      Close
-                    </button>
+                      Email Founder Directly
+                    </a>
                   </div>
                 </div>
               ) : (
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    setDemoSubmitted(true);
-                  }}
-                  className="space-y-4"
-                >
+                <form onSubmit={handleDemoSubmit} className="space-y-4">
                   <div>
                     <span className="font-mono text-xs uppercase tracking-wider text-violet-400">
                       1-on-1 Founder Walkthrough
@@ -4350,6 +4529,12 @@ export default function BomieLandingPage() {
                     </p>
                   </div>
 
+                  {demoError && (
+                    <div className="rounded-xl border border-rose-500/40 bg-rose-500/10 px-3.5 py-2 text-xs text-rose-300">
+                      {demoError}
+                    </div>
+                  )}
+
                   <div>
                     <label className="block text-xs font-semibold text-slate-300 mb-1">
                       Your Name *
@@ -4357,6 +4542,8 @@ export default function BomieLandingPage() {
                     <input
                       type="text"
                       required
+                      value={demoName}
+                      onChange={(e) => setDemoName(e.target.value)}
                       placeholder="Alex Chen"
                       className="w-full rounded-xl border border-white/15 bg-white/5 px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:border-violet-500 focus:outline-none"
                     />
@@ -4369,6 +4556,8 @@ export default function BomieLandingPage() {
                     <input
                       type="email"
                       required
+                      value={demoEmail}
+                      onChange={(e) => setDemoEmail(e.target.value)}
                       placeholder="alex@yourbusiness.com"
                       className="w-full rounded-xl border border-white/15 bg-white/5 px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:border-violet-500 focus:outline-none"
                     />
@@ -4382,6 +4571,8 @@ export default function BomieLandingPage() {
                       <input
                         type="text"
                         required
+                        value={demoHandle}
+                        onChange={(e) => setDemoHandle(e.target.value)}
                         placeholder="Sichuan Bistro SF"
                         className="w-full rounded-xl border border-white/15 bg-white/5 px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:border-violet-500 focus:outline-none"
                       />
@@ -4393,6 +4584,8 @@ export default function BomieLandingPage() {
                       <input
                         type="text"
                         required
+                        value={demoCity}
+                        onChange={(e) => setDemoCity(e.target.value)}
                         placeholder="San Francisco, CA"
                         className="w-full rounded-xl border border-white/15 bg-white/5 px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:border-violet-500 focus:outline-none"
                       />
@@ -4402,9 +4595,10 @@ export default function BomieLandingPage() {
                   <div className="pt-2 flex flex-col gap-2">
                     <button
                       type="submit"
-                      className="w-full rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 py-3 text-sm font-bold text-white shadow-lg shadow-violet-600/25 transition hover:opacity-95"
+                      disabled={isSubmittingDemo}
+                      className="w-full rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 py-3 text-sm font-bold text-white shadow-lg shadow-violet-600/25 transition hover:opacity-95 disabled:opacity-50"
                     >
-                      Schedule My 15-Min Demo
+                      {isSubmittingDemo ? 'Submitting Request...' : 'Schedule My 15-Min Demo'}
                     </button>
                     <button
                       type="button"

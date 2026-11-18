@@ -20,9 +20,25 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.bomie.ai"),
   title: "No.1 Small Business & Creators Platform | Bomie AI",
   description:
     "The first platform in North America for local businesses and local creators — AI smart matching, autonomous campaign orchestration, and built-in FTC compliance.",
+  openGraph: {
+    title: "Bomie AI — Where Local Businesses Meet Booming Creators",
+    description:
+      "First Platform in North America for Local Businesses & Local Creators. AI smart matching, 4-stage autonomous campaign OS, and built-in FTC compliance.",
+    url: "https://www.bomie.ai",
+    siteName: "Bomie AI",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Bomie AI — Where Local Businesses Meet Booming Creators",
+    description:
+      "First Platform in North America for Local Businesses & Local Creators.",
+  },
   icons: {
     icon: [{ url: "/icon.svg?v=2", type: "image/svg+xml" }],
     shortcut: ["/icon.svg?v=2"],
