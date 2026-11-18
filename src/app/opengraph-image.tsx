@@ -61,7 +61,7 @@ export default async function Image() {
               color: '#ddd6fe',
             }}
           >
-            No.1 Small Business &amp; Creators Platform
+            First Small Business &amp; Creators Platform
           </div>
         </div>
 

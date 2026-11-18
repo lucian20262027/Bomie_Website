@@ -21,7 +21,7 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.bomie.ai"),
-  title: "No.1 Small Business & Creators Platform | Bomie AI",
+  title: "First Small Business & Creators Platform | Bomie AI",
   description:
     "The first platform in North America for local businesses and local creators — AI smart matching, autonomous campaign orchestration, and built-in FTC compliance.",
   openGraph: {
