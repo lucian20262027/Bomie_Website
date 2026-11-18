@@ -23,6 +23,11 @@ export const metadata: Metadata = {
   title: "No.1 Small Business & Creators Platform | Bomie AI",
   description:
     "The first platform in North America for local businesses and local creators — AI smart matching, autonomous campaign orchestration, and built-in FTC compliance.",
+  icons: {
+    icon: [{ url: "/icon.svg?v=2", type: "image/svg+xml" }],
+    shortcut: ["/icon.svg?v=2"],
+    apple: ["/icon.svg?v=2"],
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

@@ -943,61 +943,102 @@ export default function BomieLandingPage() {
       const ctx = new AudioContextClass();
       audioCtxRef.current = ctx;
 
-      // Create 6-second warm brown/pink noise buffer for natural ocean surf body
-      const bufferSize = ctx.sampleRate * 6;
-      const noiseBuffer = ctx.createBuffer(2, bufferSize, ctx.sampleRate);
+      // Layer 1: 8-second warm stereo brown noise buffer (Deep Ocean Swell Roar)
+      const bufferSize = ctx.sampleRate * 8;
+      const swellBuffer = ctx.createBuffer(2, bufferSize, ctx.sampleRate);
+      // Layer 2: 8-second pink-white noise buffer (Breaking Whitewater Foam & Shore Wash)
+      const foamBuffer = ctx.createBuffer(2, bufferSize, ctx.sampleRate);
+
       for (let channel = 0; channel < 2; channel++) {
-        const output = noiseBuffer.getChannelData(channel);
-        let lastOut = 0.0;
+        const swellOut = swellBuffer.getChannelData(channel);
+        const foamOut = foamBuffer.getChannelData(channel);
+        let lastBrown = 0.0;
+        let b0 = 0, b1 = 0, b2 = 0;
         for (let i = 0; i < bufferSize; i++) {
           const white = Math.random() * 2 - 1;
-          output[i] = (lastOut + 0.025 * white) / 1.025;
-          lastOut = output[i];
-          output[i] *= 2.8;
+          // Brown noise integration for deep ocean body
+          lastBrown = (lastBrown + 0.02 * white) / 1.02;
+          swellOut[i] = lastBrown * 3.0;
+          // Pink noise approximation for silky shore foam fizz
+          b0 = 0.99765 * b0 + white * 0.099046;
+          b1 = 0.96300 * b1 + white * 0.2965164;
+          b2 = 0.57000 * b2 + white * 1.0526913;
+          foamOut[i] = (b0 + b1 + b2 + white * 0.1848) * 0.08;
         }
       }
 
-      const whiteNoise = ctx.createBufferSource();
-      whiteNoise.buffer = noiseBuffer;
-      whiteNoise.loop = true;
+      const swellSource = ctx.createBufferSource();
+      swellSource.buffer = swellBuffer;
+      swellSource.loop = true;
 
-      // Deep ocean swell lowpass filter modulated by 0.14 Hz tidal LFO (~7s wave cycle)
+      const foamSource = ctx.createBufferSource();
+      foamSource.buffer = foamBuffer;
+      foamSource.loop = true;
+
+      // Deep ocean swell lowpass filter modulated by 0.125 Hz tidal LFO (8s wave cycle)
       const swellFilter = ctx.createBiquadFilter();
       swellFilter.type = 'lowpass';
-      swellFilter.frequency.value = 260;
-      swellFilter.Q.value = 0.8;
+      swellFilter.frequency.value = 220;
+      swellFilter.Q.value = 0.9;
+
+      // Foaming shore wash bandpass filter
+      const foamFilter = ctx.createBiquadFilter();
+      foamFilter.type = 'bandpass';
+      foamFilter.frequency.value = 780;
+      foamFilter.Q.value = 0.65;
 
       const tideLfo = ctx.createOscillator();
       tideLfo.type = 'sine';
-      tideLfo.frequency.value = 0.14; // 1 wave every ~7 seconds
+      tideLfo.frequency.value = 0.125; // 1 full Pacific wave roll every 8 seconds
 
       const lfoFilterGain = ctx.createGain();
-      lfoFilterGain.gain.value = 190; // Sweeps filter from 70Hz (trough) to 450Hz (crest)
+      lfoFilterGain.gain.value = 175; // Sweeps swell cutoff from 45Hz (trough) to 395Hz (crest)
+
+      const lfoFoamFreqGain = ctx.createGain();
+      lfoFoamFreqGain.gain.value = 420; // Sweeps foam wash from 360Hz to 1200Hz as wave breaks
 
       // Tidal volume swell
       const waveEnvelopeGain = ctx.createGain();
-      waveEnvelopeGain.gain.value = 0.14;
+      waveEnvelopeGain.gain.value = 0.16;
+
+      const foamEnvelopeGain = ctx.createGain();
+      foamEnvelopeGain.gain.value = 0.07;
 
       const lfoVolumeGain = ctx.createGain();
-      lfoVolumeGain.gain.value = 0.09;
+      lfoVolumeGain.gain.value = 0.11;
+
+      const lfoFoamVolumeGain = ctx.createGain();
+      lfoFoamVolumeGain.gain.value = 0.065;
 
       const masterGain = ctx.createGain();
       masterGain.gain.setValueAtTime(0.001, ctx.currentTime);
-      masterGain.gain.exponentialRampToValueAtTime(0.85, ctx.currentTime + 0.9);
+      masterGain.gain.exponentialRampToValueAtTime(0.9, ctx.currentTime + 1.0);
       masterGainRef.current = masterGain;
 
       tideLfo.connect(lfoFilterGain);
       lfoFilterGain.connect(swellFilter.frequency);
 
+      tideLfo.connect(lfoFoamFreqGain);
+      lfoFoamFreqGain.connect(foamFilter.frequency);
+
       tideLfo.connect(lfoVolumeGain);
       lfoVolumeGain.connect(waveEnvelopeGain.gain);
 
-      whiteNoise.connect(swellFilter);
+      tideLfo.connect(lfoFoamVolumeGain);
+      lfoFoamVolumeGain.connect(foamEnvelopeGain.gain);
+
+      swellSource.connect(swellFilter);
       swellFilter.connect(waveEnvelopeGain);
       waveEnvelopeGain.connect(masterGain);
+
+      foamSource.connect(foamFilter);
+      foamFilter.connect(foamEnvelopeGain);
+      foamEnvelopeGain.connect(masterGain);
+
       masterGain.connect(ctx.destination);
 
-      whiteNoise.start(0);
+      swellSource.start(0);
+      foamSource.start(0);
       tideLfo.start(0);
       setIsOceanSoundPlaying(true);
     } catch {
@@ -1388,10 +1429,27 @@ export default function BomieLandingPage() {
         className="sticky top-0 z-50 border-b border-white/10 bg-[#06060c]/80 backdrop-blur-xl"
       >
         <div className="mx-auto flex max-w-[1440px] items-center justify-between px-6 lg:px-10 py-4">
-          {/* 1. Enlarged Logo + Single-Line Left-to-Right Shimmer Tagline */}
+          {/* 1. Enlarged Bespoke Geometric B✦ Logo + Single-Line Left-to-Right Shimmer Tagline */}
           <a href="#" className="group flex items-center gap-3.5">
-            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-tr from-violet-600 via-fuchsia-500 to-amber-400 text-xl font-extrabold text-white shadow-lg shadow-violet-500/35 transition-transform group-hover:scale-105">
-              B
+            <div className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-tr from-[#5b21b6] via-[#d946ef] to-[#fbbf24] p-[1px] shadow-lg shadow-violet-500/40 transition-transform duration-300 group-hover:scale-105">
+              <div className="flex h-full w-full items-center justify-center rounded-[15px] bg-gradient-to-tr from-violet-700/90 via-fuchsia-500/90 to-amber-400/90 backdrop-blur-sm">
+                <svg
+                  viewBox="0 0 512 512"
+                  fill="none"
+                  className="h-8 w-8 drop-shadow-[0_2px_8px_rgba(46,16,101,0.45)]"
+                >
+                  <path
+                    fill="#ffffff"
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M140 124C140 112.954 148.954 104 160 104H268C321.019 104 360 137.565 360 184C360 214.12 343.39 239.47 317.88 251.42C350.69 263.74 372 292.69 372 330C372 381.915 329.915 416 272 416H160C148.954 416 140 407.046 140 396V124ZM204 162V228H260C281.539 228 296 214.569 296 195C296 175.431 281.539 162 260 162H204ZM204 282V356H268C292.301 356 308 341.673 308 319C308 296.327 292.301 282 268 282H204Z"
+                  />
+                  <path
+                    fill="#fef08a"
+                    d="M396 76C399.5 103.5 412.5 116.5 440 120C412.5 123.5 399.5 136.5 396 164C392.5 136.5 379.5 123.5 352 120C379.5 116.5 392.5 103.5 396 76Z"
+                  />
+                </svg>
+              </div>
             </div>
             <div className="flex flex-col sm:flex-row sm:items-center sm:gap-3.5">
               <span className="text-2xl sm:text-[28px] font-extrabold tracking-tight text-white leading-none">
@@ -3906,13 +3964,124 @@ export default function BomieLandingPage() {
         </div>
       </section>
 
-      {/* Final Full-Width CTA — Surging Violet-Gold Ocean Tide & Buoyant Wave Typography */}
+      {/* Final Full-Width CTA — Photorealistic Surging Ocean Tide & Buoyant Wave Typography */}
       <section className="pt-4 pb-16">
         <div className="mx-auto max-w-[1440px] px-6 lg:px-10">
           <motion.div
             whileHover={{ scale: 1.003 }}
-            className="relative overflow-hidden rounded-3xl border border-violet-400/40 bg-gradient-to-b from-[#160a33] via-[#210d4a] to-[#0f0624] px-6 py-20 sm:px-12 sm:py-24 text-center shadow-2xl shadow-violet-950/70"
+            className="relative overflow-hidden rounded-3xl border border-violet-400/45 bg-[#0f0624] px-6 py-20 sm:px-12 sm:py-26 text-center shadow-2xl shadow-violet-950/80"
           >
+            {/* Real-Time SVG Fluid Water Refraction Filter for Photorealistic Ocean Ripple */}
+            <svg className="pointer-events-none absolute h-0 w-0" aria-hidden="true">
+              <defs>
+                <filter id="realisticOceanRipple" x="-10%" y="-10%" width="120%" height="120%">
+                  <feTurbulence
+                    type="fractalNoise"
+                    baseFrequency="0.012 0.04"
+                    numOctaves="3"
+                    seed="7"
+                    result="turbulence"
+                  >
+                    <animate
+                      attributeName="baseFrequency"
+                      values="0.011 0.036;0.017 0.056;0.011 0.036"
+                      dur="8s"
+                      repeatCount="indefinite"
+                    />
+                  </feTurbulence>
+                  <feDisplacementMap
+                    in="SourceGraphic"
+                    in2="turbulence"
+                    scale="26"
+                    xChannelSelector="R"
+                    yChannelSelector="G"
+                  />
+                </filter>
+              </defs>
+            </svg>
+
+            {/* Layer 1: Photorealistic Ocean Surf Base with Real-Time Water Displacement Shader */}
+            <div className="pointer-events-none absolute inset-0 overflow-hidden">
+              <motion.div
+                animate={{
+                  scale: [1.08, 1.18, 1.08],
+                  y: [0, -14, 0],
+                  x: ['-1.5%', '1.5%', '-1.5%'],
+                }}
+                transition={{
+                  duration: 9,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                }}
+                style={{ filter: 'url(#realisticOceanRipple)' }}
+                className="absolute -inset-8"
+              >
+                <img
+                  src="https://images.pexels.com/photos/1001682/pexels-photo-1001682.jpeg?auto=compress&cs=tinysrgb&w=1920"
+                  alt="Real Ocean Tide Waves"
+                  className="h-full w-full object-cover object-center opacity-80 saturate-150 contrast-125"
+                />
+              </motion.div>
+
+              {/* Layer 2: Secondary Rolling Foaming Wave Crest (Counter-Tide) */}
+              <motion.div
+                animate={{
+                  scale: [1.16, 1.06, 1.16],
+                  y: [12, -10, 12],
+                  x: ['2%', '-2%', '2%'],
+                  opacity: [0.35, 0.65, 0.35],
+                }}
+                transition={{
+                  duration: 7.2,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                }}
+                style={{ filter: 'url(#realisticOceanRipple)' }}
+                className="absolute -inset-8 mix-blend-screen"
+              >
+                <img
+                  src="https://images.pexels.com/photos/1295138/pexels-photo-1295138.jpeg?auto=compress&cs=tinysrgb&w=1920"
+                  alt="Foaming Ocean Surf"
+                  className="h-full w-full object-cover object-bottom contrast-125"
+                />
+              </motion.div>
+
+              {/* Layer 3: Real HD Slow-Motion Crashing Ocean Waves Video */}
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                poster="https://images.pexels.com/photos/1001682/pexels-photo-1001682.jpeg?auto=compress&cs=tinysrgb&w=1920"
+                className="absolute inset-0 h-full w-full object-cover opacity-65 mix-blend-lighten contrast-125"
+              >
+                <source
+                  src="https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-ocean-waves-crashing-on-the-beach-41046-large.mp4"
+                  type="video/mp4"
+                />
+                <source
+                  src="https://videos.pexels.com/video-files/1093662/1093662-hd_1920_1080_30fps.mp4"
+                  type="video/mp4"
+                />
+                <source
+                  src="https://videos.pexels.com/video-files/1409899/1409899-hd_1920_1080_25fps.mp4"
+                  type="video/mp4"
+                />
+              </video>
+
+              {/* Layer 4: Royal Violet, Fuchsia & Golden Sunset Bioluminescent Color Grading */}
+              <div className="absolute inset-0 bg-gradient-to-r from-[#2e1065] via-[#701a75] to-[#78350f] opacity-80 mix-blend-color" />
+              <div className="absolute inset-0 bg-gradient-to-b from-[#0b041a]/85 via-[#2e1065]/55 to-[#1e0936]/80" />
+              <motion.div
+                animate={{
+                  opacity: [0.25, 0.5, 0.25],
+                  scale: [1, 1.08, 1],
+                }}
+                transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut' }}
+                className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_rgba(251,191,36,0.28),_rgba(217,70,239,0.25)_45%,_transparent_75%)]"
+              />
+            </div>
+
             {/* Interactive Ocean Tide Audio Toggle Button (Top-Right) */}
             <div className="relative z-20 mb-6 flex justify-center sm:mb-0 sm:absolute sm:top-6 sm:right-6">
               <button
@@ -3920,14 +4089,14 @@ export default function BomieLandingPage() {
                 onClick={toggleOceanSound}
                 className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold backdrop-blur-xl transition-all ${
                   isOceanSoundPlaying
-                    ? 'border-amber-300/60 bg-amber-400/15 text-amber-200 shadow-lg shadow-amber-500/20'
-                    : 'border-white/20 bg-white/10 text-violet-100 hover:border-violet-300/50 hover:bg-white/15'
+                    ? 'border-amber-300/70 bg-amber-400/20 text-amber-100 shadow-lg shadow-amber-500/30'
+                    : 'border-white/25 bg-black/35 text-violet-100 hover:border-violet-300/60 hover:bg-black/50'
                 }`}
               >
                 {isOceanSoundPlaying ? (
                   <>
                     <Volume2 className="h-3.5 w-3.5 text-amber-300 animate-pulse" />
-                    <span>Ocean Tide Sound: ON</span>
+                    <span>Real Ocean Tide: ON</span>
                     <span className="flex items-end gap-0.5 h-3 ml-1">
                       {[0, 1, 2, 3].map((bar) => (
                         <motion.span
@@ -3946,120 +4115,14 @@ export default function BomieLandingPage() {
                   </>
                 ) : (
                   <>
-                    <VolumeX className="h-3.5 w-3.5 text-violet-300" />
+                    <VolumeX className="h-3.5 w-3.5 text-amber-300" />
                     <span>Listen to Ocean Tide 🌊</span>
                   </>
                 )}
               </button>
             </div>
 
-            {/* Ambient Horizon Glow & Shimmering Water Caustics */}
-            <motion.div
-              animate={{
-                scale: [1, 1.15, 1],
-                opacity: [0.3, 0.55, 0.3],
-              }}
-              transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-              className="pointer-events-none absolute -top-20 left-1/2 h-72 w-[85%] -translate-x-1/2 rounded-full bg-gradient-to-r from-violet-500/35 via-fuchsia-500/30 to-amber-400/25 blur-3xl"
-            />
-
-            {/* Multi-Layer Rolling Purple-Gold Ocean Waves (Bottom & Mid Horizon) */}
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-56 sm:h-64 overflow-hidden">
-              {/* Deep Ocean Swell Layer 1 (Back Wave — Royal Indigo/Violet) */}
-              <motion.svg
-                animate={{
-                  x: ['0%', '-50%'],
-                  y: [0, -10, 0],
-                }}
-                transition={{
-                  x: { duration: 16, repeat: Infinity, ease: 'linear' },
-                  y: { duration: 5.5, repeat: Infinity, ease: 'easeInOut' },
-                }}
-                viewBox="0 0 2880 320"
-                preserveAspectRatio="none"
-                className="absolute bottom-0 left-0 h-full w-[200%] opacity-55"
-              >
-                <defs>
-                  <linearGradient id="oceanWaveBack" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#4c1d95" />
-                    <stop offset="25%" stopColor="#7e22ce" />
-                    <stop offset="50%" stopColor="#4c1d95" />
-                    <stop offset="75%" stopColor="#7e22ce" />
-                    <stop offset="100%" stopColor="#4c1d95" />
-                  </linearGradient>
-                </defs>
-                <path
-                  fill="url(#oceanWaveBack)"
-                  d="M0,160 C360,60 720,260 1080,160 C1260,110 1350,135 1440,160 C1800,60 2160,260 2520,160 C2700,110 2790,135 2880,160 L2880,320 L0,320 Z"
-                />
-              </motion.svg>
-
-              {/* Mid-Tide Surging Crest Layer 2 (Luminous Fuchsia & Violet) */}
-              <motion.svg
-                animate={{
-                  x: ['-50%', '0%'],
-                  y: [0, 12, 0],
-                }}
-                transition={{
-                  x: { duration: 12, repeat: Infinity, ease: 'linear' },
-                  y: { duration: 4.2, repeat: Infinity, ease: 'easeInOut' },
-                }}
-                viewBox="0 0 2880 320"
-                preserveAspectRatio="none"
-                className="absolute bottom-0 left-0 h-[85%] w-[200%] opacity-60"
-              >
-                <defs>
-                  <linearGradient id="oceanWaveMid" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#6d28d9" />
-                    <stop offset="25%" stopColor="#c026d3" />
-                    <stop offset="50%" stopColor="#6d28d9" />
-                    <stop offset="75%" stopColor="#c026d3" />
-                    <stop offset="100%" stopColor="#6d28d9" />
-                  </linearGradient>
-                </defs>
-                <path
-                  fill="url(#oceanWaveMid)"
-                  d="M0,180 C320,270 640,80 960,180 C1200,255 1320,130 1440,180 C1760,270 2080,80 2400,180 C2640,255 2760,130 2880,180 L2880,320 L0,320 Z"
-                />
-              </motion.svg>
-
-              {/* Foreground Cashflow Golden-Violet Wave Layer 3 (With Glowing Crest Line) */}
-              <motion.svg
-                animate={{
-                  x: ['0%', '-50%'],
-                  y: [0, -8, 0],
-                }}
-                transition={{
-                  x: { duration: 9, repeat: Infinity, ease: 'linear' },
-                  y: { duration: 3.6, repeat: Infinity, ease: 'easeInOut' },
-                }}
-                viewBox="0 0 2880 320"
-                preserveAspectRatio="none"
-                className="absolute bottom-0 left-0 h-[68%] w-[200%] opacity-75"
-              >
-                <defs>
-                  <linearGradient id="oceanWaveFront" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#8b5cf6" stopOpacity="0.85" />
-                    <stop offset="35%" stopColor="#d946ef" stopOpacity="0.75" />
-                    <stop offset="50%" stopColor="#fbbf24" stopOpacity="0.65" />
-                    <stop offset="65%" stopColor="#d946ef" stopOpacity="0.75" />
-                    <stop offset="100%" stopColor="#5b21b6" stopOpacity="0.9" />
-                  </linearGradient>
-                </defs>
-                <path
-                  fill="url(#oceanWaveFront)"
-                  d="M0,192 C240,100 480,280 720,192 C960,100 1200,280 1440,192 C1680,100 1920,280 2160,192 C2400,100 2640,280 2880,192 L2880,320 L0,320 Z"
-                />
-                <path
-                  fill="none"
-                  stroke="rgba(253, 224, 71, 0.55)"
-                  strokeWidth="3"
-                  d="M0,192 C240,100 480,280 720,192 C960,100 1200,280 1440,192 C1680,100 1920,280 2160,192 C2400,100 2640,280 2880,192"
-                />
-              </motion.svg>
-            </div>
-
-            {/* Buoyant Wave Headline: Words Gently Riding the Swell */}
+            {/* Buoyant Wave Headline: Words Gently Riding the Real Ocean Swell */}
             <h2 className="relative z-10 flex flex-wrap items-center justify-center gap-x-4 sm:gap-x-6 gap-y-2 w-full text-4xl font-extrabold tracking-tight sm:text-6xl md:text-7xl lg:text-8xl">
               {(['Where', 'Local', 'Meets', 'Viral'] as const).map((word, idx) => (
                 <motion.span
@@ -4076,8 +4139,8 @@ export default function BomieLandingPage() {
                   }}
                   className={
                     word === 'Viral'
-                      ? 'inline-block bg-gradient-to-r from-amber-200 via-yellow-300 to-fuchsia-300 bg-clip-text text-transparent drop-shadow-[0_4px_24px_rgba(251,191,36,0.35)]'
-                      : 'inline-block bg-gradient-to-b from-white via-white to-violet-200 bg-clip-text text-transparent drop-shadow-[0_4px_20px_rgba(139,92,246,0.35)]'
+                      ? 'inline-block bg-gradient-to-r from-amber-200 via-yellow-300 to-fuchsia-200 bg-clip-text text-transparent drop-shadow-[0_4px_28px_rgba(251,191,36,0.55)]'
+                      : 'inline-block bg-gradient-to-b from-white via-white to-violet-100 bg-clip-text text-transparent drop-shadow-[0_4px_24px_rgba(15,6,36,0.9)]'
                   }
                 >
                   {word}
@@ -4085,7 +4148,7 @@ export default function BomieLandingPage() {
               ))}
             </h2>
 
-            <p className="relative z-10 mx-auto mt-5 max-w-2xl text-base sm:text-lg text-violet-100/90 font-medium drop-shadow">
+            <p className="relative z-10 mx-auto mt-5 max-w-2xl text-base sm:text-lg text-white/95 font-medium drop-shadow-[0_2px_12px_rgba(0,0,0,0.85)]">
               Join hundreds of local businesses and creators building authentic community growth
               on Bomie AI.
             </p>
@@ -4098,7 +4161,7 @@ export default function BomieLandingPage() {
                   setDemoSubmitted(false);
                   setShowDemoModal(true);
                 }}
-                className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-violet-500 via-fuchsia-500 to-amber-400 p-[2px] shadow-2xl shadow-violet-950/80"
+                className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-violet-500 via-fuchsia-500 to-amber-400 p-[2px] shadow-2xl shadow-black/80"
               >
                 <span className="flex items-center gap-2 rounded-[14px] bg-white px-9 py-4 text-base font-bold text-slate-950 transition hover:bg-amber-50">
                   <Sparkles className="h-4 w-4 text-violet-600" />
@@ -4276,8 +4339,19 @@ export default function BomieLandingPage() {
               </button>
 
               <div className="text-center">
-                <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-violet-600 via-fuchsia-500 to-amber-400 font-extrabold text-white">
-                  B
+                <div className="mx-auto mb-3 flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-tr from-[#5b21b6] via-[#d946ef] to-[#fbbf24] shadow-lg shadow-violet-500/35">
+                  <svg viewBox="0 0 512 512" fill="none" className="h-7 w-7">
+                    <path
+                      fill="#ffffff"
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M140 124C140 112.954 148.954 104 160 104H268C321.019 104 360 137.565 360 184C360 214.12 343.39 239.47 317.88 251.42C350.69 263.74 372 292.69 372 330C372 381.915 329.915 416 272 416H160C148.954 416 140 407.046 140 396V124ZM204 162V228H260C281.539 228 296 214.569 296 195C296 175.431 281.539 162 260 162H204ZM204 282V356H268C292.301 356 308 341.673 308 319C308 296.327 292.301 282 268 282H204Z"
+                    />
+                    <path
+                      fill="#fef08a"
+                      d="M396 76C399.5 103.5 412.5 116.5 440 120C412.5 123.5 399.5 136.5 396 164C392.5 136.5 379.5 123.5 352 120C379.5 116.5 392.5 103.5 396 76Z"
+                    />
+                  </svg>
                 </div>
                 <h3 className="text-xl font-bold text-white">Welcome back to Bomie AI</h3>
                 <p className="mt-1 text-xs text-slate-400">
