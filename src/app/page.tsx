@@ -789,6 +789,7 @@ const CREATOR_PERSONAS: Record<CreatorPersonaId, CreatorPersona> = {
 export default function BomieLandingPage() {
   const [activeTab, setActiveTab] = useState<'business' | 'creator'>('business');
   const [selectedMatch, setSelectedMatch] = useState<number>(0);
+  const [isMatchPaused, setIsMatchPaused] = useState<boolean>(false);
 
   // ==========================================
   // 1. MERCHANT V5 ORCHESTRATOR STATE
@@ -1154,6 +1155,15 @@ export default function BomieLandingPage() {
       estReach: '50K–95K High-Intent Views',
     },
   ];
+
+  // Auto-rotate Hero Showcase (Dining -> Fashion & Spa -> Craft Goods) every 4.5s, pause on hover
+  useEffect(() => {
+    if (isMatchPaused) return;
+    const timer = setInterval(() => {
+      setSelectedMatch((prev) => (prev + 1) % liveMatches.length);
+    }, 4500);
+    return () => clearInterval(timer);
+  }, [selectedMatch, isMatchPaused, liveMatches.length]);
 
   const marqueeItems = [
     'AI Hyper-Local Matching',
@@ -1869,6 +1879,8 @@ export default function BomieLandingPage() {
             initial={{ opacity: 0, y: 36 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.45 }}
+            onMouseEnter={() => setIsMatchPaused(true)}
+            onMouseLeave={() => setIsMatchPaused(false)}
             className="mx-auto mt-14 w-full rounded-3xl border border-white/15 bg-slate-900/70 p-2.5 shadow-2xl shadow-violet-950/50 backdrop-blur-xl"
           >
             <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#0b0b14] text-left">
@@ -1927,7 +1939,7 @@ export default function BomieLandingPage() {
                     </p>
                   </div>
 
-                  {/* Material Flask Style Dash Indicator Pill [ ━━  ──  ── ] */}
+                  {/* Material Flask Style Dash Indicator Pill with 4.5s Apple-Style Progress Fill */}
                   <div className="inline-flex items-center gap-2 self-start sm:self-end rounded-full border border-white/15 bg-black/65 px-4 py-2.5 backdrop-blur-md">
                     {liveMatches.map((_, idx) => (
                       <button
@@ -1935,12 +1947,25 @@ export default function BomieLandingPage() {
                         type="button"
                         aria-label={`Slide ${idx + 1}`}
                         onClick={() => setSelectedMatch(idx)}
-                        className={`h-1.5 rounded-full transition-all duration-300 ${
+                        className={`relative h-1.5 overflow-hidden rounded-full transition-all duration-300 ${
                           selectedMatch === idx
-                            ? 'w-8 bg-white'
+                            ? 'w-10 bg-white/25'
                             : 'w-3.5 bg-white/30 hover:bg-white/60'
                         }`}
-                      />
+                      >
+                        {selectedMatch === idx && !isMatchPaused && (
+                          <motion.span
+                            key={`progress-${selectedMatch}`}
+                            initial={{ width: '0%' }}
+                            animate={{ width: '100%' }}
+                            transition={{ duration: 4.5, ease: 'linear' }}
+                            className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-violet-300 via-white to-amber-200"
+                          />
+                        )}
+                        {selectedMatch === idx && isMatchPaused && (
+                          <span className="absolute inset-0 rounded-full bg-white" />
+                        )}
+                      </button>
                     ))}
                   </div>
                 </div>
