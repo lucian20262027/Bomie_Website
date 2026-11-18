@@ -933,25 +933,40 @@ export default function BomieLandingPage() {
 
   const liveMatches = [
     {
+      tag: 'Dining',
+      headline: 'Artisanal Local Dining',
+      subline: 'Sizzling kitchen storytelling · 30% weekend walk-in lift',
+      image:
+        'https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=1400',
       business: 'TastyTaco Artisanal Kitchen',
-      location: '0.8 mi away · Local Dining',
+      location: '0.8 mi away · San Francisco, CA',
       creator: '@mayalovesfood (42.5K)',
       matchScore: '98% Match',
       ftcStatus: 'FTC #ad Brief Auto-Generated',
       estReach: '35K–60K Local Views',
     },
     {
-      business: 'Modest Muse Boutique',
-      location: '1.2 mi away · Apparel & Style',
+      tag: 'Fashion & Spa',
+      headline: 'Boutique Style & Wellness',
+      subline: 'Sunlit studio vlogs · High-intent local appointment bookings',
+      image:
+        'https://images.pexels.com/photos/3997993/pexels-photo-3997993.jpeg?auto=compress&cs=tinysrgb&w=1400',
+      business: 'Modest Muse & Lumina Studio',
+      location: '1.2 mi away · Los Angeles, CA',
       creator: '@chloestylediary (28.1K)',
       matchScore: '96% Match',
       ftcStatus: 'FTC Disclosure Verified',
       estReach: '22K–40K Targeted Views',
     },
     {
+      tag: 'Craft Goods',
+      headline: 'Neighborhood Craft & Home',
+      subline: 'Cozy creator co-creation · Tracked in-store QR redemptions',
+      image:
+        'https://images.pexels.com/photos/4207785/pexels-photo-4207785.jpeg?auto=compress&cs=tinysrgb&w=1400',
       business: 'Bloom Studio Candles',
-      location: 'Online + Pop-up · Home Goods',
-      creator: '@cozyhomewithsam (64.0K)',
+      location: '0.6 mi away · Austin, TX',
+      creator: '@cozyhomewithsam (14.8K)',
       matchScore: '99% Match',
       ftcStatus: 'Escrow & FTC Rules Locked',
       estReach: '50K–95K High-Intent Views',
@@ -1028,15 +1043,26 @@ export default function BomieLandingPage() {
         transition={{ duration: 0.5 }}
         className="sticky top-0 z-50 border-b border-white/10 bg-[#06060c]/75 backdrop-blur-xl"
       >
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <a href="#" className="group flex items-center gap-2.5">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-tr from-violet-600 via-fuchsia-500 to-amber-400 font-extrabold text-white shadow-lg shadow-violet-500/30 transition-transform group-hover:scale-105">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3.5">
+          <a href="#" className="group flex items-center gap-3">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-tr from-violet-600 via-fuchsia-500 to-amber-400 font-extrabold text-white shadow-lg shadow-violet-500/30 transition-transform group-hover:scale-105">
               B
             </div>
-            <span className="text-xl font-bold tracking-tight">bomie.ai</span>
+            <div className="flex flex-col">
+              <div className="flex items-center gap-2.5">
+                <span className="text-xl font-bold tracking-tight text-white">bomie.ai</span>
+                <span className="hidden h-3.5 w-[1px] bg-white/20 xl:inline-block" />
+                <span className="hidden font-[family-name:var(--font-playfair)] text-xs italic tracking-wide text-amber-200/90 xl:inline-block">
+                  Built for North America&apos;s 40M+ Small Businesses &amp; Local Creators
+                </span>
+              </div>
+              <span className="font-[family-name:var(--font-playfair)] text-[11px] italic tracking-wide text-amber-200/85 xl:hidden">
+                For North America&apos;s 40M+ Businesses &amp; Creators
+              </span>
+            </div>
           </a>
 
-          <nav className="hidden items-center gap-8 text-sm font-medium text-slate-300 md:flex">
+          <nav className="hidden items-center gap-7 text-sm font-medium text-slate-300 lg:flex">
             <a href="#how-it-works" className="transition hover:text-white">
               How It Works
             </a>
@@ -1093,34 +1119,15 @@ export default function BomieLandingPage() {
         />
 
         <div className="mx-auto max-w-6xl px-6 text-center">
-          {/* Flowing Marquee Ticker Pill */}
+          {/* Clean Static Top Pill (Zero Truncation) */}
           <motion.div
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="mx-auto mb-7 max-w-md sm:max-w-xl overflow-hidden rounded-full border border-violet-400/35 bg-violet-500/10 py-2 px-4 backdrop-blur-md shadow-lg shadow-violet-950/40"
+            className="mb-7 inline-flex items-center gap-2.5 rounded-full border border-violet-400/35 bg-violet-500/10 px-5 py-2 text-xs sm:text-sm font-semibold tracking-wide text-violet-100 backdrop-blur-md shadow-lg shadow-violet-950/40"
           >
-            <div className="relative flex overflow-hidden">
-              <motion.div
-                animate={{ x: ['0%', '-50%'] }}
-                transition={{ duration: 18, repeat: Infinity, ease: 'linear' }}
-                className="flex w-max items-center gap-8 whitespace-nowrap text-xs font-semibold tracking-wide text-violet-200"
-              >
-                {[0, 1].map((loopIdx) => (
-                  <div key={loopIdx} className="flex items-center gap-8">
-                    <span className="inline-flex items-center gap-2">
-                      <Sparkles className="h-3.5 w-3.5 text-amber-300" />
-                      FIRST PLATFORM IN NORTH AMERICA FOR LOCAL BUSINESSES &amp; LOCAL CREATORS
-                    </span>
-                    <span className="text-fuchsia-400">•</span>
-                    <span className="inline-flex items-center gap-2 text-amber-200">
-                      NO.1 SMALL BUSINESS &amp; CREATORS PLATFORM
-                    </span>
-                    <span className="text-violet-400">•</span>
-                  </div>
-                ))}
-              </motion.div>
-            </div>
+            <Sparkles className="h-4 w-4 shrink-0 text-amber-300" />
+            <span>First Platform in North America for Local Businesses &amp; Local Creators</span>
           </motion.div>
 
           <motion.h1
@@ -1144,19 +1151,6 @@ export default function BomieLandingPage() {
             We empower local businesses and local creators to grow together — through AI smart matching,
             4-stage autonomous campaign orchestration, and built-in FTC compliance.
           </motion.p>
-
-          {/* Subtle North America Market Scale Strip */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.25 }}
-            className="mx-auto mt-4 inline-flex flex-wrap items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-1.5 text-xs text-slate-400"
-          >
-            <span>Built for North America&apos;s</span>
-            <span className="font-mono font-bold text-violet-300">40M+ Small Businesses</span>
-            <span>&amp;</span>
-            <span className="font-mono font-bold text-amber-300">Local Creators Ecosystem</span>
-          </motion.div>
 
           {/* Dual Role CTA Buttons */}
           <motion.div
@@ -1189,88 +1183,139 @@ export default function BomieLandingPage() {
             </motion.a>
           </motion.div>
 
-          {/* Interactive Live AI Match Preview Console */}
+          {/* Material-Style Visual Stage + Live AI Match Console (Combining Adjustment A & B) */}
           <motion.div
             initial={{ opacity: 0, y: 36 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.45 }}
-            className="mx-auto mt-16 max-w-4xl rounded-3xl border border-white/15 bg-slate-900/70 p-2 shadow-2xl shadow-violet-950/50 backdrop-blur-xl"
+            className="mx-auto mt-16 max-w-5xl rounded-3xl border border-white/15 bg-slate-900/70 p-2.5 shadow-2xl shadow-violet-950/50 backdrop-blur-xl"
           >
-            <div className="rounded-2xl border border-white/10 bg-[#0b0b14] p-6 text-left">
-              <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-4">
-                <div className="flex items-center gap-2">
-                  <span className="h-3 w-3 rounded-full bg-rose-500/80" />
-                  <span className="h-3 w-3 rounded-full bg-amber-400/80" />
-                  <span className="h-3 w-3 rounded-full bg-emerald-400/80" />
-                  <span className="ml-2 font-mono text-xs text-slate-400">
-                    bomie-ai-engine · live-matching-preview
-                  </span>
+            <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#0b0b14] text-left">
+              {/* Visual Hero Stage (Image 3 Material Flask Paradigm: Editorial Scene + Bottom-Left Title + Bottom-Right Dash Switcher) */}
+              <div className="relative h-[300px] sm:h-[360px] w-full overflow-hidden">
+                <AnimatePresence mode="wait">
+                  <motion.img
+                    key={liveMatches[selectedMatch].image}
+                    src={liveMatches[selectedMatch].image}
+                    alt={liveMatches[selectedMatch].headline}
+                    initial={{ opacity: 0, scale: 1.04 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.98 }}
+                    transition={{ duration: 0.45 }}
+                    className="h-full w-full object-cover"
+                  />
+                </AnimatePresence>
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0b0b14] via-[#0b0b14]/45 to-black/20" />
+
+                {/* Top Console Bar Overlay */}
+                <div className="absolute top-4 left-5 right-5 flex flex-wrap items-center justify-between gap-3">
+                  <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-black/55 px-3.5 py-1.5 backdrop-blur-md">
+                    <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+                    <span className="font-mono text-xs text-slate-200">
+                      bomie-ai-engine · live-local-campaign
+                    </span>
+                  </div>
+                  <div className="flex gap-1.5 rounded-full border border-white/15 bg-black/55 p-1 backdrop-blur-md">
+                    {liveMatches.map((m, i) => (
+                      <button
+                        key={m.tag}
+                        onClick={() => setSelectedMatch(i)}
+                        className={`rounded-full px-3.5 py-1 text-xs font-semibold transition ${
+                          selectedMatch === i
+                            ? 'bg-white text-slate-950 shadow-xs'
+                            : 'text-slate-300 hover:text-white'
+                        }`}
+                      >
+                        {m.tag}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-                <div className="flex gap-2">
-                  {['Dining', 'Fashion', 'Local Goods'].map((tag, i) => (
-                    <button
-                      key={tag}
-                      onClick={() => setSelectedMatch(i)}
-                      className={`rounded-lg px-3 py-1 text-xs font-semibold transition ${
-                        selectedMatch === i
-                          ? 'bg-violet-600 text-white'
-                          : 'bg-white/5 text-slate-400 hover:text-white'
-                      }`}
-                    >
-                      {tag}
-                    </button>
-                  ))}
+
+                {/* Bottom-Left Big Editorial Typography + Bottom-Right Dash Switcher (Exact Image 3 Layout) */}
+                <div className="absolute bottom-5 left-6 right-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+                  <div>
+                    <span className="font-mono text-xs uppercase tracking-widest text-amber-300">
+                      0{selectedMatch + 1} · Verified Neighborhood Match
+                    </span>
+                    <h3 className="mt-1 text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
+                      {liveMatches[selectedMatch].headline}
+                    </h3>
+                    <p className="mt-1 text-sm text-slate-300">
+                      {liveMatches[selectedMatch].subline}
+                    </p>
+                  </div>
+
+                  {/* Material Flask Style Dash Indicator Pill [ ━━  ──  ── ] */}
+                  <div className="inline-flex items-center gap-2 self-start sm:self-end rounded-full border border-white/15 bg-black/65 px-4 py-2.5 backdrop-blur-md">
+                    {liveMatches.map((_, idx) => (
+                      <button
+                        key={idx}
+                        type="button"
+                        aria-label={`Slide ${idx + 1}`}
+                        onClick={() => setSelectedMatch(idx)}
+                        className={`h-1.5 rounded-full transition-all duration-300 ${
+                          selectedMatch === idx
+                            ? 'w-8 bg-white'
+                            : 'w-3.5 bg-white/30 hover:bg-white/60'
+                        }`}
+                      />
+                    ))}
+                  </div>
                 </div>
               </div>
 
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={selectedMatch}
-                  initial={{ opacity: 0, x: 12 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -12 }}
-                  transition={{ duration: 0.25 }}
-                  className="mt-6 grid gap-4 md:grid-cols-3"
-                >
-                  <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
-                    <div className="text-xs text-slate-400">Local Merchant</div>
-                    <div className="mt-1 font-bold text-white">
-                      {liveMatches[selectedMatch].business}
+              {/* Bottom 3-Column Live Match Telemetry Strip */}
+              <div className="p-6 pt-4">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={selectedMatch}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.25 }}
+                    className="grid gap-4 md:grid-cols-3"
+                  >
+                    <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+                      <div className="text-xs text-slate-400">Local Merchant</div>
+                      <div className="mt-1 font-bold text-white">
+                        {liveMatches[selectedMatch].business}
+                      </div>
+                      <div className="mt-2 flex items-center gap-1 text-xs text-violet-300">
+                        <MapPin className="h-3.5 w-3.5" />
+                        {liveMatches[selectedMatch].location}
+                      </div>
                     </div>
-                    <div className="mt-2 flex items-center gap-1 text-xs text-violet-300">
-                      <MapPin className="h-3.5 w-3.5" />
-                      {liveMatches[selectedMatch].location}
-                    </div>
-                  </div>
 
-                  <div className="rounded-xl border border-violet-500/30 bg-violet-500/10 p-4">
-                    <div className="flex items-center justify-between text-xs">
-                      <span className="text-violet-200">AI Matched Creator</span>
-                      <span className="rounded-full bg-emerald-500/20 px-2 py-0.5 font-semibold text-emerald-300">
-                        {liveMatches[selectedMatch].matchScore}
-                      </span>
+                    <div className="rounded-xl border border-violet-500/30 bg-violet-500/10 p-4">
+                      <div className="flex items-center justify-between text-xs">
+                        <span className="text-violet-200">AI Matched Creator</span>
+                        <span className="rounded-full bg-emerald-500/20 px-2 py-0.5 font-semibold text-emerald-300">
+                          {liveMatches[selectedMatch].matchScore}
+                        </span>
+                      </div>
+                      <div className="mt-1 font-bold text-white">
+                        {liveMatches[selectedMatch].creator}
+                      </div>
+                      <div className="mt-2 flex items-center gap-1 text-xs text-slate-300">
+                        <TrendingUp className="h-3.5 w-3.5 text-amber-300" />
+                        {liveMatches[selectedMatch].estReach}
+                      </div>
                     </div>
-                    <div className="mt-1 font-bold text-white">
-                      {liveMatches[selectedMatch].creator}
-                    </div>
-                    <div className="mt-2 flex items-center gap-1 text-xs text-slate-300">
-                      <TrendingUp className="h-3.5 w-3.5 text-amber-300" />
-                      {liveMatches[selectedMatch].estReach}
-                    </div>
-                  </div>
 
-                  <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
-                    <div className="text-xs text-slate-400">Compliance &amp; Escrow</div>
-                    <div className="mt-1 flex items-center gap-1.5 font-semibold text-emerald-400">
-                      <CheckCircle2 className="h-4 w-4 shrink-0" />
-                      <span className="text-sm">{liveMatches[selectedMatch].ftcStatus}</span>
+                    <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+                      <div className="text-xs text-slate-400">Compliance &amp; Escrow</div>
+                      <div className="mt-1 flex items-center gap-1.5 font-semibold text-emerald-400">
+                        <CheckCircle2 className="h-4 w-4 shrink-0" />
+                        <span className="text-sm">{liveMatches[selectedMatch].ftcStatus}</span>
+                      </div>
+                      <div className="mt-2 text-xs text-slate-400">
+                        Auto-payout upon verified post
+                      </div>
                     </div>
-                    <div className="mt-2 text-xs text-slate-400">
-                      Auto-payout upon verified post
-                    </div>
-                  </div>
-                </motion.div>
-              </AnimatePresence>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
             </div>
           </motion.div>
         </div>
