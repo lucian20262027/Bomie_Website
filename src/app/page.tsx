@@ -1628,24 +1628,24 @@ export default function BomieLandingPage() {
   const activeCityData = cityStories[selectedCity];
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-[#06060c] text-slate-50 selection:bg-violet-500 selection:text-white">
+    <div className="min-h-screen overflow-x-clip bg-[#06060c] text-slate-50 selection:bg-violet-500 selection:text-white">
       {/* Sticky Glass Navbar */}
       <motion.header
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
         onMouseLeave={() => setOpenNavMenu(null)}
-        className="sticky top-0 z-50 border-b border-white/10 bg-[#06060c]/80 backdrop-blur-xl"
+        className="sticky top-0 z-50 border-b border-white/10 bg-[#06060c]/85 backdrop-blur-xl"
       >
-        <div className="mx-auto flex max-w-[1440px] items-center justify-between px-6 lg:px-10 py-4">
+        <div className="mx-auto flex max-w-[1440px] items-center justify-between gap-2 px-4 sm:px-6 lg:px-10 py-3 sm:py-4">
           {/* 1. Enlarged Bespoke Geometric B✦ Logo + Single-Line Left-to-Right Shimmer Tagline */}
-          <a href="#" className="group flex items-center gap-3.5">
-            <div className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-tr from-[#5b21b6] via-[#d946ef] to-[#fbbf24] p-[1px] shadow-lg shadow-violet-500/40 transition-transform duration-300 group-hover:scale-105">
-              <div className="flex h-full w-full items-center justify-center rounded-[15px] bg-gradient-to-tr from-violet-700/90 via-fuchsia-500/90 to-amber-400/90 backdrop-blur-sm">
+          <a href="#" className="group flex min-w-0 items-center gap-2.5 sm:gap-3.5">
+            <div className="relative flex h-10 w-10 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-xl sm:rounded-2xl bg-gradient-to-tr from-[#5b21b6] via-[#d946ef] to-[#fbbf24] p-[1px] shadow-lg shadow-violet-500/40 transition-transform duration-300 group-hover:scale-105">
+              <div className="flex h-full w-full items-center justify-center rounded-[11px] sm:rounded-[15px] bg-gradient-to-tr from-violet-700/90 via-fuchsia-500/90 to-amber-400/90 backdrop-blur-sm">
                 <svg
                   viewBox="0 0 512 512"
                   fill="none"
-                  className="h-8 w-8 drop-shadow-[0_2px_8px_rgba(46,16,101,0.45)]"
+                  className="h-6 w-6 sm:h-8 sm:w-8 drop-shadow-[0_2px_8px_rgba(46,16,101,0.45)]"
                 >
                   <path
                     fill="#ffffff"
@@ -1660,12 +1660,12 @@ export default function BomieLandingPage() {
                 </svg>
               </div>
             </div>
-            <div className="flex flex-col sm:flex-row sm:items-center sm:gap-3.5">
-              <span className="text-2xl sm:text-[28px] font-extrabold tracking-tight text-white leading-none">
+            <div className="flex min-w-0 flex-col sm:flex-row sm:items-center sm:gap-3.5">
+              <span className="text-xl sm:text-[28px] font-extrabold tracking-tight text-white leading-none whitespace-nowrap">
                 bomie.ai
               </span>
               <span className="hidden h-5 w-[1px] bg-white/20 lg:inline-block" />
-              <div className="flex items-center gap-1.5 mt-0.5 sm:mt-0">
+              <div className="hidden sm:flex items-center gap-1.5 mt-0.5 sm:mt-0">
                 <Sparkles className="h-3.5 w-3.5 shrink-0 text-amber-300 animate-pulse" />
                 <motion.span
                   animate={{ backgroundPosition: ['115% 0%', '-15% 0%'] }}
@@ -1819,7 +1819,7 @@ export default function BomieLandingPage() {
             </div>
           </nav>
 
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex shrink-0 items-center gap-2 sm:gap-3">
             <button
               onClick={() => setShowLoginModal(true)}
               className="hidden sm:inline-flex rounded-xl px-4 py-2 text-sm font-medium text-slate-300 transition hover:bg-white/5 hover:text-white"
@@ -1834,9 +1834,9 @@ export default function BomieLandingPage() {
                 setDemoError('');
                 setShowDemoModal(true);
               }}
-              className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-violet-600 via-fuchsia-600 to-amber-500 p-[1px] shadow-lg shadow-violet-600/25"
+              className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-gradient-to-r from-violet-600 via-fuchsia-600 to-amber-500 p-[1px] shadow-lg shadow-violet-600/25"
             >
-              <span className="flex items-center gap-1.5 rounded-[11px] bg-white px-3.5 sm:px-4 py-2 text-xs sm:text-sm font-bold text-slate-950 transition hover:bg-slate-100">
+              <span className="flex items-center gap-1.5 whitespace-nowrap rounded-[11px] bg-white px-3 sm:px-4 py-2 text-xs sm:text-sm font-bold text-slate-950 transition hover:bg-slate-100">
                 <Sparkles className="h-3.5 w-3.5 text-violet-600" />
                 Book a Demo
               </span>
@@ -1844,7 +1844,7 @@ export default function BomieLandingPage() {
             <button
               type="button"
               onClick={() => setMobileMenuOpen((prev) => !prev)}
-              className="inline-flex md:hidden items-center justify-center rounded-xl border border-white/15 bg-white/5 p-2 text-slate-200 transition hover:bg-white/10"
+              className="inline-flex md:hidden shrink-0 items-center justify-center rounded-xl border border-white/20 bg-white/10 p-2 text-white transition hover:bg-white/15"
               aria-label="Toggle Mobile Navigation"
             >
               {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
