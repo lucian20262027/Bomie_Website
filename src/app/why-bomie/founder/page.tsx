@@ -67,18 +67,23 @@ export default function FounderPage() {
 
         {/* Founder Spotlight Card */}
         <div className="rounded-3xl border border-violet-500/35 bg-gradient-to-br from-violet-100/70 via-white to-white p-8 sm:p-10 shadow-2xl">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 border-b border-violet-200/70 pb-8">
-            <div className="flex items-center gap-5">
-              <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-3xl bg-gradient-to-tr from-[#5b21b6] via-[#d946ef] to-[#fbbf24] text-2xl font-extrabold text-white shadow-xl shadow-violet-500/30">
-                LW
-              </div>
-              <div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-[#161224]">Lucian Wang</h2>
+          <div className="flex items-center gap-5 border-b border-violet-200/70 pb-8">
+            <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-3xl bg-gradient-to-tr from-[#5b21b6] via-[#d946ef] to-[#fbbf24] text-2xl font-extrabold text-white shadow-xl shadow-violet-500/30">
+              LW
+            </div>
+            <div>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-[#161224]">Lucian Wang</h2>
+              <div className="mt-2 flex items-center gap-2.5">
+                <a
+                  href="mailto:lucian.wang@bomie.ai"
+                  aria-label="Email lucian.wang@bomie.ai"
+                  title="lucian.wang@bomie.ai"
+                  className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-violet-200 bg-white text-violet-700 shadow-sm transition hover:border-violet-400 hover:bg-violet-50 hover:text-violet-950"
+                >
+                  <Mail className="h-4 w-4" />
+                </a>
               </div>
             </div>
-            <span className="self-start rounded-full border border-emerald-400/35 bg-emerald-500/15 px-3.5 py-1.5 text-xs font-bold text-emerald-700">
-              24h Founder Response SLA
-            </span>
           </div>
 
           <div className="mt-8 space-y-5 text-base leading-relaxed text-slate-600">
@@ -91,16 +96,6 @@ export default function FounderPage() {
             <p>
               At Bomie AI, our mission is to replace friction with autonomous trust: combining hyper-local AI matching, 30-second creative co-creation, built-in FTC 16 CFR Part 255 compliance, and 30/40/30 milestone escrow so both small businesses and local creators prosper together.
             </p>
-          </div>
-
-          <div className="mt-8 flex flex-wrap gap-3 pt-4 border-t border-violet-200/70">
-            <a
-              href="mailto:lucian.wang@bomie.ai"
-              className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 px-5 py-3 text-xs sm:text-sm font-bold text-white shadow-md shadow-violet-600/20 transition hover:opacity-95"
-            >
-              <Mail className="h-4 w-4 text-white" />
-              Email Lucian: lucian.wang@bomie.ai
-            </a>
           </div>
         </div>
 
