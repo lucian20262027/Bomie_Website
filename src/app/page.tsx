@@ -818,12 +818,24 @@ export default function BomieLandingPage() {
   const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
   const [demoSubmitted, setDemoSubmitted] = useState<boolean>(false);
   const [loginRole, setLoginRole] = useState<'merchant' | 'creator'>('merchant');
+  const [openNavMenu, setOpenNavMenu] = useState<'os' | 'stories' | null>(null);
+  const [selectedCity, setSelectedCity] = useState<'sf' | 'la' | 'seattle' | 'vegas'>('sf');
+  const [cityExpanded, setCityExpanded] = useState<boolean>(false);
+  const [showAllFaqs, setShowAllFaqs] = useState<boolean>(false);
 
   const jumpToOsStage = (role: 'business' | 'creator', stageNum: 1 | 2 | 3 | 4) => {
     setActiveTab(role);
     if (role === 'business') setActiveStage(stageNum);
     else setCreatorStage(stageNum);
     const el = document.getElementById('how-it-works');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const handleNavCitySelect = (cityKey: 'sf' | 'la' | 'seattle' | 'vegas') => {
+    setSelectedCity(cityKey);
+    setCityExpanded(false);
+    setOpenNavMenu(null);
+    const el = document.getElementById('stories');
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
@@ -1007,32 +1019,266 @@ export default function BomieLandingPage() {
     },
   ];
 
-  const testimonials = [
-    {
-      name: 'David Ramirez',
-      role: 'Founder of TastyTaco (Local Restaurant Chain)',
-      quote:
-        'I never imagined social media could drive so many walk-ins. The AI creator matching was spot-on — we saw a 30% increase in weekend traffic after just 2 videos. Bomie made influencer marketing finally feel doable.',
+  const cityStories = {
+    sf: {
+      id: 'sf' as const,
+      name: 'San Francisco',
+      tagline: 'Culinary Craft, Specialty Roasteries & Neighborhood Boutiques',
+      heroImage:
+        'https://images.pexels.com/photos/208745/pexels-photo-208745.jpeg?auto=compress&cs=tinysrgb&w=1400',
+      overview:
+        'Across the Mission, Hayes Valley, Inner Sunset, and Marina, Bomie AI connects San Francisco’s iconic independent restaurants, specialty coffee bars, and craft studios with hyper-local foodie and lifestyle creators—turning 30-second neighborhood reels into packed weekend tables.',
+      stats: [
+        { label: 'Active SF Creators', value: '1,420+' },
+        { label: 'Avg. Store-Visit ROAS', value: '3.6x' },
+        { label: 'Weekend Walk-In Lift', value: '+34%' },
+      ],
+      cases: [
+        {
+          brand: 'Sichuan Bistro SF',
+          industry: 'Artisanal Dining · Inner Sunset',
+          creator: '@sfnoodleclub (34.2K)',
+          metric: '+38% Weekend Covers · 3.6x ROAS',
+          image:
+            'https://images.pexels.com/photos/955137/pexels-photo-955137.jpeg?auto=compress&cs=tinysrgb&w=800',
+          summary:
+            '4 local foodie creators filmed tableside chili-oil pours with a 20% off dumpling QR voucher, generating 142 tracked dine-in tables in 5 days.',
+          quote:
+            '“We saw a 38% jump in weekend walk-ins after just two creator reels. Every redemption was tracked right at the table.” — Chef & Founder',
+        },
+        {
+          brand: 'Fog City Matcha & Roastery',
+          industry: 'Specialty Cafe · Hayes Valley',
+          creator: '@bayareabites_sam (26.8K)',
+          metric: '410+ QR Drink Redemptions',
+          image:
+            'https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg?auto=compress&cs=tinysrgb&w=800',
+          summary:
+            'Launched a seasonal strawberry-hojicha latte drop with 3 SF lifestyle creators, creating a 2-block morning line on Saturday.',
+          quote:
+            '“Bomie matched us with creators who actually live 10 minutes away. Their followers walked into our cafe the very next morning.”',
+        },
+        {
+          brand: 'Marina Botanical Apothecary',
+          industry: 'Clean Beauty & Home · Marina District',
+          creator: '@fogcityfoodie (18.4K)',
+          metric: '$6,800 Launch Weekend Sales',
+          image:
+            'https://images.pexels.com/photos/3735657/pexels-photo-3735657.jpeg?auto=compress&cs=tinysrgb&w=800',
+          summary:
+            'Nano-creators shared in-store custom fragrance blending sessions, driving high-ticket gift box purchases both in-store and online.',
+          quote:
+            '“Zero cold DMs, zero awkward price haggling. The 30/40/30 escrow and automatic FTC check saved us 20 hours a week.”',
+        },
+        {
+          brand: 'Mission Ceramic & Tableware',
+          industry: 'Artisan Studio · Mission District',
+          creator: '@goldengategrub (41.5K)',
+          metric: '48 Sold-Out Workshop Seats',
+          image:
+            'https://images.pexels.com/photos/2162938/pexels-photo-2162938.jpeg?auto=compress&cs=tinysrgb&w=800',
+          summary:
+            'Couples date-night pottery reels filled every weekend wheel-throwing workshop for 6 consecutive weeks.',
+          quote:
+            '“Our workshops sold out in 48 hours. Local creators told our story way better than paid social ads ever could.”',
+        },
+      ],
     },
-    {
-      name: 'Aisha Noor',
-      role: 'Owner at Modest Muse (Modest Fashion Boutique)',
-      quote:
-        "As a small business owner with limited time and no design team, I always felt stuck. Bomie's campaign studio was a blessing — I could launch and track influencer collabs in one dashboard. Elegant and powerful.",
+    la: {
+      id: 'la' as const,
+      name: 'Los Angeles',
+      tagline: 'Clean Beauty Studios, Reformer Pilates & West Coast Resort Retail',
+      heroImage:
+        'https://images.pexels.com/photos/2695679/pexels-photo-2695679.jpeg?auto=compress&cs=tinysrgb&w=1400',
+      overview:
+        'From West Hollywood and Melrose Place to Santa Monica and Silver Lake, LA’s wellness studios, aesthetic spas, and boutique fashion labels use Bomie AI to turn sunlit creator vlogs into booked appointments and VIP recurring memberships.',
+      stats: [
+        { label: 'Active LA Creators', value: '2,850+' },
+        { label: 'Avg. Booking ROAS', value: '4.1x' },
+        { label: 'First-Visit Conversions', value: '3.8%' },
+      ],
+      cases: [
+        {
+          brand: 'Lumina Skin & Spa',
+          industry: 'Luxury Facial Studio · West Hollywood',
+          creator: '@glowwithchloe_la (48.0K)',
+          metric: '52 First-Visit Bookings · 4.1x ROAS',
+          image:
+            'https://images.pexels.com/photos/3997993/pexels-photo-3997993.jpeg?auto=compress&cs=tinysrgb&w=800',
+          summary:
+            '4 LA skincare creators filmed "Sunday Reset" glass-skin hydro-facial vlogs with FTC-compliant cosmetic claims and $35-off booking codes.',
+          quote:
+            '“Bomie’s FTC pre-flight shield kept all our skincare scripts 100% compliant while filling our weekday treatment calendar.”',
+        },
+        {
+          brand: 'Forma Pilates Collective',
+          industry: 'Boutique Fitness · Melrose Place',
+          creator: '@santamonicaserenity (31.5K)',
+          metric: '64 New Monthly Memberships',
+          image:
+            'https://images.pexels.com/photos/4056535/pexels-photo-4056535.jpeg?auto=compress&cs=tinysrgb&w=800',
+          summary:
+            'Post-class matcha & reformer studio tours drove 64 high-retention intro class pack conversions in 10 days.',
+          quote:
+            '“Every creator matched our sunlit studio aesthetic to perfection. Best customer acquisition channel we have ever run.”',
+        },
+        {
+          brand: 'Silver Lake Elixir & Matcha',
+          industry: 'Wellness Beverage · Silver Lake',
+          creator: '@lafoodiediary (52.0K)',
+          metric: '78K Local Views · +42% Foot Traffic',
+          image:
+            'https://images.pexels.com/photos/5946968/pexels-photo-5946968.jpeg?auto=compress&cs=tinysrgb&w=800',
+          summary:
+            'Adaptogenic cloud-foam matcha reels went viral across East LA neighborhoods, doubling weekend afternoon store traffic.',
+          quote:
+            '“The QR voucher tracking let us see exact cup redemptions per creator in real time.”',
+        },
+        {
+          brand: 'Malibu Linen & Sun Atelier',
+          industry: 'Resort Apparel · Abbot Kinney, Venice',
+          creator: '@chloestylediary (28.1K)',
+          metric: '3.9x Pop-Up Store ROAS',
+          image:
+            'https://images.pexels.com/photos/1884581/pexels-photo-1884581.jpeg?auto=compress&cs=tinysrgb&w=800',
+          summary:
+            'Coastal try-on hauls inside the Venice flagship store drove both weekend foot traffic and direct Shopify orders.',
+          quote:
+            '“We turned 3 top creators into monthly brand ambassadors right inside the Bomie dashboard.”',
+        },
+      ],
     },
-    {
-      name: 'Kevin Liu',
-      role: 'Co-founder of GadgetPop (Shopify Gadget Store)',
-      quote:
-        'We used to waste hours just finding reliable creators. Bomie streamlined everything. From vetting to post scheduling, it saved us time and doubled ROI during our last product drop.',
+    seattle: {
+      id: 'seattle' as const,
+      name: 'Seattle',
+      tagline: 'Craft Espresso Roasters, Nordic-PNW Dining & Cozy Lifestyle',
+      heroImage:
+        'https://images.pexels.com/photos/3964406/pexels-photo-3964406.jpeg?auto=compress&cs=tinysrgb&w=1400',
+      overview:
+        'Across Capitol Hill, Ballard, Fremont, and South Lake Union, Seattle’s independent coffee roasters, neighborhood bistros, and wellness clubs partner with high-trust local creators to build year-round community loyalty.',
+      stats: [
+        { label: 'Active Seattle Creators', value: '980+' },
+        { label: 'Avg. Store-Visit ROAS', value: '3.7x' },
+        { label: 'Local Audience Density', value: '84%' },
+      ],
+      cases: [
+        {
+          brand: 'Pike & Pine Craft Roasters',
+          industry: 'Specialty Coffee · Capitol Hill',
+          creator: '@seattlecoffeeculture (29.4K)',
+          metric: '520+ Morning QR Scans · 3.9x ROAS',
+          image:
+            'https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&w=800',
+          summary:
+            'Rainy-morning pour-over & cardamom bun reels drove over 500 tracked commuter visits during a 7-day autumn drop.',
+          quote:
+            '“Seattleites trust authentic local voices over ads. Bomie connected us with the exact coffee creators our neighborhood follows.”',
+        },
+        {
+          brand: 'Ballard Fjord Bakery & Bistro',
+          industry: 'Nordic-PNW Dining · Ballard',
+          creator: '@pnwfoodiefinds (36.1K)',
+          metric: '+35% Rainy-Weekend Covers',
+          image:
+            'https://images.pexels.com/photos/205961/pexels-photo-205961.jpeg?auto=compress&cs=tinysrgb&w=800',
+          summary:
+            'Behind-the-scenes sourdough & smoked salmon brunch reels booked out weekend reservations two weeks in advance.',
+          quote:
+            '“The 30-second shot-list studio helped our creators capture our kitchen craft without disrupting service.”',
+        },
+        {
+          brand: 'Fremont Botanicals & Terrariums',
+          industry: 'Plant & Home Studio · Fremont',
+          creator: '@cozyseattlehome (16.5K)',
+          metric: '$5,400 Workshop & Retail Sales',
+          image:
+            'https://images.pexels.com/photos/4503273/pexels-photo-4503273.jpeg?auto=compress&cs=tinysrgb&w=800',
+          summary:
+            'Nano-creators hosted "Build Your Own Moss Terrarium" reels, converting viewers into weekend store visitors.',
+          quote:
+            '“Even nano-creators with 15K followers delivered incredible foot traffic because 85% of their audience lives in Seattle.”',
+        },
+        {
+          brand: 'Soundview Cold Plunge & Sauna',
+          industry: 'Contrast Therapy Club · South Lake Union',
+          creator: '@seattlewellness (24.0K)',
+          metric: '44 Intro Pass Conversions',
+          image:
+            'https://images.pexels.com/photos/6620862/pexels-photo-6620862.jpeg?auto=compress&cs=tinysrgb&w=800',
+          summary:
+            'Evening cedar sauna & cold plunge recovery vlogs attracted tech professionals within a 1-mile radius.',
+          quote:
+            '“From brief to payout took less than a week, with 3.5x return on our campaign spend.”',
+        },
+      ],
     },
-    {
-      name: 'Natalie Brooks',
-      role: 'Owner of Bloom Studio (Artisan Candle Brand)',
-      quote:
-        "What I love most is how personal everything feels. Our creators truly understood the brand. It wasn't just ads — it was storytelling. We built a loyal audience, not just buyers.",
+    vegas: {
+      id: 'vegas' as const,
+      name: 'Las Vegas',
+      tagline: 'Experiential Dining, Artisanal Dessert Lounges & Resort Day Spas',
+      heroImage:
+        'https://images.pexels.com/photos/415999/pexels-photo-415999.jpeg?auto=compress&cs=tinysrgb&w=1400',
+      overview:
+        'Beyond the Strip—across the Arts District, Summerlin, Chinatown, and Henderson—Las Vegas’s booming culinary spots, dessert lounges, and luxury med-spas use Bomie AI to capture both high-spending locals and weekend visitors.',
+      stats: [
+        { label: 'Active Vegas Creators', value: '1,150+' },
+        { label: 'Avg. Campaign ROAS', value: '4.2x' },
+        { label: 'Avg. Video Save Rate', value: '6.8%' },
+      ],
+      cases: [
+        {
+          brand: 'Koi Neon Izakaya & Grill',
+          industry: 'Experiential Dining · Arts District / Chinatown',
+          creator: '@vegasfoodieinsider (58.2K)',
+          metric: '95K Views · 4.4x Store-Visit ROAS',
+          image:
+            'https://images.pexels.com/photos/2098085/pexels-photo-2098085.jpeg?auto=compress&cs=tinysrgb&w=800',
+          summary:
+            'Tableside wagyu sear & craft mocktail reels drove 180+ tracked group dinner redemptions over a single weekend.',
+          quote:
+            '“Vegas is a visual city. Bomie’s AI matched us with creators whose nighttime food cinematography blew our doors off.”',
+        },
+        {
+          brand: 'Mirage Oasis Desert Spa',
+          industry: 'Luxury Recovery & Spa · Summerlin',
+          creator: '@vegasglowguide (33.0K)',
+          metric: '39 High-Ticket Package Bookings',
+          image:
+            'https://images.pexels.com/photos/3757942/pexels-photo-3757942.jpeg?auto=compress&cs=tinysrgb&w=800',
+          summary:
+            'Desert stone massage & hydration lounge tours generated $11,200 in verified package bookings.',
+          quote:
+            '“The automated FTC compliance gate gave our spa team total peace of mind while scaling creator partnerships.”',
+        },
+        {
+          brand: 'Velvet Crumb Pastry Lounge',
+          industry: 'Late-Night Dessert Bar · Spring Valley',
+          creator: '@sweettoothvegas (44.5K)',
+          metric: '380+ Weekend Voucher Scans',
+          image:
+            'https://images.pexels.com/photos/291528/pexels-photo-291528.jpeg?auto=compress&cs=tinysrgb&w=800',
+          summary:
+            'Pistachio kunefe crepe & espresso martini reels turned a neighborhood bakery into a late-night destination.',
+          quote:
+            '“Lines were out the door by Friday 9 PM, and customers were holding up their phones with the creator QR code.”',
+        },
+        {
+          brand: 'Desert Pulse Lagree & Matcha',
+          industry: 'Boutique Fitness · Henderson',
+          creator: '@fitinvegas (21.8K)',
+          metric: '58 New Class Pack Sign-Ups',
+          image:
+            'https://images.pexels.com/photos/4498606/pexels-photo-4498606.jpeg?auto=compress&cs=tinysrgb&w=800',
+          summary:
+            'Morning workout + iced collagen matcha bundle reels converted Henderson locals into recurring studio members.',
+          quote:
+            '“So simple to run—we posted the brief on Monday and had 4 incredible local videos live by Friday.”',
+        },
+      ],
     },
-  ];
+  };
+
+  const activeCityData = cityStories[selectedCity];
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#06060c] text-slate-50 selection:bg-violet-500 selection:text-white">
@@ -1041,40 +1287,158 @@ export default function BomieLandingPage() {
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="sticky top-0 z-50 border-b border-white/10 bg-[#06060c]/75 backdrop-blur-xl"
+        onMouseLeave={() => setOpenNavMenu(null)}
+        className="sticky top-0 z-50 border-b border-white/10 bg-[#06060c]/80 backdrop-blur-xl"
       >
-        <div className="mx-auto flex max-w-[1440px] items-center justify-between px-6 lg:px-10 py-3.5">
-          <a href="#" className="group flex items-center gap-3">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-tr from-violet-600 via-fuchsia-500 to-amber-400 font-extrabold text-white shadow-lg shadow-violet-500/30 transition-transform group-hover:scale-105">
+        <div className="mx-auto flex max-w-[1440px] items-center justify-between px-6 lg:px-10 py-4">
+          {/* 1. Slightly Larger Logo & Editorial Serif Italic Motto */}
+          <a href="#" className="group flex items-center gap-3.5">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-tr from-violet-600 via-fuchsia-500 to-amber-400 text-lg font-extrabold text-white shadow-lg shadow-violet-500/30 transition-transform group-hover:scale-105">
               B
             </div>
             <div className="flex flex-col">
-              <div className="flex items-center gap-2.5">
-                <span className="text-xl font-bold tracking-tight text-white">bomie.ai</span>
-                <span className="hidden h-3.5 w-[1px] bg-white/20 xl:inline-block" />
-                <span className="hidden font-[family-name:var(--font-playfair)] text-xs italic tracking-wide text-amber-200/90 xl:inline-block">
+              <div className="flex items-center gap-3">
+                <span className="text-2xl font-extrabold tracking-tight text-white">bomie.ai</span>
+                <span className="hidden h-4 w-[1px] bg-white/25 xl:inline-block" />
+                <span className="hidden font-[family-name:var(--font-playfair)] text-sm xl:text-[15px] italic tracking-wide text-amber-200/95 xl:inline-block">
                   Built for North America&apos;s 40M+ Small Businesses &amp; Local Creators
                 </span>
               </div>
-              <span className="font-[family-name:var(--font-playfair)] text-[11px] italic tracking-wide text-amber-200/85 xl:hidden">
-                For North America&apos;s 40M+ Businesses &amp; Creators
+              <span className="font-[family-name:var(--font-playfair)] text-xs italic tracking-wide text-amber-200/90 xl:hidden">
+                Built for North America&apos;s 40M+ Small Businesses &amp; Local Creators
               </span>
             </div>
           </a>
 
-          <nav className="hidden items-center gap-8 text-sm font-medium text-slate-300 lg:flex">
-            <a href="#how-it-works" className="transition hover:text-white">
-              How It Works
-            </a>
-            <a href="#os" className="transition hover:text-white">
-              Commerce OS
-            </a>
-            <a href="#stories" className="transition hover:text-white">
-              Success Stories
-            </a>
-            <a href="#faq" className="transition hover:text-white">
-              FAQ
-            </a>
+          {/* 2. Two Consolidated Center Dropdown Menus: [Commerce OS ▾] + [Success Stories ▾] */}
+          <nav className="hidden items-center gap-4 md:flex">
+            {/* Dropdown 1: Commerce OS */}
+            <div
+              className="relative"
+              onMouseEnter={() => setOpenNavMenu('os')}
+            >
+              <button
+                type="button"
+                onClick={() => setOpenNavMenu(openNavMenu === 'os' ? null : 'os')}
+                className="flex items-center gap-1.5 rounded-xl px-4 py-2 text-sm font-semibold text-slate-200 transition hover:bg-white/5 hover:text-white"
+              >
+                <span>Commerce OS</span>
+                <ChevronDown
+                  className={`h-4 w-4 text-slate-400 transition-transform duration-200 ${
+                    openNavMenu === 'os' ? 'rotate-180 text-violet-400' : ''
+                  }`}
+                />
+              </button>
+
+              <AnimatePresence>
+                {openNavMenu === 'os' && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 8 }}
+                    transition={{ duration: 0.18 }}
+                    className="absolute left-0 top-full pt-2 w-72 z-50"
+                  >
+                    <div className="rounded-2xl border border-white/15 bg-[#0c0c18]/95 p-2 shadow-2xl backdrop-blur-2xl space-y-1">
+                      <a
+                        href="#how-it-works"
+                        onClick={() => setOpenNavMenu(null)}
+                        className="flex items-start gap-3 rounded-xl p-3 transition hover:bg-white/10"
+                      >
+                        <Zap className="mt-0.5 h-4 w-4 shrink-0 text-violet-400" />
+                        <div>
+                          <div className="text-xs font-bold text-white">1. How It Works</div>
+                          <div className="text-[11px] text-slate-400">
+                            Interactive Merchant OS &amp; Creator Copilot
+                          </div>
+                        </div>
+                      </a>
+                      <a
+                        href="#os"
+                        onClick={() => setOpenNavMenu(null)}
+                        className="flex items-start gap-3 rounded-xl p-3 transition hover:bg-white/10"
+                      >
+                        <Repeat className="mt-0.5 h-4 w-4 shrink-0 text-fuchsia-400" />
+                        <div>
+                          <div className="text-xs font-bold text-white">2. Commerce OS</div>
+                          <div className="text-[11px] text-slate-400">
+                            360° Merchant ⇄ Creator Closed-Loop Circle
+                          </div>
+                        </div>
+                      </a>
+                      <a
+                        href="#faq"
+                        onClick={() => setOpenNavMenu(null)}
+                        className="flex items-start gap-3 rounded-xl p-3 transition hover:bg-white/10"
+                      >
+                        <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
+                        <div>
+                          <div className="text-xs font-bold text-white">3. FAQ</div>
+                          <div className="text-[11px] text-slate-400">
+                            Matching, Escrow &amp; FTC Compliance Answers
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            {/* Dropdown 2: Success Stories (4 Cities) */}
+            <div
+              className="relative"
+              onMouseEnter={() => setOpenNavMenu('stories')}
+            >
+              <button
+                type="button"
+                onClick={() => setOpenNavMenu(openNavMenu === 'stories' ? null : 'stories')}
+                className="flex items-center gap-1.5 rounded-xl px-4 py-2 text-sm font-semibold text-slate-200 transition hover:bg-white/5 hover:text-white"
+              >
+                <span>Success Stories</span>
+                <ChevronDown
+                  className={`h-4 w-4 text-slate-400 transition-transform duration-200 ${
+                    openNavMenu === 'stories' ? 'rotate-180 text-amber-400' : ''
+                  }`}
+                />
+              </button>
+
+              <AnimatePresence>
+                {openNavMenu === 'stories' && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 8 }}
+                    transition={{ duration: 0.18 }}
+                    className="absolute left-0 top-full pt-2 w-72 z-50"
+                  >
+                    <div className="rounded-2xl border border-white/15 bg-[#0c0c18]/95 p-2 shadow-2xl backdrop-blur-2xl space-y-1">
+                      {(
+                        [
+                          { id: 'sf', label: 'San Francisco', sub: 'Artisanal Dining, Matcha & Craft' },
+                          { id: 'la', label: 'Los Angeles', sub: 'Clean Beauty, Pilates & Boutiques' },
+                          { id: 'seattle', label: 'Seattle', sub: 'Specialty Roasters & PNW Bistros' },
+                          { id: 'vegas', label: 'Las Vegas', sub: 'Experiential Dining & Luxury Spas' },
+                        ] as const
+                      ).map((city) => (
+                        <button
+                          key={city.id}
+                          type="button"
+                          onClick={() => handleNavCitySelect(city.id)}
+                          className="flex w-full items-start gap-3 rounded-xl p-3 text-left transition hover:bg-white/10"
+                        >
+                          <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-amber-400" />
+                          <div>
+                            <div className="text-xs font-bold text-white">{city.label}</div>
+                            <div className="text-[11px] text-slate-400">{city.sub}</div>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </nav>
 
           <div className="flex items-center gap-3">
@@ -3002,207 +3366,438 @@ export default function BomieLandingPage() {
         </div>
       </section>
 
-      {/* Commerce OS - Interactive Glowing Bento Grid */}
+      {/* Commerce OS - 360° Closed-Loop Merchant ⇄ Creator Flywheel */}
       <section id="os" className="border-t border-white/10 py-24 scroll-mt-16">
         <div className="mx-auto max-w-[1440px] px-6 lg:px-10">
-          <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
-            <div className="max-w-2xl">
-              <span className="text-sm font-semibold uppercase tracking-wider text-violet-400">
-                Commerce OS
-              </span>
-              <h2 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
-                Everything you need to run local creator campaigns on autopilot
+          <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
+            <div className="max-w-3xl">
+              <div className="inline-flex items-center gap-2 rounded-full border border-violet-500/30 bg-violet-500/10 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-violet-300">
+                <Repeat className="h-3.5 w-3.5 text-fuchsia-400" />
+                <span>Commerce OS · 360° Closed-Loop Flywheel</span>
+              </div>
+              <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
+                Where Merchants &amp; Creators Power Each Other in One Complete Circle
               </h2>
+              <p className="mt-3 text-sm sm:text-base text-slate-400">
+                Every campaign step connects business growth with creator rewards — forming a self-reinforcing neighborhood commerce loop.
+              </p>
             </div>
-            <p className="text-xs font-mono text-slate-400">
-              Click any OS module to test it live in the sandbox &uarr;
-            </p>
+
+            {/* Visual Closed-Loop Circle Indicator */}
+            <div className="flex flex-wrap items-center gap-2 rounded-2xl border border-white/10 bg-slate-950/90 px-4 py-3 text-xs font-mono">
+              <span className="inline-flex items-center gap-1.5 text-violet-300 font-semibold">
+                <Store className="h-3.5 w-3.5" /> Merchant Brief
+              </span>
+              <span className="text-slate-600">&rarr;</span>
+              <span className="inline-flex items-center gap-1.5 text-fuchsia-300 font-semibold">
+                <Video className="h-3.5 w-3.5" /> Creator Story
+              </span>
+              <span className="text-slate-600">&rarr;</span>
+              <span className="inline-flex items-center gap-1.5 text-emerald-300 font-semibold">
+                <ShieldCheck className="h-3.5 w-3.5" /> Walk-In &amp; Payout
+              </span>
+              <span className="text-slate-600">&rarr;</span>
+              <span className="inline-flex items-center gap-1.5 text-amber-300 font-semibold">
+                <Repeat className="h-3.5 w-3.5" /> Repeat Loop ↺
+              </span>
+            </div>
           </div>
 
-          <div className="mt-12 grid gap-6 md:grid-cols-6">
-            <motion.div
-              onClick={() => jumpToOsStage('business', 1)}
-              whileHover={{ y: -4, borderColor: 'rgba(139, 92, 246, 0.5)' }}
-              className="group cursor-pointer rounded-3xl border border-white/10 bg-gradient-to-br from-slate-900 to-slate-950 p-8 transition-colors md:col-span-3"
-            >
-              <div className="flex items-center justify-between">
-                <Zap className="h-8 w-8 text-violet-400" />
-                <span className="font-mono text-xs text-violet-400 opacity-0 transition group-hover:opacity-100">
-                  Try in Stage 01 &rarr;
-                </span>
-              </div>
-              <h3 className="mt-4 text-xl font-bold">1. Smart Matching</h3>
-              <p className="mt-2 text-sm leading-relaxed text-slate-400">
-                Connect local businesses with the most relevant creators based on product category,
-                neighborhood audience, and visual style fit.
-              </p>
-            </motion.div>
-
-            <motion.div
-              onClick={() => jumpToOsStage('business', 3)}
-              whileHover={{ y: -4, borderColor: 'rgba(217, 70, 239, 0.5)' }}
-              className="group cursor-pointer rounded-3xl border border-white/10 bg-gradient-to-br from-slate-900 to-slate-950 p-8 transition-colors md:col-span-3"
-            >
-              <div className="flex items-center justify-between">
-                <Layers className="h-8 w-8 text-fuchsia-400" />
-                <span className="font-mono text-xs text-fuchsia-400 opacity-0 transition group-hover:opacity-100">
-                  Try in Stage 03 &rarr;
-                </span>
-              </div>
-              <h3 className="mt-4 text-xl font-bold">2. Campaign Studio</h3>
-              <p className="mt-2 text-sm leading-relaxed text-slate-400">
-                Design campaign briefs, generate 30s A/B video hooks, approve drafts, and enforce FTC
-                compliance — all in one unified workspace.
-              </p>
-            </motion.div>
-
-            <motion.div
-              onClick={() => jumpToOsStage('business', 4)}
-              whileHover={{ y: -4, borderColor: 'rgba(251, 191, 36, 0.4)' }}
-              className="group cursor-pointer rounded-3xl border border-white/10 bg-slate-950 p-7 transition-colors md:col-span-2"
-            >
-              <div className="flex items-center justify-between">
-                <BarChart3 className="h-7 w-7 text-amber-400" />
-                <span className="font-mono text-xs text-amber-400 opacity-0 transition group-hover:opacity-100">
-                  Try ROI Sim &rarr;
-                </span>
-              </div>
-              <h3 className="mt-4 text-lg font-bold">3. Business Boost</h3>
-              <p className="mt-2 text-sm text-slate-400">
-                Gain visibility across TikTok, Instagram, and Shorts with live conversion data and
-                in-store QR voucher plug-ins.
-              </p>
-            </motion.div>
-
-            <motion.div
-              onClick={() => jumpToOsStage('creator', 4)}
-              whileHover={{ y: -4, borderColor: 'rgba(52, 211, 153, 0.4)' }}
-              className="group cursor-pointer rounded-3xl border border-white/10 bg-slate-950 p-7 transition-colors md:col-span-2"
-            >
-              <div className="flex items-center justify-between">
-                <Gift className="h-7 w-7 text-emerald-400" />
-                <span className="font-mono text-xs text-emerald-400 opacity-0 transition group-hover:opacity-100">
-                  Try Creator Wallet &rarr;
-                </span>
-              </div>
-              <h3 className="mt-4 text-lg font-bold">4. Creative Rewards</h3>
-              <p className="mt-2 text-sm text-slate-400">
-                Incentivize creators based on reach, engagement, or sales — auto-triggering 30/40/30
-                escrow milestones and product drops.
-              </p>
-            </motion.div>
-
-            <motion.div
-              onClick={() => jumpToOsStage('creator', 1)}
-              whileHover={{ y: -4, borderColor: 'rgba(56, 189, 248, 0.4)' }}
-              className="group cursor-pointer rounded-3xl border border-white/10 bg-slate-950 p-7 transition-colors md:col-span-2"
-            >
-              <div className="flex items-center justify-between">
-                <Repeat className="h-7 w-7 text-sky-400" />
-                <span className="font-mono text-xs text-sky-400 opacity-0 transition group-hover:opacity-100">
-                  Try Creator Radar &rarr;
-                </span>
-              </div>
-              <h3 className="mt-4 text-lg font-bold">5. Brand Loop</h3>
-              <p className="mt-2 text-sm text-slate-400">
-                Turn top-performing creators into long-term brand ambassadors with repeat
-                dashboards and exclusive perks.
-              </p>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <section id="stories" className="border-t border-white/10 bg-slate-900/20 py-24">
-        <div className="mx-auto max-w-[1440px] px-6 lg:px-10">
-          <div className="text-center">
-            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-              Trusted by Local Businesses
-            </h2>
-            <p className="mt-3 text-slate-400">
-              Real stories from founders turning neighborhood creators into steady revenue.
-            </p>
-          </div>
-
-          <div className="mt-12 grid gap-6 md:grid-cols-2">
-            {testimonials.map((item, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.08 }}
-                whileHover={{ y: -4 }}
-                className="flex flex-col justify-between rounded-3xl border border-white/10 bg-slate-950 p-7"
-              >
-                <div>
-                  <div className="flex items-center gap-1 text-amber-400">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="h-4 w-4 fill-current" />
-                    ))}
-                    <span className="ml-2 text-xs font-semibold text-slate-300">5.0</span>
-                  </div>
-                  <p className="mt-4 text-sm leading-relaxed text-slate-300">
-                    &ldquo;{item.quote}&rdquo;
-                  </p>
-                </div>
-                <div className="mt-6 border-t border-white/10 pt-4">
-                  <div className="font-semibold text-white">{item.name}</div>
-                  <div className="text-xs text-slate-400">{item.role}</div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Smooth Animated FAQ Accordion */}
-      <section id="faq" className="border-t border-white/10 pt-20 pb-8">
-        <div className="mx-auto max-w-5xl px-6">
-          <div className="text-center">
-            <h2 className="text-3xl font-bold tracking-tight">Frequently Asked Questions</h2>
-            <p className="mt-3 text-slate-400">
-              Everything you need to know about launching or creating on Bomie.
-            </p>
-          </div>
-
-          <div className="mt-10 space-y-4">
-            {faqs.map((faq, idx) => {
-              const isOpen = openFaq === idx;
+          {/* 6-Node Closed-Loop Circle Bento Grid (Each Card Shows Both Merchant & Creator Sides) */}
+          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {[
+              {
+                step: 'NODE 01 · SMART MATCHING',
+                title: '1. Hyper-Local AI Matching',
+                icon: Zap,
+                iconColor: 'text-violet-400',
+                borderHover: 'rgba(139, 92, 246, 0.5)',
+                merchantSide: 'Auto-discovers vetted neighborhood creators whose local audience matches your store vibe.',
+                creatorSide: 'Receives pre-funded paid invites in your inbox with zero cold DMs or pitch decks.',
+                action: () => jumpToOsStage('business', 1),
+                actionLabel: 'Test Matching →',
+              },
+              {
+                step: 'NODE 02 · CO-CREATION STUDIO',
+                title: '2. 30s Script & Shot Copilot',
+                icon: Layers,
+                iconColor: 'text-fuchsia-400',
+                borderHover: 'rgba(217, 70, 239, 0.5)',
+                merchantSide: 'Turns raw store photos into structured deliverables, A/B hooks, and promo codes.',
+                creatorSide: 'Adapts talking points to your authentic voice (Vlog, ASMR, or Top-3) with a 4-shot checklist.',
+                action: () => jumpToOsStage('creator', 2),
+                actionLabel: 'Test Script Copilot →',
+              },
+              {
+                step: 'NODE 03 · GOVERNANCE & ESCROW',
+                title: '3. 3-Agent FTC & Escrow Shield',
+                icon: ShieldCheck,
+                iconColor: 'text-emerald-400',
+                borderHover: 'rgba(52, 211, 153, 0.5)',
+                merchantSide: 'Locks 30/40/30 milestone escrow and audits claims for FTC 16 CFR Part 255 safety.',
+                creatorSide: 'Guarantees 70% payout unlock by draft approval and protects your account from shadowbans.',
+                action: () => jumpToOsStage('business', 2),
+                actionLabel: 'Test FTC Shield →',
+              },
+              {
+                step: 'NODE 04 · OMNI-CHANNEL BOOST',
+                title: '4. Walk-In & QR Attribution',
+                icon: BarChart3,
+                iconColor: 'text-amber-400',
+                borderHover: 'rgba(251, 191, 36, 0.5)',
+                merchantSide: 'Tracks real-time TikTok/Reels views, QR voucher scans, and POS walk-in redemptions.',
+                creatorSide: 'Live attribution dashboard proves your real-world foot-traffic impact to brands.',
+                action: () => jumpToOsStage('business', 4),
+                actionLabel: 'Test ROI Simulator →',
+              },
+              {
+                step: 'NODE 05 · INSTANT REWARDS',
+                title: '5. Escrow Release & Viral Bonuses',
+                icon: Wallet,
+                iconColor: 'text-emerald-300',
+                borderHover: 'rgba(52, 211, 153, 0.5)',
+                merchantSide: 'Final 30% payout + performance bonus releases only after verified compliant post.',
+                creatorSide: 'Instant $0-fee cash out to Stripe/Venmo plus uncapped per-redemption walk-in bonuses.',
+                action: () => jumpToOsStage('creator', 4),
+                actionLabel: 'Test Creator Wallet →',
+              },
+              {
+                step: 'NODE 06 · CLOSED-LOOP FLYWHEEL ↺',
+                title: '6. Repeat Brand Ambassador Loop',
+                icon: Repeat,
+                iconColor: 'text-sky-400',
+                borderHover: 'rgba(56, 189, 248, 0.5)',
+                merchantSide: 'Automatically converts top-converting creators into monthly recurring store partners.',
+                creatorSide: 'Unlocks recurring monthly retainers and VIP store perks from your favorite local spots.',
+                action: () => jumpToOsStage('creator', 1),
+                actionLabel: 'Complete the Circle ↺',
+              },
+            ].map((node, i) => {
+              const IconComp = node.icon;
               return (
-                <div
-                  key={idx}
-                  className="overflow-hidden rounded-2xl border border-white/10 bg-slate-950"
+                <motion.div
+                  key={i}
+                  onClick={node.action}
+                  whileHover={{ y: -5, borderColor: node.borderHover }}
+                  className="group cursor-pointer flex flex-col justify-between rounded-3xl border border-white/10 bg-gradient-to-br from-slate-900/95 to-slate-950 p-7 transition-all"
                 >
-                  <button
-                    onClick={() => setOpenFaq(isOpen ? null : idx)}
-                    className="flex w-full items-center justify-between px-6 py-5 text-left font-semibold text-white transition hover:bg-white/5"
-                  >
-                    <span>{faq.q}</span>
-                    <ChevronDown
-                      className={`h-5 w-5 shrink-0 text-slate-400 transition-transform duration-300 ${
-                        isOpen ? 'rotate-180' : ''
-                      }`}
-                    />
-                  </button>
-                  <AnimatePresence initial={false}>
-                    {isOpen && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.25 }}
-                      >
-                        <div className="border-t border-white/5 px-6 py-4 text-sm leading-relaxed text-slate-400">
-                          {faq.a}
+                  <div>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2.5">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/5">
+                          <IconComp className={`h-5 w-5 ${node.iconColor}`} />
                         </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
+                        <span className="font-mono text-[11px] font-bold tracking-wider text-slate-400">
+                          {node.step}
+                        </span>
+                      </div>
+                      <span className="font-mono text-xs text-violet-300 opacity-0 transition group-hover:opacity-100">
+                        {node.actionLabel}
+                      </span>
+                    </div>
+
+                    <h3 className="mt-4 text-xl font-bold text-white">{node.title}</h3>
+
+                    <div className="mt-4 space-y-2.5 text-xs">
+                      <div className="rounded-xl border border-violet-500/20 bg-violet-500/10 p-3">
+                        <div className="font-mono text-[10px] font-bold uppercase text-violet-300">
+                          🏪 Merchant Side
+                        </div>
+                        <p className="mt-1 leading-relaxed text-slate-200">{node.merchantSide}</p>
+                      </div>
+                      <div className="rounded-xl border border-fuchsia-500/20 bg-fuchsia-500/10 p-3">
+                        <div className="font-mono text-[10px] font-bold uppercase text-fuchsia-300">
+                          🎬 Creator Side
+                        </div>
+                        <p className="mt-1 leading-relaxed text-slate-200">{node.creatorSide}</p>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* Success Stories — 4 City Hubs (San Francisco, Los Angeles, Seattle, Las Vegas) */}
+      <section id="stories" className="border-t border-white/10 bg-slate-900/20 py-24 scroll-mt-16">
+        <div className="mx-auto max-w-[1440px] px-6 lg:px-10">
+          <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
+            <div>
+              <span className="text-sm font-semibold uppercase tracking-wider text-amber-300">
+                City Success Stories
+              </span>
+              <h2 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
+                Proven Across North America&apos;s Cultural Hubs
+              </h2>
+              <p className="mt-2 text-slate-400">
+                Select a city to view its local commerce overview, then click the city card to unfold 4 verified brand collaborations.
+              </p>
+            </div>
+
+            {/* 4 City Tabs */}
+            <div className="inline-flex flex-wrap gap-2 rounded-2xl border border-white/10 bg-slate-950 p-1.5">
+              {(
+                [
+                  { id: 'sf', label: 'San Francisco' },
+                  { id: 'la', label: 'Los Angeles' },
+                  { id: 'seattle', label: 'Seattle' },
+                  { id: 'vegas', label: 'Las Vegas' },
+                ] as const
+              ).map((c) => {
+                const active = selectedCity === c.id;
+                return (
+                  <button
+                    key={c.id}
+                    type="button"
+                    onClick={() => {
+                      setSelectedCity(c.id);
+                      setCityExpanded(false);
+                    }}
+                    className={`rounded-xl px-4 py-2.5 text-xs sm:text-sm font-semibold transition ${
+                      active
+                        ? 'bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white shadow-md'
+                        : 'text-slate-400 hover:text-white'
+                    }`}
+                  >
+                    {c.label}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Step 1: City Overview Card (Click to Expand/Collapse 4 Illustrated Brand Collaborations) */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeCityData.id}
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -14 }}
+              transition={{ duration: 0.3 }}
+              className="mt-10 space-y-6"
+            >
+              <div
+                onClick={() => setCityExpanded(!cityExpanded)}
+                className="group cursor-pointer overflow-hidden rounded-3xl border border-white/15 bg-slate-950 shadow-2xl transition hover:border-violet-500/50"
+              >
+                <div className="grid grid-cols-1 lg:grid-cols-12">
+                  {/* City Visual Banner */}
+                  <div className="relative h-64 sm:h-80 lg:h-auto lg:col-span-5 overflow-hidden">
+                    <img
+                      src={activeCityData.heroImage}
+                      alt={activeCityData.name}
+                      className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-[#090912]" />
+                    <div className="absolute bottom-5 left-6">
+                      <span className="inline-flex items-center gap-1.5 rounded-full bg-black/65 px-3 py-1 font-mono text-xs text-amber-300 backdrop-blur-md border border-white/15">
+                        <MapPin className="h-3.5 w-3.5" />
+                        {activeCityData.name} Hub
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* City Overview Details & Expand Trigger */}
+                  <div className="flex flex-col justify-between p-7 sm:p-10 lg:col-span-7 bg-[#090912]">
+                    <div className="space-y-4">
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <span className="font-mono text-xs uppercase tracking-widest text-violet-400">
+                          {activeCityData.tagline}
+                        </span>
+                        <span className="rounded-full bg-emerald-500/15 px-3 py-1 font-mono text-xs font-semibold text-emerald-300">
+                          4 Verified Case Studies
+                        </span>
+                      </div>
+                      <h3 className="text-3xl sm:text-4xl font-extrabold text-white">
+                        {activeCityData.name} Creator Commerce Ecosystem
+                      </h3>
+                      <p className="text-sm sm:text-base leading-relaxed text-slate-300">
+                        {activeCityData.overview}
+                      </p>
+
+                      <div className="grid grid-cols-3 gap-4 pt-2">
+                        {activeCityData.stats.map((st, i) => (
+                          <div
+                            key={i}
+                            className="rounded-2xl border border-white/10 bg-white/[0.03] p-3.5"
+                          >
+                            <div className="font-mono text-xl sm:text-2xl font-bold text-white">
+                              {st.value}
+                            </div>
+                            <div className="text-xs text-slate-400 mt-0.5">{st.label}</div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="mt-7 flex items-center justify-between border-t border-white/10 pt-5">
+                      <span className="text-xs font-mono text-slate-400">
+                        {cityExpanded
+                          ? `Showing all 4 ${activeCityData.name} merchant collaborations below`
+                          : `Click to unfold 4 ${activeCityData.name} brand case studies`}
+                      </span>
+                      <button
+                        type="button"
+                        className="inline-flex items-center gap-2 rounded-xl bg-white px-5 py-2.5 text-xs font-bold text-slate-950 shadow-md transition group-hover:bg-amber-200"
+                      >
+                        <span>
+                          {cityExpanded
+                            ? `Hide ${activeCityData.name} Case Studies`
+                            : `Explore 4 ${activeCityData.name} Brand Stories`}
+                        </span>
+                        <ChevronDown
+                          className={`h-4 w-4 transition-transform duration-300 ${
+                            cityExpanded ? 'rotate-180' : ''
+                          }`}
+                        />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Step 2: Expandable 4 Illustrated Local Brand Case Studies */}
+              <AnimatePresence>
+                {cityExpanded && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.35 }}
+                    className="overflow-hidden"
+                  >
+                    <div className="grid gap-6 pt-2 md:grid-cols-2">
+                      {activeCityData.cases.map((cs, idx) => (
+                        <motion.div
+                          key={cs.brand}
+                          initial={{ opacity: 0, y: 16 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: idx * 0.06 }}
+                          className="overflow-hidden rounded-3xl border border-white/10 bg-slate-950 flex flex-col justify-between shadow-xl"
+                        >
+                          <div>
+                            <div className="relative h-52 w-full overflow-hidden">
+                              <img
+                                src={cs.image}
+                                alt={cs.brand}
+                                className="h-full w-full object-cover"
+                              />
+                              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
+                              <div className="absolute top-4 left-4 rounded-full bg-black/65 px-3 py-1 font-mono text-[11px] text-white backdrop-blur-md border border-white/15">
+                                {cs.industry}
+                              </div>
+                              <div className="absolute bottom-3 left-5 right-5 flex items-end justify-between">
+                                <h4 className="text-xl font-bold text-white">{cs.brand}</h4>
+                                <span className="rounded-full bg-emerald-500/20 border border-emerald-500/40 px-3 py-1 font-mono text-xs font-bold text-emerald-300">
+                                  {cs.metric}
+                                </span>
+                              </div>
+                            </div>
+
+                            <div className="p-6 space-y-3">
+                              <div className="flex items-center justify-between text-xs">
+                                <span className="text-violet-300 font-semibold">
+                                  Matched Lead Creator: {cs.creator}
+                                </span>
+                                <div className="flex items-center gap-0.5 text-amber-400">
+                                  {[...Array(5)].map((_, sIdx) => (
+                                    <Star key={sIdx} className="h-3.5 w-3.5 fill-current" />
+                                  ))}
+                                </div>
+                              </div>
+                              <p className="text-xs sm:text-sm leading-relaxed text-slate-300">
+                                {cs.summary}
+                              </p>
+                              <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-3.5 text-xs italic text-slate-400">
+                                {cs.quote}
+                              </div>
+                            </div>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </section>
+
+      {/* Right-Aligned Widescreen FAQ Accordion (1 Primary FAQ + [More] Trigger) */}
+      <section id="faq" className="border-t border-white/10 pt-20 pb-8 scroll-mt-16">
+        <div className="mx-auto max-w-[1440px] px-6 lg:px-10">
+          <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 items-start">
+            {/* Left Column: Section Heading */}
+            <div className="lg:col-span-4 space-y-3">
+              <span className="font-mono text-xs font-semibold uppercase tracking-widest text-violet-400">
+                Got Questions?
+              </span>
+              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+                Frequently Asked Questions
+              </h2>
+              <p className="text-sm leading-relaxed text-slate-400">
+                Everything you need to know about launching or creating on Bomie AI.
+              </p>
+            </div>
+
+            {/* Right Column: Aligned to Right Edge of 1440px Grid, Showing 1st FAQ + [More] Button */}
+            <div className="lg:col-span-8 space-y-4">
+              {(showAllFaqs ? faqs : faqs.slice(0, 1)).map((faq, idx) => {
+                const isOpen = openFaq === idx;
+                return (
+                  <div
+                    key={idx}
+                    className="overflow-hidden rounded-2xl border border-white/10 bg-slate-950"
+                  >
+                    <button
+                      onClick={() => setOpenFaq(isOpen ? null : idx)}
+                      className="flex w-full items-center justify-between px-6 py-5 text-left font-semibold text-white transition hover:bg-white/5"
+                    >
+                      <span>{faq.q}</span>
+                      <ChevronDown
+                        className={`h-5 w-5 shrink-0 text-slate-400 transition-transform duration-300 ${
+                          isOpen ? 'rotate-180' : ''
+                        }`}
+                      />
+                    </button>
+                    <AnimatePresence initial={false}>
+                      {isOpen && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.25 }}
+                        >
+                          <div className="border-t border-white/5 px-6 py-4 text-sm leading-relaxed text-slate-400">
+                            {faq.a}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              })}
+
+              <div className="flex justify-end pt-1">
+                <button
+                  type="button"
+                  onClick={() => setShowAllFaqs(!showAllFaqs)}
+                  className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/5 px-5 py-2.5 text-xs font-semibold text-slate-200 transition hover:border-violet-400/50 hover:bg-white/10 hover:text-white"
+                >
+                  <span>
+                    {showAllFaqs ? 'Show Less' : `More (${faqs.length - 1} More Questions)`}
+                  </span>
+                  <ChevronDown
+                    className={`h-4 w-4 transition-transform duration-300 ${
+                      showAllFaqs ? 'rotate-180' : ''
+                    }`}
+                  />
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </section>
