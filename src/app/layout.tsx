@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Bomie AI — Where Local Businesses Meet Booming Creators",
+  title: "No.1 Small Business & Creators Platform | Bomie AI",
   description:
-    "Autonomous Merchant-Creator Campaign Orchestrator powered by multimodal AI matching, 3-agent FTC compliance governance, and milestone escrow.",
+    "The first platform in North America for local businesses and local creators — AI smart matching, autonomous campaign orchestration, and built-in FTC compliance.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
