@@ -837,6 +837,11 @@ export default function BomieLandingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const [selectedCity, setSelectedCity] = useState<'sf' | 'la' | 'seattle' | 'vegas'>('sf');
   const [cityExpanded, setCityExpanded] = useState<boolean>(false);
+  const [sandboxViewMode, setSandboxViewMode] = useState<'simple' | 'pro'>('simple');
+  const [simplePresetIdx, setSimplePresetIdx] = useState<number>(0);
+  const [simpleCustomPrompt, setSimpleCustomPrompt] = useState<string>(
+    'I run a Sichuan restaurant in San Francisco with a $1,800 budget. Match 4 local foodie creators to drive weekend dine-in traffic.'
+  );
 
   // ==========================================
   // 3. FLOATING BOMIE AI FAQ CHATBOT STATE
@@ -2312,45 +2317,349 @@ export default function BomieLandingPage() {
             </p>
 
             {/* Shared Layout Spring Pill: I'm a Merchant vs I'm a Creator */}
-            <div className="mt-8 inline-flex rounded-2xl border border-white/10 bg-slate-950 p-1.5">
-              {(['business', 'creator'] as const).map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className="relative rounded-xl px-6 py-2.5 text-sm font-semibold transition-colors"
-                >
-                  {activeTab === tab && (
-                    <motion.span
-                      layoutId="activeWorkflowTab"
-                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                      className={`absolute inset-0 rounded-xl ${
-                        tab === 'business' ? 'bg-violet-600' : 'bg-fuchsia-600'
-                      }`}
-                    />
-                  )}
-                  <span
-                    className={`relative z-10 flex items-center gap-2 ${
-                      activeTab === tab ? 'text-white' : 'text-slate-400 hover:text-white'
-                    }`}
+            <div className="mt-8 flex flex-col items-center gap-4">
+              <div className="inline-flex rounded-2xl border border-white/10 bg-slate-950 p-1.5">
+                {(['business', 'creator'] as const).map((tab) => (
+                  <button
+                    key={tab}
+                    onClick={() => setActiveTab(tab)}
+                    className="relative rounded-xl px-6 py-2.5 text-sm font-semibold transition-colors"
                   >
-                    {tab === 'business' ? (
-                      <>
-                        <Store className="h-4 w-4" />
-                        I&apos;m a Merchant (Campaign OS)
-                      </>
-                    ) : (
-                      <>
-                        <Video className="h-4 w-4" />
-                        I&apos;m a Creator (Creator Copilot)
-                      </>
+                    {activeTab === tab && (
+                      <motion.span
+                        layoutId="activeWorkflowTab"
+                        transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                        className={`absolute inset-0 rounded-xl ${
+                          tab === 'business' ? 'bg-violet-600' : 'bg-fuchsia-600'
+                        }`}
+                      />
                     )}
-                  </span>
+                    <span
+                      className={`relative z-10 flex items-center gap-2 ${
+                        activeTab === tab ? 'text-white' : 'text-slate-400 hover:text-white'
+                      }`}
+                    >
+                      {tab === 'business' ? (
+                        <>
+                          <Store className="h-4 w-4" />
+                          I&apos;m a Merchant
+                        </>
+                      ) : (
+                        <>
+                          <Video className="h-4 w-4" />
+                          I&apos;m a Creator
+                        </>
+                      )}
+                    </span>
+                  </button>
+                ))}
+              </div>
+
+              {/* Simple Chat Mode vs Pro 4-Stage Cockpit Switch */}
+              <div className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/[0.03] p-1 text-xs">
+                <button
+                  type="button"
+                  onClick={() => setSandboxViewMode('simple')}
+                  className={`rounded-full px-3.5 py-1.5 font-semibold transition ${
+                    sandboxViewMode === 'simple'
+                      ? 'bg-white text-slate-950 shadow-sm'
+                      : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  ✨ Simple Chat Mode (Recommended)
                 </button>
-              ))}
+                <button
+                  type="button"
+                  onClick={() => setSandboxViewMode('pro')}
+                  className={`rounded-full px-3.5 py-1.5 font-semibold transition ${
+                    sandboxViewMode === 'pro'
+                      ? 'bg-violet-600 text-white shadow-sm'
+                      : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  ⚙️ Pro 4-Stage Cockpit
+                </button>
+              </div>
             </div>
           </div>
 
-          <AnimatePresence mode="wait">
+          {sandboxViewMode === 'simple' ? (
+            /* ==============================================================
+               CHAT-FIRST SIMPLE MODE (ZERO-ANXIETY SMB & CREATOR EXPERIENCE)
+               ============================================================== */
+            <motion.div
+              key={`simple-${activeTab}`}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+              className="mx-auto mt-10 max-w-4xl space-y-6"
+            >
+              {/* Conversational Prompt Box */}
+              <div className="rounded-3xl border border-violet-400/30 bg-slate-950/90 p-5 sm:p-7 shadow-2xl shadow-violet-950/40">
+                <div className="flex items-center justify-between gap-2 mb-3">
+                  <span className="flex items-center gap-2 text-xs font-semibold text-violet-300">
+                    <Sparkles className="h-4 w-4 text-amber-300" />
+                    {activeTab === 'business'
+                      ? 'Tell Bomie AI what you want to promote — no technical setup needed'
+                      : 'Tell Bomie AI your neighborhood & style — see paid local deals waiting for you'}
+                  </span>
+                  <span className="hidden sm:inline-flex rounded-full border border-emerald-400/30 bg-emerald-500/10 px-2.5 py-0.5 text-[10px] font-bold text-emerald-300">
+                    MVP: $0 Platform Fee
+                  </span>
+                </div>
+
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    setSimplePresetIdx((prev) => (prev + 1) % 3);
+                  }}
+                  className="flex flex-col sm:flex-row gap-3"
+                >
+                  <input
+                    type="text"
+                    value={simpleCustomPrompt}
+                    onChange={(e) => setSimpleCustomPrompt(e.target.value)}
+                    placeholder={
+                      activeTab === 'business'
+                        ? 'e.g., I run a brunch cafe in Seattle with $1,000 budget...'
+                        : 'e.g., I am a 15K foodie creator in Los Angeles...'
+                    }
+                    className="flex-1 rounded-2xl border border-white/15 bg-white/[0.04] px-4 py-3.5 text-sm text-white placeholder-slate-500 focus:border-violet-400 focus:outline-none"
+                  />
+                  <button
+                    type="submit"
+                    className="inline-flex shrink-0 items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-violet-600 to-fuchsia-600 px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-violet-600/25 transition hover:opacity-95"
+                  >
+                    <Sparkles className="h-4 w-4" />
+                    Generate Plan
+                  </button>
+                </form>
+
+                {/* 3 One-Click Example Chips */}
+                <div className="mt-3.5 flex flex-wrap items-center gap-2">
+                  <span className="text-[11px] text-slate-500">Try an example:</span>
+                  {(activeTab === 'business'
+                    ? [
+                        {
+                          label: '🍜 SF Restaurant ($1,800)',
+                          prompt:
+                            'I run a Sichuan restaurant in San Francisco with a $1,800 budget. Match 4 local foodie creators for weekend dine-in traffic.',
+                        },
+                        {
+                          label: '✨ LA Skin & Spa ($2,200)',
+                          prompt:
+                            'I own a facial spa in Los Angeles with a $2,200 budget. Match 3 local beauty creators for new client bookings.',
+                        },
+                        {
+                          label: '🕯️ Local Craft Shop ($800)',
+                          prompt:
+                            'I sell handmade soy candles locally with an $800 budget. Match 3 neighborhood lifestyle creators.',
+                        },
+                      ]
+                    : [
+                        {
+                          label: '🍜 @sfnoodleclub (34.2K)',
+                          prompt:
+                            'I am a 34K food & lifestyle creator in San Francisco looking for paid local restaurant collaborations.',
+                        },
+                        {
+                          label: '✨ @glowwithchloe_la (28.1K)',
+                          prompt:
+                            'I create clean beauty & wellness reels in Los Angeles and want recurring spa & boutique retainers.',
+                        },
+                        {
+                          label: '🏠 @cozyhomewithsam (14.8K)',
+                          prompt:
+                            'I am a 14K home & craft nano-creator looking for zero-cold-DM paid local brand deals.',
+                        },
+                      ]
+                  ).map((chip, idx) => (
+                    <button
+                      key={chip.label}
+                      type="button"
+                      onClick={() => {
+                        setSimplePresetIdx(idx);
+                        setSimpleCustomPrompt(chip.prompt);
+                      }}
+                      className={`rounded-full border px-3 py-1 text-xs font-medium transition ${
+                        simplePresetIdx === idx
+                          ? 'border-violet-400/60 bg-violet-500/20 text-white'
+                          : 'border-white/10 bg-white/[0.03] text-slate-300 hover:bg-white/10'
+                      }`}
+                    >
+                      {chip.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Single Clean Visual Result Card */}
+              <div className="rounded-3xl border border-white/15 bg-gradient-to-br from-slate-900/95 via-[#0d0a1a] to-slate-950 p-6 sm:p-8 shadow-2xl">
+                {activeTab === 'business' ? (
+                  (() => {
+                    const presets = [
+                      {
+                        title: 'Sichuan Bistro SF · Weekend Dine-In Plan',
+                        matched: '4 Local SF Foodie Creators (0.6–1.8 mi away)',
+                        reach: '52,000+ Local Views · Est. 114 Dine-In Tables',
+                        roas: '3.29x Projected ROAS',
+                        budget: '$1,800 Creator Budget · $0 Platform Fee (MVP Free)',
+                      },
+                      {
+                        title: 'Lumina Skin & Spa LA · Client Booking Plan',
+                        matched: '3 Verified LA Beauty & Wellness Creators',
+                        reach: '41,000+ Targeted Views · Est. 68 Bookings',
+                        roas: '3.55x Projected ROAS',
+                        budget: '$2,200 Creator Budget · $0 Platform Fee (MVP Free)',
+                      },
+                      {
+                        title: 'Bloom Studio Candles · Neighborhood Drop Plan',
+                        matched: '3 Cozy Home Nano-Creators (0.5–2.1 mi away)',
+                        reach: '28,000+ Local Views · Tracked In-Store QR Codes',
+                        roas: '3.40x Projected ROAS',
+                        budget: '$800 Creator Budget · $0 Platform Fee (MVP Free)',
+                      },
+                    ];
+                    const p = presets[simplePresetIdx % presets.length];
+                    return (
+                      <div className="space-y-6">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-5">
+                          <div>
+                            <span className="font-mono text-[11px] uppercase tracking-wider text-emerald-400">
+                              ✓ Ready in 30 Seconds · FTC Compliant &amp; Escrow Protected
+                            </span>
+                            <h3 className="mt-1 text-xl sm:text-2xl font-bold text-white">
+                              {p.title}
+                            </h3>
+                          </div>
+                          <span className="self-start rounded-full border border-amber-300/40 bg-amber-400/15 px-3.5 py-1 text-xs font-bold text-amber-200">
+                            {p.roas}
+                          </span>
+                        </div>
+
+                        <div className="grid gap-4 sm:grid-cols-3">
+                          <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+                            <div className="text-xs text-slate-400">1. AI Matched Creators</div>
+                            <div className="mt-1.5 text-sm font-bold text-white">{p.matched}</div>
+                          </div>
+                          <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+                            <div className="text-xs text-slate-400">2. Expected Neighborhood Impact</div>
+                            <div className="mt-1.5 text-sm font-bold text-emerald-300">{p.reach}</div>
+                          </div>
+                          <div className="rounded-2xl border border-violet-400/30 bg-violet-500/10 p-4">
+                            <div className="text-xs text-violet-200">3. Transparent Cost &amp; Terms</div>
+                            <div className="mt-1.5 text-sm font-bold text-white">{p.budget}</div>
+                            <div className="mt-1 text-[11px] text-slate-300">
+                              100% refundable before creator accepts
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
+                          <button
+                            type="button"
+                            onClick={() => setSandboxViewMode('pro')}
+                            className="text-xs font-semibold text-violet-300 underline hover:text-white"
+                          >
+                            Want to inspect scripts, FTC checks &amp; ROI sliders? Open Pro 4-Stage Cockpit →
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setDemoSubmitted(false);
+                              setDemoError('');
+                              setShowDemoModal(true);
+                            }}
+                            className="w-full sm:w-auto rounded-xl bg-white px-6 py-3 text-sm font-bold text-slate-950 shadow-lg transition hover:bg-amber-50"
+                          >
+                            Launch Free MVP Campaign →
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })()
+                ) : (
+                  (() => {
+                    const cPresets = [
+                      {
+                        handle: '@sfnoodleclub (34.2K) · San Francisco',
+                        deals: '3 Nearby Paid Offers ($380–$520 + Free Tasting)',
+                        payout: 'Instant Stripe / Apple Pay Payout · 0% Creator Fee',
+                        script: 'AI 30s Script & FTC #ad Tag Auto-Prepared for You',
+                      },
+                      {
+                        handle: '@glowwithchloe_la (28.1K) · Los Angeles',
+                        deals: '4 Clean Beauty & Spa Retainers ($450–$650/mo)',
+                        payout: '30/40/30 Escrow Locked · Zero Ghosting',
+                        script: 'ASMR & GRWM Shot Checklist Included',
+                      },
+                      {
+                        handle: '@cozyhomewithsam (14.8K) · Austin / Seattle',
+                        deals: '5 Local Craft & Cafe Invites ($240–$360 + QR Bonus)',
+                        payout: 'Instant Withdrawal Upon Verified Post',
+                        script: 'Commercial Audio & FTC Shield Verified',
+                      },
+                    ];
+                    const cp = cPresets[simplePresetIdx % cPresets.length];
+                    return (
+                      <div className="space-y-6">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-5">
+                          <div>
+                            <span className="font-mono text-[11px] uppercase tracking-wider text-fuchsia-400">
+                              ✓ Creator Copilot Ready · Zero Cold DMs
+                            </span>
+                            <h3 className="mt-1 text-xl sm:text-2xl font-bold text-white">
+                              {cp.handle}
+                            </h3>
+                          </div>
+                          <span className="self-start rounded-full border border-emerald-400/40 bg-emerald-500/15 px-3.5 py-1 text-xs font-bold text-emerald-300">
+                            0% Creator Fee (MVP Free)
+                          </span>
+                        </div>
+
+                        <div className="grid gap-4 sm:grid-cols-3">
+                          <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+                            <div className="text-xs text-slate-400">1. Inbound Local Deals</div>
+                            <div className="mt-1.5 text-sm font-bold text-white">{cp.deals}</div>
+                          </div>
+                          <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+                            <div className="text-xs text-slate-400">2. AI Shooting Copilot</div>
+                            <div className="mt-1.5 text-sm font-bold text-fuchsia-300">{cp.script}</div>
+                          </div>
+                          <div className="rounded-2xl border border-emerald-400/30 bg-emerald-500/10 p-4">
+                            <div className="text-xs text-emerald-200">3. Guaranteed Payouts</div>
+                            <div className="mt-1.5 text-sm font-bold text-white">{cp.payout}</div>
+                          </div>
+                        </div>
+
+                        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
+                          <button
+                            type="button"
+                            onClick={() => setSandboxViewMode('pro')}
+                            className="text-xs font-semibold text-fuchsia-300 underline hover:text-white"
+                          >
+                            Explore full 4-Stage Creator Copilot Studio →
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setDemoSubmitted(false);
+                              setDemoError('');
+                              setShowDemoModal(true);
+                            }}
+                            className="w-full sm:w-auto rounded-xl bg-white px-6 py-3 text-sm font-bold text-slate-950 shadow-lg transition hover:bg-amber-50"
+                          >
+                            Claim Creator Handle (Free) →
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })()
+                )}
+              </div>
+            </motion.div>
+          ) : (
+            <AnimatePresence mode="wait">
             {activeTab === 'business' ? (
               /* ==============================================================
                  TAB A: I'M A MERCHANT — 4-STAGE AUTONOMOUS CAMPAIGN OS
@@ -3879,6 +4188,7 @@ export default function BomieLandingPage() {
               </motion.div>
             )}
           </AnimatePresence>
+          )}
         </div>
       </section>
 
@@ -4243,6 +4553,165 @@ export default function BomieLandingPage() {
               </AnimatePresence>
             </motion.div>
           </AnimatePresence>
+        </div>
+      </section>
+
+      {/* Transparent MVP Pricing, 30/40/30 Escrow & Founding Team Trust Section */}
+      <section id="pricing" className="border-t border-white/10 py-14 scroll-mt-16">
+        <div className="mx-auto max-w-[1440px] px-6 lg:px-10 space-y-12">
+          {/* 1. Transparent Pricing & Payment Terms */}
+          <div>
+            <div className="flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
+              <div>
+                <div className="inline-flex items-center gap-2 rounded-full border border-emerald-400/35 bg-emerald-500/10 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-emerald-300">
+                  <Sparkles className="h-3.5 w-3.5" />
+                  MVP Limited-Time Free · 100% Transparent Terms
+                </div>
+                <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">
+                  $0 Monthly Fee. Pay Only When Creators Deliver.
+                </h2>
+                <p className="mt-2 max-w-2xl text-sm sm:text-base text-slate-400">
+                  During our MVP launch, Bomie AI charges zero platform subscription and zero commission—100% of your budget goes directly to matched local creators under Stripe escrow protection.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  setDemoSubmitted(false);
+                  setDemoError('');
+                  setShowDemoModal(true);
+                }}
+                className="self-start lg:self-end rounded-xl bg-white px-5 py-3 text-xs sm:text-sm font-bold text-slate-950 transition hover:bg-amber-50"
+              >
+                Lock In Free MVP Access →
+              </button>
+            </div>
+
+            <div className="mt-8 grid gap-5 md:grid-cols-3">
+              <div className="rounded-3xl border border-emerald-400/30 bg-gradient-to-b from-emerald-950/30 to-slate-950 p-6">
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-xs font-semibold uppercase text-emerald-300">
+                    01 · Zero Platform Fee
+                  </span>
+                  <span className="rounded-full bg-emerald-500/20 px-2.5 py-0.5 text-xs font-bold text-emerald-300">
+                    MVP Free
+                  </span>
+                </div>
+                <div className="mt-3 text-3xl font-extrabold text-white">
+                  $0 <span className="text-sm font-medium text-slate-400">/ month</span>
+                </div>
+                <p className="mt-2 text-xs sm:text-sm leading-relaxed text-slate-300">
+                  No annual contracts, no setup fees, and 0% Bomie platform cut during our limited-time MVP launch. Pay strictly per campaign you approve.
+                </p>
+              </div>
+
+              <div className="rounded-3xl border border-violet-400/30 bg-gradient-to-b from-violet-950/30 to-slate-950 p-6">
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-xs font-semibold uppercase text-violet-300">
+                    02 · 100% Refund Guarantee
+                  </span>
+                  <Lock className="h-4 w-4 text-violet-300" />
+                </div>
+                <div className="mt-3 text-3xl font-extrabold text-white">
+                  100% <span className="text-sm font-medium text-slate-400">Money-Back</span>
+                </div>
+                <p className="mt-2 text-xs sm:text-sm leading-relaxed text-slate-300">
+                  Cancel anytime before a creator accepts your brief for an instant 100% refund back to your card or bank account—zero questions asked.
+                </p>
+              </div>
+
+              <div className="rounded-3xl border border-amber-400/30 bg-gradient-to-b from-amber-950/20 to-slate-950 p-6">
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-xs font-semibold uppercase text-amber-300">
+                    03 · 30 / 40 / 30 Stripe Escrow
+                  </span>
+                  <ShieldCheck className="h-4 w-4 text-amber-300" />
+                </div>
+                <div className="mt-3 text-3xl font-extrabold text-white">
+                  30 · 40 · 30 <span className="text-sm font-medium text-slate-400">Split</span>
+                </div>
+                <p className="mt-2 text-xs sm:text-sm leading-relaxed text-slate-300">
+                  30% released when brief is accepted, 40% when you approve the 30s script/draft, and the final 30% only after live post &amp; FTC #ad verification.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* 2. Verified Traction Metrics + Transparent Leadership & HQ */}
+          <div className="grid gap-6 lg:grid-cols-12 items-stretch">
+            <div className="lg:col-span-7 rounded-3xl border border-white/10 bg-slate-950/80 p-6 sm:p-8 flex flex-col justify-between">
+              <div>
+                <span className="font-mono text-xs font-semibold uppercase tracking-widest text-violet-400">
+                  Verified Pilot Traction
+                </span>
+                <h3 className="mt-1.5 text-2xl font-bold text-white">
+                  Real Neighborhood ROI, Built in the Bay Area
+                </h3>
+              </div>
+              <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-4">
+                <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+                  <div className="text-2xl sm:text-3xl font-extrabold text-amber-300">3.6x</div>
+                  <div className="mt-1 text-xs text-slate-400">Avg. Store-Visit ROAS</div>
+                </div>
+                <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+                  <div className="text-2xl sm:text-3xl font-extrabold text-white">&lt; 5m</div>
+                  <div className="mt-1 text-xs text-slate-400">AI Local Creator Match</div>
+                </div>
+                <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+                  <div className="text-2xl sm:text-3xl font-extrabold text-emerald-400">100%</div>
+                  <div className="mt-1 text-xs text-slate-400">FTC 16 CFR Pass Rate</div>
+                </div>
+                <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+                  <div className="text-2xl sm:text-3xl font-extrabold text-violet-300">4 Hubs</div>
+                  <div className="mt-1 text-xs text-slate-400">SF · LA · Seattle · Vegas</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="lg:col-span-5 rounded-3xl border border-violet-500/30 bg-gradient-to-br from-violet-950/40 via-slate-950 to-slate-950 p-6 sm:p-8 flex flex-col justify-between">
+              <div className="flex items-start justify-between gap-4">
+                <div className="flex items-center gap-3.5">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-tr from-[#5b21b6] via-[#d946ef] to-[#fbbf24] text-lg font-extrabold text-white shadow-lg">
+                    CW
+                  </div>
+                  <div>
+                    <div className="text-base font-bold text-white">Chenxing Wang</div>
+                    <div className="text-xs text-violet-300">
+                      Founder &amp; CEO · BOMIES LLC
+                    </div>
+                    <div className="mt-0.5 text-[11px] text-slate-400">
+                      San Francisco, CA · U.S. Registered Entity
+                    </div>
+                  </div>
+                </div>
+                <span className="rounded-full border border-emerald-400/30 bg-emerald-500/10 px-2.5 py-1 text-[10px] font-semibold text-emerald-300">
+                  24h Founder SLA
+                </span>
+              </div>
+
+              <p className="mt-4 text-xs sm:text-sm leading-relaxed text-slate-300">
+                &ldquo;We built Bomie AI so every neighborhood restaurant, spa, and boutique can harness the same AI creator engine as Fortune 500 brands—with zero technical complexity and full payment transparency.&rdquo;
+              </p>
+
+              <div className="mt-5 flex flex-wrap gap-2.5">
+                <a
+                  href="mailto:lucian.wang@bomie.ai"
+                  className="inline-flex items-center gap-1.5 rounded-xl border border-white/15 bg-white/5 px-3.5 py-2 text-xs font-semibold text-white transition hover:bg-white/10"
+                >
+                  Email Founder: lucian.wang@bomie.ai
+                </a>
+                <a
+                  href="https://www.linkedin.com/company/bomies"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded-xl border border-violet-400/35 bg-violet-500/15 px-3.5 py-2 text-xs font-semibold text-violet-200 transition hover:bg-violet-500/25"
+                >
+                  LinkedIn Company Page
+                  <ExternalLink className="h-3 w-3" />
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
