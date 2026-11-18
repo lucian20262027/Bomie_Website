@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Sparkles,
@@ -833,7 +834,7 @@ export default function BomieLandingPage() {
   const [demoLeadId, setDemoLeadId] = useState<string>('');
   const [demoError, setDemoError] = useState<string>('');
   const [loginRole, setLoginRole] = useState<'merchant' | 'creator'>('merchant');
-  const [openNavMenu, setOpenNavMenu] = useState<'os' | 'stories' | null>(null);
+  const [openNavMenu, setOpenNavMenu] = useState<'os' | 'stories' | 'why' | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const [selectedCity, setSelectedCity] = useState<'sf' | 'la' | 'seattle' | 'vegas'>('sf');
   const [cityExpanded, setCityExpanded] = useState<boolean>(false);
@@ -1826,6 +1827,79 @@ export default function BomieLandingPage() {
                 )}
               </AnimatePresence>
             </div>
+
+            {/* Dropdown 3: Why Bomie (Oura-Style Dedicated Pages) */}
+            <div
+              className="relative"
+              onMouseEnter={() => setOpenNavMenu('why')}
+            >
+              <button
+                type="button"
+                onClick={() => setOpenNavMenu(openNavMenu === 'why' ? null : 'why')}
+                className="flex items-center gap-1.5 rounded-xl px-4 py-2 text-sm font-semibold text-slate-200 transition hover:bg-white/5 hover:text-white"
+              >
+                <span>Why Bomie</span>
+                <ChevronDown
+                  className={`h-4 w-4 text-slate-400 transition-transform duration-200 ${
+                    openNavMenu === 'why' ? 'rotate-180 text-emerald-400' : ''
+                  }`}
+                />
+              </button>
+
+              <AnimatePresence>
+                {openNavMenu === 'why' && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 8 }}
+                    transition={{ duration: 0.18 }}
+                    className="absolute left-0 top-full pt-2 w-80 z-50"
+                  >
+                    <div className="rounded-2xl border border-white/15 bg-[#0c0c18]/95 p-2 shadow-2xl backdrop-blur-2xl space-y-1">
+                      <Link
+                        href="/why-bomie/founder"
+                        onClick={() => setOpenNavMenu(null)}
+                        className="flex items-start gap-3 rounded-xl p-3 transition hover:bg-white/10"
+                      >
+                        <Award className="mt-0.5 h-4 w-4 shrink-0 text-amber-300" />
+                        <div>
+                          <div className="text-xs font-bold text-white">1. Founder — Lucian Wang</div>
+                          <div className="text-[11px] text-slate-400">
+                            San Francisco HQ, Leadership &amp; 24h SLA
+                          </div>
+                        </div>
+                      </Link>
+                      <Link
+                        href="/why-bomie/stories"
+                        onClick={() => setOpenNavMenu(null)}
+                        className="flex items-start gap-3 rounded-xl p-3 transition hover:bg-white/10"
+                      >
+                        <Sparkles className="mt-0.5 h-4 w-4 shrink-0 text-fuchsia-400" />
+                        <div>
+                          <div className="text-xs font-bold text-white">2. Bomie Stories</div>
+                          <div className="text-[11px] text-slate-400">
+                            Empowering 40M+ U.S. Small Businesses &amp; Creators
+                          </div>
+                        </div>
+                      </Link>
+                      <Link
+                        href="/why-bomie/research"
+                        onClick={() => setOpenNavMenu(null)}
+                        className="flex items-start gap-3 rounded-xl p-3 transition hover:bg-white/10"
+                      >
+                        <FileText className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
+                        <div>
+                          <div className="text-xs font-bold text-white">3. Bomie Research</div>
+                          <div className="text-[11px] text-slate-400">
+                            SMB Marketing ROI &amp; Creator Economy Reports
+                          </div>
+                        </div>
+                      </Link>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </nav>
 
           <div className="flex shrink-0 items-center gap-2 sm:gap-3">
@@ -1930,6 +2004,38 @@ export default function BomieLandingPage() {
                         <span>{city.label}</span>
                       </button>
                     ))}
+                  </div>
+                </div>
+
+                <div className="space-y-1.5">
+                  <div className="font-mono text-[10px] font-semibold uppercase tracking-wider text-emerald-300">
+                    Why Bomie
+                  </div>
+                  <div className="grid grid-cols-1 gap-1.5">
+                    <Link
+                      href="/why-bomie/founder"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center gap-2.5 rounded-xl bg-white/[0.04] px-3.5 py-2.5 text-xs font-semibold text-white"
+                    >
+                      <Award className="h-4 w-4 text-amber-300" />
+                      1. Founder — Lucian Wang
+                    </Link>
+                    <Link
+                      href="/why-bomie/stories"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center gap-2.5 rounded-xl bg-white/[0.04] px-3.5 py-2.5 text-xs font-semibold text-white"
+                    >
+                      <Sparkles className="h-4 w-4 text-fuchsia-400" />
+                      2. Bomie Stories (Our Vision)
+                    </Link>
+                    <Link
+                      href="/why-bomie/research"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center gap-2.5 rounded-xl bg-white/[0.04] px-3.5 py-2.5 text-xs font-semibold text-white"
+                    >
+                      <FileText className="h-4 w-4 text-emerald-400" />
+                      3. Bomie Research
+                    </Link>
                   </div>
                 </div>
 
@@ -4346,9 +4452,39 @@ export default function BomieLandingPage() {
         </div>
       </section>
 
-      {/* Success Stories — 4 City Hubs (San Francisco, Los Angeles, Seattle, Las Vegas) */}
+      {/* Success Stories — Verified Pilot Traction + 4 City Hubs */}
       <section id="stories" className="border-t border-white/10 bg-slate-900/20 py-14 scroll-mt-16">
-        <div className="mx-auto max-w-[1440px] px-6 lg:px-10">
+        <div className="mx-auto max-w-[1440px] px-6 lg:px-10 space-y-8">
+          {/* Verified Pilot Traction Strip Organically Integrated Above 4 Cities */}
+          <div className="rounded-3xl border border-white/10 bg-slate-950/85 p-6 sm:p-8 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+            <div>
+              <span className="font-mono text-xs font-semibold uppercase tracking-widest text-violet-400">
+                Verified Pilot Traction
+              </span>
+              <h3 className="mt-1 text-xl sm:text-2xl font-bold text-white">
+                Real Neighborhood ROI, Built in the Bay Area
+              </h3>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 lg:min-w-[600px]">
+              <div className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3.5">
+                <div className="text-2xl sm:text-3xl font-extrabold text-amber-300">3.6x</div>
+                <div className="mt-0.5 text-[11px] sm:text-xs text-slate-400">Avg. Store-Visit ROAS</div>
+              </div>
+              <div className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3.5">
+                <div className="text-2xl sm:text-3xl font-extrabold text-white">&lt; 5m</div>
+                <div className="mt-0.5 text-[11px] sm:text-xs text-slate-400">AI Local Creator Match</div>
+              </div>
+              <div className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3.5">
+                <div className="text-2xl sm:text-3xl font-extrabold text-emerald-400">100%</div>
+                <div className="mt-0.5 text-[11px] sm:text-xs text-slate-400">FTC 16 CFR Pass Rate</div>
+              </div>
+              <div className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3.5">
+                <div className="text-2xl sm:text-3xl font-extrabold text-violet-300">4 Hubs</div>
+                <div className="mt-0.5 text-[11px] sm:text-xs text-slate-400">SF · LA · Seattle · Vegas</div>
+              </div>
+            </div>
+          </div>
+
           <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
             <div className="min-w-0">
               <span className="text-xs font-mono font-semibold uppercase tracking-widest text-amber-300">
@@ -4633,82 +4769,6 @@ export default function BomieLandingPage() {
                 <p className="mt-2 text-xs sm:text-sm leading-relaxed text-slate-300">
                   30% released when brief is accepted, 40% when you approve the 30s script/draft, and the final 30% only after live post &amp; FTC #ad verification.
                 </p>
-              </div>
-            </div>
-          </div>
-
-          {/* 2. Verified Traction Metrics + Transparent Leadership & HQ */}
-          <div className="grid gap-6 lg:grid-cols-12 items-stretch">
-            <div className="lg:col-span-7 rounded-3xl border border-white/10 bg-slate-950/80 p-6 sm:p-8 flex flex-col justify-between">
-              <div>
-                <span className="font-mono text-xs font-semibold uppercase tracking-widest text-violet-400">
-                  Verified Pilot Traction
-                </span>
-                <h3 className="mt-1.5 text-2xl font-bold text-white">
-                  Real Neighborhood ROI, Built in the Bay Area
-                </h3>
-              </div>
-              <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-4">
-                <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-                  <div className="text-2xl sm:text-3xl font-extrabold text-amber-300">3.6x</div>
-                  <div className="mt-1 text-xs text-slate-400">Avg. Store-Visit ROAS</div>
-                </div>
-                <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-                  <div className="text-2xl sm:text-3xl font-extrabold text-white">&lt; 5m</div>
-                  <div className="mt-1 text-xs text-slate-400">AI Local Creator Match</div>
-                </div>
-                <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-                  <div className="text-2xl sm:text-3xl font-extrabold text-emerald-400">100%</div>
-                  <div className="mt-1 text-xs text-slate-400">FTC 16 CFR Pass Rate</div>
-                </div>
-                <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-                  <div className="text-2xl sm:text-3xl font-extrabold text-violet-300">4 Hubs</div>
-                  <div className="mt-1 text-xs text-slate-400">SF · LA · Seattle · Vegas</div>
-                </div>
-              </div>
-            </div>
-
-            <div className="lg:col-span-5 rounded-3xl border border-violet-500/30 bg-gradient-to-br from-violet-950/40 via-slate-950 to-slate-950 p-6 sm:p-8 flex flex-col justify-between">
-              <div className="flex items-start justify-between gap-4">
-                <div className="flex items-center gap-3.5">
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-tr from-[#5b21b6] via-[#d946ef] to-[#fbbf24] text-lg font-extrabold text-white shadow-lg">
-                    CW
-                  </div>
-                  <div>
-                    <div className="text-base font-bold text-white">Chenxing Wang</div>
-                    <div className="text-xs text-violet-300">
-                      Founder &amp; CEO · BOMIES LLC
-                    </div>
-                    <div className="mt-0.5 text-[11px] text-slate-400">
-                      San Francisco, CA · U.S. Registered Entity
-                    </div>
-                  </div>
-                </div>
-                <span className="rounded-full border border-emerald-400/30 bg-emerald-500/10 px-2.5 py-1 text-[10px] font-semibold text-emerald-300">
-                  24h Founder SLA
-                </span>
-              </div>
-
-              <p className="mt-4 text-xs sm:text-sm leading-relaxed text-slate-300">
-                &ldquo;We built Bomie AI so every neighborhood restaurant, spa, and boutique can harness the same AI creator engine as Fortune 500 brands—with zero technical complexity and full payment transparency.&rdquo;
-              </p>
-
-              <div className="mt-5 flex flex-wrap gap-2.5">
-                <a
-                  href="mailto:lucian.wang@bomie.ai"
-                  className="inline-flex items-center gap-1.5 rounded-xl border border-white/15 bg-white/5 px-3.5 py-2 text-xs font-semibold text-white transition hover:bg-white/10"
-                >
-                  Email Founder: lucian.wang@bomie.ai
-                </a>
-                <a
-                  href="https://www.linkedin.com/company/bomies"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-1.5 rounded-xl border border-violet-400/35 bg-violet-500/15 px-3.5 py-2 text-xs font-semibold text-violet-200 transition hover:bg-violet-500/25"
-                >
-                  LinkedIn Company Page
-                  <ExternalLink className="h-3 w-3" />
-                </a>
               </div>
             </div>
           </div>
