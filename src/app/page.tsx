@@ -1723,47 +1723,32 @@ export default function BomieLandingPage() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 8 }}
                     transition={{ duration: 0.18 }}
-                    className="absolute left-0 top-full pt-2 w-72 z-50"
+                    className="absolute left-0 top-full pt-2 w-52 z-50"
                   >
                     <div className="rounded-2xl border border-violet-200/80 bg-white/95 p-2 shadow-2xl shadow-violet-900/10 backdrop-blur-2xl space-y-1">
                       <Link
                         href="/commerce-os"
                         onClick={() => setOpenNavMenu(null)}
-                        className="flex items-start gap-3 rounded-xl p-3 transition hover:bg-violet-50"
+                        className="flex items-center gap-3 rounded-xl px-3.5 py-2.5 transition hover:bg-violet-50"
                       >
-                        <Repeat className="mt-0.5 h-4 w-4 shrink-0 text-violet-600" />
-                        <div>
-                          <div className="text-xs font-bold text-[#161224]">1. Commerce OS</div>
-                          <div className="text-[11px] text-slate-500">
-                            360° System Architecture &amp; Guided Sandbox
-                          </div>
-                        </div>
+                        <Repeat className="h-4 w-4 shrink-0 text-violet-600" />
+                        <span className="text-xs font-bold text-[#161224]">Commerce OS</span>
                       </Link>
                       <Link
                         href="/pricing"
                         onClick={() => setOpenNavMenu(null)}
-                        className="flex items-start gap-3 rounded-xl p-3 transition hover:bg-violet-50"
+                        className="flex items-center gap-3 rounded-xl px-3.5 py-2.5 transition hover:bg-violet-50"
                       >
-                        <Wallet className="mt-0.5 h-4 w-4 shrink-0 text-fuchsia-600" />
-                        <div>
-                          <div className="text-xs font-bold text-[#161224]">2. Pricing</div>
-                          <div className="text-[11px] text-slate-500">
-                            MVP 100% Free for Small Businesses &amp; Future Tiers
-                          </div>
-                        </div>
+                        <Wallet className="h-4 w-4 shrink-0 text-fuchsia-600" />
+                        <span className="text-xs font-bold text-[#161224]">Pricing</span>
                       </Link>
                       <button
                         type="button"
                         onClick={handleOpenFaqChatbot}
-                        className="flex w-full items-start gap-3 rounded-xl p-3 text-left transition hover:bg-violet-50"
+                        className="flex w-full items-center gap-3 rounded-xl px-3.5 py-2.5 text-left transition hover:bg-violet-50"
                       >
-                        <MessageSquare className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" />
-                        <div>
-                          <div className="text-xs font-bold text-[#161224]">3. FAQ &amp; AI Concierge</div>
-                          <div className="text-[11px] text-slate-500">
-                            Open Bomie AI Chatbot (5 Topics &amp; Live Q&amp;A)
-                          </div>
-                        </div>
+                        <MessageSquare className="h-4 w-4 shrink-0 text-emerald-600" />
+                        <span className="text-xs font-bold text-[#161224]">FAQ</span>
                       </button>
                     </div>
                   </motion.div>
@@ -1796,30 +1781,49 @@ export default function BomieLandingPage() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 8 }}
                     transition={{ duration: 0.18 }}
-                    className="absolute left-0 top-full pt-2 w-72 z-50"
+                    className="absolute left-0 top-full pt-2 w-52 z-50"
                   >
                     <div className="rounded-2xl border border-violet-200/80 bg-white/95 p-2 shadow-2xl shadow-violet-900/10 backdrop-blur-2xl space-y-1">
-                      {(
-                        [
-                          { id: 'sf', label: 'San Francisco', sub: 'Artisanal Dining, Matcha & Craft' },
-                          { id: 'la', label: 'Los Angeles', sub: 'Clean Beauty, Pilates & Boutiques' },
-                          { id: 'seattle', label: 'Seattle', sub: 'Specialty Roasters & PNW Bistros' },
-                          { id: 'vegas', label: 'Las Vegas', sub: 'Experiential Dining & Luxury Spas' },
-                        ] as const
-                      ).map((city) => (
-                        <Link
-                          key={city.id}
-                          href={`/stories/${city.id}`}
-                          onClick={() => setOpenNavMenu(null)}
-                          className="flex w-full items-start gap-3 rounded-xl p-3 text-left transition hover:bg-violet-50"
-                        >
-                          <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-amber-500" />
-                          <div>
-                            <div className="text-xs font-bold text-[#161224]">{city.label}</div>
-                            <div className="text-[11px] text-slate-500">{city.sub}</div>
-                          </div>
-                        </Link>
-                      ))}
+                      <Link
+                        href="/stories/sf"
+                        onClick={() => setOpenNavMenu(null)}
+                        className="flex w-full items-center gap-3 rounded-xl px-3.5 py-2.5 text-left transition hover:bg-violet-50"
+                      >
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-4 w-4 shrink-0 text-rose-500">
+                          <path d="M2 16h20M6 16V7m12 9V7M6 7c2 3 4 4.5 6 4.5S16 10 18 7M6 12h12" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                        <span className="text-xs font-bold text-[#161224]">San Francisco</span>
+                      </Link>
+                      <Link
+                        href="/stories/la"
+                        onClick={() => setOpenNavMenu(null)}
+                        className="flex w-full items-center gap-3 rounded-xl px-3.5 py-2.5 text-left transition hover:bg-violet-50"
+                      >
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-4 w-4 shrink-0 text-amber-500">
+                          <path d="M12 20v-9m0 0c-1.5-3-4.5-4-7-3 2 1 3.5 2.5 4 4m3-1c1.5-3 4.5-4 7-3-2 1-3.5 2.5-4 4m-3-1c0-3 1.5-5.5 3-7m-3 7c0-3-1.5-5.5-3-7" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                        <span className="text-xs font-bold text-[#161224]">Los Angeles</span>
+                      </Link>
+                      <Link
+                        href="/stories/seattle"
+                        onClick={() => setOpenNavMenu(null)}
+                        className="flex w-full items-center gap-3 rounded-xl px-3.5 py-2.5 text-left transition hover:bg-violet-50"
+                      >
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-4 w-4 shrink-0 text-emerald-600">
+                          <path d="M12 2v3m-5 4h10l-1.5 2h-7L7 9Zm2.5 2L8 21m6.5-10L16 21M12 11v10" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                        <span className="text-xs font-bold text-[#161224]">Seattle</span>
+                      </Link>
+                      <Link
+                        href="/stories/vegas"
+                        onClick={() => setOpenNavMenu(null)}
+                        className="flex w-full items-center gap-3 rounded-xl px-3.5 py-2.5 text-left transition hover:bg-violet-50"
+                      >
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-4 w-4 shrink-0 text-fuchsia-600">
+                          <path d="M12 3l2.2 4.5 5 .7-3.6 3.5.8 5L12 14.4 7.6 16.7l.8-5L4.8 8.2l5-.7L12 3Z" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                        <span className="text-xs font-bold text-[#161224]">Las Vegas</span>
+                      </Link>
                     </div>
                   </motion.div>
                 )}
@@ -1851,47 +1855,32 @@ export default function BomieLandingPage() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 8 }}
                     transition={{ duration: 0.18 }}
-                    className="absolute left-0 top-full pt-2 w-80 z-50"
+                    className="absolute left-0 top-full pt-2 w-52 z-50"
                   >
                     <div className="rounded-2xl border border-violet-200/80 bg-white/95 p-2 shadow-2xl shadow-violet-900/10 backdrop-blur-2xl space-y-1">
                       <Link
                         href="/why-bomie/founder"
                         onClick={() => setOpenNavMenu(null)}
-                        className="flex items-start gap-3 rounded-xl p-3 transition hover:bg-violet-50"
+                        className="flex items-center gap-3 rounded-xl px-3.5 py-2.5 transition hover:bg-violet-50"
                       >
-                        <Award className="mt-0.5 h-4 w-4 shrink-0 text-amber-500" />
-                        <div>
-                          <div className="text-xs font-bold text-[#161224]">1. Founder — Lucian Wang</div>
-                          <div className="text-[11px] text-slate-500">
-                            San Francisco HQ, Leadership &amp; 24h SLA
-                          </div>
-                        </div>
+                        <Award className="h-4 w-4 shrink-0 text-amber-500" />
+                        <span className="text-xs font-bold text-[#161224]">Founder</span>
                       </Link>
                       <Link
                         href="/why-bomie/stories"
                         onClick={() => setOpenNavMenu(null)}
-                        className="flex items-start gap-3 rounded-xl p-3 transition hover:bg-violet-50"
+                        className="flex items-center gap-3 rounded-xl px-3.5 py-2.5 transition hover:bg-violet-50"
                       >
-                        <Sparkles className="mt-0.5 h-4 w-4 shrink-0 text-fuchsia-600" />
-                        <div>
-                          <div className="text-xs font-bold text-[#161224]">2. Bomie Stories</div>
-                          <div className="text-[11px] text-slate-500">
-                            Empowering 40M+ U.S. Small Businesses &amp; Creators
-                          </div>
-                        </div>
+                        <Sparkles className="h-4 w-4 shrink-0 text-fuchsia-600" />
+                        <span className="text-xs font-bold text-[#161224]">Bomie Stories</span>
                       </Link>
                       <Link
                         href="/why-bomie/research"
                         onClick={() => setOpenNavMenu(null)}
-                        className="flex items-start gap-3 rounded-xl p-3 transition hover:bg-violet-50"
+                        className="flex items-center gap-3 rounded-xl px-3.5 py-2.5 transition hover:bg-violet-50"
                       >
-                        <FileText className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" />
-                        <div>
-                          <div className="text-xs font-bold text-[#161224]">3. Bomie Research</div>
-                          <div className="text-[11px] text-slate-500">
-                            SMB Marketing ROI &amp; Creator Economy Reports
-                          </div>
-                        </div>
+                        <FileText className="h-4 w-4 shrink-0 text-emerald-600" />
+                        <span className="text-xs font-bold text-[#161224]">Bomie Research</span>
                       </Link>
                     </div>
                   </motion.div>
@@ -1952,7 +1941,7 @@ export default function BomieLandingPage() {
                       className="flex items-center gap-2.5 rounded-xl bg-white/[0.04] px-3.5 py-2.5 text-xs font-semibold text-white"
                     >
                       <Repeat className="h-4 w-4 text-violet-400" />
-                      1. Commerce OS (System &amp; Sandbox)
+                      Commerce OS
                     </Link>
                     <Link
                       href="/pricing"
@@ -1960,7 +1949,7 @@ export default function BomieLandingPage() {
                       className="flex items-center gap-2.5 rounded-xl bg-white/[0.04] px-3.5 py-2.5 text-xs font-semibold text-white"
                     >
                       <Wallet className="h-4 w-4 text-fuchsia-400" />
-                      2. Pricing (MVP 100% Free)
+                      Pricing
                     </Link>
                     <button
                       type="button"
@@ -1968,7 +1957,7 @@ export default function BomieLandingPage() {
                       className="flex items-center gap-2.5 rounded-xl bg-white/[0.04] px-3.5 py-2.5 text-left text-xs font-semibold text-white"
                     >
                       <MessageSquare className="h-4 w-4 text-emerald-400" />
-                      3. FAQ &amp; AI Concierge Chatbot
+                      FAQ
                     </button>
                   </div>
                 </div>
@@ -2010,7 +1999,7 @@ export default function BomieLandingPage() {
                       className="flex items-center gap-2.5 rounded-xl bg-white/[0.04] px-3.5 py-2.5 text-xs font-semibold text-white"
                     >
                       <Award className="h-4 w-4 text-amber-300" />
-                      1. Founder — Lucian Wang
+                      Founder
                     </Link>
                     <Link
                       href="/why-bomie/stories"
@@ -2018,7 +2007,7 @@ export default function BomieLandingPage() {
                       className="flex items-center gap-2.5 rounded-xl bg-white/[0.04] px-3.5 py-2.5 text-xs font-semibold text-white"
                     >
                       <Sparkles className="h-4 w-4 text-fuchsia-400" />
-                      2. Bomie Stories (Our Vision)
+                      Bomie Stories
                     </Link>
                     <Link
                       href="/why-bomie/research"
@@ -2026,7 +2015,7 @@ export default function BomieLandingPage() {
                       className="flex items-center gap-2.5 rounded-xl bg-white/[0.04] px-3.5 py-2.5 text-xs font-semibold text-white"
                     >
                       <FileText className="h-4 w-4 text-emerald-400" />
-                      3. Bomie Research
+                      Bomie Research
                     </Link>
                   </div>
                 </div>

@@ -414,38 +414,14 @@ export default function CommerceOsPage() {
 
       <main className="mx-auto max-w-6xl space-y-16 px-6 py-12 sm:py-16">
         {/* Hero: System Overview */}
-        <section className="space-y-6">
-          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-            <div className="max-w-3xl space-y-4">
-              <div className="inline-flex items-center gap-2 rounded-full border border-violet-300/70 bg-violet-100/80 px-3.5 py-1 font-mono text-[11px] font-semibold uppercase tracking-widest text-violet-800">
-                <Repeat className="h-3.5 w-3.5 text-violet-600" />
-                BOMIE COMMERCE OS · 360° CLOSED-LOOP SYSTEM
-              </div>
-              <h1 className="text-4xl font-extrabold leading-tight tracking-tight text-[#161224] sm:text-5xl">
-                One AI Operating System for Local Merchants &amp; Creators
-              </h1>
-              <p className="text-base leading-relaxed text-slate-600 sm:text-lg">
-                Bomie Commerce OS replaces expensive agencies, cold DMs, and messy Venmo payouts with a single autonomous
-                loop—matching nearby stores and creators, scripting 30s reels, auditing FTC compliance, and settling
-                30/40/30 Stripe Escrow automatically.
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-violet-200/80 bg-white/95 p-4 shadow-sm">
-              <div className="mb-1.5 font-mono text-[10px] font-semibold uppercase tracking-wider text-slate-500">
-                Closed-Loop Flow
-              </div>
-              <div className="flex flex-wrap items-center gap-2 font-mono text-xs">
-                <span className="font-semibold text-violet-700">1. Brief / Vibe</span>
-                <span className="text-slate-400">→</span>
-                <span className="font-semibold text-fuchsia-700">2. AI Match &amp; Script</span>
-                <span className="text-slate-400">→</span>
-                <span className="font-semibold text-emerald-700">3. FTC &amp; Escrow</span>
-                <span className="text-slate-400">→</span>
-                <span className="font-semibold text-amber-600">4. Walk-In ROI</span>
-              </div>
-            </div>
-          </div>
+        <section className="max-w-3xl space-y-4">
+          <h1 className="text-4xl font-extrabold leading-tight tracking-tight text-[#161224] sm:text-5xl">
+            One AI Operating System for Local Merchants &amp; Creators
+          </h1>
+          <p className="text-base leading-relaxed text-slate-600 sm:text-lg">
+            Match nearby stores and creators, generate 30s reels, audit FTC compliance, and settle 30/40/30 Stripe
+            Escrow automatically.
+          </p>
         </section>
 
         {/* Interactive Guided System Sandbox (Merged How It Works) */}
