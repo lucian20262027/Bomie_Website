@@ -2042,14 +2042,8 @@ export default function BomieLandingPage() {
                 </AnimatePresence>
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0b0b14] via-[#0b0b14]/45 to-black/20" />
 
-                {/* Top Console Bar Overlay */}
-                <div className="absolute top-4 left-5 right-5 flex flex-wrap items-center justify-between gap-3">
-                  <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-black/55 px-3.5 py-1.5 backdrop-blur-md">
-                    <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-                    <span className="font-mono text-xs text-slate-200">
-                      bomie-ai-engine · live-local-campaign
-                    </span>
-                  </div>
+                {/* Top-Right Category Switcher Overlay */}
+                <div className="absolute top-4 right-5 flex items-center justify-end">
                   <div className="flex gap-1.5 rounded-full border border-white/15 bg-black/55 p-1 backdrop-blur-md">
                     {liveMatches.map((m, i) => (
                       <button
