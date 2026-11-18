@@ -31,6 +31,34 @@ export async function POST(request: Request) {
       })
     );
 
+    // Always attempt zero-config email delivery to lucian.wang@bomie.ai via FormSubmit AJAX
+    let emailDispatched = false;
+    try {
+      const formSubmitRes = await fetch('https://formsubmit.co/ajax/lucian.wang@bomie.ai', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Referer: 'https://www.bomie.ai/',
+        },
+        body: JSON.stringify({
+          _subject: `[Bomie AI Demo Lead] ${handle} (${city}) — ${name}`,
+          _template: 'table',
+          leadId,
+          name,
+          email,
+          businessOrCreator: handle,
+          city,
+          submittedAt: timestamp,
+        }),
+      });
+      if (formSubmitRes.ok) {
+        emailDispatched = true;
+      }
+    } catch (err) {
+      console.error('FormSubmit forward error:', err);
+    }
+
     // Optional: forward to Resend if RESEND_API_KEY is configured in Vercel
     const resendKey = process.env.RESEND_API_KEY;
     if (resendKey) {
@@ -46,7 +74,11 @@ export async function POST(request: Request) {
           subject: `[Bomie AI Demo Lead] ${handle} (${city}) — ${name}`,
           text: `Lead ID: ${leadId}\nName: ${name}\nEmail: ${email}\nBusiness/Handle: ${handle}\nCity: ${city}\nTime: ${timestamp}`,
         }),
-      }).catch((err) => console.error('Resend forward error:', err));
+      })
+        .then((r) => {
+          if (r.ok) emailDispatched = true;
+        })
+        .catch((err) => console.error('Resend forward error:', err));
     }
 
     // Optional: forward to Slack / Discord / Zapier webhook if DEMO_WEBHOOK_URL is configured
@@ -64,6 +96,7 @@ export async function POST(request: Request) {
     return NextResponse.json({
       ok: true,
       leadId,
+      emailDispatched,
       receivedAt: timestamp,
     });
   } catch {
