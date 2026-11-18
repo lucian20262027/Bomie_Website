@@ -241,6 +241,10 @@ const cityData: Record<
   },
 };
 
+export function generateStaticParams() {
+  return [{ city: 'sf' }, { city: 'la' }, { city: 'seattle' }, { city: 'vegas' }];
+}
+
 export async function generateMetadata({
   params,
 }: {
