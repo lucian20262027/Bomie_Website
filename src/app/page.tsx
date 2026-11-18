@@ -3158,7 +3158,7 @@ export default function BomieLandingPage() {
       </section>
 
       {/* Smooth Animated FAQ Accordion */}
-      <section id="faq" className="border-t border-white/10 py-24">
+      <section id="faq" className="border-t border-white/10 pt-20 pb-8">
         <div className="mx-auto max-w-3xl px-6">
           <div className="text-center">
             <h2 className="text-3xl font-bold tracking-tight">Frequently Asked Questions</h2>
@@ -3207,34 +3207,37 @@ export default function BomieLandingPage() {
         </div>
       </section>
 
-      {/* Final CTA */}
-      <section className="py-24">
-        <div className="mx-auto max-w-5xl px-6">
+      {/* Final Full-Width CTA */}
+      <section className="pt-4 pb-16">
+        <div className="mx-auto w-full px-4 sm:px-6">
           <motion.div
-            whileHover={{ scale: 1.01 }}
-            className="relative overflow-hidden rounded-3xl border border-violet-500/30 bg-gradient-to-br from-violet-950 via-slate-900 to-fuchsia-950 px-8 py-16 text-center shadow-2xl"
+            whileHover={{ scale: 1.005 }}
+            className="relative overflow-hidden rounded-3xl border border-violet-500/35 bg-gradient-to-r from-violet-950 via-[#120b29] to-fuchsia-950 px-6 py-16 sm:px-12 sm:py-20 text-center shadow-2xl shadow-violet-950/50"
           >
-            <h2 className="text-3xl font-extrabold tracking-tight sm:text-5xl">
+            <div className="pointer-events-none absolute -top-24 left-1/2 h-64 w-[80%] -translate-x-1/2 rounded-full bg-gradient-to-r from-violet-500/25 via-fuchsia-500/25 to-amber-400/20 blur-3xl" />
+
+            <h2 className="relative z-10 w-full text-4xl font-extrabold tracking-tight sm:text-6xl md:text-7xl lg:text-8xl bg-gradient-to-r from-white via-violet-100 to-amber-200 bg-clip-text text-transparent">
               Where Local Meets Viral
             </h2>
-            <p className="mx-auto mt-4 max-w-xl text-base text-slate-300">
+            <p className="relative z-10 mx-auto mt-5 max-w-2xl text-base sm:text-lg text-slate-300">
               Join hundreds of local businesses and creators building authentic community growth
               on Bomie AI.
             </p>
-            <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <button
-                onClick={() => setShowFullStudioModal(true)}
-                className="w-full rounded-2xl bg-white px-8 py-4 text-sm font-bold text-slate-950 shadow-lg transition hover:bg-slate-200 sm:w-auto"
+            <div className="relative z-10 mt-9 flex items-center justify-center">
+              <motion.button
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.97 }}
+                onClick={() => {
+                  setDemoSubmitted(false);
+                  setShowDemoModal(true);
+                }}
+                className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-violet-600 via-fuchsia-600 to-amber-500 p-[1.5px] shadow-xl shadow-violet-600/35"
               >
-                Launch Interactive V5 Studio
-              </button>
-              <a
-                href="#how-it-works"
-                onClick={() => setActiveTab('creator')}
-                className="w-full rounded-2xl border border-white/20 bg-white/10 px-8 py-4 text-sm font-bold text-white backdrop-blur-md transition hover:bg-white/20 sm:w-auto"
-              >
-                Explore Creator Copilot
-              </a>
+                <span className="flex items-center gap-2 rounded-[14px] bg-white px-9 py-4 text-base font-bold text-slate-950 transition hover:bg-slate-100">
+                  <Sparkles className="h-4 w-4 text-violet-600" />
+                  Book a Demo
+                </span>
+              </motion.button>
             </div>
           </motion.div>
         </div>
