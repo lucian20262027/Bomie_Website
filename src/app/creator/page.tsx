@@ -52,8 +52,8 @@ export default function CreatorPage() {
   const active = presets[presetIdx % presets.length];
 
   return (
-    <div className="min-h-screen bg-[#06060c] text-slate-200 selection:bg-fuchsia-500 selection:text-white">
-      <header className="sticky top-0 z-40 border-b border-white/10 bg-[#06060c]/85 backdrop-blur-xl">
+    <div className="min-h-screen bg-[#f7f4ff] text-[#161224] selection:bg-fuchsia-500 selection:text-[#161224]">
+      <header className="sticky top-0 z-40 border-b border-violet-200/70 bg-[#f7f4ff]/85 backdrop-blur-xl">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
           <Link href="/" className="flex items-center gap-3">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-tr from-[#5b21b6] via-[#d946ef] to-[#fbbf24] shadow-md shadow-violet-500/30">
@@ -70,18 +70,18 @@ export default function CreatorPage() {
                 />
               </svg>
             </div>
-            <span className="text-lg font-extrabold tracking-tight text-white">bomie.ai</span>
+            <span className="text-lg font-extrabold tracking-tight text-[#161224]">bomie.ai</span>
           </Link>
           <div className="flex items-center gap-3">
             <Link
               href="/merchant"
-              className="hidden sm:inline-flex text-xs font-semibold text-violet-300 hover:text-white"
+              className="hidden sm:inline-flex text-xs font-semibold text-violet-700 hover:text-violet-950"
             >
               For Merchants →
             </Link>
             <Link
               href="/"
-              className="inline-flex items-center gap-1.5 rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-xs font-semibold text-slate-200 transition hover:bg-white/10 hover:text-white"
+              className="inline-flex items-center gap-1.5 rounded-xl border border-violet-200/80 bg-white shadow-sm px-4 py-2 text-xs font-semibold text-slate-700 transition hover:bg-violet-50 hover:text-violet-950"
             >
               <ArrowLeft className="h-3.5 w-3.5" />
               Back to Home
@@ -94,14 +94,14 @@ export default function CreatorPage() {
         {/* 1. Creator Pain Points First */}
         <section className="space-y-8">
           <div className="space-y-3">
-            <div className="inline-flex items-center gap-2 rounded-full border border-fuchsia-500/35 bg-fuchsia-500/10 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-fuchsia-300">
+            <div className="inline-flex items-center gap-2 rounded-full border border-fuchsia-500/35 bg-fuchsia-500/10 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-fuchsia-700">
               <Video className="h-3.5 w-3.5" />
               For Local Creators &amp; Storytellers
             </div>
-            <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white">
+            <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#161224]">
               Stop Chasing Cold DMs and Late Invoices
             </h1>
-            <p className="max-w-2xl text-base text-slate-400">
+            <p className="max-w-2xl text-base text-slate-600">
               Your neighborhood influence is valuable even at 2K–50K followers. Bomie AI brings paid local brand deals directly to you—with guaranteed escrow payouts.
             </p>
           </div>
@@ -123,31 +123,31 @@ export default function CreatorPage() {
             ].map((pain) => (
               <div
                 key={pain.title}
-                className="rounded-3xl border border-rose-500/20 bg-gradient-to-b from-rose-950/20 to-slate-950 p-6 space-y-2.5"
+                className="rounded-3xl border border-rose-500/20 bg-gradient-to-b from-rose-50 to-white p-6 space-y-2.5"
               >
                 <XCircle className="h-5 w-5 text-rose-400" />
-                <h2 className="text-base font-bold text-white">{pain.title}</h2>
-                <p className="text-xs sm:text-sm leading-relaxed text-slate-400">{pain.desc}</p>
+                <h2 className="text-base font-bold text-[#161224]">{pain.title}</h2>
+                <p className="text-xs sm:text-sm leading-relaxed text-slate-600">{pain.desc}</p>
               </div>
             ))}
           </div>
         </section>
 
         {/* 2. How You Leverage Bomie Copilot */}
-        <section className="space-y-8 border-t border-white/10 pt-14">
+        <section className="space-y-8 border-t border-violet-200/70 pt-14">
           <div>
             <span className="font-mono text-xs font-semibold uppercase tracking-widest text-fuchsia-400">
               Creator Copilot · 0% Creator Fee (MVP Free)
             </span>
-            <h2 className="mt-1.5 text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
+            <h2 className="mt-1.5 text-3xl sm:text-4xl font-extrabold tracking-tight text-[#161224]">
               How Creators Leverage Bomie AI
             </h2>
-            <p className="mt-2 text-sm sm:text-base text-slate-400">
+            <p className="mt-2 text-sm sm:text-base text-slate-600">
               Describe your city and content style—see nearby paid deals, AI-generated 30s scripts, and instant payouts waiting for you.
             </p>
           </div>
 
-          <div className="rounded-3xl border border-fuchsia-400/30 bg-slate-950/90 p-6 sm:p-7 shadow-2xl space-y-4">
+          <div className="rounded-3xl border border-fuchsia-400/30 bg-white/95 p-6 sm:p-7 shadow-2xl space-y-4">
             <form
               onSubmit={(e) => {
                 e.preventDefault();
@@ -159,7 +159,7 @@ export default function CreatorPage() {
                 type="text"
                 value={customPrompt}
                 onChange={(e) => setCustomPrompt(e.target.value)}
-                className="flex-1 rounded-2xl border border-white/15 bg-white/[0.04] px-4 py-3.5 text-sm text-white focus:border-fuchsia-400 focus:outline-none"
+                className="flex-1 rounded-2xl border border-violet-200/80 bg-[#f7f4ff] px-4 py-3.5 text-sm text-[#161224] focus:border-fuchsia-400 focus:outline-none"
               />
               <button
                 type="submit"
@@ -182,8 +182,8 @@ export default function CreatorPage() {
                   }}
                   className={`rounded-full border px-3 py-1 text-xs font-medium transition ${
                     presetIdx === idx
-                      ? 'border-fuchsia-400/60 bg-fuchsia-500/20 text-white'
-                      : 'border-white/10 bg-white/[0.03] text-slate-300 hover:bg-white/10'
+                      ? 'border-fuchsia-400/60 bg-fuchsia-500/20 text-[#161224]'
+                      : 'border-violet-200/70 bg-[#f7f4ff] text-slate-600 hover:bg-violet-50'
                   }`}
                 >
                   {p.label}
@@ -192,38 +192,38 @@ export default function CreatorPage() {
             </div>
           </div>
 
-          <div className="rounded-3xl border border-white/15 bg-slate-950 p-6 sm:p-8 space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-5">
+          <div className="rounded-3xl border border-violet-200/80 bg-white shadow-sm p-6 sm:p-8 space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-violet-200/70 pb-5">
               <div>
                 <span className="font-mono text-xs uppercase text-fuchsia-400">
                   ✓ Creator Copilot Ready · Zero Cold DMs
                 </span>
-                <h3 className="mt-1 text-2xl font-bold text-white">{active.handle}</h3>
+                <h3 className="mt-1 text-2xl font-bold text-[#161224]">{active.handle}</h3>
               </div>
-              <span className="self-start rounded-full border border-emerald-400/40 bg-emerald-500/15 px-3.5 py-1 text-xs font-bold text-emerald-300">
+              <span className="self-start rounded-full border border-emerald-400/40 bg-emerald-500/15 px-3.5 py-1 text-xs font-bold text-emerald-700">
                 0% Creator Fee (MVP Free)
               </span>
             </div>
 
             <div className="grid gap-4 sm:grid-cols-3">
-              <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-                <div className="text-xs text-slate-400">1. Inbound Local Deals</div>
-                <div className="mt-1.5 text-sm font-bold text-white">{active.deals}</div>
+              <div className="rounded-2xl border border-violet-200/70 bg-[#f7f4ff] p-4">
+                <div className="text-xs text-slate-600">1. Inbound Local Deals</div>
+                <div className="mt-1.5 text-sm font-bold text-[#161224]">{active.deals}</div>
               </div>
-              <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-                <div className="text-xs text-slate-400">2. AI Shooting Copilot</div>
-                <div className="mt-1.5 text-sm font-bold text-fuchsia-300">{active.script}</div>
+              <div className="rounded-2xl border border-violet-200/70 bg-[#f7f4ff] p-4">
+                <div className="text-xs text-slate-600">2. AI Shooting Copilot</div>
+                <div className="mt-1.5 text-sm font-bold text-fuchsia-700">{active.script}</div>
               </div>
               <div className="rounded-2xl border border-emerald-400/30 bg-emerald-500/10 p-4">
-                <div className="text-xs text-emerald-200">3. Guaranteed Payouts</div>
-                <div className="mt-1.5 text-sm font-bold text-white">{active.payout}</div>
+                <div className="text-xs text-emerald-700">3. Guaranteed Payouts</div>
+                <div className="mt-1.5 text-sm font-bold text-[#161224]">{active.payout}</div>
               </div>
             </div>
 
-            <div className="flex flex-wrap items-center justify-between gap-4 pt-2 border-t border-white/10">
-              <div className="flex items-center gap-4 text-xs text-slate-400">
+            <div className="flex flex-wrap items-center justify-between gap-4 pt-2 border-t border-violet-200/70">
+              <div className="flex items-center gap-4 text-xs text-slate-600">
                 <span className="inline-flex items-center gap-1">
-                  <Wallet className="h-3.5 w-3.5 text-amber-300" />
+                  <Wallet className="h-3.5 w-3.5 text-amber-700" />
                   Stripe &amp; Apple Pay Payouts
                 </span>
                 <span className="inline-flex items-center gap-1">
@@ -233,7 +233,7 @@ export default function CreatorPage() {
               </div>
               <Link
                 href="/#pricing"
-                className="inline-flex items-center gap-1.5 rounded-xl bg-white px-5 py-2.5 text-xs sm:text-sm font-bold text-slate-950 hover:bg-amber-50"
+                className="inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 px-5 py-2.5 text-xs sm:text-sm font-bold text-white shadow-md shadow-violet-600/20 hover:opacity-95"
               >
                 <CheckCircle2 className="h-4 w-4 text-emerald-600" />
                 Claim Your Creator Handle (Free)

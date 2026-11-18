@@ -269,8 +269,8 @@ export default async function CityStoriesPage({
   const active = cityData[key];
 
   return (
-    <div className="min-h-screen bg-[#06060c] text-slate-200 selection:bg-violet-500 selection:text-white">
-      <header className="sticky top-0 z-40 border-b border-white/10 bg-[#06060c]/85 backdrop-blur-xl">
+    <div className="min-h-screen bg-[#f7f4ff] text-[#161224] selection:bg-violet-500 selection:text-[#161224]">
+      <header className="sticky top-0 z-40 border-b border-violet-200/70 bg-[#f7f4ff]/85 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Link href="/" className="flex items-center gap-3">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-tr from-[#5b21b6] via-[#d946ef] to-[#fbbf24] shadow-md shadow-violet-500/30">
@@ -287,11 +287,11 @@ export default async function CityStoriesPage({
                 />
               </svg>
             </div>
-            <span className="text-lg font-extrabold tracking-tight text-white">bomie.ai</span>
+            <span className="text-lg font-extrabold tracking-tight text-[#161224]">bomie.ai</span>
           </Link>
           <Link
             href="/"
-            className="inline-flex items-center gap-1.5 rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-xs font-semibold text-slate-200 transition hover:bg-white/10 hover:text-white"
+            className="inline-flex items-center gap-1.5 rounded-xl border border-violet-200/80 bg-white shadow-sm px-4 py-2 text-xs font-semibold text-slate-700 transition hover:bg-violet-50 hover:text-violet-950"
           >
             <ArrowLeft className="h-3.5 w-3.5" />
             Back to Home
@@ -303,14 +303,14 @@ export default async function CityStoriesPage({
         {/* Top City Switcher */}
         <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
           <div>
-            <span className="font-mono text-xs font-semibold uppercase tracking-widest text-amber-300">
+            <span className="font-mono text-xs font-semibold uppercase tracking-widest text-amber-700">
               Success Stories · City Hub
             </span>
-            <h1 className="mt-1 text-3xl sm:text-5xl font-extrabold tracking-tight text-white">
+            <h1 className="mt-1 text-3xl sm:text-5xl font-extrabold tracking-tight text-[#161224]">
               {active.name} Local Commerce
             </h1>
           </div>
-          <div className="inline-flex flex-wrap gap-1.5 rounded-2xl border border-white/10 bg-slate-950 p-1.5">
+          <div className="inline-flex flex-wrap gap-1.5 rounded-2xl border border-violet-200/70 bg-white shadow-sm p-1.5">
             {(
               [
                 { id: 'sf', label: 'San Francisco' },
@@ -325,7 +325,7 @@ export default async function CityStoriesPage({
                 className={`rounded-xl px-4 py-2 text-xs font-semibold transition ${
                   key === c.id
                     ? 'bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white shadow-md'
-                    : 'text-slate-400 hover:text-white'
+                    : 'text-slate-600 hover:text-violet-950'
                 }`}
               >
                 {c.label}
@@ -335,13 +335,13 @@ export default async function CityStoriesPage({
         </div>
 
         {/* City Hero Card */}
-        <div className="overflow-hidden rounded-3xl border border-white/15 bg-slate-950 shadow-2xl">
+        <div className="overflow-hidden rounded-3xl border border-violet-200/80 bg-white shadow-sm shadow-2xl">
           <div className="relative h-64 sm:h-80 w-full overflow-hidden">
             <img src={active.heroImage} alt={active.name} className="h-full w-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent" />
             <div className="absolute bottom-6 left-6 right-6 flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
               <div>
-                <div className="flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-amber-300">
+                <div className="flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-amber-700">
                   <MapPin className="h-3.5 w-3.5" />
                   <span>{active.name} · Verified City Hub</span>
                 </div>
@@ -351,16 +351,16 @@ export default async function CityStoriesPage({
                 {active.stats.map((st) => (
                   <div
                     key={st.label}
-                    className="rounded-xl border border-white/15 bg-black/60 px-4 py-2.5 backdrop-blur-md"
+                    className="rounded-xl border border-violet-200/80 bg-black/60 px-4 py-2.5 backdrop-blur-md"
                   >
-                    <div className="text-[10px] font-mono uppercase text-slate-400">{st.label}</div>
-                    <div className="text-base font-extrabold text-white">{st.value}</div>
+                    <div className="text-[10px] font-mono uppercase text-slate-600">{st.label}</div>
+                    <div className="text-base font-extrabold text-[#161224]">{st.value}</div>
                   </div>
                 ))}
               </div>
             </div>
           </div>
-          <div className="p-6 sm:p-8 text-sm sm:text-base leading-relaxed text-slate-300">
+          <div className="p-6 sm:p-8 text-sm sm:text-base leading-relaxed text-slate-600">
             {active.overview}
           </div>
         </div>
@@ -370,16 +370,16 @@ export default async function CityStoriesPage({
           {active.cases.map((cs) => (
             <div
               key={cs.brand}
-              className="overflow-hidden rounded-3xl border border-white/10 bg-slate-950 transition hover:border-violet-500/40"
+              className="overflow-hidden rounded-3xl border border-violet-200/70 bg-white shadow-sm transition hover:border-violet-500/40"
             >
               <div className="relative h-52 w-full overflow-hidden">
                 <img src={cs.image} alt={cs.brand} className="h-full w-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/35 to-transparent" />
-                <div className="absolute top-4 right-4 rounded-full border border-emerald-400/35 bg-emerald-500/20 px-3 py-1 text-xs font-bold text-emerald-300 backdrop-blur-md">
+                <div className="absolute top-4 right-4 rounded-full border border-emerald-400/35 bg-emerald-500/20 px-3 py-1 text-xs font-bold text-emerald-700 backdrop-blur-md">
                   {cs.metric}
                 </div>
                 <div className="absolute bottom-4 left-5 right-5">
-                  <div className="text-[11px] font-mono uppercase tracking-wider text-amber-300">
+                  <div className="text-[11px] font-mono uppercase tracking-wider text-amber-700">
                     {cs.industry}
                   </div>
                   <h2 className="text-xl font-bold text-white">{cs.brand}</h2>
@@ -387,15 +387,15 @@ export default async function CityStoriesPage({
               </div>
               <div className="p-6 space-y-3">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="font-semibold text-violet-300">Matched Creator: {cs.creator}</span>
+                  <span className="font-semibold text-violet-700">Matched Creator: {cs.creator}</span>
                   <div className="flex items-center gap-0.5 text-amber-400">
                     {[...Array(5)].map((_, idx) => (
                       <Star key={idx} className="h-3.5 w-3.5 fill-current" />
                     ))}
                   </div>
                 </div>
-                <p className="text-sm leading-relaxed text-slate-300">{cs.summary}</p>
-                <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-3.5 text-xs italic text-slate-400">
+                <p className="text-sm leading-relaxed text-slate-600">{cs.summary}</p>
+                <div className="rounded-2xl border border-violet-100 bg-[#f7f4ff] p-3.5 text-xs italic text-slate-600">
                   {cs.quote}
                 </div>
               </div>
@@ -406,7 +406,7 @@ export default async function CityStoriesPage({
         <div className="flex justify-center pt-4">
           <Link
             href="/#pricing"
-            className="inline-flex items-center gap-2 rounded-2xl bg-white px-7 py-3.5 text-sm font-bold text-slate-950 transition hover:bg-amber-50"
+            className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-violet-600 to-fuchsia-600 px-7 py-3.5 text-sm font-bold text-white shadow-md shadow-violet-600/20 transition hover:opacity-95"
           >
             <Sparkles className="h-4 w-4 text-violet-600" />
             Launch a Free MVP Campaign in {active.name} →

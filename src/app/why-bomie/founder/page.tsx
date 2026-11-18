@@ -10,8 +10,8 @@ export const metadata: Metadata = {
 
 export default function FounderPage() {
   return (
-    <div className="min-h-screen bg-[#06060c] text-slate-200 selection:bg-violet-500 selection:text-white">
-      <header className="sticky top-0 z-40 border-b border-white/10 bg-[#06060c]/85 backdrop-blur-xl">
+    <div className="min-h-screen bg-[#f7f4ff] text-[#161224] selection:bg-violet-500 selection:text-[#161224]">
+      <header className="sticky top-0 z-40 border-b border-violet-200/70 bg-[#f7f4ff]/85 backdrop-blur-xl">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
           <Link href="/" className="flex items-center gap-3 group">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-tr from-[#5b21b6] via-[#d946ef] to-[#fbbf24] shadow-md shadow-violet-500/30">
@@ -28,24 +28,24 @@ export default function FounderPage() {
                 />
               </svg>
             </div>
-            <span className="text-lg font-extrabold tracking-tight text-white">bomie.ai</span>
+            <span className="text-lg font-extrabold tracking-tight text-[#161224]">bomie.ai</span>
           </Link>
           <div className="flex items-center gap-3">
             <Link
               href="/why-bomie/stories"
-              className="hidden sm:inline-flex text-xs font-semibold text-slate-400 hover:text-white"
+              className="hidden sm:inline-flex text-xs font-semibold text-slate-600 hover:text-violet-950"
             >
               Bomie Stories
             </Link>
             <Link
               href="/why-bomie/research"
-              className="hidden sm:inline-flex text-xs font-semibold text-slate-400 hover:text-white"
+              className="hidden sm:inline-flex text-xs font-semibold text-slate-600 hover:text-violet-950"
             >
               Bomie Research
             </Link>
             <Link
               href="/"
-              className="inline-flex items-center gap-1.5 rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-xs font-semibold text-slate-200 transition hover:bg-white/10 hover:text-white"
+              className="inline-flex items-center gap-1.5 rounded-xl border border-violet-200/80 bg-white shadow-sm px-4 py-2 text-xs font-semibold text-slate-700 transition hover:bg-violet-50 hover:text-violet-950"
             >
               <ArrowLeft className="h-3.5 w-3.5" />
               Back to Home
@@ -57,33 +57,33 @@ export default function FounderPage() {
       <main className="mx-auto max-w-5xl px-6 py-16 space-y-12">
         {/* Hero */}
         <div className="space-y-4">
-          <div className="inline-flex items-center gap-2 rounded-full border border-violet-500/35 bg-violet-500/10 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-violet-300">
-            <Sparkles className="h-3.5 w-3.5 text-amber-300" />
+          <div className="inline-flex items-center gap-2 rounded-full border border-violet-500/35 bg-violet-500/10 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-violet-700">
+            <Sparkles className="h-3.5 w-3.5 text-amber-700" />
             Why Bomie · Leadership
           </div>
-          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-white">
+          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-[#161224]">
             Built for Main Street, by Builders Who Care.
           </h1>
-          <p className="max-w-2xl text-base sm:text-lg leading-relaxed text-slate-400">
+          <p className="max-w-2xl text-base sm:text-lg leading-relaxed text-slate-600">
             Meet the founder behind America&apos;s first AI Commerce OS built specifically for neighborhood small businesses and local creators.
           </p>
         </div>
 
         {/* Founder Spotlight Card */}
-        <div className="rounded-3xl border border-violet-500/35 bg-gradient-to-br from-violet-950/45 via-[#0b0b16] to-slate-950 p-8 sm:p-10 shadow-2xl">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 border-b border-white/10 pb-8">
+        <div className="rounded-3xl border border-violet-500/35 bg-gradient-to-br from-violet-100/70 via-white to-white p-8 sm:p-10 shadow-2xl">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 border-b border-violet-200/70 pb-8">
             <div className="flex items-center gap-5">
               <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-3xl bg-gradient-to-tr from-[#5b21b6] via-[#d946ef] to-[#fbbf24] text-2xl font-extrabold text-white shadow-xl shadow-violet-500/30">
                 LW
               </div>
               <div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-white">Lucian Wang</h2>
-                <p className="mt-1 text-sm font-semibold text-violet-300">
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-[#161224]">Lucian Wang</h2>
+                <p className="mt-1 text-sm font-semibold text-violet-700">
                   Founder &amp; CEO · BOMIES LLC
                 </p>
-                <div className="mt-1.5 flex flex-wrap items-center gap-3 text-xs text-slate-400">
+                <div className="mt-1.5 flex flex-wrap items-center gap-3 text-xs text-slate-600">
                   <span className="inline-flex items-center gap-1">
-                    <MapPin className="h-3.5 w-3.5 text-amber-300" />
+                    <MapPin className="h-3.5 w-3.5 text-amber-700" />
                     San Francisco, California
                   </span>
                   <span>·</span>
@@ -94,13 +94,13 @@ export default function FounderPage() {
                 </div>
               </div>
             </div>
-            <span className="self-start rounded-full border border-emerald-400/35 bg-emerald-500/15 px-3.5 py-1.5 text-xs font-bold text-emerald-300">
+            <span className="self-start rounded-full border border-emerald-400/35 bg-emerald-500/15 px-3.5 py-1.5 text-xs font-bold text-emerald-700">
               24h Founder Response SLA
             </span>
           </div>
 
-          <div className="mt-8 space-y-5 text-base leading-relaxed text-slate-300">
-            <p className="text-lg sm:text-xl font-medium text-white italic">
+          <div className="mt-8 space-y-5 text-base leading-relaxed text-slate-600">
+            <p className="text-lg sm:text-xl font-medium text-[#161224] italic">
               &ldquo;We built Bomie AI so every neighborhood restaurant, spa, and boutique can harness the same AI creator engine as Fortune 500 brands—with zero technical complexity and full payment transparency.&rdquo;
             </p>
             <p>
@@ -111,10 +111,10 @@ export default function FounderPage() {
             </p>
           </div>
 
-          <div className="mt-8 flex flex-wrap gap-3 pt-4 border-t border-white/10">
+          <div className="mt-8 flex flex-wrap gap-3 pt-4 border-t border-violet-200/70">
             <a
               href="mailto:lucian.wang@bomie.ai"
-              className="inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-xs sm:text-sm font-bold text-slate-950 transition hover:bg-amber-50"
+              className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 px-5 py-3 text-xs sm:text-sm font-bold text-white shadow-md shadow-violet-600/20 transition hover:opacity-95"
             >
               <Mail className="h-4 w-4 text-violet-600" />
               Email Lucian: lucian.wang@bomie.ai
@@ -123,7 +123,7 @@ export default function FounderPage() {
               href="https://www.linkedin.com/company/bomies"
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-xl border border-violet-400/40 bg-violet-500/15 px-5 py-3 text-xs sm:text-sm font-semibold text-violet-100 transition hover:bg-violet-500/25"
+              className="inline-flex items-center gap-2 rounded-xl border border-violet-400/40 bg-violet-500/15 px-5 py-3 text-xs sm:text-sm font-semibold text-violet-900 transition hover:bg-violet-500/25"
             >
               LinkedIn Company Page
               <ExternalLink className="h-4 w-4" />
@@ -147,10 +147,10 @@ export default function FounderPage() {
               desc: 'Every dollar stays in the neighborhood—helping independent shops pack tables and local storytellers earn fairly.',
             },
           ].map((item) => (
-            <div key={item.title} className="rounded-2xl border border-white/10 bg-slate-950 p-6">
+            <div key={item.title} className="rounded-2xl border border-violet-200/70 bg-white shadow-sm p-6">
               <CheckCircle2 className="h-5 w-5 text-emerald-400 mb-3" />
-              <h3 className="text-base font-bold text-white">{item.title}</h3>
-              <p className="mt-2 text-xs sm:text-sm leading-relaxed text-slate-400">{item.desc}</p>
+              <h3 className="text-base font-bold text-[#161224]">{item.title}</h3>
+              <p className="mt-2 text-xs sm:text-sm leading-relaxed text-slate-600">{item.desc}</p>
             </div>
           ))}
         </div>

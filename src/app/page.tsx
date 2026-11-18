@@ -1674,8 +1674,7 @@ export default function BomieLandingPage() {
               <span className="text-xl sm:text-[26px] font-extrabold tracking-tight text-[#161224] leading-none whitespace-nowrap">
                 bomie.ai
               </span>
-              <div className="hidden sm:flex items-center gap-1.5 mt-1.5">
-                <Sparkles className="h-3 w-3 shrink-0 text-violet-600 animate-pulse" />
+              <div className="hidden sm:flex items-center mt-1.5">
                 <motion.span
                   animate={{ backgroundPosition: ['115% 0%', '-15% 0%'] }}
                   transition={{
@@ -1916,9 +1915,8 @@ export default function BomieLandingPage() {
                 setDemoError('');
                 setShowDemoModal(true);
               }}
-              className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-xl bg-gradient-to-r from-violet-600 via-fuchsia-600 to-violet-700 px-3.5 sm:px-5 py-2.5 text-xs sm:text-sm font-bold text-white shadow-lg shadow-violet-600/25 transition hover:opacity-95"
+              className="inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-xl bg-gradient-to-r from-violet-600 via-fuchsia-600 to-violet-700 px-4 sm:px-5 py-2.5 text-xs sm:text-sm font-bold text-white shadow-lg shadow-violet-600/25 transition hover:opacity-95"
             >
-              <Sparkles className="h-3.5 w-3.5 text-amber-200" />
               Book a Demo
             </motion.button>
             <button

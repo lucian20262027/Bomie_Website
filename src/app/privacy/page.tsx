@@ -9,8 +9,8 @@ export const metadata: Metadata = {
 
 export default function PrivacyPolicyPage() {
   return (
-    <div className="min-h-screen bg-[#06060c] text-slate-200 selection:bg-violet-500 selection:text-white">
-      <header className="border-b border-white/10 bg-[#06060c]/85 backdrop-blur-xl">
+    <div className="min-h-screen bg-[#f7f4ff] text-[#161224] selection:bg-violet-500 selection:text-[#161224]">
+      <header className="border-b border-violet-200/70 bg-[#f7f4ff]/85 backdrop-blur-xl">
         <div className="mx-auto flex max-w-4xl items-center justify-between px-6 py-4">
           <Link href="/" className="flex items-center gap-3 group">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-tr from-[#5b21b6] via-[#d946ef] to-[#fbbf24] shadow-md shadow-violet-500/30">
@@ -27,11 +27,11 @@ export default function PrivacyPolicyPage() {
                 />
               </svg>
             </div>
-            <span className="text-lg font-extrabold tracking-tight text-white">bomie.ai</span>
+            <span className="text-lg font-extrabold tracking-tight text-[#161224]">bomie.ai</span>
           </Link>
           <Link
             href="/"
-            className="inline-flex items-center gap-1.5 rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-xs font-semibold text-slate-200 transition hover:bg-white/10 hover:text-white"
+            className="inline-flex items-center gap-1.5 rounded-xl border border-violet-200/80 bg-white shadow-sm px-4 py-2 text-xs font-semibold text-slate-700 transition hover:bg-violet-50 hover:text-violet-950"
           >
             <ArrowLeft className="h-3.5 w-3.5" />
             Back to Home
@@ -40,30 +40,30 @@ export default function PrivacyPolicyPage() {
       </header>
 
       <main className="mx-auto max-w-4xl px-6 py-14 space-y-8">
-        <div className="space-y-3 border-b border-white/10 pb-8">
-          <div className="inline-flex items-center gap-2 rounded-full border border-violet-500/30 bg-violet-500/10 px-3 py-1 text-xs font-semibold text-violet-300">
+        <div className="space-y-3 border-b border-violet-200/70 pb-8">
+          <div className="inline-flex items-center gap-2 rounded-full border border-violet-500/30 bg-violet-500/10 px-3 py-1 text-xs font-semibold text-violet-700">
             <ShieldCheck className="h-3.5 w-3.5" />
             Legal &amp; Data Protection
           </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
+          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#161224]">
             Privacy Policy
           </h1>
-          <p className="text-sm text-slate-400">
+          <p className="text-sm text-slate-600">
             Effective Date: November 17, 2026 · Entity: BOMIES LLC (&ldquo;Bomie AI&rdquo;, &ldquo;we&rdquo;, &ldquo;our&rdquo;)
           </p>
         </div>
 
         <section className="space-y-3">
-          <h2 className="text-xl font-bold text-white">1. Information We Collect</h2>
-          <p className="text-sm leading-relaxed text-slate-300">
+          <h2 className="text-xl font-bold text-[#161224]">1. Information We Collect</h2>
+          <p className="text-sm leading-relaxed text-slate-600">
             When you book a demo, create a Merchant OS or Creator Copilot account, or submit campaign briefs on{' '}
-            <span className="text-violet-300">bomie.ai</span>, we collect information you directly provide, including your name, work email, business or creator handle, city/region, campaign preferences, and connected social media public profile metrics (such as TikTok, Instagram Reels, or YouTube Shorts engagement data authorized via OAuth).
+            <span className="text-violet-700">bomie.ai</span>, we collect information you directly provide, including your name, work email, business or creator handle, city/region, campaign preferences, and connected social media public profile metrics (such as TikTok, Instagram Reels, or YouTube Shorts engagement data authorized via OAuth).
           </p>
         </section>
 
         <section className="space-y-3">
-          <h2 className="text-xl font-bold text-white">2. How We Use Your Data</h2>
-          <ul className="list-disc pl-5 space-y-2 text-sm leading-relaxed text-slate-300">
+          <h2 className="text-xl font-bold text-[#161224]">2. How We Use Your Data</h2>
+          <ul className="list-disc pl-5 space-y-2 text-sm leading-relaxed text-slate-600">
             <li>Match local businesses with verified neighborhood creators based on location, audience fit, and content style.</li>
             <li>Run automated 3-Agent FTC 16 CFR Part 255 disclosure and content compliance checks.</li>
             <li>Process milestone escrow payouts (30% / 40% / 30%) securely via regulated payment processors such as Stripe.</li>
@@ -72,17 +72,17 @@ export default function PrivacyPolicyPage() {
         </section>
 
         <section className="space-y-3">
-          <h2 className="text-xl font-bold text-white">3. Data Sharing &amp; Security</h2>
-          <p className="text-sm leading-relaxed text-slate-300">
+          <h2 className="text-xl font-bold text-[#161224]">3. Data Sharing &amp; Security</h2>
+          <p className="text-sm leading-relaxed text-slate-600">
             We do not sell personal data to third-party data brokers. Information is shared only with matched campaign counterparties (for example, a merchant brief shared with an invited creator), payment infrastructure providers, and cloud hosting partners under strict confidentiality and encryption-in-transit (TLS 1.3) safeguards.
           </p>
         </section>
 
         <section className="space-y-3">
-          <h2 className="text-xl font-bold text-white">4. Your Rights &amp; Contact</h2>
-          <p className="text-sm leading-relaxed text-slate-300">
+          <h2 className="text-xl font-bold text-[#161224]">4. Your Rights &amp; Contact</h2>
+          <p className="text-sm leading-relaxed text-slate-600">
             Under CCPA/CPRA and applicable U.S. state privacy laws, you may request access, correction, or deletion of your personal data at any time by contacting our privacy team at{' '}
-            <a href="mailto:lucian.wang@bomie.ai" className="text-violet-300 underline hover:text-white">
+            <a href="mailto:lucian.wang@bomie.ai" className="text-violet-700 underline hover:text-violet-950">
               lucian.wang@bomie.ai
             </a>
             .
