@@ -81,22 +81,53 @@ export async function POST(request: Request) {
         .catch((err) => console.error('Resend forward error:', err));
     }
 
-    // Optional: forward to Slack / Discord / Zapier webhook if DEMO_WEBHOOK_URL is configured
+    // Forward to Discord / Slack / Feishu webhook if DEMO_WEBHOOK_URL is configured
+    let webhookDispatched = false;
     const webhookUrl = process.env.DEMO_WEBHOOK_URL;
     if (webhookUrl) {
+      const isDiscord =
+        webhookUrl.includes('discord.com/api/webhooks') ||
+        webhookUrl.includes('discordapp.com/api/webhooks');
+
+      const webhookPayload = isDiscord
+        ? {
+            username: 'Bomie AI Lead Concierge',
+            content: `🚀 **New Demo Request** — **${handle}** (${city})`,
+            embeds: [
+              {
+                title: `New Bomie AI Demo Lead (${leadId})`,
+                color: 9127187, // Royal Violet (#8B45D3)
+                fields: [
+                  { name: '👤 Name', value: name, inline: true },
+                  { name: '📧 Work Email', value: email, inline: true },
+                  { name: '🏪 Business / Handle', value: handle, inline: true },
+                  { name: '📍 City / Region', value: city, inline: true },
+                ],
+                footer: { text: 'bomie.ai · Book a Demo Lead Capture' },
+                timestamp,
+              },
+            ],
+          }
+        : {
+            text: `🚀 New Bomie AI Demo Request (${leadId})\n• Name: ${name}\n• Email: ${email}\n• Handle: ${handle}\n• City: ${city}`,
+          };
+
       await fetch(webhookUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          text: `🚀 New Bomie AI Demo Request (${leadId})\n• Name: ${name}\n• Email: ${email}\n• Handle: ${handle}\n• City: ${city}`,
-        }),
-      }).catch((err) => console.error('Webhook forward error:', err));
+        body: JSON.stringify(webhookPayload),
+      })
+        .then((r) => {
+          if (r.ok) webhookDispatched = true;
+        })
+        .catch((err) => console.error('Webhook forward error:', err));
     }
 
     return NextResponse.json({
       ok: true,
       leadId,
       emailDispatched,
+      webhookDispatched,
       receivedAt: timestamp,
     });
   } catch {
