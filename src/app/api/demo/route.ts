@@ -5,15 +5,24 @@ export async function POST(request: Request) {
     const body = await request.json();
     const name = String(body?.name || '').trim();
     const email = String(body?.email || '').trim();
+    const phone = String(body?.phone || '').trim();
+    const preferredContact = String(body?.preferredContact || 'either').trim();
     const handle = String(body?.handle || '').trim();
     const city = String(body?.city || '').trim();
 
-    if (!name || !email || !handle || !city) {
+    if (!name || !email || !phone || !handle || !city) {
       return NextResponse.json(
-        { ok: false, error: 'All fields are required.' },
+        { ok: false, error: 'Please fill in all required fields including email and phone.' },
         { status: 400 }
       );
     }
+
+    const preferredLabel =
+      preferredContact === 'phone'
+        ? '📞 Phone / Text'
+        : preferredContact === 'email'
+          ? '✉️ Work Email'
+          : '✨ Either (Fastest)';
 
     const leadId = `BOMIE-${Date.now().toString(36).toUpperCase()}`;
     const timestamp = new Date().toISOString();
@@ -99,7 +108,9 @@ export async function POST(request: Request) {
                 color: 9127187, // Royal Violet (#8B45D3)
                 fields: [
                   { name: '👤 Name', value: name, inline: true },
+                  { name: '💬 Preferred Contact', value: preferredLabel, inline: true },
                   { name: '📧 Work Email', value: email, inline: true },
+                  { name: '📞 Phone Number', value: phone, inline: true },
                   { name: '🏪 Business / Handle', value: handle, inline: true },
                   { name: '📍 City / Region', value: city, inline: true },
                 ],

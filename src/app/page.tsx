@@ -825,6 +825,8 @@ export default function BomieLandingPage() {
   const [demoSubmitted, setDemoSubmitted] = useState<boolean>(false);
   const [demoName, setDemoName] = useState<string>('');
   const [demoEmail, setDemoEmail] = useState<string>('');
+  const [demoPhone, setDemoPhone] = useState<string>('');
+  const [demoPreferredContact, setDemoPreferredContact] = useState<'email' | 'phone' | 'either'>('either');
   const [demoHandle, setDemoHandle] = useState<string>('');
   const [demoCity, setDemoCity] = useState<string>('');
   const [isSubmittingDemo, setIsSubmittingDemo] = useState<boolean>(false);
@@ -879,6 +881,8 @@ export default function BomieLandingPage() {
         body: JSON.stringify({
           name: demoName,
           email: demoEmail,
+          phone: demoPhone,
+          preferredContact: demoPreferredContact,
           handle: demoHandle,
           city: demoCity,
         }),
@@ -4549,18 +4553,61 @@ export default function BomieLandingPage() {
                     />
                   </div>
 
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-300 mb-1">
+                        Work Email *
+                      </label>
+                      <input
+                        type="email"
+                        required
+                        value={demoEmail}
+                        onChange={(e) => setDemoEmail(e.target.value)}
+                        placeholder="alex@yourbusiness.com"
+                        className="w-full rounded-xl border border-white/15 bg-white/5 px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:border-violet-500 focus:outline-none"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-300 mb-1">
+                        Phone Number *
+                      </label>
+                      <input
+                        type="tel"
+                        required
+                        value={demoPhone}
+                        onChange={(e) => setDemoPhone(e.target.value)}
+                        placeholder="+1 (415) 555-0192"
+                        className="w-full rounded-xl border border-white/15 bg-white/5 px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:border-violet-500 focus:outline-none"
+                      />
+                    </div>
+                  </div>
+
                   <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1">
-                      Work Email *
+                    <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                      Preferred Contact Method
                     </label>
-                    <input
-                      type="email"
-                      required
-                      value={demoEmail}
-                      onChange={(e) => setDemoEmail(e.target.value)}
-                      placeholder="alex@yourbusiness.com"
-                      className="w-full rounded-xl border border-white/15 bg-white/5 px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:border-violet-500 focus:outline-none"
-                    />
+                    <div className="grid grid-cols-3 gap-2 rounded-xl border border-white/10 bg-white/[0.03] p-1">
+                      {(
+                        [
+                          { id: 'email', label: '✉️ Email' },
+                          { id: 'phone', label: '📞 Phone / Text' },
+                          { id: 'either', label: '✨ Either' },
+                        ] as const
+                      ).map((opt) => (
+                        <button
+                          key={opt.id}
+                          type="button"
+                          onClick={() => setDemoPreferredContact(opt.id)}
+                          className={`rounded-lg py-2 text-xs font-semibold transition ${
+                            demoPreferredContact === opt.id
+                              ? 'bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white shadow-sm'
+                              : 'text-slate-400 hover:bg-white/5 hover:text-slate-200'
+                          }`}
+                        >
+                          {opt.label}
+                        </button>
+                      ))}
+                    </div>
                   </div>
 
                   <div className="grid grid-cols-2 gap-3">
