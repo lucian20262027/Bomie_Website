@@ -1647,15 +1647,15 @@ export default function BomieLandingPage() {
         onMouseLeave={() => setOpenNavMenu(null)}
         className="sticky top-0 z-50 border-b border-white/10 bg-[#06060c]/85 backdrop-blur-xl"
       >
-        <div className="mx-auto flex max-w-[1440px] items-center justify-between gap-2 px-4 sm:px-6 lg:px-10 py-3 sm:py-4">
-          {/* 1. Enlarged Bespoke Geometric B✦ Logo + Single-Line Left-to-Right Shimmer Tagline */}
-          <a href="#" className="group flex min-w-0 items-center gap-2.5 sm:gap-3.5">
-            <div className="relative flex h-10 w-10 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-xl sm:rounded-2xl bg-gradient-to-tr from-[#5b21b6] via-[#d946ef] to-[#fbbf24] p-[1px] shadow-lg shadow-violet-500/40 transition-transform duration-300 group-hover:scale-105">
+        <div className="mx-auto flex max-w-[1440px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-10 py-3.5 sm:py-4">
+          {/* 1. Enlarged Bespoke Geometric B✦ Logo + Stacked Shimmer Tagline Underneath */}
+          <Link href="/" className="group flex min-w-0 items-center gap-3.5">
+            <div className="relative flex h-11 w-11 sm:h-13 sm:w-13 shrink-0 items-center justify-center rounded-xl sm:rounded-2xl bg-gradient-to-tr from-[#5b21b6] via-[#d946ef] to-[#fbbf24] p-[1px] shadow-lg shadow-violet-500/40 transition-transform duration-300 group-hover:scale-105">
               <div className="flex h-full w-full items-center justify-center rounded-[11px] sm:rounded-[15px] bg-gradient-to-tr from-violet-700/90 via-fuchsia-500/90 to-amber-400/90 backdrop-blur-sm">
                 <svg
                   viewBox="0 0 512 512"
                   fill="none"
-                  className="h-6 w-6 sm:h-8 sm:w-8 drop-shadow-[0_2px_8px_rgba(46,16,101,0.45)]"
+                  className="h-7 w-7 sm:h-8 sm:w-8 drop-shadow-[0_2px_8px_rgba(46,16,101,0.45)]"
                 >
                   <path
                     fill="#ffffff"
@@ -1670,13 +1670,12 @@ export default function BomieLandingPage() {
                 </svg>
               </div>
             </div>
-            <div className="flex min-w-0 flex-col sm:flex-row sm:items-center sm:gap-3.5">
-              <span className="text-xl sm:text-[28px] font-extrabold tracking-tight text-white leading-none whitespace-nowrap">
+            <div className="flex min-w-0 flex-col justify-center">
+              <span className="text-xl sm:text-[26px] font-extrabold tracking-tight text-white leading-none whitespace-nowrap">
                 bomie.ai
               </span>
-              <span className="hidden h-5 w-[1px] bg-white/20 lg:inline-block" />
-              <div className="hidden sm:flex items-center gap-1.5 mt-0.5 sm:mt-0">
-                <Sparkles className="h-3.5 w-3.5 shrink-0 text-amber-300 animate-pulse" />
+              <div className="hidden sm:flex items-center gap-1.5 mt-1.5">
+                <Sparkles className="h-3 w-3 shrink-0 text-amber-300 animate-pulse" />
                 <motion.span
                   animate={{ backgroundPosition: ['115% 0%', '-15% 0%'] }}
                   transition={{
@@ -1690,16 +1689,16 @@ export default function BomieLandingPage() {
                       'linear-gradient(90deg, rgba(221,214,254,0.92) 0%, rgba(221,214,254,0.92) 38%, #ffffff 48%, #fde047 51%, #f472b6 55%, rgba(221,214,254,0.92) 64%, rgba(221,214,254,0.92) 100%)',
                     backgroundSize: '240% 100%',
                   }}
-                  className="bg-clip-text text-xs sm:text-[13.5px] font-semibold tracking-wide text-transparent leading-none"
+                  className="bg-clip-text text-[11px] lg:text-xs font-semibold tracking-wide text-transparent leading-none whitespace-nowrap"
                 >
                   First Platform in North America for Local Businesses &amp; Local Creators
                 </motion.span>
               </div>
             </div>
-          </a>
+          </Link>
 
-          {/* 2. Two Consolidated Center Dropdown Menus: [Commerce OS ▾] + [Success Stories ▾] */}
-          <nav className="hidden items-center gap-4 md:flex">
+          {/* 2. Three Single-Line Center Dropdown Menus (Oura-Style Dedicated Pages) */}
+          <nav className="hidden items-center gap-2 lg:gap-4 md:flex shrink-0">
             {/* Dropdown 1: Commerce OS */}
             <div
               className="relative"
@@ -1708,7 +1707,7 @@ export default function BomieLandingPage() {
               <button
                 type="button"
                 onClick={() => setOpenNavMenu(openNavMenu === 'os' ? null : 'os')}
-                className="flex items-center gap-1.5 rounded-xl px-4 py-2 text-sm font-semibold text-slate-200 transition hover:bg-white/5 hover:text-white"
+                className="flex items-center gap-1.5 whitespace-nowrap rounded-xl px-3.5 py-2 text-sm font-semibold text-slate-200 transition hover:bg-white/5 hover:text-white"
               >
                 <span>Commerce OS</span>
                 <ChevronDown
@@ -1728,8 +1727,8 @@ export default function BomieLandingPage() {
                     className="absolute left-0 top-full pt-2 w-72 z-50"
                   >
                     <div className="rounded-2xl border border-white/15 bg-[#0c0c18]/95 p-2 shadow-2xl backdrop-blur-2xl space-y-1">
-                      <a
-                        href="#how-it-works"
+                      <Link
+                        href="/commerce-os/how-it-works"
                         onClick={() => setOpenNavMenu(null)}
                         className="flex items-start gap-3 rounded-xl p-3 transition hover:bg-white/10"
                       >
@@ -1737,12 +1736,12 @@ export default function BomieLandingPage() {
                         <div>
                           <div className="text-xs font-bold text-white">1. How It Works</div>
                           <div className="text-[11px] text-slate-400">
-                            Interactive Merchant OS &amp; Creator Copilot
+                            Chat-First Builder &amp; 4-Stage Sandbox Page
                           </div>
                         </div>
-                      </a>
-                      <a
-                        href="#os"
+                      </Link>
+                      <Link
+                        href="/commerce-os/flywheel"
                         onClick={() => setOpenNavMenu(null)}
                         className="flex items-start gap-3 rounded-xl p-3 transition hover:bg-white/10"
                       >
@@ -1753,7 +1752,7 @@ export default function BomieLandingPage() {
                             360° Merchant ⇄ Creator Closed-Loop Circle
                           </div>
                         </div>
-                      </a>
+                      </Link>
                       <button
                         type="button"
                         onClick={handleOpenFaqChatbot}
@@ -1773,7 +1772,7 @@ export default function BomieLandingPage() {
               </AnimatePresence>
             </div>
 
-            {/* Dropdown 2: Success Stories (4 Cities) */}
+            {/* Dropdown 2: Success Stories (4 Dedicated City Pages) */}
             <div
               className="relative"
               onMouseEnter={() => setOpenNavMenu('stories')}
@@ -1781,7 +1780,7 @@ export default function BomieLandingPage() {
               <button
                 type="button"
                 onClick={() => setOpenNavMenu(openNavMenu === 'stories' ? null : 'stories')}
-                className="flex items-center gap-1.5 rounded-xl px-4 py-2 text-sm font-semibold text-slate-200 transition hover:bg-white/5 hover:text-white"
+                className="flex items-center gap-1.5 whitespace-nowrap rounded-xl px-3.5 py-2 text-sm font-semibold text-slate-200 transition hover:bg-white/5 hover:text-white"
               >
                 <span>Success Stories</span>
                 <ChevronDown
@@ -1809,10 +1808,10 @@ export default function BomieLandingPage() {
                           { id: 'vegas', label: 'Las Vegas', sub: 'Experiential Dining & Luxury Spas' },
                         ] as const
                       ).map((city) => (
-                        <button
+                        <Link
                           key={city.id}
-                          type="button"
-                          onClick={() => handleNavCitySelect(city.id)}
+                          href={`/stories/${city.id}`}
+                          onClick={() => setOpenNavMenu(null)}
                           className="flex w-full items-start gap-3 rounded-xl p-3 text-left transition hover:bg-white/10"
                         >
                           <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-amber-400" />
@@ -1820,7 +1819,7 @@ export default function BomieLandingPage() {
                             <div className="text-xs font-bold text-white">{city.label}</div>
                             <div className="text-[11px] text-slate-400">{city.sub}</div>
                           </div>
-                        </button>
+                        </Link>
                       ))}
                     </div>
                   </motion.div>
@@ -1836,7 +1835,7 @@ export default function BomieLandingPage() {
               <button
                 type="button"
                 onClick={() => setOpenNavMenu(openNavMenu === 'why' ? null : 'why')}
-                className="flex items-center gap-1.5 rounded-xl px-4 py-2 text-sm font-semibold text-slate-200 transition hover:bg-white/5 hover:text-white"
+                className="flex items-center gap-1.5 whitespace-nowrap rounded-xl px-3.5 py-2 text-sm font-semibold text-slate-200 transition hover:bg-white/5 hover:text-white"
               >
                 <span>Why Bomie</span>
                 <ChevronDown
@@ -1951,22 +1950,22 @@ export default function BomieLandingPage() {
                     Commerce OS
                   </div>
                   <div className="grid grid-cols-1 gap-1.5">
-                    <a
-                      href="#how-it-works"
+                    <Link
+                      href="/commerce-os/how-it-works"
                       onClick={() => setMobileMenuOpen(false)}
                       className="flex items-center gap-2.5 rounded-xl bg-white/[0.04] px-3.5 py-2.5 text-xs font-semibold text-white"
                     >
                       <Zap className="h-4 w-4 text-violet-400" />
                       1. How It Works
-                    </a>
-                    <a
-                      href="#os"
+                    </Link>
+                    <Link
+                      href="/commerce-os/flywheel"
                       onClick={() => setMobileMenuOpen(false)}
                       className="flex items-center gap-2.5 rounded-xl bg-white/[0.04] px-3.5 py-2.5 text-xs font-semibold text-white"
                     >
                       <Repeat className="h-4 w-4 text-fuchsia-400" />
                       2. Commerce OS (360° Flywheel)
-                    </a>
+                    </Link>
                     <button
                       type="button"
                       onClick={handleOpenFaqChatbot}
@@ -1991,18 +1990,15 @@ export default function BomieLandingPage() {
                         { id: 'vegas', label: 'Las Vegas' },
                       ] as const
                     ).map((city) => (
-                      <button
+                      <Link
                         key={city.id}
-                        type="button"
-                        onClick={() => {
-                          setMobileMenuOpen(false);
-                          handleNavCitySelect(city.id);
-                        }}
+                        href={`/stories/${city.id}`}
+                        onClick={() => setMobileMenuOpen(false)}
                         className="flex items-center gap-1.5 rounded-xl bg-white/[0.04] px-3 py-2 text-left text-xs font-semibold text-slate-200"
                       >
                         <MapPin className="h-3.5 w-3.5 text-amber-400" />
                         <span>{city.label}</span>
-                      </button>
+                      </Link>
                     ))}
                   </div>
                 </div>
