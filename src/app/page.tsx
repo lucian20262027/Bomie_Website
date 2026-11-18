@@ -2109,9 +2109,9 @@ export default function BomieLandingPage() {
             transition={{ duration: 0.7, delay: 0.45 }}
             onMouseEnter={() => setIsMatchPaused(true)}
             onMouseLeave={() => setIsMatchPaused(false)}
-            className="mx-auto mt-14 w-full rounded-3xl border border-violet-200/80 bg-white/80 p-2.5 shadow-2xl shadow-violet-950/15 backdrop-blur-xl"
+            className="mx-auto mt-14 w-full overflow-hidden rounded-3xl border border-violet-200/60 bg-[#0b0b14] text-left shadow-2xl shadow-violet-950/15"
           >
-            <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#0b0b14] text-left">
+            <div>
               {/* Visual Hero Stage (Widescreen Cinematic Height) */}
               <div className="relative h-[340px] sm:h-[430px] lg:h-[480px] w-full overflow-hidden">
                 <AnimatePresence mode="wait">
