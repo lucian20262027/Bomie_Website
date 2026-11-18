@@ -26,12 +26,16 @@ import {
   ExternalLink,
   Sliders,
   Eye,
-  Users,
   Check,
   X,
+  Wallet,
+  Camera,
+  Music,
+  Award,
 } from 'lucide-react';
 
 type MerchantScenarioId = 'sichuan' | 'lumina' | 'glowmed';
+type CreatorPersonaId = 'maya' | 'chloe' | 'sam';
 
 interface CreatorCandidate {
   id: string;
@@ -72,6 +76,43 @@ interface MerchantScenario {
   defaultTicket: number;
   defaultConvPct: number;
   defaultImpressions: number;
+}
+
+interface CreatorOffer {
+  id: string;
+  merchant: string;
+  distance: string;
+  category: string;
+  basePay: number;
+  bonusPotential: number;
+  perk: string;
+  matchScore: number;
+  deliverable: string;
+  promoCode: string;
+}
+
+interface CreatorPersona {
+  id: CreatorPersonaId;
+  handle: string;
+  name: string;
+  city: string;
+  niche: string;
+  followers: string;
+  engRate: string;
+  localAudiencePct: number;
+  avgViews: string;
+  styleTags: string[];
+  offers: CreatorOffer[];
+  voiceStyles: {
+    id: 'vlog' | 'asmr' | 'list';
+    label: string;
+    hook: string;
+    captionPreview: string;
+  }[];
+  shotChecklist: { id: string; beat: string; instruction: string; tip: string }[];
+  defaultViews: number;
+  defaultRedemptions: number;
+  walletBalance: number;
 }
 
 const MERCHANT_SCENARIOS: Record<MerchantScenarioId, MerchantScenario> = {
@@ -243,7 +284,7 @@ const MERCHANT_SCENARIOS: Record<MerchantScenarioId, MerchantScenario> = {
     readinessScore: 94,
     brandFitScore: 96,
     visionHighlights: [
-      ' sunlit minimalist travertine treatment suite aesthetic',
+      'Sunlit minimalist travertine treatment suite aesthetic',
       'Cosmetic-only hydration & glow framing (zero medical overclaims)',
       'First-visit $35 off facial booking code clearly structured',
     ],
@@ -367,9 +408,7 @@ const MERCHANT_SCENARIOS: Record<MerchantScenarioId, MerchantScenario> = {
       'HALTED: Deceptive medical efficacy claims detected',
       'HALTED: Off-escrow cash demand without creator contract',
     ],
-    kpis: [
-      'Escrow Locked until mandatory compliance remediation is applied',
-    ],
+    kpis: ['Escrow Locked until mandatory compliance remediation is applied'],
     gateStatus: 'BLOCK',
     riskScore: 95,
     gateSummary:
@@ -430,13 +469,325 @@ const MERCHANT_SCENARIOS: Record<MerchantScenarioId, MerchantScenario> = {
   },
 };
 
+// ==========================================
+// CREATOR COPILOT & ONBOARDING PERSONAS (For [I'm a Creator] Tab)
+// ==========================================
+const CREATOR_PERSONAS: Record<CreatorPersonaId, CreatorPersona> = {
+  maya: {
+    id: 'maya',
+    handle: '@sfnoodleclub',
+    name: 'Maya Lin',
+    city: 'San Francisco, CA',
+    niche: 'Local Foodie & Hidden Gems',
+    followers: '34.2K',
+    engRate: '6.1%',
+    localAudiencePct: 82,
+    avgViews: '28.5K',
+    styleTags: ['Warm Handheld Vlog', 'Tableside Sizzle Macro', 'High Save-to-View Ratio'],
+    offers: [
+      {
+        id: 'off-1',
+        merchant: 'Sichuan Bistro SF',
+        distance: '0.9 mi · Inner Sunset',
+        category: 'Artisanal Dining',
+        basePay: 450,
+        bonusPotential: 150,
+        perk: '$85 VIP Tasting for 2',
+        matchScore: 98,
+        deliverable: '1 × 30s TikTok & IG Reel + Bio QR Code',
+        promoCode: 'SFNOODLE20',
+      },
+      {
+        id: 'off-2',
+        merchant: 'Matcha Haus Roastery',
+        distance: '1.4 mi · Hayes Valley',
+        category: 'Specialty Cafe',
+        basePay: 380,
+        bonusPotential: 120,
+        perk: 'Ceremonial Matcha Gift Box',
+        matchScore: 95,
+        deliverable: '1 × 30s Morning Routine Reel',
+        promoCode: 'MAYAMATCHA',
+      },
+      {
+        id: 'off-3',
+        merchant: 'Tartine Craft Bakery Pop-Up',
+        distance: '2.1 mi · Mission District',
+        category: 'Artisan Bakery',
+        basePay: 420,
+        bonusPotential: 140,
+        perk: 'Weekend Pastry Box + VIP Pass',
+        matchScore: 92,
+        deliverable: '1 × 30s First-Bite Review',
+        promoCode: 'SFPASTRY15',
+      },
+    ],
+    voiceStyles: [
+      {
+        id: 'vlog',
+        label: 'Bestie Date-Night Vlog',
+        hook: '“Stop scrolling if you live in SF—I just found our new Friday night dumpling ritual (#ad).”',
+        captionPreview:
+          '#ad #sponsored Paid partnership with @SichuanBistroSF · Brought my best friend to test their handmade chili-oil wontons and we are obsessed. Use code SFNOODLE20 for 20% off your table this weekend!',
+      },
+      {
+        id: 'asmr',
+        label: 'ASMR Sizzle & Texture',
+        hook: '“Listen to this tableside chili oil pour in the heart of San Francisco (#ad).”',
+        captionPreview:
+          '#ad #sponsored Partnering with @SichuanBistroSF · That handmade wrapper texture + house numbing chili crisp is a 10/10. Scan my link in bio or mention SFNOODLE20 for 20% off!',
+      },
+      {
+        id: 'list',
+        label: 'Top 3 Must-Order Guide',
+        hook: '“3 exact dishes you need to order at Sichuan Bistro SF this weekend (#ad).”',
+        captionPreview:
+          '#ad #sponsored @SichuanBistroSF · From soup dumplings to wok-charred dan dan noodles, here is the ultimate order guide. Code SFNOODLE20 gets you 20% off dine-in!',
+      },
+    ],
+    shotChecklist: [
+      {
+        id: 's1',
+        beat: '0–3s · Sensory Hook',
+        instruction: 'Close-up 60fps clip of hot chili oil pouring over handmade dumplings.',
+        tip: 'Keep natural kitchen sizzle audio at 40% volume for instant thumb-stop.',
+      },
+      {
+        id: 's2',
+        beat: '3–12s · Neighborhood Vibe',
+        instruction: 'Quick pan of warm lanterns, steaming bamboo baskets & chef folding.',
+        tip: 'Tag San Francisco location sticker for local algorithm boost.',
+      },
+      {
+        id: 's3',
+        beat: '12–22s · First Bite Reaction',
+        instruction: 'Lift dumpling on spoon + authentic reaction with your dining partner.',
+        tip: 'Show genuine texture—no scripted corporate buzzwords.',
+      },
+      {
+        id: 's4',
+        beat: '22–30s · Voucher Callout',
+        instruction: 'Flash code SFNOODLE20 on screen for 20% off weekend dine-in.',
+        tip: 'Bomie auto-tracks every scan & code use straight to your bonus wallet.',
+      },
+    ],
+    defaultViews: 38000,
+    defaultRedemptions: 46,
+    walletBalance: 1640,
+  },
+  chloe: {
+    id: 'chloe',
+    handle: '@glowwithchloe_la',
+    name: 'Chloe Vance',
+    city: 'Los Angeles, CA',
+    niche: 'Clean Beauty, Spa & Pilates',
+    followers: '48.0K',
+    engRate: '5.9%',
+    localAudiencePct: 79,
+    avgViews: '41.0K',
+    styleTags: ['Sunlit Glass-Skin Aesthetic', 'Calm Voiceover', 'High Booking Conversion'],
+    offers: [
+      {
+        id: 'off-la-1',
+        merchant: 'Lumina Skin & Spa',
+        distance: '1.1 mi · West Hollywood',
+        category: 'Luxury Facial Studio',
+        basePay: 550,
+        bonusPotential: 200,
+        perk: '$220 Signature Hydro-Glow Facial',
+        matchScore: 97,
+        deliverable: '1 × 30s Sunday Reset Spa Reel',
+        promoCode: 'CHLOEGLOW',
+      },
+      {
+        id: 'off-la-2',
+        merchant: 'Forma Pilates Collective',
+        distance: '1.8 mi · Melrose Place',
+        category: 'Boutique Fitness',
+        basePay: 480,
+        bonusPotential: 150,
+        perk: '1-Month Unlimited Reformer Pass',
+        matchScore: 94,
+        deliverable: '1 × 30s Post-Class Matcha & Studio Tour',
+        promoCode: 'CHLOEPILATES',
+      },
+      {
+        id: 'off-la-3',
+        merchant: 'Botanica Apothecary LA',
+        distance: '2.4 mi · Silver Lake',
+        category: 'Clean Skincare',
+        basePay: 450,
+        bonusPotential: 150,
+        perk: 'Full Barrier Serum Ritual Set',
+        matchScore: 91,
+        deliverable: '1 × 30s Evening Skincare Routine',
+        promoCode: 'CHLOEBOTANICA',
+      },
+    ],
+    voiceStyles: [
+      {
+        id: 'vlog',
+        label: 'Sunday Reset Routine',
+        hook: '“Come with me for 60 minutes of pure glass-skin calm in West Hollywood (#ad).”',
+        captionPreview:
+          '#ad #sponsored Paid partnership with @LuminaSkinLA · Checked in for their signature non-invasive hydro-glow facial and my skin barrier has never felt bouncier. Book with code CHLOEGLOW for $35 off!',
+      },
+      {
+        id: 'asmr',
+        label: 'Aesthetic Spa ASMR',
+        hook: '“POV: You booked the most relaxing travertine spa suite on Melrose (#ad).”',
+        captionPreview:
+          '#ad #sponsored @LuminaSkinLA · Warm herbal tea, custom botanical serums, and zero downtime glow. Use CHLOEGLOW via the link in my bio for $35 off your first visit!',
+      },
+      {
+        id: 'list',
+        label: 'Pre-Event Glow Prep',
+        hook: '“My exact pre-shoot facial spot in LA for instant hydration (#ad).”',
+        captionPreview:
+          '#ad #sponsored Partnering with @LuminaSkinLA · Why every LA esthetician raves about this 4-step hydration ritual. Grab $35 off your booking with CHLOEGLOW!',
+      },
+    ],
+    shotChecklist: [
+      {
+        id: 's1',
+        beat: '0–3s · Sunlight Glow Check',
+        instruction: 'Natural window light mirror clip showing dewy post-facial skin.',
+        tip: 'Avoid beauty filters so your authentic glow passes FTC truth-in-advertising.',
+      },
+      {
+        id: 's2',
+        beat: '3–12s · Travertine Sanctuary',
+        instruction: 'Walking into Lumina lobby + pouring welcome botanical tea.',
+        tip: 'Highlight the calm, private suite atmosphere.',
+      },
+      {
+        id: 's3',
+        beat: '12–22s · Hydro-Wand Glide',
+        instruction: 'Close-up of cooling serum infusion & LED light canopy.',
+        tip: 'Keep claims focused on hydration, relaxation, and surface glow.',
+      },
+      {
+        id: 's4',
+        beat: '22–30s · Booking Code CTA',
+        instruction: 'Overlay code CHLOEGLOW ($35 off first facial) + booking link.',
+        tip: 'Every booked appointment adds +$10 bonus to your escrow payout.',
+      },
+    ],
+    defaultViews: 45000,
+    defaultRedemptions: 24,
+    walletBalance: 2380,
+  },
+  sam: {
+    id: 'sam',
+    handle: '@cozyhomewithsam',
+    name: 'Sam Rivera (Nano-Creator)',
+    city: 'Austin, TX',
+    niche: 'Cozy Home, Candles & Local Coffee',
+    followers: '14.8K',
+    engRate: '7.4%',
+    localAudiencePct: 86,
+    avgViews: '19.2K',
+    styleTags: ['Nano-Creator High Trust', 'Warm Acoustic Aesthetic', '86% Austin Local Reach'],
+    offers: [
+      {
+        id: 'off-atx-1',
+        merchant: 'Bloom Studio Candles',
+        distance: '0.6 mi · South Congress',
+        category: 'Artisan Home Goods',
+        basePay: 320,
+        bonusPotential: 120,
+        perk: 'Custom Pouring Workshop for 2',
+        matchScore: 99,
+        deliverable: '1 × 30s Candle Pouring & Cozy Desk Reel',
+        promoCode: 'SAMBLOOM20',
+      },
+      {
+        id: 'off-atx-2',
+        merchant: 'Desnudo Coffee Roasters',
+        distance: '1.2 mi · East Austin',
+        category: 'Local Coffee Truck',
+        basePay: 280,
+        bonusPotential: 100,
+        perk: '3-Month Whole Bean Subscription',
+        matchScore: 95,
+        deliverable: '1 × 30s Brown Sugar Miso Latte Reel',
+        promoCode: 'SAMCOFFEE',
+      },
+      {
+        id: 'off-atx-3',
+        merchant: 'Barton Plant & Terrarium Co.',
+        distance: '1.9 mi · Zilker',
+        category: 'Botanical Boutique',
+        basePay: 300,
+        bonusPotential: 110,
+        perk: '$120 Rare Monstera + Ceramic Planter',
+        matchScore: 93,
+        deliverable: '1 × 30s Apartment Plant Styling Tour',
+        promoCode: 'SAMPLANTS',
+      },
+    ],
+    voiceStyles: [
+      {
+        id: 'vlog',
+        label: 'Cozy Rainy-Afternoon Vlog',
+        hook: '“Come blend a custom cedar & fig soy candle with me on South Congress (#ad).”',
+        captionPreview:
+          '#ad #sponsored Paid partnership with @BloomStudioATX · You don’t need 100K followers to work with your favorite neighborhood shops! Use code SAMBLOOM20 for 20% off in-store or online.',
+      },
+      {
+        id: 'asmr',
+        label: 'Wooden Wick Crackling ASMR',
+        hook: '“The sound of this hand-poured wooden wick candle from East Austin (#ad).”',
+        captionPreview:
+          '#ad #sponsored @BloomStudioATX · Poured with 100% botanical soy wax and essential oils. Stop by their South Congress studio with code SAMBLOOM20 for 20% off!',
+      },
+      {
+        id: 'list',
+        label: '3 Local Austin Gifts',
+        hook: '“3 scents at Bloom Studio Austin that make your apartment smell like a boutique hotel (#ad).”',
+        captionPreview:
+          '#ad #sponsored Partnering with @BloomStudioATX · My top picks: Santal Rain, Texas Cedar, and Matcha Fig. Grab 20% off with SAMBLOOM20!',
+      },
+    ],
+    shotChecklist: [
+      {
+        id: 's1',
+        beat: '0–3s · Wooden Wick Spark',
+        instruction: 'Macro shot lighting the wooden wick with warm golden-hour shadows.',
+        tip: 'High-contrast warm lighting drives 3x higher saves in home decor.',
+      },
+      {
+        id: 's2',
+        beat: '3–12s · South Congress Workshop',
+        instruction: ' Testing fragrance oils & pouring warm soy wax in-store.',
+        tip: 'Show the founder or storefront sign for local Austin recognition.',
+      },
+      {
+        id: 's3',
+        beat: '12–22s · Apartment Styling',
+        instruction: 'Placing the finished candle on your coffee table next to books.',
+        tip: 'Demonstrates how the product fits into everyday cozy living.',
+      },
+      {
+        id: 's4',
+        beat: '22–30s · Local Code Callout',
+        instruction: 'Share code SAMBLOOM20 for 20% off in-store or online.',
+        tip: 'Even with 14.8K followers, your 86% local trust unlocks full base + bonus!',
+      },
+    ],
+    defaultViews: 22000,
+    defaultRedemptions: 34,
+    walletBalance: 980,
+  },
+};
+
 export default function BomieLandingPage() {
   const [activeTab, setActiveTab] = useState<'business' | 'creator'>('business');
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [selectedMatch, setSelectedMatch] = useState<number>(0);
 
   // ==========================================
-  // BOMIE-V5 AUTONOMOUS ORCHESTRATOR STATE (Inside How It Works -> I'm a Merchant)
+  // 1. MERCHANT V5 ORCHESTRATOR STATE
   // ==========================================
   const [scenarioId, setScenarioId] = useState<MerchantScenarioId>('sichuan');
   const [activeStage, setActiveStage] = useState<1 | 2 | 3 | 4>(1);
@@ -450,7 +801,26 @@ export default function BomieLandingPage() {
   const [postSimMode, setPostSimMode] = useState<'compliant' | 'noncompliant'>('compliant');
   const [showFullStudioModal, setShowFullStudioModal] = useState(false);
 
+  // ==========================================
+  // 2. CREATOR COPILOT & ONBOARDING STATE
+  // ==========================================
+  const [creatorPersonaId, setCreatorPersonaId] = useState<CreatorPersonaId>('maya');
+  const [creatorStage, setCreatorStage] = useState<1 | 2 | 3 | 4>(1);
+  const [isRunningCreatorSim, setIsRunningCreatorSim] = useState(false);
+  const [selectedOfferIdx, setSelectedOfferIdx] = useState<number>(0);
+  const [selectedVoiceStyle, setSelectedVoiceStyle] = useState<'vlog' | 'asmr' | 'list'>('vlog');
+  const [completedShots, setCompletedShots] = useState<string[]>(['s1', 's2', 's3', 's4']);
+  const [creatorDraftMode, setCreatorDraftMode] = useState<'clean' | 'autofix'>('clean');
+  const [creatorSimViews, setCreatorSimViews] = useState<number>(38000);
+  const [creatorSimRedemptions, setCreatorSimRedemptions] = useState<number>(46);
+  const [withdrawnSuccess, setWithdrawnSuccess] = useState<boolean>(false);
+
   const currentScenario = MERCHANT_SCENARIOS[scenarioId];
+  const currentCreator = CREATOR_PERSONAS[creatorPersonaId];
+  const activeOffer = currentCreator.offers[selectedOfferIdx] || currentCreator.offers[0];
+  const activeVoice =
+    currentCreator.voiceStyles.find((v) => v.id === selectedVoiceStyle) ||
+    currentCreator.voiceStyles[0];
 
   const handleSelectScenario = (id: MerchantScenarioId) => {
     const next = MERCHANT_SCENARIOS[id];
@@ -465,7 +835,7 @@ export default function BomieLandingPage() {
       setSelectedCreatorIds([]);
     }
     if (id === 'glowmed') {
-      setActiveStage(2); // Highlight the adversarial governance gate block
+      setActiveStage(2);
     }
   };
 
@@ -485,7 +855,6 @@ export default function BomieLandingPage() {
   };
 
   const handleApplyCompliantRevision = () => {
-    // Converts the blocked GlowMed scenario into a clean, compliant Lumina/Bellevue run
     handleSelectScenario('lumina');
     setActiveStage(3);
   };
@@ -496,7 +865,34 @@ export default function BomieLandingPage() {
     );
   };
 
-  // Dynamic ROI calculations for Stage 04
+  // Creator handlers
+  const handleSelectCreatorPersona = (id: CreatorPersonaId) => {
+    const next = CREATOR_PERSONAS[id];
+    setCreatorPersonaId(id);
+    setSelectedOfferIdx(0);
+    setCreatorSimViews(next.defaultViews);
+    setCreatorSimRedemptions(next.defaultRedemptions);
+    setWithdrawnSuccess(false);
+  };
+
+  const handleRunCreatorJourney = () => {
+    setIsRunningCreatorSim(true);
+    setCreatorStage(1);
+    setTimeout(() => setCreatorStage(2), 450);
+    setTimeout(() => setCreatorStage(3), 950);
+    setTimeout(() => {
+      setCreatorStage(4);
+      setIsRunningCreatorSim(false);
+    }, 1450);
+  };
+
+  const toggleShotCheck = (shotId: string) => {
+    setCompletedShots((prev) =>
+      prev.includes(shotId) ? prev.filter((s) => s !== shotId) : [...prev, shotId]
+    );
+  };
+
+  // Merchant Stage 04 ROI calculations
   const estConversions = Math.round(impressions * (convRatePct / 100));
   const estGrossRevenue = Math.round(estConversions * avgTicket);
   const activeBudget =
@@ -513,6 +909,15 @@ export default function BomieLandingPage() {
   const activeScriptCreator =
     currentScenario.creators.find((c) => c.id === activeScriptCreatorId) ||
     currentScenario.creators[0];
+
+  // Creator Stage 04 Earnings calculations
+  const unlockedViewBonus = creatorSimViews >= 25000 ? Math.round(activeOffer.bonusPotential * 0.5) : 0;
+  const unlockedRedemptionBonus = Math.min(
+    activeOffer.bonusPotential,
+    creatorSimRedemptions * 3
+  );
+  const totalCreatorBonus = unlockedViewBonus + unlockedRedemptionBonus;
+  const totalCampaignPayout = activeOffer.basePay + totalCreatorBonus;
 
   const liveMatches = [
     {
@@ -731,6 +1136,7 @@ export default function BomieLandingPage() {
             >
               <Video className="h-5 w-5 text-fuchsia-400" />
               I&apos;m a Creator
+              <ArrowRight className="h-4 w-4 text-fuchsia-300" />
             </motion.a>
           </motion.div>
 
@@ -915,18 +1321,20 @@ export default function BomieLandingPage() {
       </section>
 
       {/* =====================================================================
-          HOW BOMIE WORKS — WITH EMBEDDED BOMIE-V5 AUTONOMOUS MERCHANT CONSOLE
+          HOW BOMIE WORKS — DUAL INTERACTIVE CONSOLES:
+          1) [I'm a Merchant] -> Bomie V5 4-Stage Autonomous Campaign Orchestrator
+          2) [I'm a Creator]  -> Bomie V5 4-Stage Creator Onboarding & Copilot Studio
          ===================================================================== */}
       <section id="how-it-works" className="border-t border-white/10 bg-slate-900/20 py-24 scroll-mt-16">
         <div className="mx-auto max-w-6xl px-6">
           <div className="text-center">
             <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-violet-400/25 bg-violet-500/10 px-3.5 py-1 text-xs font-semibold text-violet-300">
               <Sparkles className="h-3.5 w-3.5 text-amber-300" />
-              Powered by Bomie V5 Autonomous Campaign Engine
+              Interactive Dual-Role Autonomous Sandbox
             </div>
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">How Bomie Works</h2>
             <p className="mt-3 text-slate-400">
-              Experience our live 4-stage autonomous workflow from multimodal brief audit to FTC-verified escrow payout.
+              Switch between our live Merchant Campaign Orchestrator and Creator Copilot Studio.
             </p>
 
             {/* Shared Layout Spring Pill: I'm a Merchant vs I'm a Creator */}
@@ -954,12 +1362,12 @@ export default function BomieLandingPage() {
                     {tab === 'business' ? (
                       <>
                         <Store className="h-4 w-4" />
-                        I&apos;m a Merchant (Live V5 Orchestrator)
+                        I&apos;m a Merchant (Campaign OS)
                       </>
                     ) : (
                       <>
                         <Video className="h-4 w-4" />
-                        I&apos;m a Creator
+                        I&apos;m a Creator (Creator Copilot)
                       </>
                     )}
                   </span>
@@ -970,6 +1378,9 @@ export default function BomieLandingPage() {
 
           <AnimatePresence mode="wait">
             {activeTab === 'business' ? (
+              /* ==============================================================
+                 TAB A: I'M A MERCHANT — 4-STAGE AUTONOMOUS CAMPAIGN OS
+                 ============================================================== */
               <motion.div
                 key="merchant-v5-orchestrator"
                 initial={{ opacity: 0, y: 18 }}
@@ -1126,7 +1537,6 @@ export default function BomieLandingPage() {
                 {/* Active Stage Workspace Card */}
                 <div className="rounded-3xl border border-white/15 bg-[#090912] p-6 sm:p-8 shadow-2xl">
                   <AnimatePresence mode="wait">
-                    {/* STAGE 01: INTAKE PRE-FLIGHT & GEMINI VISION */}
                     {activeStage === 1 && (
                       <motion.div
                         key="stage-1"
@@ -1207,7 +1617,6 @@ export default function BomieLandingPage() {
                           </div>
                         </div>
 
-                        {/* Right: 9:16 Reels / TikTok Multimodal Vision Preview */}
                         <div className="flex flex-col justify-between rounded-2xl border border-white/10 bg-gradient-to-b from-slate-900 to-slate-950 p-5 lg:col-span-5">
                           <div>
                             <div className="flex items-center justify-between text-xs">
@@ -1254,7 +1663,6 @@ export default function BomieLandingPage() {
                       </motion.div>
                     )}
 
-                    {/* STAGE 02: RISK-BASED EXPOSURE GATE & MULTI-AGENT DEBATE */}
                     {activeStage === 2 && (
                       <motion.div
                         key="stage-2"
@@ -1297,7 +1705,6 @@ export default function BomieLandingPage() {
                           </button>
                         </div>
 
-                        {/* 4 Risk Pillars */}
                         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                           {currentScenario.pillars.map((p, i) => (
                             <div
@@ -1323,7 +1730,6 @@ export default function BomieLandingPage() {
                           ))}
                         </div>
 
-                        {/* 3-Agent Adversarial Deliberation Log */}
                         <div className="rounded-2xl border border-white/10 bg-slate-950 p-5">
                           <div className="mb-3 flex items-center justify-between text-xs">
                             <span className="font-mono font-semibold uppercase tracking-wider text-violet-300">
@@ -1353,7 +1759,6 @@ export default function BomieLandingPage() {
                       </motion.div>
                     )}
 
-                    {/* STAGE 03: CREATOR ROSTER & 30S SCRIPT STUDIO (OR GOVERNANCE REMEDIATION IF BLOCKED) */}
                     {activeStage === 3 && (
                       <motion.div
                         key="stage-3"
@@ -1396,7 +1801,6 @@ export default function BomieLandingPage() {
                           </div>
                         ) : (
                           <div className="grid gap-8 lg:grid-cols-12">
-                            {/* Left: Interactive Local Creator Roster & Dynamic Escrow Budget */}
                             <div className="space-y-4 lg:col-span-6">
                               <div className="flex flex-wrap items-center justify-between gap-2">
                                 <div>
@@ -1473,7 +1877,6 @@ export default function BomieLandingPage() {
                               </div>
                             </div>
 
-                            {/* Right: Creator Short-Video Hook & 30s Shot-List Studio */}
                             {activeScriptCreator && (
                               <div className="flex flex-col justify-between rounded-2xl border border-white/10 bg-slate-950 p-5 lg:col-span-6">
                                 <div className="space-y-4">
@@ -1553,7 +1956,6 @@ export default function BomieLandingPage() {
                       </motion.div>
                     )}
 
-                    {/* STAGE 04: LIVE ROI WORLD-MODEL SIMULATOR & ESCROW MILESTONE TRACKER */}
                     {activeStage === 4 && (
                       <motion.div
                         key="stage-4"
@@ -1563,7 +1965,6 @@ export default function BomieLandingPage() {
                         transition={{ duration: 0.25 }}
                         className="grid gap-8 lg:grid-cols-12"
                       >
-                        {/* Left: Interactive ROI Simulator & Counterfactual World Model */}
                         <div className="space-y-6 lg:col-span-7">
                           <div>
                             <span className="font-mono text-xs uppercase tracking-wider text-violet-400">
@@ -1574,7 +1975,6 @@ export default function BomieLandingPage() {
                             </h3>
                           </div>
 
-                          {/* 4 Live KPI Readouts */}
                           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
                             <div className="rounded-2xl border border-violet-500/30 bg-violet-500/10 p-3.5">
                               <div className="text-[11px] text-violet-200">Projected ROAS</div>
@@ -1602,7 +2002,6 @@ export default function BomieLandingPage() {
                             </div>
                           </div>
 
-                          {/* 3 Interactive Sliders */}
                           <div className="space-y-4 rounded-2xl border border-white/10 bg-white/[0.02] p-5 text-xs">
                             <div className="flex items-center gap-2 font-mono text-slate-300">
                               <Sliders className="h-4 w-4 text-violet-400" />
@@ -1665,7 +2064,6 @@ export default function BomieLandingPage() {
                             </div>
                           </div>
 
-                          {/* Counterfactual World Model Comparison */}
                           <div className="grid gap-3 sm:grid-cols-2 text-xs">
                             <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-4">
                               <div className="font-mono text-[10px] uppercase text-rose-400">
@@ -1692,7 +2090,6 @@ export default function BomieLandingPage() {
                           </div>
                         </div>
 
-                        {/* Right: 30/40/30 Escrow Milestone Tracker & Live FTC Post Verifier */}
                         <div className="flex flex-col justify-between rounded-2xl border border-white/10 bg-slate-950 p-5 lg:col-span-5">
                           <div className="space-y-4">
                             <div className="flex items-center justify-between border-b border-white/10 pb-3">
@@ -1729,7 +2126,6 @@ export default function BomieLandingPage() {
                               ))}
                             </div>
 
-                            {/* Simulate Compliant vs Non-Compliant Creator Post */}
                             <div className="rounded-2xl border border-white/10 bg-black/40 p-4 space-y-3 text-xs">
                               <div className="flex items-center justify-between">
                                 <span className="font-semibold text-slate-300">
@@ -1818,48 +2214,694 @@ export default function BomieLandingPage() {
                 </div>
               </motion.div>
             ) : (
+              /* ==============================================================
+                 TAB B: I'M A CREATOR — 4-STAGE CREATOR ONBOARDING & COPILOT STUDIO
+                 ============================================================== */
               <motion.div
-                key="creator-cards"
-                initial={{ opacity: 0, y: 16 }}
+                key="creator-v5-copilot"
+                initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -16 }}
-                transition={{ duration: 0.3 }}
-                className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4"
+                exit={{ opacity: 0, y: -18 }}
+                transition={{ duration: 0.35 }}
+                className="mt-12 space-y-6"
               >
-                {[
-                  {
-                    tag: 'Get Matched',
-                    title: 'No Cold DMs',
-                    desc: 'Receive product and campaign invitations tailored to your niche, style, and city.',
-                  },
-                  {
-                    tag: 'Pitch & Co-create',
-                    title: 'Win the Project',
-                    desc: 'Get AI-generated 30s shot-lists, A/B hooks, and fast feedback inside your studio.',
-                  },
-                  {
-                    tag: 'Launch & Share',
-                    title: 'Live Impact Tracking',
-                    desc: 'Publish across TikTok, Instagram, and YouTube Shorts with automated QR & UTM syncing.',
-                  },
-                  {
-                    tag: 'Get Rewarded',
-                    title: '30/40/30 Protected Escrow',
-                    desc: 'Funds are locked upfront and released automatically upon FTC-verified post completion.',
-                  },
-                ].map((item) => (
-                  <motion.div
-                    key={item.tag}
-                    whileHover={{ y: -5 }}
-                    className="rounded-3xl border border-white/10 bg-slate-950/90 p-7 shadow-lg"
-                  >
-                    <span className="text-xs font-bold tracking-wider text-fuchsia-400 uppercase">
-                      {item.tag}
-                    </span>
-                    <h3 className="mt-2 text-lg font-bold">{item.title}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-slate-400">{item.desc}</p>
-                  </motion.div>
-                ))}
+                {/* Top Control Bar: Creator Persona Switcher + Simulate Journey */}
+                <div className="flex flex-col justify-between gap-4 rounded-3xl border border-white/10 bg-slate-950/90 p-5 lg:flex-row lg:items-center">
+                  <div className="space-y-1.5">
+                    <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-fuchsia-300">
+                      <span className="h-2 w-2 rounded-full bg-fuchsia-400 animate-pulse" />
+                      <span>Select Creator Onboarding Persona (Nano to Mid-Tier)</span>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {(Object.keys(CREATOR_PERSONAS) as CreatorPersonaId[]).map((key) => {
+                        const c = CREATOR_PERSONAS[key];
+                        const active = creatorPersonaId === key;
+                        return (
+                          <button
+                            key={key}
+                            onClick={() => handleSelectCreatorPersona(key)}
+                            className={`rounded-xl border px-3.5 py-2 text-left text-xs font-semibold transition ${
+                              active
+                                ? 'border-fuchsia-500/60 bg-fuchsia-600/20 text-white'
+                                : 'border-white/10 bg-white/[0.03] text-slate-400 hover:border-white/25 hover:text-white'
+                            }`}
+                          >
+                            <div className="flex items-center gap-2">
+                              <span>{c.handle}</span>
+                              <span className="rounded-md bg-fuchsia-500/20 px-1.5 py-0.5 font-mono text-[10px] text-fuchsia-300">
+                                {c.followers} · {c.engRate}
+                              </span>
+                            </div>
+                            <div className="mt-0.5 font-normal text-[11px] opacity-75">
+                              {c.city} · {c.niche}
+                            </div>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap items-center gap-3">
+                    <button
+                      onClick={handleRunCreatorJourney}
+                      disabled={isRunningCreatorSim}
+                      className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-fuchsia-600 to-violet-600 px-5 py-3 text-xs font-bold text-white shadow-lg shadow-fuchsia-600/25 transition hover:opacity-95 disabled:opacity-50"
+                    >
+                      <Play className="h-3.5 w-3.5 fill-current" />
+                      {isRunningCreatorSim
+                        ? 'Simulating Creator Flow...'
+                        : 'Simulate Creator Onboarding'}
+                    </button>
+                  </div>
+                </div>
+
+                {/* 4-Stage Interactive Creator Pipeline Stepper */}
+                <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+                  {[
+                    {
+                      num: 1 as const,
+                      code: 'STEP 01 · ONBOARDING',
+                      title: 'AI Media Kit & Deal Radar',
+                      sub: `${currentCreator.offers.length} Paid Invites Waiting`,
+                    },
+                    {
+                      num: 2 as const,
+                      code: 'STEP 02 · CO-CREATE',
+                      title: '30s AI Script & Shot Copilot',
+                      sub: `${completedShots.length}/4 Shots Checked`,
+                    },
+                    {
+                      num: 3 as const,
+                      code: 'STEP 03 · SAFE-GUARD',
+                      title: '1-Click FTC & Audio Shield',
+                      sub: creatorDraftMode === 'clean' ? 'FTC #ad Verified' : 'Auto-Fix Applied',
+                    },
+                    {
+                      num: 4 as const,
+                      code: 'STEP 04 · INSTANT WALLET',
+                      title: 'Escrow Payout & Bonuses',
+                      sub: `$${totalCampaignPayout} Earned`,
+                    },
+                  ].map((st) => {
+                    const isCurrent = creatorStage === st.num;
+                    return (
+                      <button
+                        key={st.num}
+                        onClick={() => setCreatorStage(st.num)}
+                        className={`group relative rounded-2xl border p-4 text-left transition-all ${
+                          isCurrent
+                            ? 'border-fuchsia-500/60 bg-fuchsia-950/30 shadow-lg shadow-fuchsia-950/30'
+                            : 'border-white/10 bg-slate-950/70 hover:border-white/25'
+                        }`}
+                      >
+                        <div className="flex items-center justify-between text-[11px] font-mono">
+                          <span
+                            className={
+                              isCurrent ? 'text-fuchsia-300 font-bold' : 'text-slate-500'
+                            }
+                          >
+                            {st.code}
+                          </span>
+                          <span className="rounded-full bg-emerald-500/15 px-2 py-0.5 text-[10px] font-semibold text-emerald-300">
+                            {st.sub}
+                          </span>
+                        </div>
+                        <div className="mt-1.5 text-sm font-bold text-white">{st.title}</div>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Active Creator Stage Workspace Card */}
+                <div className="rounded-3xl border border-white/15 bg-[#090912] p-6 sm:p-8 shadow-2xl">
+                  <AnimatePresence mode="wait">
+                    {/* CREATOR STEP 01: 60S ONBOARDING, AI MEDIA KIT & INBOUND DEAL RADAR */}
+                    {creatorStage === 1 && (
+                      <motion.div
+                        key="creator-stage-1"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.25 }}
+                        className="grid gap-8 lg:grid-cols-12"
+                      >
+                        {/* Left: Instant OAuth Onboarding & AI-Extracted Creator DNA */}
+                        <div className="space-y-5 lg:col-span-5">
+                          <div className="border-b border-white/10 pb-4">
+                            <span className="font-mono text-xs uppercase tracking-wider text-fuchsia-400">
+                              01 · 60-Second OAuth Onboarding &amp; AI Media Kit
+                            </span>
+                            <h3 className="mt-1 text-2xl font-bold text-white">
+                              {currentCreator.name} ({currentCreator.handle})
+                            </h3>
+                            <p className="mt-1 text-xs text-slate-400">
+                              {currentCreator.city} · {currentCreator.niche}
+                            </p>
+                          </div>
+
+                          {/* Connected Social Channels */}
+                          <div className="flex flex-wrap gap-2 text-xs">
+                            <span className="inline-flex items-center gap-1.5 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-3 py-1.5 font-mono text-emerald-300">
+                              <CheckCircle2 className="h-3.5 w-3.5" />
+                              TikTok Synced ({currentCreator.followers})
+                            </span>
+                            <span className="inline-flex items-center gap-1.5 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-3 py-1.5 font-mono text-emerald-300">
+                              <CheckCircle2 className="h-3.5 w-3.5" />
+                              IG Reels Synced ({currentCreator.engRate} Eng)
+                            </span>
+                          </div>
+
+                          {/* AI Neighborhood DNA Metrics */}
+                          <div className="grid grid-cols-2 gap-3">
+                            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+                              <div className="text-xs text-slate-400">Local Neighborhood Reach</div>
+                              <div className="mt-1 font-mono text-2xl font-bold text-fuchsia-300">
+                                {currentCreator.localAudiencePct}%
+                              </div>
+                              <div className="mt-0.5 text-[11px] text-slate-500">
+                                Within 15 mi of {currentCreator.city.split(',')[0]}
+                              </div>
+                            </div>
+                            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+                              <div className="text-xs text-slate-400">Avg. Local Reel Views</div>
+                              <div className="mt-1 font-mono text-2xl font-bold text-white">
+                                {currentCreator.avgViews}
+                              </div>
+                              <div className="mt-0.5 text-[11px] text-emerald-400">
+                                Top 8% Local Save Velocity
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* AI Visual Voice Tags */}
+                          <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-4">
+                            <div className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                              AI-Detected Content DNA (Auto-Builds Your Pitch)
+                            </div>
+                            <div className="mt-2.5 flex flex-wrap gap-2">
+                              {currentCreator.styleTags.map((tag, i) => (
+                                <span
+                                  key={i}
+                                  className="rounded-full border border-fuchsia-500/30 bg-fuchsia-500/10 px-3 py-1 text-xs font-medium text-fuchsia-200"
+                                >
+                                  ✨ {tag}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Right: Inbound Paid Deal Radar (Zero Cold DMs) */}
+                        <div className="flex flex-col justify-between rounded-2xl border border-white/10 bg-slate-950 p-5 lg:col-span-7">
+                          <div className="space-y-4">
+                            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 pb-3">
+                              <div>
+                                <span className="font-mono text-[11px] uppercase tracking-wider text-emerald-400">
+                                  Inbound Deal Radar · Zero Cold DMs Required
+                                </span>
+                                <h4 className="text-lg font-bold text-white">
+                                  3 Pre-Funded Local Invitations Waiting for You
+                                </h4>
+                              </div>
+                              <span className="rounded-full bg-violet-500/20 px-3 py-1 font-mono text-xs font-semibold text-violet-200">
+                                Escrow Pre-Funded
+                              </span>
+                            </div>
+
+                            <div className="space-y-3">
+                              {currentCreator.offers.map((off, idx) => {
+                                const isSelected = selectedOfferIdx === idx;
+                                return (
+                                  <div
+                                    key={off.id}
+                                    onClick={() => setSelectedOfferIdx(idx)}
+                                    className={`cursor-pointer rounded-2xl border p-4 transition ${
+                                      isSelected
+                                        ? 'border-fuchsia-500/60 bg-fuchsia-950/25 shadow-md'
+                                        : 'border-white/10 bg-white/[0.02] hover:border-white/25'
+                                    }`}
+                                  >
+                                    <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
+                                      <div>
+                                        <div className="flex items-center gap-2">
+                                          <span className="text-base font-bold text-white">
+                                            {off.merchant}
+                                          </span>
+                                          <span className="rounded-full bg-emerald-500/20 px-2 py-0.5 font-mono text-[10px] font-semibold text-emerald-300">
+                                            {off.matchScore}% Fit
+                                          </span>
+                                        </div>
+                                        <div className="mt-1 flex flex-wrap items-center gap-2 text-xs text-slate-400">
+                                          <span>📍 {off.distance}</span>
+                                          <span>·</span>
+                                          <span>{off.deliverable}</span>
+                                        </div>
+                                        <div className="mt-2 inline-flex items-center gap-1.5 rounded-lg bg-amber-500/10 px-2.5 py-1 text-[11px] font-medium text-amber-300">
+                                          <Gift className="h-3.5 w-3.5" />
+                                          <span>Free Perk: {off.perk}</span>
+                                        </div>
+                                      </div>
+
+                                      <div className="text-left sm:text-right shrink-0">
+                                        <div className="font-mono text-xl font-bold text-white">
+                                          ${off.basePay}{' '}
+                                          <span className="text-xs font-normal text-emerald-400">
+                                            +${off.bonusPotential} bonus
+                                          </span>
+                                        </div>
+                                        <div className="text-[11px] text-slate-400">
+                                          30% (${Math.round(off.basePay * 0.3)}) paid on accept
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          </div>
+
+                          <div className="mt-5 flex flex-col justify-between gap-3 border-t border-white/10 pt-4 sm:flex-row sm:items-center">
+                            <span className="text-xs text-slate-400">
+                              Selected: <strong className="text-white">{activeOffer.merchant}</strong>
+                            </span>
+                            <button
+                              onClick={() => setCreatorStage(2)}
+                              className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-fuchsia-600 to-violet-600 px-5 py-2.5 text-xs font-bold text-white transition hover:opacity-95"
+                            >
+                              <span>Accept Invite &amp; Open 30s Script Copilot</span>
+                              <ArrowRight className="h-3.5 w-3.5" />
+                            </button>
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+
+                    {/* CREATOR STEP 02: 30S AI SCRIPT COPILOT & INTERACTIVE FILMING CHECKLIST */}
+                    {creatorStage === 2 && (
+                      <motion.div
+                        key="creator-stage-2"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.25 }}
+                        className="grid gap-8 lg:grid-cols-12"
+                      >
+                        {/* Left: Voice Style Switcher & Personalized Hook Generator */}
+                        <div className="space-y-5 lg:col-span-6">
+                          <div>
+                            <span className="font-mono text-xs uppercase tracking-wider text-fuchsia-400">
+                              02 · AI Co-Creation Studio · {activeOffer.merchant}
+                            </span>
+                            <h3 className="mt-1 text-xl font-bold text-white">
+                              Tailored to {currentCreator.handle}&apos;s Authentic Voice
+                            </h3>
+                            <p className="mt-1 text-xs text-slate-400">
+                              Switch storytelling modes below—Bomie writes hooks that sound like you, never stiff corporate ads.
+                            </p>
+                          </div>
+
+                          <div className="flex flex-wrap gap-2">
+                            {currentCreator.voiceStyles.map((vs) => (
+                              <button
+                                key={vs.id}
+                                type="button"
+                                onClick={() => setSelectedVoiceStyle(vs.id)}
+                                className={`rounded-xl border px-3.5 py-2 text-xs font-semibold transition ${
+                                  selectedVoiceStyle === vs.id
+                                    ? 'border-fuchsia-500 bg-fuchsia-600 text-white'
+                                    : 'border-white/10 bg-white/5 text-slate-300 hover:text-white'
+                                }`}
+                              >
+                                {vs.label}
+                              </button>
+                            ))}
+                          </div>
+
+                          <div className="rounded-2xl border border-fuchsia-500/30 bg-fuchsia-950/20 p-5 space-y-3">
+                            <div className="flex items-center justify-between text-xs">
+                              <span className="font-mono uppercase text-fuchsia-300">
+                                0–3s Spoken Opening Hook
+                              </span>
+                              <span className="rounded-full bg-white/10 px-2.5 py-0.5 font-mono text-[10px] text-amber-300">
+                                Est. 74% 3s Retention
+                              </span>
+                            </div>
+                            <p className="text-base font-bold text-white leading-snug">
+                              {activeVoice.hook}
+                            </p>
+                          </div>
+
+                          <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 space-y-2">
+                            <div className="flex items-center justify-between text-xs">
+                              <span className="font-mono text-slate-400">
+                                Auto-Generated Compliant Caption &amp; Promo Code
+                              </span>
+                              <span className="font-mono text-emerald-400">
+                                Code: {activeOffer.promoCode}
+                              </span>
+                            </div>
+                            <p className="font-mono text-xs leading-relaxed text-slate-200">
+                              {activeVoice.captionPreview}
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* Right: Interactive 4-Beat On-Site Filming Checklist */}
+                        <div className="flex flex-col justify-between rounded-2xl border border-white/10 bg-slate-950 p-5 lg:col-span-6">
+                          <div className="space-y-4">
+                            <div className="flex items-center justify-between border-b border-white/10 pb-3">
+                              <div className="flex items-center gap-2">
+                                <Camera className="h-4 w-4 text-fuchsia-400" />
+                                <h4 className="text-base font-bold text-white">
+                                  On-Location 30s Shot Checklist ({completedShots.length}/4 Ready)
+                                </h4>
+                              </div>
+                              <span className="font-mono text-xs text-emerald-400">
+                                30% Escrow Deposit Locked
+                              </span>
+                            </div>
+
+                            <div className="space-y-2.5">
+                              {currentCreator.shotChecklist.map((shot) => {
+                                const done = completedShots.includes(shot.id);
+                                return (
+                                  <div
+                                    key={shot.id}
+                                    onClick={() => toggleShotCheck(shot.id)}
+                                    className={`cursor-pointer rounded-xl border p-3.5 transition ${
+                                      done
+                                        ? 'border-emerald-500/30 bg-emerald-950/15'
+                                        : 'border-white/10 bg-white/[0.02]'
+                                    }`}
+                                  >
+                                    <div className="flex items-start gap-3">
+                                      <div
+                                        className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md border text-xs ${
+                                          done
+                                            ? 'border-emerald-500 bg-emerald-500 text-slate-950'
+                                            : 'border-white/30'
+                                        }`}
+                                      >
+                                        {done && <Check className="h-3.5 w-3.5 stroke-[3]" />}
+                                      </div>
+                                      <div className="text-xs">
+                                        <div className="font-mono font-bold text-white">
+                                          {shot.beat}
+                                        </div>
+                                        <div className="mt-0.5 text-slate-200">
+                                          {shot.instruction}
+                                        </div>
+                                        <div className="mt-1 text-[11px] text-violet-300">
+                                          💡 {shot.tip}
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          </div>
+
+                          <div className="mt-5 flex items-center justify-between border-t border-white/10 pt-4">
+                            <span className="text-xs text-slate-400">
+                              Next: Pre-Flight FTC &amp; Audio Shield
+                            </span>
+                            <button
+                              onClick={() => setCreatorStage(3)}
+                              className="inline-flex items-center gap-1.5 rounded-xl bg-fuchsia-600 px-4 py-2 text-xs font-semibold text-white transition hover:bg-fuchsia-500"
+                            >
+                              <span>Run Pre-Publish Check (Step 03)</span>
+                              <ArrowRight className="h-3.5 w-3.5" />
+                            </button>
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+
+                    {/* CREATOR STEP 03: PRE-PUBLISH FTC & AUDIO SAFE-GUARD */}
+                    {creatorStage === 3 && (
+                      <motion.div
+                        key="creator-stage-3"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.25 }}
+                        className="space-y-6"
+                      >
+                        <div className="flex flex-col justify-between gap-4 border-b border-white/10 pb-4 sm:flex-row sm:items-center">
+                          <div>
+                            <span className="font-mono text-xs uppercase tracking-wider text-fuchsia-400">
+                              03 · Creator Protection &amp; Pre-Publish FTC Shield
+                            </span>
+                            <h3 className="mt-1 text-xl font-bold text-white">
+                              Zero Rejected Videos. Zero Delayed Payouts.
+                            </h3>
+                          </div>
+                          <div className="flex gap-2">
+                            <button
+                              type="button"
+                              onClick={() => setCreatorDraftMode('clean')}
+                              className={`rounded-xl px-3.5 py-2 font-mono text-xs font-semibold transition ${
+                                creatorDraftMode === 'clean'
+                                  ? 'bg-emerald-600 text-white'
+                                  : 'bg-white/5 text-slate-400 hover:text-white'
+                              }`}
+                            >
+                              Test Clean Draft
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => setCreatorDraftMode('autofix')}
+                              className={`rounded-xl px-3.5 py-2 font-mono text-xs font-semibold transition ${
+                                creatorDraftMode === 'autofix'
+                                  ? 'bg-amber-500 text-slate-950'
+                                  : 'bg-white/5 text-slate-400 hover:text-white'
+                              }`}
+                            >
+                              Test Missing #ad Auto-Fix
+                            </button>
+                          </div>
+                        </div>
+
+                        <div className="grid gap-6 md:grid-cols-3">
+                          <div className="rounded-2xl border border-emerald-500/30 bg-emerald-950/15 p-5">
+                            <div className="flex items-center justify-between text-xs">
+                              <span className="font-bold text-white">FTC 16 CFR Part 255</span>
+                              <ShieldCheck className="h-4 w-4 text-emerald-400" />
+                            </div>
+                            <div className="mt-2 font-mono text-xs font-semibold text-emerald-300">
+                              {creatorDraftMode === 'clean'
+                                ? '✓ #ad & #sponsored Verified in First Line'
+                                : '⚡ Auto-Prepended #ad Disclosure to Caption'}
+                            </div>
+                            <p className="mt-2 text-xs text-slate-400">
+                              Protects your creator account from algorithmic suppression and ensures instant escrow release.
+                            </p>
+                          </div>
+
+                          <div className="rounded-2xl border border-emerald-500/30 bg-emerald-950/15 p-5">
+                            <div className="flex items-center justify-between text-xs">
+                              <span className="font-bold text-white">Commercial Audio Check</span>
+                              <Music className="h-4 w-4 text-violet-400" />
+                            </div>
+                            <div className="mt-2 font-mono text-xs font-semibold text-emerald-300">
+                              ✓ Cleared for Brand Reposting &amp; Spark Ads
+                            </div>
+                            <p className="mt-2 text-xs text-slate-400">
+                              Verifies your background audio is licensed for commercial merchant whitelisting.
+                            </p>
+                          </div>
+
+                          <div className="rounded-2xl border border-emerald-500/30 bg-emerald-950/15 p-5">
+                            <div className="flex items-center justify-between text-xs">
+                              <span className="font-bold text-white">40% Draft Escrow Unlock</span>
+                              <Lock className="h-4 w-4 text-amber-400" />
+                            </div>
+                            <div className="mt-2 font-mono text-xs font-semibold text-amber-300">
+                              ✓ +${Math.round(activeOffer.basePay * 0.4)} Released on Draft Approval
+                            </div>
+                            <p className="mt-2 text-xs text-slate-400">
+                              70% of your base pay is already in your wallet before your post even goes live.
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center justify-between rounded-2xl border border-white/10 bg-slate-950 p-5">
+                          <div className="text-xs text-slate-300">
+                            <span className="font-bold text-emerald-400">Pre-Flight Passed:</span>{' '}
+                            Your video is 100% protected against merchant disputes.
+                          </div>
+                          <button
+                            onClick={() => setCreatorStage(4)}
+                            className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-fuchsia-600 to-violet-600 px-5 py-2.5 text-xs font-bold text-white transition hover:opacity-95"
+                          >
+                            <span>Publish &amp; View Instant Wallet (Step 04)</span>
+                            <ArrowRight className="h-3.5 w-3.5" />
+                          </button>
+                        </div>
+                      </motion.div>
+                    )}
+
+                    {/* CREATOR STEP 04: LIVE EARNINGS SIMULATOR & INSTANT ESCROW WALLET */}
+                    {creatorStage === 4 && (
+                      <motion.div
+                        key="creator-stage-4"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.25 }}
+                        className="grid gap-8 lg:grid-cols-12"
+                      >
+                        {/* Left: Creator Base + Viral Bonus Simulator */}
+                        <div className="space-y-5 lg:col-span-7">
+                          <div>
+                            <span className="font-mono text-xs uppercase tracking-wider text-fuchsia-400">
+                              04 · Creator Earnings &amp; Performance Bonus Simulator
+                            </span>
+                            <h3 className="mt-1 text-xl font-bold text-white">
+                              Guaranteed Base Pay + Uncapped Local Walk-In Bonuses
+                            </h3>
+                          </div>
+
+                          <div className="grid grid-cols-3 gap-3">
+                            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+                              <div className="text-[11px] text-slate-400">Guaranteed Base</div>
+                              <div className="mt-1 font-mono text-2xl font-bold text-white">
+                                ${activeOffer.basePay}
+                              </div>
+                              <div className="text-[10px] text-emerald-400">100% Escrow Backed</div>
+                            </div>
+                            <div className="rounded-2xl border border-fuchsia-500/30 bg-fuchsia-500/10 p-4">
+                              <div className="text-[11px] text-fuchsia-200">Performance Bonus</div>
+                              <div className="mt-1 font-mono text-2xl font-bold text-fuchsia-300">
+                                +${totalCreatorBonus}
+                              </div>
+                              <div className="text-[10px] text-fuchsia-200/80">
+                                Views + QR Redemptions
+                              </div>
+                            </div>
+                            <div className="rounded-2xl border border-emerald-500/40 bg-emerald-500/15 p-4">
+                              <div className="text-[11px] text-emerald-200">Total You Earn</div>
+                              <div className="mt-1 font-mono text-2xl font-bold text-emerald-300">
+                                ${totalCampaignPayout}
+                              </div>
+                              <div className="text-[10px] text-emerald-200/80">
+                                + {activeOffer.perk}
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="space-y-4 rounded-2xl border border-white/10 bg-white/[0.02] p-5 text-xs">
+                            <div className="flex items-center gap-2 font-mono text-slate-300">
+                              <Sliders className="h-4 w-4 text-fuchsia-400" />
+                              <span>Drag Sliders to See How Local Views &amp; Scans Boost Your Payout</span>
+                            </div>
+
+                            <div>
+                              <div className="mb-1 flex justify-between">
+                                <span className="text-slate-400">
+                                  Your Video Views (TikTok + IG Reels)
+                                </span>
+                                <span className="font-mono font-bold text-white">
+                                  {creatorSimViews.toLocaleString()} views
+                                </span>
+                              </div>
+                              <input
+                                type="range"
+                                min={5000}
+                                max={120000}
+                                step={1000}
+                                value={creatorSimViews}
+                                onChange={(e) => setCreatorSimViews(Number(e.target.value))}
+                                className="w-full accent-fuchsia-500"
+                              />
+                            </div>
+
+                            <div>
+                              <div className="mb-1 flex justify-between">
+                                <span className="text-slate-400">
+                                  In-Store Code ({activeOffer.promoCode}) Redemptions
+                                </span>
+                                <span className="font-mono font-bold text-white">
+                                  {creatorSimRedemptions} walk-ins (+$3/ea bonus)
+                                </span>
+                              </div>
+                              <input
+                                type="range"
+                                min={5}
+                                max={90}
+                                step={1}
+                                value={creatorSimRedemptions}
+                                onChange={(e) => setCreatorSimRedemptions(Number(e.target.value))}
+                                className="w-full accent-fuchsia-500"
+                              />
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Right: Instant Creator Wallet & Repeat Ambassador Unlock */}
+                        <div className="flex flex-col justify-between rounded-2xl border border-white/10 bg-slate-950 p-5 lg:col-span-5">
+                          <div className="space-y-4">
+                            <div className="flex items-center justify-between border-b border-white/10 pb-3">
+                              <div className="flex items-center gap-2">
+                                <Wallet className="h-4 w-4 text-emerald-400" />
+                                <h4 className="text-base font-bold text-white">
+                                  Bomie Creator Escrow Wallet
+                                </h4>
+                              </div>
+                              <span className="rounded-full bg-emerald-500/20 px-2.5 py-0.5 font-mono text-[10px] font-semibold text-emerald-300">
+                                Zero Invoice Chasing
+                              </span>
+                            </div>
+
+                            <div className="rounded-2xl border border-white/10 bg-gradient-to-br from-violet-950/60 via-slate-900 to-fuchsia-950/60 p-5">
+                              <div className="text-xs text-slate-300">Available for Instant Payout</div>
+                              <div className="mt-1 font-mono text-3xl font-extrabold text-white">
+                                ${(currentCreator.walletBalance + totalCampaignPayout).toLocaleString()}.00
+                              </div>
+                              <div className="mt-2 text-[11px] text-emerald-300">
+                                Includes ${totalCampaignPayout} from {activeOffer.merchant}
+                              </div>
+
+                              <button
+                                type="button"
+                                onClick={() => setWithdrawnSuccess(true)}
+                                className="mt-4 w-full rounded-xl bg-white py-3 text-xs font-bold text-slate-950 shadow-md transition hover:bg-slate-200"
+                              >
+                                {withdrawnSuccess
+                                  ? '✓ Instant Transfer Sent to Stripe / Venmo ($0 Fee)'
+                                  : 'Instant Cash Out to Stripe / Venmo ($0 Fee)'}
+                              </button>
+                            </div>
+
+                            {/* Brand Loop / Repeat Retainer Unlock */}
+                            <div className="rounded-2xl border border-amber-500/30 bg-amber-500/10 p-4 text-xs">
+                              <div className="flex items-center gap-2 font-bold text-amber-300">
+                                <Award className="h-4 w-4" />
+                                <span>Repeat Brand Ambassador Unlocked!</span>
+                              </div>
+                              <p className="mt-1 text-slate-200 leading-relaxed">
+                                Because your post drove {creatorSimRedemptions} walk-ins,{' '}
+                                <strong>{activeOffer.merchant}</strong> unlocked an automatic{' '}
+                                <strong>${activeOffer.basePay}/mo recurring retainer</strong> invite in your inbox.
+                              </p>
+                            </div>
+                          </div>
+
+                          <div className="mt-4 flex items-center justify-between border-t border-white/10 pt-4 text-xs">
+                            <span className="text-slate-400">Ready to get matched in your city?</span>
+                            <a
+                              href="mailto:lucian.wang@bomie.ai?subject=Creator%20Early%20Access"
+                              className="font-semibold text-fuchsia-300 underline hover:text-white"
+                            >
+                              Claim Creator Handle →
+                            </a>
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
               </motion.div>
             )}
           </AnimatePresence>
@@ -2060,7 +3102,7 @@ export default function BomieLandingPage() {
                 onClick={() => setActiveTab('creator')}
                 className="w-full rounded-2xl border border-white/20 bg-white/10 px-8 py-4 text-sm font-bold text-white backdrop-blur-md transition hover:bg-white/20 sm:w-auto"
               >
-                Explore Creator Workflow
+                Explore Creator Copilot
               </a>
             </div>
           </motion.div>
