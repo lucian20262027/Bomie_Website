@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/og';
 
-export const alt = 'Bomie AI — Where Local Businesses Meet Booming Creators';
+export const alt = "Bomie AI — North America's First AI Commerce OS for Local Businesses & Creators";
 export const size = {
   width: 1200,
   height: 630,
@@ -17,15 +17,15 @@ export default async function Image() {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          backgroundColor: '#06060c',
+          backgroundColor: '#f7f4ff',
           backgroundImage:
-            'radial-gradient(circle at 20% 20%, rgba(124, 58, 237, 0.35), transparent 45%), radial-gradient(circle at 80% 80%, rgba(217, 70, 239, 0.28), transparent 45%), radial-gradient(circle at 50% 100%, rgba(251, 191, 36, 0.16), transparent 50%)',
+            'radial-gradient(circle at 18% 18%, rgba(139, 92, 246, 0.18), transparent 45%), radial-gradient(circle at 85% 82%, rgba(217, 70, 239, 0.14), transparent 45%), radial-gradient(circle at 50% 100%, rgba(251, 191, 36, 0.10), transparent 50%)',
           padding: '56px 68px',
-          color: '#ffffff',
+          color: '#161224',
           fontFamily: 'sans-serif',
         }}
       >
-        {/* Top Row: Bespoke B✦ Brand + Pill */}
+        {/* Top Row: B✦ Brand + Pill */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '18px' }}>
             <div
@@ -44,7 +44,7 @@ export default async function Image() {
             >
               B
             </div>
-            <div style={{ fontSize: '34px', fontWeight: 800, letterSpacing: '-0.02em' }}>
+            <div style={{ fontSize: '34px', fontWeight: 800, letterSpacing: '-0.02em', color: '#161224' }}>
               bomie.ai
             </div>
           </div>
@@ -53,12 +53,12 @@ export default async function Image() {
               display: 'flex',
               alignItems: 'center',
               borderRadius: '9999px',
-              border: '1px solid rgba(167, 139, 250, 0.45)',
-              backgroundColor: 'rgba(139, 92, 246, 0.14)',
+              border: '1px solid rgba(109, 40, 217, 0.25)',
+              backgroundColor: 'rgba(255, 255, 255, 0.9)',
               padding: '10px 22px',
               fontSize: '18px',
-              fontWeight: 600,
-              color: '#ddd6fe',
+              fontWeight: 700,
+              color: '#5b21b6',
             }}
           >
             North America&apos;s First AI Commerce OS
@@ -75,12 +75,13 @@ export default async function Image() {
               letterSpacing: '-0.03em',
               display: 'flex',
               flexDirection: 'column',
+              color: '#161224',
             }}
           >
             <span>Where Local Businesses Meet</span>
             <span
               style={{
-                backgroundImage: 'linear-gradient(90deg, #a78bfa 0%, #f472b6 50%, #fde047 100%)',
+                backgroundImage: 'linear-gradient(90deg, #5b21b6 0%, #d946ef 55%, #f59e0b 100%)',
                 backgroundClip: 'text',
                 color: 'transparent',
               }}
@@ -88,8 +89,8 @@ export default async function Image() {
               Booming Creators
             </span>
           </div>
-          <div style={{ fontSize: '24px', color: '#cbd5e1', maxWidth: '920px', lineHeight: 1.4 }}>
-            AI Smart Matching · 4-Stage Autonomous Campaign OS · Built-In FTC Compliance &amp; 30/40/30 Escrow
+          <div style={{ fontSize: '24px', color: '#475569', maxWidth: '940px', lineHeight: 1.4 }}>
+            AI Smart Matching · 30s Script Copilot · Built-In FTC Compliance &amp; 30/40/30 Escrow
           </div>
         </div>
 
@@ -99,19 +100,18 @@ export default async function Image() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            borderTop: '1px solid rgba(255,255,255,0.12)',
+            borderTop: '1px solid rgba(109, 40, 217, 0.16)',
             paddingTop: '24px',
             fontSize: '20px',
-            color: '#94a3b8',
           }}
         >
           <div style={{ display: 'flex', gap: '36px' }}>
-            <span style={{ color: '#f8fafc', fontWeight: 700 }}>San Francisco</span>
-            <span style={{ color: '#f8fafc', fontWeight: 700 }}>Los Angeles</span>
-            <span style={{ color: '#f8fafc', fontWeight: 700 }}>Seattle</span>
-            <span style={{ color: '#f8fafc', fontWeight: 700 }}>Las Vegas</span>
+            <span style={{ color: '#161224', fontWeight: 700 }}>San Francisco</span>
+            <span style={{ color: '#161224', fontWeight: 700 }}>Los Angeles</span>
+            <span style={{ color: '#161224', fontWeight: 700 }}>Seattle</span>
+            <span style={{ color: '#161224', fontWeight: 700 }}>Las Vegas</span>
           </div>
-          <div style={{ color: '#fde047', fontWeight: 700 }}>First Platform in North America</div>
+          <div style={{ color: '#047857', fontWeight: 800 }}>MVP $0 Platform Fee</div>
         </div>
       </div>
     ),

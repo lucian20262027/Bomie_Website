@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
+import BrandFooter from '../components/BrandFooter';
 import {
   Sparkles,
   ArrowRight,
@@ -2857,34 +2858,34 @@ export default function BomieLandingPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-md"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm"
           >
             <motion.div
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
-              className="relative w-full max-w-lg rounded-3xl border border-white/15 bg-[#0b0b14] p-7 shadow-2xl"
+              className="relative w-full max-w-lg rounded-3xl border border-violet-200 bg-white p-7 shadow-2xl"
             >
               <button
                 onClick={() => setShowDemoModal(false)}
-                className="absolute top-5 right-5 rounded-lg border border-white/10 p-1.5 text-slate-400 hover:bg-white/10 hover:text-white"
+                className="absolute top-5 right-5 rounded-full p-1.5 text-slate-400 transition hover:bg-violet-50 hover:text-slate-700"
               >
                 <X className="h-4 w-4" />
               </button>
 
               {demoSubmitted ? (
                 <div className="py-6 text-center space-y-4">
-                  <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-400">
+                  <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
                     <CheckCircle2 className="h-6 w-6" />
                   </div>
-                  <h3 className="text-2xl font-bold text-white">Demo Request Confirmed!</h3>
+                  <h3 className="text-2xl font-extrabold text-[#161224]">Demo Request Confirmed!</h3>
                   {demoLeadId && (
-                    <div className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-500/10 px-3 py-1 font-mono text-[11px] text-emerald-300">
+                    <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 font-mono text-[11px] font-bold text-emerald-700">
                       Ref: {demoLeadId}
                     </div>
                   )}
-                  <p className="text-sm text-slate-400">
-                    Our founding team at Bomie AI will reach out to <span className="text-white font-medium">{demoEmail}</span> within 24 hours to walk you through a custom campaign for <span className="text-white font-medium">{demoCity}</span>.
+                  <p className="text-sm text-slate-600">
+                    Our founding team at Bomie AI will reach out to <span className="text-[#161224] font-semibold">{demoEmail}</span> within 24 hours to walk you through a custom campaign for <span className="text-[#161224] font-semibold">{demoCity}</span>.
                   </p>
                   <div className="pt-2 flex flex-col sm:flex-row gap-3 justify-center">
                     <button
@@ -2892,7 +2893,7 @@ export default function BomieLandingPage() {
                         setShowDemoModal(false);
                         setShowFullStudioModal(true);
                       }}
-                      className="rounded-xl bg-violet-600 px-5 py-2.5 text-xs font-bold text-white hover:bg-violet-500"
+                      className="rounded-xl bg-gradient-to-r from-[#5b21b6] to-[#d946ef] px-5 py-2.5 text-xs font-bold text-white shadow-md hover:opacity-95"
                     >
                       Try Live V5 Studio Right Now &rarr;
                     </button>
@@ -2902,7 +2903,7 @@ export default function BomieLandingPage() {
                       )}&body=${encodeURIComponent(
                         `Name: ${demoName}\nEmail: ${demoEmail}\nBusiness/Handle: ${demoHandle}\nCity: ${demoCity}\nRef: ${demoLeadId}`
                       )}`}
-                      className="rounded-xl border border-white/15 bg-white/5 px-5 py-2.5 text-xs font-semibold text-slate-200 hover:bg-white/10"
+                      className="rounded-xl border border-violet-200 bg-[#f7f4ff] px-5 py-2.5 text-xs font-semibold text-violet-900 hover:bg-violet-100"
                     >
                       Email Founder Directly
                     </a>
@@ -2911,25 +2912,25 @@ export default function BomieLandingPage() {
               ) : (
                 <form onSubmit={handleDemoSubmit} className="space-y-4">
                   <div>
-                    <span className="font-mono text-xs uppercase tracking-wider text-violet-400">
+                    <span className="font-mono text-xs font-semibold uppercase tracking-wider text-violet-700">
                       1-on-1 Founder Walkthrough
                     </span>
-                    <h3 className="mt-1 text-2xl font-bold text-white">
+                    <h3 className="mt-1 text-2xl font-extrabold text-[#161224]">
                       Book a Live Bomie AI Demo
                     </h3>
-                    <p className="mt-1 text-xs text-slate-400">
+                    <p className="mt-1 text-xs text-slate-600">
                       See how we match your store with high-converting local creators in under 5 minutes.
                     </p>
                   </div>
 
                   {demoError && (
-                    <div className="rounded-xl border border-rose-500/40 bg-rose-500/10 px-3.5 py-2 text-xs text-rose-300">
+                    <div className="rounded-xl border border-rose-200 bg-rose-50 px-3.5 py-2 text-xs font-semibold text-rose-700">
                       {demoError}
                     </div>
                   )}
 
                   <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1">
+                    <label className="block text-xs font-bold text-slate-700 mb-1">
                       Your Name *
                     </label>
                     <input
@@ -2938,13 +2939,13 @@ export default function BomieLandingPage() {
                       value={demoName}
                       onChange={(e) => setDemoName(e.target.value)}
                       placeholder="Alex Chen"
-                      className="w-full rounded-xl border border-white/15 bg-white/5 px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:border-violet-500 focus:outline-none"
+                      className="w-full rounded-xl border border-violet-200 bg-[#faf8ff] px-3.5 py-2.5 text-sm text-[#161224] placeholder-slate-400 focus:border-violet-500 focus:outline-none"
                     />
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-xs font-semibold text-slate-300 mb-1">
+                      <label className="block text-xs font-bold text-slate-700 mb-1">
                         Work Email *
                       </label>
                       <input
@@ -2953,11 +2954,11 @@ export default function BomieLandingPage() {
                         value={demoEmail}
                         onChange={(e) => setDemoEmail(e.target.value)}
                         placeholder="alex@yourbusiness.com"
-                        className="w-full rounded-xl border border-white/15 bg-white/5 px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:border-violet-500 focus:outline-none"
+                        className="w-full rounded-xl border border-violet-200 bg-[#faf8ff] px-3.5 py-2.5 text-sm text-[#161224] placeholder-slate-400 focus:border-violet-500 focus:outline-none"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold text-slate-300 mb-1">
+                      <label className="block text-xs font-bold text-slate-700 mb-1">
                         Phone Number *
                       </label>
                       <input
@@ -2966,21 +2967,21 @@ export default function BomieLandingPage() {
                         value={demoPhone}
                         onChange={(e) => setDemoPhone(e.target.value)}
                         placeholder="+1 (415) 555-0192"
-                        className="w-full rounded-xl border border-white/15 bg-white/5 px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:border-violet-500 focus:outline-none"
+                        className="w-full rounded-xl border border-violet-200 bg-[#faf8ff] px-3.5 py-2.5 text-sm text-[#161224] placeholder-slate-400 focus:border-violet-500 focus:outline-none"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                    <label className="block text-xs font-bold text-slate-700 mb-1.5">
                       Preferred Contact Method
                     </label>
-                    <div className="grid grid-cols-3 gap-2 rounded-xl border border-white/10 bg-white/[0.03] p-1">
+                    <div className="grid grid-cols-3 gap-2 rounded-xl border border-violet-200 bg-[#f7f4ff] p-1">
                       {(
                         [
                           { id: 'email', label: '✉️ Email' },
                           { id: 'phone', label: '📞 Phone / Text' },
-                          { id: 'either', label: '✨ Either' },
+                          { id: 'either', label: 'Either' },
                         ] as const
                       ).map((opt) => (
                         <button
@@ -2989,8 +2990,8 @@ export default function BomieLandingPage() {
                           onClick={() => setDemoPreferredContact(opt.id)}
                           className={`rounded-lg py-2 text-xs font-semibold transition ${
                             demoPreferredContact === opt.id
-                              ? 'bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white shadow-sm'
-                              : 'text-slate-400 hover:bg-white/5 hover:text-slate-200'
+                              ? 'bg-gradient-to-r from-[#5b21b6] to-[#d946ef] text-white shadow-sm'
+                              : 'text-slate-600 hover:bg-white hover:text-[#161224]'
                           }`}
                         >
                           {opt.label}
@@ -3001,7 +3002,7 @@ export default function BomieLandingPage() {
 
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-xs font-semibold text-slate-300 mb-1">
+                      <label className="block text-xs font-bold text-slate-700 mb-1">
                         Business / Creator Handle *
                       </label>
                       <input
@@ -3010,11 +3011,11 @@ export default function BomieLandingPage() {
                         value={demoHandle}
                         onChange={(e) => setDemoHandle(e.target.value)}
                         placeholder="Sichuan Bistro SF"
-                        className="w-full rounded-xl border border-white/15 bg-white/5 px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:border-violet-500 focus:outline-none"
+                        className="w-full rounded-xl border border-violet-200 bg-[#faf8ff] px-3.5 py-2.5 text-sm text-[#161224] placeholder-slate-400 focus:border-violet-500 focus:outline-none"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold text-slate-300 mb-1">
+                      <label className="block text-xs font-bold text-slate-700 mb-1">
                         City / Region *
                       </label>
                       <input
@@ -3023,7 +3024,7 @@ export default function BomieLandingPage() {
                         value={demoCity}
                         onChange={(e) => setDemoCity(e.target.value)}
                         placeholder="San Francisco, CA"
-                        className="w-full rounded-xl border border-white/15 bg-white/5 px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:border-violet-500 focus:outline-none"
+                        className="w-full rounded-xl border border-violet-200 bg-[#faf8ff] px-3.5 py-2.5 text-sm text-[#161224] placeholder-slate-400 focus:border-violet-500 focus:outline-none"
                       />
                     </div>
                   </div>
@@ -3032,7 +3033,7 @@ export default function BomieLandingPage() {
                     <button
                       type="submit"
                       disabled={isSubmittingDemo}
-                      className="w-full rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 py-3 text-sm font-bold text-white shadow-lg shadow-violet-600/25 transition hover:opacity-95 disabled:opacity-50"
+                      className="w-full rounded-xl bg-gradient-to-r from-[#5b21b6] to-[#d946ef] py-3 text-sm font-bold text-white shadow-lg shadow-violet-600/20 transition hover:opacity-95 disabled:opacity-50"
                     >
                       {isSubmittingDemo ? 'Submitting Request...' : 'Schedule My 15-Min Demo'}
                     </button>
@@ -3042,7 +3043,7 @@ export default function BomieLandingPage() {
                         setShowDemoModal(false);
                         setShowFullStudioModal(true);
                       }}
-                      className="w-full rounded-xl border border-white/10 bg-white/[0.03] py-2.5 text-xs font-semibold text-violet-300 hover:bg-white/10"
+                      className="w-full rounded-xl border border-violet-200 bg-[#f7f4ff] py-2.5 text-xs font-semibold text-violet-800 hover:bg-violet-100"
                     >
                       Or Skip Wait &amp; Launch Self-Serve V5 Sandbox &rarr;
                     </button>
@@ -3454,119 +3455,7 @@ export default function BomieLandingPage() {
         </motion.button>
       </div>
 
-      {/* 4-Column Brand Footer */}
-      <footer className="border-t border-violet-200/80 bg-white/60 py-14 text-sm text-slate-600">
-        <div className="mx-auto max-w-[1440px] px-6 lg:px-10">
-          <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5">
-            <div className="lg:col-span-2 space-y-3">
-              <div className="flex items-center gap-2.5">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-tr from-[#5b21b6] via-[#d946ef] to-[#fbbf24]">
-                  <svg viewBox="0 0 512 512" fill="none" className="h-5 w-5">
-                    <path
-                      fill="#ffffff"
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M140 124C140 112.954 148.954 104 160 104H268C321.019 104 360 137.565 360 184C360 214.12 343.39 239.47 317.88 251.42C350.69 263.74 372 292.69 372 330C372 381.915 329.915 416 272 416H160C148.954 416 140 407.046 140 396V124ZM204 162V228H260C281.539 228 296 214.569 296 195C296 175.431 281.539 162 260 162H204ZM204 282V356H268C292.301 356 308 341.673 308 319C308 296.327 292.301 282 268 282H204Z"
-                    />
-                  </svg>
-                </div>
-                <span className="text-lg font-extrabold tracking-tight text-[#161224]">bomie.ai</span>
-              </div>
-              <p className="max-w-sm text-xs leading-relaxed text-slate-600">
-                North America&apos;s First AI Commerce OS for Local Businesses &amp; Creators—with built-in FTC compliance and 30/40/30 Stripe Escrow.
-              </p>
-              <div className="flex items-center gap-2 pt-1 text-xs font-medium text-slate-500">
-                <ShieldCheck className="h-4 w-4 text-violet-600" />
-                <span>© 2026 BOMIES LLC · San Francisco, CA</span>
-              </div>
-            </div>
-
-            <div className="space-y-3">
-              <div className="font-mono text-[11px] font-bold uppercase tracking-wider text-[#161224]">
-                Product
-              </div>
-              <ul className="space-y-2 text-xs">
-                <li>
-                  <Link href="/commerce-os" className="hover:text-violet-700">
-                    Commerce OS
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/merchant" className="hover:text-violet-700">
-                    For Merchants
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/creator" className="hover:text-violet-700">
-                    For Creators
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/pricing" className="hover:text-violet-700">
-                    Pricing (MVP Free)
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            <div className="space-y-3">
-              <div className="font-mono text-[11px] font-bold uppercase tracking-wider text-[#161224]">
-                Cities
-              </div>
-              <ul className="space-y-2 text-xs">
-                <li>
-                  <Link href="/stories/sf" className="hover:text-violet-700">
-                    San Francisco
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/stories/la" className="hover:text-violet-700">
-                    Los Angeles
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/stories/seattle" className="hover:text-violet-700">
-                    Seattle
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/stories/vegas" className="hover:text-violet-700">
-                    Las Vegas
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            <div className="space-y-3">
-              <div className="font-mono text-[11px] font-bold uppercase tracking-wider text-[#161224]">
-                Company &amp; Legal
-              </div>
-              <ul className="space-y-2 text-xs">
-                <li>
-                  <Link href="/why-bomie/stories" className="hover:text-violet-700">
-                    Bomie Stories
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/why-bomie/research" className="hover:text-violet-700">
-                    Bomie Research
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/privacy" className="hover:text-violet-700">
-                    Privacy Policy
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/terms" className="hover:text-violet-700">
-                    Terms of Service
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <BrandFooter />
     </div>
   );
 }

@@ -47,12 +47,63 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://www.bomie.ai/#organization",
+        name: "Bomie AI",
+        legalName: "BOMIES LLC",
+        url: "https://www.bomie.ai",
+        logo: "https://www.bomie.ai/icon.svg?v=2",
+        description:
+          "North America's First AI Commerce OS for Local Businesses & Creators — AI smart matching, 30s script copilot, built-in FTC compliance, and 30/40/30 Stripe Escrow.",
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "San Francisco",
+          addressRegion: "CA",
+          addressCountry: "US",
+        },
+        founder: {
+          "@type": "Person",
+          name: "Lucian Wang",
+          sameAs: "https://www.linkedin.com/in/lucianwang18",
+        },
+        contactPoint: {
+          "@type": "ContactPoint",
+          email: "lucian.wang@bomie.ai",
+          contactType: "customer support",
+        },
+      },
+      {
+        "@type": "SoftwareApplication",
+        name: "Bomie Commerce OS",
+        applicationCategory: "BusinessApplication",
+        operatingSystem: "Web",
+        url: "https://www.bomie.ai",
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "USD",
+          description: "$0 platform fee during MVP launch for local businesses and creators.",
+        },
+      },
+    ],
+  };
+
   return (
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        {children}
+      </body>
     </html>
   );
 }
