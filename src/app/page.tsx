@@ -2231,7 +2231,7 @@ export default function BomieLandingPage() {
                           playsInline
                           preload="auto"
                           className={`h-full w-full object-cover pointer-events-none ${
-                            idx === 0 ? 'object-[center_30%]' : ''
+                            idx === 0 ? 'object-[center_42%]' : ''
                           }`}
                         />
                       ) : (
