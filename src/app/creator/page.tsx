@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 
 import { buildCreatorPlan, type CreatorDealPlan } from '../../lib/sandboxEngine';
+import FlipPainCard from '../../components/FlipPainCard';
 
 export default function CreatorPage() {
   const [guideStep, setGuideStep] = useState<1 | 2 | 3>(1);
@@ -182,24 +183,29 @@ export default function CreatorPage() {
               {
                 title: 'Ignored by Big Agencies',
                 desc: 'Traditional platforms only care about 500K+ mega-influencers—ignoring high-trust local creators.',
+                solutionTitle: 'Built for 2K–50K Local Voices',
+                solutionDesc: 'Neighborhood stores value local trust over vanity follower counts—your community reach is your superpower here.',
               },
               {
                 title: 'Ghosted After Cold Pitching',
                 desc: 'Spending hours emailing or DMing local shops only to hear crickets or get offered $0 “exposure.”',
+                solutionTitle: 'Inbound Paid Offers Only',
+                solutionDesc: 'Receive curated, pre-funded local brand invites straight to your dashboard—zero cold pitching, 0% creator fee.',
               },
               {
                 title: 'Late Payments & FTC Stress',
                 desc: 'Waiting 60 days for Net-60 invoices or worrying about accidental #ad and audio copyright flags.',
+                solutionTitle: 'Instant Stripe Payout & FTC Shield',
+                solutionDesc: '30/40/30 escrow locks your pay upfront, AI auto-checks #ad & audio rules, and you withdraw in seconds.',
               },
             ].map((pain) => (
-              <div
+              <FlipPainCard
                 key={pain.title}
-                className="rounded-3xl border border-rose-500/20 bg-gradient-to-b from-rose-50 to-white p-6 space-y-2.5 shadow-sm"
-              >
-                <XCircle className="h-5 w-5 text-rose-500" />
-                <h2 className="text-base font-bold text-[#161224]">{pain.title}</h2>
-                <p className="text-xs sm:text-sm leading-relaxed text-slate-600">{pain.desc}</p>
-              </div>
+                title={pain.title}
+                desc={pain.desc}
+                solutionTitle={pain.solutionTitle}
+                solutionDesc={pain.solutionDesc}
+              />
             ))}
           </div>
         </section>

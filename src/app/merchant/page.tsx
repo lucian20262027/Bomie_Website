@@ -25,6 +25,7 @@ import {
   computeDynamicRoas,
   type GeneratedMerchantPlan,
 } from '../../lib/sandboxEngine';
+import FlipPainCard from '../../components/FlipPainCard';
 
 export default function MerchantPage() {
   const [guideStep, setGuideStep] = useState<1 | 2 | 3>(1);
@@ -202,24 +203,29 @@ export default function MerchantPage() {
               {
                 title: 'Broad Social Ads Drain Margins',
                 desc: 'Boosting posts reaches people 30 miles away who never walk into your neighborhood store.',
+                solutionTitle: 'Hyper-Local 0.5–15 Mi Match',
+                solutionDesc: 'Bomie AI matches verified creators whose followers actually live, dine, and shop within walking or driving distance.',
               },
               {
                 title: 'Cold DMs & Agencies Don’t Scale',
                 desc: 'Agencies charge $3K–$5K/mo retainers, while DMing local creators yourself leads to endless ghosting.',
+                solutionTitle: '$0 MVP Fee · Instant Matching',
+                solutionDesc: 'Skip agency retainers and cold DMs—AI pairs your store with ready-to-film local creators in under 5 minutes.',
               },
               {
                 title: 'Zero FTC & Payout Protection',
                 desc: 'Paying upfront via Venmo risks missed #ad disclosures, no-shows, and untracked ROI.',
+                solutionTitle: '3-Agent FTC & 30/40/30 Escrow',
+                solutionDesc: 'Every brief is FTC-audited and funds release in 30/40/30 milestones only after live post & QR tracking.',
               },
             ].map((pain) => (
-              <div
+              <FlipPainCard
                 key={pain.title}
-                className="rounded-3xl border border-rose-500/20 bg-gradient-to-b from-rose-50 to-white p-6 space-y-2.5 shadow-sm"
-              >
-                <XCircle className="h-5 w-5 text-rose-500" />
-                <h2 className="text-base font-bold text-[#161224]">{pain.title}</h2>
-                <p className="text-xs sm:text-sm leading-relaxed text-slate-600">{pain.desc}</p>
-              </div>
+                title={pain.title}
+                desc={pain.desc}
+                solutionTitle={pain.solutionTitle}
+                solutionDesc={pain.solutionDesc}
+              />
             ))}
           </div>
         </section>
