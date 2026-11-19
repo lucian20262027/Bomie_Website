@@ -2330,19 +2330,19 @@ export default function BomieLandingPage() {
       {/* Success Stories — Clean Metric Strip + 4 City Hubs */}
       <section id="stories" className="border-t border-violet-200/70 bg-[#efe9ff]/55 py-14 scroll-mt-16">
         <div className="mx-auto max-w-[1440px] px-6 lg:px-10 space-y-10">
-          {/* Lightweight Borderless 3-Metric Strip */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-violet-200/80 border-b border-violet-200/80 pb-8">
-            <div className="py-3 sm:py-0 sm:pr-8">
-              <div className="text-3xl sm:text-4xl font-extrabold tracking-tight text-amber-600">3.6x</div>
-              <div className="mt-1 text-xs sm:text-sm font-medium text-slate-600">Avg. Store-Visit ROAS</div>
+          {/* Lightweight Centered 3-Metric Strip (Desktop & Mobile) */}
+          <div className="mx-auto grid max-w-4xl grid-cols-3 divide-x divide-violet-200/80 border-b border-violet-200/80 pb-8 text-center">
+            <div className="px-2 sm:px-6">
+              <div className="text-2xl sm:text-4xl font-extrabold tracking-tight text-amber-600">3.6x</div>
+              <div className="mt-1 text-[11px] sm:text-sm font-medium text-slate-600">Avg. Store-Visit ROAS</div>
             </div>
-            <div className="py-3 sm:py-0 sm:px-8">
-              <div className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#161224]">&lt; 5m</div>
-              <div className="mt-1 text-xs sm:text-sm font-medium text-slate-600">AI Local Creator Match</div>
+            <div className="px-2 sm:px-6">
+              <div className="text-2xl sm:text-4xl font-extrabold tracking-tight text-[#161224]">&lt; 5m</div>
+              <div className="mt-1 text-[11px] sm:text-sm font-medium text-slate-600">AI Local Creator Match</div>
             </div>
-            <div className="py-3 sm:py-0 sm:pl-8">
-              <div className="text-3xl sm:text-4xl font-extrabold tracking-tight text-emerald-600">100%</div>
-              <div className="mt-1 text-xs sm:text-sm font-medium text-slate-600">FTC 16 CFR Pass Rate</div>
+            <div className="px-2 sm:px-6">
+              <div className="text-2xl sm:text-4xl font-extrabold tracking-tight text-emerald-600">100%</div>
+              <div className="mt-1 text-[11px] sm:text-sm font-medium text-slate-600">FTC 16 CFR Pass Rate</div>
             </div>
           </div>
 
