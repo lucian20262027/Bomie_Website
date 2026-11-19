@@ -2209,10 +2209,12 @@ export default function BomieLandingPage() {
                           loop
                           playsInline
                           preload="auto"
-                          initial={false}
-                          animate={{ scale: selectedMatch === idx ? 1.07 : 1.0 }}
+                          initial={{ scale: 1.0 }}
+                          animate={{ scale: selectedMatch === idx ? 1.08 : 1.0 }}
                           transition={{ duration: 4.5, ease: 'easeOut' }}
-                          className="h-full w-full object-cover pointer-events-none"
+                          className={`h-full w-full object-cover pointer-events-none ${
+                            idx === 0 ? 'object-[center_68%]' : ''
+                          }`}
                         />
                       ) : (
                         <img
