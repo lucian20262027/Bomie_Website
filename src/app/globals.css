@@ -30,3 +30,27 @@ body {
 .animate-caret-blink {
   animation: caretBlink 0.72s step-end infinite;
 }
+
+@keyframes shimmerSweep {
+  0% {
+    background-position: 115% 0%;
+  }
+  75%, 100% {
+    background-position: -15% 0%;
+  }
+}
+
+.animate-shimmer-sweep {
+  background-image: linear-gradient(
+    90deg,
+    #5b21b6 0%,
+    #5b21b6 38%,
+    #db2777 48%,
+    #d97706 51%,
+    #7c3aed 55%,
+    #5b21b6 64%,
+    #5b21b6 100%
+  );
+  background-size: 240% 100%;
+  animation: shimmerSweep 4.4s ease-in-out infinite;
+}

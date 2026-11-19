@@ -144,7 +144,7 @@ export default function CreatorPage() {
             <span className="text-lg font-extrabold tracking-tight text-[#161224]">bomie.ai</span>
             <span className="hidden sm:inline-flex items-center gap-2.5 text-sm">
               <span className="text-fuchsia-300 font-light">|</span>
-              <span className="font-[family-name:var(--font-playfair)] italic font-medium tracking-wide text-fuchsia-800/90">
+              <span className="animate-shimmer-sweep bg-clip-text text-transparent font-[family-name:var(--font-playfair)] italic font-semibold tracking-wide">
                 Move your community. Get paid.
               </span>
             </span>
