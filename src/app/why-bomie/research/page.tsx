@@ -36,7 +36,7 @@ export default function BomieResearchPage() {
   return (
     <div className="min-h-screen bg-[#f7f4ff] text-[#161224] selection:bg-violet-500 selection:text-[#161224]">
       <header className="sticky top-0 z-40 border-b border-violet-200/70 bg-[#f7f4ff]/85 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Link href="/" className="flex items-center gap-3">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-tr from-[#5b21b6] via-[#d946ef] to-[#fbbf24] shadow-md shadow-violet-500/30">
               <svg viewBox="0 0 512 512" fill="none" className="h-5 w-5">
@@ -78,7 +78,7 @@ export default function BomieResearchPage() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-5xl px-6 py-16 space-y-12">
+      <main className="mx-auto max-w-6xl px-6 py-16 space-y-12">
         <div className="space-y-4">
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-[#161224]">
             Bomie Research: Small Business &amp; Local Creator Economy

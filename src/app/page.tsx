@@ -850,6 +850,7 @@ export default function BomieLandingPage() {
   // 3. FLOATING BOMIE AI FAQ CHATBOT STATE
   // ==========================================
   const [isChatOpen, setIsChatOpen] = useState<boolean>(false);
+  const [isChatHovered, setIsChatHovered] = useState<boolean>(false);
   const [chatHighlight, setChatHighlight] = useState<boolean>(false);
   const [chatInput, setChatInput] = useState<string>('');
   const [isBotTyping, setIsBotTyping] = useState<boolean>(false);
@@ -1266,6 +1267,15 @@ export default function BomieLandingPage() {
       chatScrollRef.current.scrollTop = chatScrollRef.current.scrollHeight;
     }
   }, [chatMessages, isBotTyping, isChatOpen]);
+
+  // Auto-collapse chatbot after 4 seconds of inactivity (pause while hovered or typing)
+  useEffect(() => {
+    if (!isChatOpen || isChatHovered || isBotTyping || chatInput.trim().length > 0) return;
+    const timer = setTimeout(() => {
+      setIsChatOpen(false);
+    }, 4000);
+    return () => clearTimeout(timer);
+  }, [isChatOpen, isChatHovered, isBotTyping, chatInput, chatMessages.length]);
 
   const handleSelectFaqTopic = (faqItem: (typeof faqs)[number]) => {
     const userMsgId = `u-${Date.now()}`;
@@ -1725,7 +1735,7 @@ export default function BomieLandingPage() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 8 }}
                     transition={{ duration: 0.18 }}
-                    className="absolute left-0 top-full pt-2 w-52 z-50"
+                    className="absolute left-0 top-full pt-2 w-56 z-50"
                   >
                     <div className="rounded-2xl border border-violet-200/80 bg-white/95 p-2 shadow-2xl shadow-violet-900/10 backdrop-blur-2xl space-y-1">
                       <Link
@@ -1783,7 +1793,7 @@ export default function BomieLandingPage() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 8 }}
                     transition={{ duration: 0.18 }}
-                    className="absolute left-0 top-full pt-2 w-52 z-50"
+                    className="absolute left-0 top-full pt-2 w-56 z-50"
                   >
                     <div className="rounded-2xl border border-violet-200/80 bg-white/95 p-2 shadow-2xl shadow-violet-900/10 backdrop-blur-2xl space-y-1">
                       <Link
@@ -1841,7 +1851,7 @@ export default function BomieLandingPage() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 8 }}
                     transition={{ duration: 0.18 }}
-                    className="absolute left-0 top-full pt-2 w-52 z-50"
+                    className="absolute left-0 top-full pt-2 w-56 z-50"
                   >
                     <div className="rounded-2xl border border-violet-200/80 bg-white/95 p-2 shadow-2xl shadow-violet-900/10 backdrop-blur-2xl space-y-1">
                       <Link
@@ -2133,14 +2143,6 @@ export default function BomieLandingPage() {
                   />
                 </AnimatePresence>
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0b0b14] via-[#0b0b14]/45 to-black/20" />
-
-                {/* Top-Left Live Reel Loop Pill */}
-                <div className="absolute top-4 left-5 flex items-center gap-2 rounded-full border border-white/15 bg-black/55 px-3 py-1 backdrop-blur-md">
-                  <span className="h-2 w-2 rounded-full bg-rose-500 animate-pulse" />
-                  <span className="font-mono text-[10px] font-semibold uppercase tracking-wider text-white">
-                    30s Creator Reel Loop
-                  </span>
-                </div>
 
                 {/* Top-Right Category Switcher Overlay */}
                 <div className="absolute top-4 right-5 flex items-center justify-end">
@@ -2767,41 +2769,23 @@ export default function BomieLandingPage() {
             </div>
 
             {/* Interactive Ocean Tide Audio Toggle Button (Top-Right) */}
+            {/* Top-Right Compact Audio Toggle Button (Icon Only) */}
             <div className="relative z-20 mb-6 flex justify-center sm:mb-0 sm:absolute sm:top-6 sm:right-6">
               <button
                 type="button"
                 onClick={toggleOceanSound}
-                className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold backdrop-blur-xl transition-all ${
+                aria-label={isOceanSoundPlaying ? 'Mute Ocean Tide' : 'Play Ocean Tide'}
+                title={isOceanSoundPlaying ? 'Mute Ocean Tide' : 'Listen to Ocean Tide'}
+                className={`inline-flex h-10 w-10 items-center justify-center rounded-full border backdrop-blur-xl transition-all ${
                   isOceanSoundPlaying
-                    ? 'border-amber-300/70 bg-amber-400/20 text-amber-100 shadow-lg shadow-amber-500/30'
+                    ? 'border-amber-300/70 bg-amber-400/25 text-amber-200 shadow-lg shadow-amber-500/30'
                     : 'border-white/25 bg-black/35 text-violet-100 hover:border-violet-300/60 hover:bg-black/50'
                 }`}
               >
                 {isOceanSoundPlaying ? (
-                  <>
-                    <Volume2 className="h-3.5 w-3.5 text-amber-300 animate-pulse" />
-                    <span>Real Ocean Tide: ON</span>
-                    <span className="flex items-end gap-0.5 h-3 ml-1">
-                      {[0, 1, 2, 3].map((bar) => (
-                        <motion.span
-                          key={bar}
-                          animate={{ height: ['30%', '100%', '40%', '90%', '30%'] }}
-                          transition={{
-                            duration: 1.1,
-                            repeat: Infinity,
-                            delay: bar * 0.15,
-                            ease: 'easeInOut',
-                          }}
-                          className="w-0.5 bg-amber-300 rounded-full"
-                        />
-                      ))}
-                    </span>
-                  </>
+                  <Volume2 className="h-4 w-4 text-amber-300 animate-pulse" />
                 ) : (
-                  <>
-                    <VolumeX className="h-3.5 w-3.5 text-amber-300" />
-                    <span>Listen to Ocean Tide 🌊</span>
-                  </>
+                  <VolumeX className="h-4 w-4 text-violet-100" />
                 )}
               </button>
             </div>
@@ -3259,7 +3243,11 @@ export default function BomieLandingPage() {
       </AnimatePresence>
 
       {/* Floating Bottom-Right Bomie AI Logo FAQ Chatbot */}
-      <div className="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-50 flex flex-col items-end gap-3">
+      <div
+        onMouseEnter={() => setIsChatHovered(true)}
+        onMouseLeave={() => setIsChatHovered(false)}
+        className="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-50 flex flex-col items-end gap-3"
+      >
         <AnimatePresence>
           {isChatOpen && (
             <motion.div
@@ -3267,16 +3255,16 @@ export default function BomieLandingPage() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 20, scale: 0.94 }}
               transition={{ duration: 0.22 }}
-              className={`flex h-[540px] max-h-[82vh] w-[calc(100vw-2.5rem)] sm:w-[400px] flex-col overflow-hidden rounded-3xl border bg-[#0b0b16]/95 shadow-2xl backdrop-blur-2xl ${
+              className={`flex h-[520px] max-h-[82vh] w-[calc(100vw-2.5rem)] sm:w-[400px] flex-col overflow-hidden rounded-3xl border bg-white/95 shadow-2xl backdrop-blur-2xl ${
                 chatHighlight
-                  ? 'border-amber-300/80 ring-2 ring-amber-400/40 shadow-amber-500/20'
-                  : 'border-white/15 shadow-violet-950/70'
+                  ? 'border-violet-400 ring-2 ring-violet-400/35 shadow-violet-500/20'
+                  : 'border-violet-200/90 shadow-violet-950/15'
               }`}
             >
               {/* Chatbot Header */}
-              <div className="flex items-center justify-between border-b border-white/10 bg-gradient-to-r from-violet-950/90 via-[#150c2e] to-fuchsia-950/80 px-4 py-3.5">
+              <div className="flex items-center justify-between border-b border-violet-200/80 bg-gradient-to-r from-[#f7f4ff] via-white to-[#fdf4ff] px-4 py-3.5">
                 <div className="flex items-center gap-3">
-                  <div className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-tr from-[#5b21b6] via-[#d946ef] to-[#fbbf24] shadow-md shadow-violet-500/35">
+                  <div className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-tr from-[#5b21b6] via-[#d946ef] to-[#fbbf24] shadow-md shadow-violet-500/25">
                     <svg viewBox="0 0 512 512" fill="none" className="h-6 w-6">
                       <path
                         fill="#ffffff"
@@ -3289,17 +3277,17 @@ export default function BomieLandingPage() {
                         d="M396 76C399.5 103.5 412.5 116.5 440 120C412.5 123.5 399.5 136.5 396 164C392.5 136.5 379.5 123.5 352 120C379.5 116.5 392.5 103.5 396 76Z"
                       />
                     </svg>
-                    <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-[#0b0b16] bg-emerald-400" />
+                    <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-white bg-emerald-500" />
                   </div>
                   <div>
                     <div className="flex items-center gap-1.5">
-                      <span className="text-sm font-bold text-white">Bomie AI Concierge</span>
-                      <span className="rounded-full bg-violet-500/20 px-1.5 py-0.5 text-[10px] font-semibold text-violet-200 border border-violet-400/30">
+                      <span className="text-sm font-extrabold text-[#161224]">Bomie AI Concierge</span>
+                      <span className="rounded-full bg-violet-100 px-1.5 py-0.5 text-[10px] font-bold text-violet-700 border border-violet-200">
                         FAQ Bot
                       </span>
                     </div>
-                    <div className="text-[11px] text-emerald-300/90 flex items-center gap-1">
-                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    <div className="text-[11px] text-emerald-700 flex items-center gap-1 font-medium">
+                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
                       <span>Online · 5 FAQ Topics &amp; Live Chat</span>
                     </div>
                   </div>
@@ -3307,7 +3295,7 @@ export default function BomieLandingPage() {
                 <button
                   type="button"
                   onClick={() => setIsChatOpen(false)}
-                  className="rounded-lg border border-white/10 p-1.5 text-slate-400 transition hover:bg-white/10 hover:text-white"
+                  className="rounded-lg border border-violet-200 bg-white p-1.5 text-slate-500 transition hover:bg-violet-50 hover:text-[#161224]"
                   aria-label="Close Bomie AI Chatbot"
                 >
                   <X className="h-4 w-4" />
@@ -3315,9 +3303,9 @@ export default function BomieLandingPage() {
               </div>
 
               {/* Pre-stored 5 FAQ Topic Pills */}
-              <div className="border-b border-white/10 bg-white/[0.02] px-3.5 py-2.5">
+              <div className="border-b border-violet-100 bg-[#f7f4ff]/70 px-3.5 py-2.5">
                 <div className="mb-1.5 flex items-center justify-between">
-                  <span className="font-mono text-[10px] font-semibold uppercase tracking-wider text-violet-300">
+                  <span className="font-mono text-[10px] font-semibold uppercase tracking-wider text-violet-700">
                     Quick FAQ Topics (Tap to Ask)
                   </span>
                 </div>
@@ -3327,7 +3315,7 @@ export default function BomieLandingPage() {
                       key={idx}
                       type="button"
                       onClick={() => handleSelectFaqTopic(item)}
-                      className="rounded-full border border-violet-400/25 bg-violet-500/10 px-2.5 py-1 text-left text-[11px] font-medium text-violet-100 transition hover:border-amber-300/60 hover:bg-violet-500/25 hover:text-white"
+                      className="rounded-full border border-violet-200 bg-white px-2.5 py-1 text-left text-[11px] font-medium text-slate-700 shadow-xs transition hover:border-violet-400 hover:bg-violet-50 hover:text-violet-950"
                     >
                       {item.q.length > 38 ? `${item.q.slice(0, 36)}…` : item.q}
                     </button>
@@ -3338,7 +3326,7 @@ export default function BomieLandingPage() {
               {/* Chat Conversation Stream */}
               <div
                 ref={chatScrollRef}
-                className="flex-1 overflow-y-auto px-4 py-3.5 space-y-3"
+                className="flex-1 overflow-y-auto bg-[#faf8ff] px-4 py-3.5 space-y-3"
               >
                 {chatMessages.map((msg) => (
                   <div
@@ -3348,8 +3336,8 @@ export default function BomieLandingPage() {
                     <div
                       className={`max-w-[86%] rounded-2xl px-3.5 py-2.5 text-xs leading-relaxed ${
                         msg.sender === 'user'
-                          ? 'bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white rounded-br-sm shadow-md shadow-violet-950/40'
-                          : 'border border-white/10 bg-white/[0.05] text-slate-200 rounded-bl-sm'
+                          ? 'bg-gradient-to-r from-[#5b21b6] to-[#d946ef] text-white rounded-br-sm shadow-sm'
+                          : 'border border-violet-200/80 bg-white text-slate-700 rounded-bl-sm shadow-xs'
                       }`}
                     >
                       <p>{msg.text}</p>
@@ -3368,7 +3356,7 @@ export default function BomieLandingPage() {
                               jumpToOsStage('creator', 1);
                             }
                           }}
-                          className="mt-2 inline-flex items-center gap-1 rounded-lg border border-amber-300/35 bg-amber-400/10 px-2.5 py-1 text-[11px] font-semibold text-amber-200 transition hover:bg-amber-400/20"
+                          className="mt-2 inline-flex items-center gap-1 rounded-lg border border-violet-200 bg-violet-50 px-2.5 py-1 text-[11px] font-semibold text-violet-800 transition hover:bg-violet-100"
                         >
                           <span>{msg.actionLabel}</span>
                         </button>
@@ -3379,14 +3367,14 @@ export default function BomieLandingPage() {
 
                 {isBotTyping && (
                   <div className="flex justify-start">
-                    <div className="flex items-center gap-1 rounded-2xl rounded-bl-sm border border-white/10 bg-white/[0.05] px-3.5 py-2.5">
-                      <span className="h-1.5 w-1.5 rounded-full bg-violet-400 animate-bounce" />
+                    <div className="flex items-center gap-1 rounded-2xl rounded-bl-sm border border-violet-200/80 bg-white px-3.5 py-2.5 shadow-xs">
+                      <span className="h-1.5 w-1.5 rounded-full bg-violet-500 animate-bounce" />
                       <span
-                        className="h-1.5 w-1.5 rounded-full bg-fuchsia-400 animate-bounce"
+                        className="h-1.5 w-1.5 rounded-full bg-fuchsia-500 animate-bounce"
                         style={{ animationDelay: '0.15s' }}
                       />
                       <span
-                        className="h-1.5 w-1.5 rounded-full bg-amber-300 animate-bounce"
+                        className="h-1.5 w-1.5 rounded-full bg-amber-400 animate-bounce"
                         style={{ animationDelay: '0.3s' }}
                       />
                     </div>
@@ -3397,19 +3385,19 @@ export default function BomieLandingPage() {
               {/* Input Form */}
               <form
                 onSubmit={handleSendChatMessage}
-                className="flex items-center gap-2 border-t border-white/10 bg-[#070711] p-3"
+                className="flex items-center gap-2 border-t border-violet-200/80 bg-white p-3"
               >
                 <input
                   type="text"
                   value={chatInput}
                   onChange={(e) => setChatInput(e.target.value)}
                   placeholder="Ask anything about pricing, cities, creators..."
-                  className="flex-1 rounded-xl border border-white/15 bg-white/5 px-3.5 py-2 text-xs text-white placeholder-slate-500 focus:border-violet-400 focus:outline-none"
+                  className="flex-1 rounded-xl border border-violet-200 bg-[#faf8ff] px-3.5 py-2 text-xs text-[#161224] placeholder-slate-400 focus:border-violet-500 focus:outline-none"
                 />
                 <button
                   type="submit"
                   disabled={!chatInput.trim()}
-                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white shadow-md transition hover:opacity-90 disabled:opacity-40"
+                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-r from-[#5b21b6] to-[#d946ef] text-white shadow-md transition hover:opacity-90 disabled:opacity-40"
                   aria-label="Send message"
                 >
                   <Send className="h-3.5 w-3.5" />
@@ -3425,10 +3413,10 @@ export default function BomieLandingPage() {
           whileHover={{ scale: 1.06 }}
           whileTap={{ scale: 0.94 }}
           onClick={() => setIsChatOpen((prev) => !prev)}
-          className="group relative flex items-center gap-2.5 rounded-full border border-violet-400/40 bg-[#0d0a1c]/90 p-1.5 pr-4 shadow-2xl shadow-violet-900/60 backdrop-blur-xl transition hover:border-amber-300/60"
+          className="group relative flex items-center gap-2.5 rounded-full border border-violet-200/90 bg-white/95 p-1.5 pr-4 shadow-xl shadow-violet-900/15 backdrop-blur-xl transition hover:border-violet-400"
           aria-label="Open Bomie AI FAQ Chatbot"
         >
-          <span className="relative flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-tr from-[#5b21b6] via-[#d946ef] to-[#fbbf24] shadow-lg shadow-violet-500/40">
+          <span className="relative flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-tr from-[#5b21b6] via-[#d946ef] to-[#fbbf24] shadow-lg shadow-violet-500/30">
             {isChatOpen ? (
               <X className="h-5 w-5 text-white" />
             ) : (
@@ -3445,14 +3433,14 @@ export default function BomieLandingPage() {
                 />
               </svg>
             )}
-            <span className="absolute -top-0.5 -right-0.5 h-3.5 w-3.5 rounded-full border-2 border-[#0d0a1c] bg-emerald-400" />
+            <span className="absolute -top-0.5 -right-0.5 h-3.5 w-3.5 rounded-full border-2 border-white bg-emerald-500" />
           </span>
           <div className="flex flex-col text-left">
-            <span className="text-xs font-bold text-white flex items-center gap-1">
-              <Bot className="h-3 w-3 text-amber-300" />
+            <span className="text-xs font-extrabold text-[#161224] flex items-center gap-1">
+              <Bot className="h-3 w-3 text-violet-600" />
               Ask Bomie AI
             </span>
-            <span className="text-[10px] text-violet-200/80">FAQ &amp; Live Answers</span>
+            <span className="text-[10px] font-medium text-slate-500">FAQ &amp; Live Answers</span>
           </div>
         </motion.button>
       </div>
