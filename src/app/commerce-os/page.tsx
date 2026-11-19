@@ -414,11 +414,11 @@ export default function CommerceOsPage() {
 
       <main className="mx-auto max-w-6xl space-y-16 px-6 py-12 sm:py-16">
         {/* Hero: System Overview */}
-        <section className="max-w-3xl space-y-4">
+        <section className="max-w-4xl space-y-4">
           <h1 className="text-4xl font-extrabold leading-tight tracking-tight text-[#161224] sm:text-5xl">
-            One AI Operating System for Local Merchants &amp; Creators
+            North America&apos;s First AI Operating System for Local Merchants &amp; Creators
           </h1>
-          <p className="text-base leading-relaxed text-slate-600 sm:text-lg">
+          <p className="max-w-3xl text-base leading-relaxed text-slate-600 sm:text-lg">
             Match nearby stores and creators, generate 30s reels, audit FTC compliance, and settle 30/40/30 Stripe
             Escrow automatically.
           </p>
