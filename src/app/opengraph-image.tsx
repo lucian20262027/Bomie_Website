@@ -61,7 +61,7 @@ export default async function Image() {
               color: '#ddd6fe',
             }}
           >
-            First Small Business &amp; Creators Platform
+            North America&apos;s First AI Commerce OS
           </div>
         </div>
 

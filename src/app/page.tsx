@@ -1702,7 +1702,7 @@ export default function BomieLandingPage() {
                   }}
                   className="bg-clip-text text-[11px] lg:text-xs font-semibold tracking-wide text-transparent leading-none whitespace-nowrap"
                 >
-                  First Platform in North America for Local Businesses &amp; Local Creators
+                  North America&apos;s First AI Commerce OS for Local Businesses &amp; Creators
                 </motion.span>
               </div>
             </div>
@@ -3473,7 +3473,7 @@ export default function BomieLandingPage() {
                 <span className="text-lg font-extrabold tracking-tight text-[#161224]">bomie.ai</span>
               </div>
               <p className="max-w-sm text-xs leading-relaxed text-slate-600">
-                AI-Native Local Commerce Operating System connecting Main Street businesses and neighborhood creators with built-in FTC compliance and 30/40/30 Stripe Escrow.
+                North America&apos;s First AI Commerce OS for Local Businesses &amp; Creators—with built-in FTC compliance and 30/40/30 Stripe Escrow.
               </p>
               <div className="flex items-center gap-2 pt-1 text-xs font-medium text-slate-500">
                 <ShieldCheck className="h-4 w-4 text-violet-600" />
