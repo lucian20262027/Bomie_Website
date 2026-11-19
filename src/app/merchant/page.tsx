@@ -162,6 +162,12 @@ export default function MerchantPage() {
               </svg>
             </div>
             <span className="text-lg font-extrabold tracking-tight text-[#161224]">bomie.ai</span>
+            <span className="hidden sm:inline-flex items-center gap-2.5 text-sm">
+              <span className="text-violet-300 font-light">|</span>
+              <span className="font-[family-name:var(--font-playfair)] italic font-medium tracking-wide text-violet-800/90">
+                Make your business boom.
+              </span>
+            </span>
           </Link>
           <div className="flex items-center gap-3">
             <Link href="/creator" className="hidden sm:inline-flex text-xs font-semibold text-fuchsia-700 hover:text-violet-950">

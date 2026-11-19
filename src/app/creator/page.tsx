@@ -142,6 +142,12 @@ export default function CreatorPage() {
               </svg>
             </div>
             <span className="text-lg font-extrabold tracking-tight text-[#161224]">bomie.ai</span>
+            <span className="hidden sm:inline-flex items-center gap-2.5 text-sm">
+              <span className="text-fuchsia-300 font-light">|</span>
+              <span className="font-[family-name:var(--font-playfair)] italic font-medium tracking-wide text-fuchsia-800/90">
+                Move your community. Get paid.
+              </span>
+            </span>
           </Link>
           <div className="flex items-center gap-3">
             <Link href="/merchant" className="hidden sm:inline-flex text-xs font-semibold text-violet-700 hover:text-violet-950">
