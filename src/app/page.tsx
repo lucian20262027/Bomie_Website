@@ -3567,11 +3567,6 @@ export default function BomieLandingPage() {
                     Terms of Service
                   </Link>
                 </li>
-                <li>
-                  <a href="mailto:lucian.wang@bomie.ai" className="hover:text-violet-700">
-                    lucian.wang@bomie.ai
-                  </a>
-                </li>
               </ul>
             </div>
           </div>
