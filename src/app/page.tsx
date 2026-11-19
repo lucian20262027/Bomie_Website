@@ -1924,6 +1924,27 @@ export default function BomieLandingPage() {
             </Link>
           </motion.div>
 
+          {/* Proven Friction-Reducer Micro-Copy (B2B Conversion Booster) */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.35 }}
+            className="mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-xs font-medium text-slate-500"
+          >
+            <span className="inline-flex items-center gap-1.5">
+              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
+              $0 MVP platform fee
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
+              No credit card required
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <ShieldCheck className="h-3.5 w-3.5 text-violet-600" />
+              100% pre-acceptance escrow refund
+            </span>
+          </motion.p>
+
           {/* Material-Style Widescreen Visual Stage Framed in Crisp Lavender Glass */}
           <motion.div
             initial={{ opacity: 0, y: 36 }}
@@ -1931,7 +1952,7 @@ export default function BomieLandingPage() {
             transition={{ duration: 0.7, delay: 0.45 }}
             onMouseEnter={() => setIsMatchPaused(true)}
             onMouseLeave={() => setIsMatchPaused(false)}
-            className="mx-auto mt-9 w-full overflow-hidden rounded-3xl border border-violet-200/60 bg-[#0b0b14] text-left shadow-2xl shadow-violet-950/15"
+            className="mx-auto mt-7 w-full overflow-hidden rounded-3xl border border-violet-200/60 bg-[#0b0b14] text-left shadow-2xl shadow-violet-950/15"
           >
             <div>
               {/* Visual Hero Stage (Responsive 16:9 Video Framing + Physical Horizontal Spring Carousel) */}
@@ -2229,6 +2250,7 @@ export default function BomieLandingPage() {
                           <img
                             src={cityData.heroImage}
                             alt={cityData.name}
+                            loading="lazy"
                             draggable={false}
                             className="h-full w-full object-cover pointer-events-none transition duration-700 group-hover:scale-105"
                           />
@@ -2367,6 +2389,7 @@ export default function BomieLandingPage() {
                             <img
                               src={cs.image}
                               alt={cs.brand}
+                              loading="lazy"
                               className="h-full w-full object-cover"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
@@ -2595,6 +2618,7 @@ export default function BomieLandingPage() {
                 <img
                   src="/images/pexels/1001682.jpg"
                   alt="Real Ocean Tide Waves"
+                  loading="lazy"
                   className="h-full w-full object-cover object-center opacity-80 saturate-150 contrast-125"
                 />
               </motion.div>
@@ -2618,6 +2642,7 @@ export default function BomieLandingPage() {
                 <img
                   src="/images/pexels/1295138.jpg"
                   alt="Foaming Ocean Surf"
+                  loading="lazy"
                   className="h-full w-full object-cover object-bottom contrast-125"
                 />
               </motion.div>
@@ -2828,11 +2853,10 @@ export default function BomieLandingPage() {
                     </div>
                     <div>
                       <label className="block text-xs font-bold text-slate-700 mb-1">
-                        Phone Number *
+                        Phone Number (Optional)
                       </label>
                       <input
                         type="tel"
-                        required
                         value={demoPhone}
                         onChange={(e) => setDemoPhone(e.target.value)}
                         placeholder="+1 (415) 555-0192"

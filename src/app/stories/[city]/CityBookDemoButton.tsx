@@ -147,10 +147,9 @@ export default function CityBookDemoButton({ cityName }: { cityName: string }) {
                     />
                   </div>
                   <div>
-                    <label className="mb-1 block text-xs font-bold text-slate-700">Phone Number *</label>
+                    <label className="mb-1 block text-xs font-bold text-slate-700">Phone Number (Optional)</label>
                     <input
                       type="tel"
-                      required
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       placeholder="+1 (415) 555-0192"

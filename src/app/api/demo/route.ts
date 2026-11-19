@@ -10,12 +10,14 @@ export async function POST(request: Request) {
     const handle = String(body?.handle || '').trim();
     const city = String(body?.city || '').trim();
 
-    if (!name || !email || !phone || !handle || !city) {
+    if (!name || !email || !handle || !city) {
       return NextResponse.json(
-        { ok: false, error: 'Please fill in all required fields including email and phone.' },
+        { ok: false, error: 'Please fill in your name, email, business/handle, and city.' },
         { status: 400 }
       );
     }
+
+    const phoneDisplay = phone || 'Not provided';
 
     const preferredLabel =
       preferredContact === 'phone'
@@ -34,6 +36,8 @@ export async function POST(request: Request) {
         leadId,
         name,
         email,
+        phone: phoneDisplay,
+        preferredContact,
         handle,
         city,
         timestamp,
@@ -56,6 +60,8 @@ export async function POST(request: Request) {
           leadId,
           name,
           email,
+          phone: phoneDisplay,
+          preferredContact: preferredLabel,
           businessOrCreator: handle,
           city,
           submittedAt: timestamp,
@@ -81,7 +87,7 @@ export async function POST(request: Request) {
           from: 'Bomie AI Leads <onboarding@resend.dev>',
           to: ['lucian.wang@bomie.ai'],
           subject: `[Bomie AI Demo Lead] ${handle} (${city}) — ${name}`,
-          text: `Lead ID: ${leadId}\nName: ${name}\nEmail: ${email}\nBusiness/Handle: ${handle}\nCity: ${city}\nTime: ${timestamp}`,
+          text: `Lead ID: ${leadId}\nName: ${name}\nEmail: ${email}\nPhone: ${phoneDisplay}\nPreferred Contact: ${preferredLabel}\nBusiness/Handle: ${handle}\nCity: ${city}\nTime: ${timestamp}`,
         }),
       })
         .then((r) => {
@@ -110,7 +116,7 @@ export async function POST(request: Request) {
                   { name: '👤 Name', value: name, inline: true },
                   { name: '💬 Preferred Contact', value: preferredLabel, inline: true },
                   { name: '📧 Work Email', value: email, inline: true },
-                  { name: '📞 Phone Number', value: phone, inline: true },
+                  { name: '📞 Phone Number', value: phoneDisplay, inline: true },
                   { name: '🏪 Business / Handle', value: handle, inline: true },
                   { name: '📍 City / Region', value: city, inline: true },
                 ],
@@ -120,7 +126,7 @@ export async function POST(request: Request) {
             ],
           }
         : {
-            text: `🚀 New Bomie AI Demo Request (${leadId})\n• Name: ${name}\n• Email: ${email}\n• Handle: ${handle}\n• City: ${city}`,
+            text: `🚀 New Bomie AI Demo Request (${leadId})\n• Name: ${name}\n• Email: ${email}\n• Phone: ${phoneDisplay}\n• Preferred: ${preferredLabel}\n• Handle: ${handle}\n• City: ${city}`,
           };
 
       await fetch(webhookUrl, {

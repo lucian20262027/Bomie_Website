@@ -375,7 +375,7 @@ export default async function CityStoriesPage({
               className="overflow-hidden rounded-3xl border border-violet-200/70 bg-white shadow-sm transition hover:border-violet-500/40"
             >
               <div className="relative h-52 w-full overflow-hidden">
-                <img src={cs.image} alt={cs.brand} className="h-full w-full object-cover" />
+                <img src={cs.image} alt={cs.brand} loading="lazy" className="h-full w-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/35 to-transparent" />
                 <div className="absolute top-4 right-4 rounded-full border border-emerald-400/35 bg-emerald-500/20 px-3 py-1 text-xs font-bold text-emerald-700 backdrop-blur-md">
                   {cs.metric}
