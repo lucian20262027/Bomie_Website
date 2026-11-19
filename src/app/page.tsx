@@ -1175,6 +1175,7 @@ export default function BomieLandingPage() {
       subline: 'Sizzling kitchen storytelling · 30% weekend walk-in lift',
       image:
         'https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=1400',
+      video: '/videos/dining.mp4',
       business: 'TastyTaco Artisanal Kitchen',
       location: '0.8 mi away · San Francisco, CA',
       creator: '@mayalovesfood (42.5K)',
@@ -1188,6 +1189,7 @@ export default function BomieLandingPage() {
       subline: 'Sunlit studio vlogs · High-intent local appointment bookings',
       image:
         'https://images.pexels.com/photos/3997993/pexels-photo-3997993.jpeg?auto=compress&cs=tinysrgb&w=1400',
+      video: '/videos/spa.mp4',
       business: 'Modest Muse & Lumina Studio',
       location: '1.2 mi away · Los Angeles, CA',
       creator: '@chloestylediary (28.1K)',
@@ -1201,6 +1203,7 @@ export default function BomieLandingPage() {
       subline: 'Cozy creator co-creation · Tracked in-store QR redemptions',
       image:
         'https://images.pexels.com/photos/4207785/pexels-photo-4207785.jpeg?auto=compress&cs=tinysrgb&w=1400',
+      video: '/videos/craft.mp4',
       business: 'Bloom Studio Candles',
       location: '0.6 mi away · Austin, TX',
       creator: '@cozyhomewithsam (14.8K)',
@@ -2127,9 +2130,29 @@ export default function BomieLandingPage() {
             <div>
               {/* Visual Hero Stage (Widescreen Cinematic Height) */}
               <div className="relative h-[340px] sm:h-[430px] lg:h-[480px] w-full overflow-hidden">
-                {/* Preloaded Stacked Cross-Fade Images (Zero Black Flash) */}
+                {/* Preloaded Stacked Cross-Fade Video/Image Reels (Zero Black Flash) */}
                 {liveMatches.map((m, idx) => {
                   const isActive = selectedMatch === idx;
+                  if ('video' in m && m.video) {
+                    return (
+                      <motion.video
+                        key={m.tag}
+                        src={m.video}
+                        poster={m.image}
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        preload="auto"
+                        initial={false}
+                        animate={{ opacity: isActive ? 1 : 0 }}
+                        transition={{ duration: 0.55, ease: 'easeInOut' }}
+                        className={`absolute inset-0 h-full w-full object-cover ${
+                          isActive ? 'z-0' : 'z-0 pointer-events-none'
+                        }`}
+                      />
+                    );
+                  }
                   return (
                     <motion.img
                       key={m.tag}
