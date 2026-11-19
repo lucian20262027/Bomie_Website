@@ -1670,7 +1670,7 @@ export default function BomieLandingPage() {
           creator: '@seattlewellness (24.0K)',
           metric: '44 Intro Pass Conversions',
           image:
-            'https://images.pexels.com/photos/6620862/pexels-photo-6620862.jpeg?auto=compress&cs=tinysrgb&w=800',
+            'https://images.pexels.com/photos/39237331/pexels-photo-39237331.jpeg?auto=compress&cs=tinysrgb&w=800',
           summary:
             'Evening cedar sauna & cold plunge recovery vlogs attracted tech professionals within a 1-mile radius.',
           quote:
