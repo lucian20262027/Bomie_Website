@@ -2126,22 +2126,31 @@ export default function BomieLandingPage() {
             <div>
               {/* Visual Hero Stage (Widescreen Cinematic Height) */}
               <div className="relative h-[340px] sm:h-[430px] lg:h-[480px] w-full overflow-hidden">
-                <AnimatePresence mode="wait">
-                  <motion.img
-                    key={liveMatches[selectedMatch].image}
-                    src={liveMatches[selectedMatch].image}
-                    alt={liveMatches[selectedMatch].headline}
-                    initial={{ opacity: 0, scale: 1.01, x: 0 }}
-                    animate={{ opacity: 1, scale: 1.08, x: -10 }}
-                    exit={{ opacity: 0, scale: 1.09 }}
-                    transition={{
-                      opacity: { duration: 0.45 },
-                      scale: { duration: 4.5, ease: 'easeOut' },
-                      x: { duration: 4.5, ease: 'easeOut' },
-                    }}
-                    className="h-full w-full object-cover"
-                  />
-                </AnimatePresence>
+                {/* Preloaded Stacked Cross-Fade Images (Zero Black Flash) */}
+                {liveMatches.map((m, idx) => {
+                  const isActive = selectedMatch === idx;
+                  return (
+                    <motion.img
+                      key={m.tag}
+                      src={m.image}
+                      alt={m.headline}
+                      initial={false}
+                      animate={{
+                        opacity: isActive ? 1 : 0,
+                        scale: isActive ? 1.07 : 1.01,
+                        x: isActive ? -8 : 0,
+                      }}
+                      transition={{
+                        opacity: { duration: 0.55, ease: 'easeInOut' },
+                        scale: { duration: 4.5, ease: 'easeOut' },
+                        x: { duration: 4.5, ease: 'easeOut' },
+                      }}
+                      className={`absolute inset-0 h-full w-full object-cover ${
+                        isActive ? 'z-0' : 'z-0 pointer-events-none'
+                      }`}
+                    />
+                  );
+                })}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0b0b14] via-[#0b0b14]/45 to-black/20" />
 
                 {/* Top-Right Category Switcher Overlay */}
