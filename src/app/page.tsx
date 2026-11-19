@@ -823,6 +823,8 @@ export default function BomieLandingPage() {
   const [withdrawnSuccess, setWithdrawnSuccess] = useState<boolean>(false);
   const [showDemoModal, setShowDemoModal] = useState<boolean>(false);
   const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
+  const [loginEmail, setLoginEmail] = useState<string>('');
+  const [loginSent, setLoginSent] = useState<boolean>(false);
   const [demoSubmitted, setDemoSubmitted] = useState<boolean>(false);
   const [demoName, setDemoName] = useState<string>('');
   const [demoEmail, setDemoEmail] = useState<string>('');
@@ -1927,43 +1929,43 @@ export default function BomieLandingPage() {
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="overflow-hidden border-t border-white/10 bg-[#080812]/95 px-6 py-4 md:hidden"
+              className="overflow-hidden border-t border-violet-200/80 bg-[#f7f4ff]/98 px-6 py-4 md:hidden"
             >
               <div className="space-y-4">
                 <div className="space-y-1.5">
-                  <div className="font-mono text-[10px] font-semibold uppercase tracking-wider text-violet-400">
+                  <div className="font-mono text-[10px] font-semibold uppercase tracking-wider text-violet-700">
                     Commerce OS
                   </div>
                   <div className="grid grid-cols-1 gap-1.5">
                     <Link
                       href="/commerce-os"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center gap-2.5 rounded-xl bg-white/[0.04] px-3.5 py-2.5 text-xs font-semibold text-white"
+                      className="flex items-center gap-2.5 rounded-xl border border-violet-200/70 bg-white px-3.5 py-2.5 text-xs font-semibold text-[#161224] shadow-xs"
                     >
-                      <Repeat className="h-4 w-4 text-violet-400" />
+                      <Repeat className="h-4 w-4 text-violet-600" />
                       Commerce OS
                     </Link>
                     <Link
                       href="/pricing"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center gap-2.5 rounded-xl bg-white/[0.04] px-3.5 py-2.5 text-xs font-semibold text-white"
+                      className="flex items-center gap-2.5 rounded-xl border border-violet-200/70 bg-white px-3.5 py-2.5 text-xs font-semibold text-[#161224] shadow-xs"
                     >
-                      <Wallet className="h-4 w-4 text-fuchsia-400" />
+                      <Wallet className="h-4 w-4 text-fuchsia-600" />
                       Pricing
                     </Link>
                     <button
                       type="button"
                       onClick={handleOpenFaqChatbot}
-                      className="flex items-center gap-2.5 rounded-xl bg-white/[0.04] px-3.5 py-2.5 text-left text-xs font-semibold text-white"
+                      className="flex items-center gap-2.5 rounded-xl border border-violet-200/70 bg-white px-3.5 py-2.5 text-left text-xs font-semibold text-[#161224] shadow-xs"
                     >
-                      <MessageSquare className="h-4 w-4 text-emerald-400" />
+                      <MessageSquare className="h-4 w-4 text-emerald-600" />
                       FAQ
                     </button>
                   </div>
                 </div>
 
                 <div className="space-y-1.5">
-                  <div className="font-mono text-[10px] font-semibold uppercase tracking-wider text-amber-300">
+                  <div className="font-mono text-[10px] font-semibold uppercase tracking-wider text-amber-700">
                     Success Stories
                   </div>
                   <div className="grid grid-cols-2 gap-1.5">
@@ -1979,9 +1981,9 @@ export default function BomieLandingPage() {
                         key={city.id}
                         href={`/stories/${city.id}`}
                         onClick={() => setMobileMenuOpen(false)}
-                        className="flex items-center gap-1.5 rounded-xl bg-white/[0.04] px-3 py-2 text-left text-xs font-semibold text-slate-200"
+                        className="flex items-center gap-1.5 rounded-xl border border-violet-200/70 bg-white px-3 py-2 text-left text-xs font-semibold text-[#161224] shadow-xs"
                       >
-                        <MapPin className="h-3.5 w-3.5 text-amber-400" />
+                        <MapPin className="h-3.5 w-3.5 text-amber-500" />
                         <span>{city.label}</span>
                       </Link>
                     ))}
@@ -1989,32 +1991,32 @@ export default function BomieLandingPage() {
                 </div>
 
                 <div className="space-y-1.5">
-                  <div className="font-mono text-[10px] font-semibold uppercase tracking-wider text-emerald-300">
+                  <div className="font-mono text-[10px] font-semibold uppercase tracking-wider text-emerald-700">
                     Why Bomie
                   </div>
                   <div className="grid grid-cols-1 gap-1.5">
                     <Link
                       href="/why-bomie/founder"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center gap-2.5 rounded-xl bg-white/[0.04] px-3.5 py-2.5 text-xs font-semibold text-white"
+                      className="flex items-center gap-2.5 rounded-xl border border-violet-200/70 bg-white px-3.5 py-2.5 text-xs font-semibold text-[#161224] shadow-xs"
                     >
-                      <Award className="h-4 w-4 text-amber-300" />
+                      <Award className="h-4 w-4 text-amber-500" />
                       Founder
                     </Link>
                     <Link
                       href="/why-bomie/stories"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center gap-2.5 rounded-xl bg-white/[0.04] px-3.5 py-2.5 text-xs font-semibold text-white"
+                      className="flex items-center gap-2.5 rounded-xl border border-violet-200/70 bg-white px-3.5 py-2.5 text-xs font-semibold text-[#161224] shadow-xs"
                     >
-                      <Sparkles className="h-4 w-4 text-fuchsia-400" />
+                      <Sparkles className="h-4 w-4 text-fuchsia-600" />
                       Bomie Stories
                     </Link>
                     <Link
                       href="/why-bomie/research"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center gap-2.5 rounded-xl bg-white/[0.04] px-3.5 py-2.5 text-xs font-semibold text-white"
+                      className="flex items-center gap-2.5 rounded-xl border border-violet-200/70 bg-white px-3.5 py-2.5 text-xs font-semibold text-[#161224] shadow-xs"
                     >
-                      <FileText className="h-4 w-4 text-emerald-400" />
+                      <FileText className="h-4 w-4 text-emerald-600" />
                       Bomie Research
                     </Link>
                   </div>
@@ -2119,14 +2121,26 @@ export default function BomieLandingPage() {
                     key={liveMatches[selectedMatch].image}
                     src={liveMatches[selectedMatch].image}
                     alt={liveMatches[selectedMatch].headline}
-                    initial={{ opacity: 0, scale: 1.04 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.98 }}
-                    transition={{ duration: 0.45 }}
+                    initial={{ opacity: 0, scale: 1.01, x: 0 }}
+                    animate={{ opacity: 1, scale: 1.08, x: -10 }}
+                    exit={{ opacity: 0, scale: 1.09 }}
+                    transition={{
+                      opacity: { duration: 0.45 },
+                      scale: { duration: 4.5, ease: 'easeOut' },
+                      x: { duration: 4.5, ease: 'easeOut' },
+                    }}
                     className="h-full w-full object-cover"
                   />
                 </AnimatePresence>
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0b0b14] via-[#0b0b14]/45 to-black/20" />
+
+                {/* Top-Left Live Reel Loop Pill */}
+                <div className="absolute top-4 left-5 flex items-center gap-2 rounded-full border border-white/15 bg-black/55 px-3 py-1 backdrop-blur-md">
+                  <span className="h-2 w-2 rounded-full bg-rose-500 animate-pulse" />
+                  <span className="font-mono text-[10px] font-semibold uppercase tracking-wider text-white">
+                    30s Creator Reel Loop
+                  </span>
+                </div>
 
                 {/* Top-Right Category Switcher Overlay */}
                 <div className="absolute top-4 right-5 flex items-center justify-end">
@@ -2504,34 +2518,82 @@ export default function BomieLandingPage() {
         </div>
       </section>
 
-      {/* Transparent MVP Pricing, 30/40/30 Escrow & Refund Guarantee */}
+      {/* Pilot Testimonials + Zero Risk & Escrow Protection */}
       <section id="pricing" className="border-t border-violet-200/70 py-14 scroll-mt-16">
-        <div className="mx-auto max-w-[1440px] px-6 lg:px-10 space-y-12">
+        <div className="mx-auto max-w-[1440px] px-6 lg:px-10 space-y-14">
+          {/* 3-Card Real Pilot Voices Strip */}
+          <div className="space-y-6">
+            <div>
+              <span className="font-mono text-xs font-semibold uppercase tracking-widest text-violet-700">
+                Pilot Voices · Bay Area &amp; Los Angeles
+              </span>
+              <h2 className="mt-1.5 text-2xl font-bold tracking-tight text-[#161224] sm:text-3xl">
+                Trusted by Local Store Owners &amp; Creators
+              </h2>
+            </div>
+
+            <div className="grid gap-5 md:grid-cols-3">
+              {[
+                {
+                  quote:
+                    '“We skipped a $3,500/mo agency retainer, matched 3 neighborhood foodies in minutes, and saw 96 new weekend dine-in tables.”',
+                  author: 'David L.',
+                  role: 'Owner, Chili & Silk Sichuan · San Francisco',
+                  tag: '3.6x ROAS',
+                },
+                {
+                  quote:
+                    '“The 3-Agent FTC check caught risky wording before filming, and every beauty creator brought real local facial bookings.”',
+                  author: 'Elena R.',
+                  role: 'Founder, Lumina Skin Studio · Los Angeles',
+                  tag: '+41% Bookings',
+                },
+                {
+                  quote:
+                    '“No cold DMs and zero waiting 60 days for Net-60 invoices. I get paid via Stripe as soon as my 30s reel goes live.”',
+                  author: '@sfnoodleclub',
+                  role: 'Local Food Creator (34.2K) · Bay Area',
+                  tag: '0% Creator Fee',
+                },
+              ].map((t) => (
+                <div
+                  key={t.author}
+                  className="flex flex-col justify-between rounded-3xl border border-violet-200/80 bg-white p-6 shadow-sm"
+                >
+                  <p className="text-sm leading-relaxed text-slate-700">{t.quote}</p>
+                  <div className="mt-5 flex items-center justify-between border-t border-violet-100 pt-4">
+                    <div>
+                      <div className="text-xs font-extrabold text-[#161224]">{t.author}</div>
+                      <div className="text-[11px] text-slate-500">{t.role}</div>
+                    </div>
+                    <span className="rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 font-mono text-[10px] font-bold text-emerald-700">
+                      {t.tag}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
           <div>
             <div className="flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
               <div>
                 <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/35 bg-emerald-500/10 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-emerald-700">
-                  <Sparkles className="h-3.5 w-3.5" />
-                  MVP Limited-Time Free · 100% Transparent Terms
+                  Zero Risk &amp; Escrow Protection
                 </div>
                 <h2 className="mt-3 text-3xl font-bold tracking-tight text-[#161224] sm:text-4xl">
-                  $0 Monthly Fee. Pay Only When Creators Deliver.
+                  $0 Monthly Fee in MVP. Protected at Every Step.
                 </h2>
                 <p className="mt-2 max-w-2xl text-sm sm:text-base text-slate-600">
-                  During our MVP launch, Bomie AI charges zero platform subscription and zero commission—100% of your budget goes directly to matched local creators under Stripe escrow protection.
+                  Every campaign runs on 30/40/30 Stripe Escrow with a 100% pre-acceptance refund guarantee—so local businesses never risk wasted ad spend.
                 </p>
               </div>
-              <button
-                type="button"
-                onClick={() => {
-                  setDemoSubmitted(false);
-                  setDemoError('');
-                  setShowDemoModal(true);
-                }}
+              <Link
+                href="/pricing"
                 className="self-start lg:self-end rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 px-5 py-3 text-xs sm:text-sm font-bold text-white shadow-md shadow-violet-600/20 transition hover:opacity-95"
               >
-                Lock In Free MVP Access →
-              </button>
+                View Full Pricing &amp; MVP Free Plan →
+              </Link>
             </div>
 
             <div className="mt-8 grid gap-5 md:grid-cols-3">
@@ -3006,23 +3068,26 @@ export default function BomieLandingPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-md"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm"
           >
             <motion.div
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
-              className="relative w-full max-w-md rounded-3xl border border-white/15 bg-[#0b0b14] p-7 shadow-2xl space-y-5"
+              className="relative w-full max-w-md rounded-3xl border border-violet-200 bg-white p-7 shadow-2xl space-y-5"
             >
               <button
-                onClick={() => setShowLoginModal(false)}
-                className="absolute top-5 right-5 rounded-lg border border-white/10 p-1.5 text-slate-400 hover:bg-white/10 hover:text-white"
+                onClick={() => {
+                  setShowLoginModal(false);
+                  setLoginSent(false);
+                }}
+                className="absolute top-5 right-5 rounded-full p-1.5 text-slate-400 transition hover:bg-violet-50 hover:text-slate-700"
               >
                 <X className="h-4 w-4" />
               </button>
 
               <div className="text-center">
-                <div className="mx-auto mb-3 flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-tr from-[#5b21b6] via-[#d946ef] to-[#fbbf24] shadow-lg shadow-violet-500/35">
+                <div className="mx-auto mb-3 flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-tr from-[#5b21b6] via-[#d946ef] to-[#fbbf24] shadow-lg shadow-violet-500/30">
                   <svg viewBox="0 0 512 512" fill="none" className="h-7 w-7">
                     <path
                       fill="#ffffff"
@@ -3036,20 +3101,20 @@ export default function BomieLandingPage() {
                     />
                   </svg>
                 </div>
-                <h3 className="text-xl font-bold text-white">Welcome back to Bomie AI</h3>
-                <p className="mt-1 text-xs text-slate-400">
-                  Select your workspace portal to sign in
+                <h3 className="text-xl font-extrabold text-[#161224]">Sign in to Bomie AI</h3>
+                <p className="mt-1 text-xs text-slate-500">
+                  Passwordless magic-link access for Founding Merchants &amp; Creators
                 </p>
               </div>
 
-              <div className="grid grid-cols-2 gap-2 rounded-xl border border-white/10 bg-slate-950 p-1">
+              <div className="grid grid-cols-2 gap-2 rounded-xl border border-violet-200 bg-[#f7f4ff] p-1">
                 <button
                   type="button"
                   onClick={() => setLoginRole('merchant')}
-                  className={`rounded-lg py-2 text-xs font-semibold transition ${
+                  className={`rounded-lg py-2 text-xs font-bold transition ${
                     loginRole === 'merchant'
-                      ? 'bg-violet-600 text-white'
-                      : 'text-slate-400 hover:text-white'
+                      ? 'bg-violet-600 text-white shadow-sm'
+                      : 'text-slate-600 hover:text-violet-950'
                   }`}
                 >
                   Merchant OS
@@ -3057,64 +3122,74 @@ export default function BomieLandingPage() {
                 <button
                   type="button"
                   onClick={() => setLoginRole('creator')}
-                  className={`rounded-lg py-2 text-xs font-semibold transition ${
+                  className={`rounded-lg py-2 text-xs font-bold transition ${
                     loginRole === 'creator'
-                      ? 'bg-fuchsia-600 text-white'
-                      : 'text-slate-400 hover:text-white'
+                      ? 'bg-fuchsia-600 text-white shadow-sm'
+                      : 'text-slate-600 hover:text-violet-950'
                   }`}
                 >
                   Creator Copilot
                 </button>
               </div>
 
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  setShowLoginModal(false);
-                  setActiveTab(loginRole === 'merchant' ? 'business' : 'creator');
-                  const el = document.getElementById('how-it-works');
-                  if (el) el.scrollIntoView({ behavior: 'smooth' });
-                }}
-                className="space-y-3.5"
-              >
-                <div>
-                  <label className="block text-xs font-medium text-slate-300 mb-1">
-                    Email Address
-                  </label>
-                  <input
-                    type="email"
-                    required
-                    placeholder={
-                      loginRole === 'merchant' ? 'founder@localstore.com' : 'creator@tiktok.com'
-                    }
-                    className="w-full rounded-xl border border-white/15 bg-white/5 px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:border-violet-500 focus:outline-none"
-                  />
+              {loginSent ? (
+                <div className="space-y-4 rounded-2xl border border-emerald-200 bg-emerald-50/70 p-5 text-center">
+                  <CheckCircle2 className="mx-auto h-7 w-7 text-emerald-600" />
+                  <div className="text-sm font-bold text-[#161224]">
+                    Magic link requested for {loginEmail}
+                  </div>
+                  <p className="text-xs leading-relaxed text-slate-600">
+                    If your workspace is already activated, check your inbox. Or jump straight into the interactive sandbox below:
+                  </p>
+                  <Link
+                    href={loginRole === 'merchant' ? '/merchant' : '/creator'}
+                    onClick={() => {
+                      setShowLoginModal(false);
+                      setLoginSent(false);
+                    }}
+                    className="inline-flex w-full items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-[#5b21b6] to-[#d946ef] py-2.5 text-xs font-bold text-white"
+                  >
+                    Open {loginRole === 'merchant' ? 'Merchant Workspace' : 'Creator Copilot'} →
+                  </Link>
                 </div>
-                <div>
-                  <label className="block text-xs font-medium text-slate-300 mb-1">
-                    Password
-                  </label>
-                  <input
-                    type="password"
-                    required
-                    placeholder="••••••••"
-                    className="w-full rounded-xl border border-white/15 bg-white/5 px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:border-violet-500 focus:outline-none"
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className={`w-full rounded-xl py-3 text-sm font-bold text-white transition ${
-                    loginRole === 'merchant'
-                      ? 'bg-violet-600 hover:bg-violet-500'
-                      : 'bg-fuchsia-600 hover:bg-fuchsia-500'
-                  }`}
+              ) : (
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    setLoginSent(true);
+                  }}
+                  className="space-y-3.5"
                 >
-                  Sign In to {loginRole === 'merchant' ? 'Merchant OS' : 'Creator Copilot'}
-                </button>
-              </form>
+                  <div>
+                    <label className="mb-1 block text-xs font-bold text-slate-700">
+                      Work or Creator Email
+                    </label>
+                    <input
+                      type="email"
+                      required
+                      value={loginEmail}
+                      onChange={(e) => setLoginEmail(e.target.value)}
+                      placeholder={
+                        loginRole === 'merchant' ? 'founder@localstore.com' : 'creator@gmail.com'
+                      }
+                      className="w-full rounded-xl border border-violet-200 bg-[#faf8ff] px-3.5 py-2.5 text-sm text-[#161224] placeholder-slate-400 focus:border-violet-500 focus:outline-none"
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    className={`w-full rounded-xl py-3 text-sm font-bold text-white shadow-md transition ${
+                      loginRole === 'merchant'
+                        ? 'bg-gradient-to-r from-[#5b21b6] to-[#7c3aed] hover:opacity-95'
+                        : 'bg-gradient-to-r from-[#d946ef] to-[#7c3aed] hover:opacity-95'
+                    }`}
+                  >
+                    Send Magic Login Link
+                  </button>
+                </form>
+              )}
 
-              <div className="border-t border-white/10 pt-4 text-center text-xs text-slate-400">
-                Don&apos;t have an invite code yet?{' '}
+              <div className="border-t border-violet-100 pt-4 text-center text-xs text-slate-500">
+                New to Bomie AI?{' '}
                 <button
                   type="button"
                   onClick={() => {
@@ -3382,23 +3457,126 @@ export default function BomieLandingPage() {
         </motion.button>
       </div>
 
-      {/* Footer */}
-      <footer className="border-t border-violet-200/70 py-10 text-center text-sm text-slate-500">
-        <div className="mx-auto flex max-w-[1440px] flex-col items-center justify-between gap-4 px-6 lg:px-10 sm:flex-row">
-          <div className="flex items-center gap-2 font-semibold text-slate-700">
-            <ShieldCheck className="h-4 w-4 text-violet-600" />
-            <span>© 2026 BOMIES LLC. All rights reserved.</span>
-          </div>
-          <div className="flex gap-6">
-            <a href="/privacy" className="hover:text-violet-700">
-              Privacy Policy
-            </a>
-            <a href="/terms" className="hover:text-violet-700">
-              Terms of Service
-            </a>
-            <a href="mailto:lucian.wang@bomie.ai" className="hover:text-violet-700">
-              Contact
-            </a>
+      {/* 4-Column Brand Footer */}
+      <footer className="border-t border-violet-200/80 bg-white/60 py-14 text-sm text-slate-600">
+        <div className="mx-auto max-w-[1440px] px-6 lg:px-10">
+          <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5">
+            <div className="lg:col-span-2 space-y-3">
+              <div className="flex items-center gap-2.5">
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-tr from-[#5b21b6] via-[#d946ef] to-[#fbbf24]">
+                  <svg viewBox="0 0 512 512" fill="none" className="h-5 w-5">
+                    <path
+                      fill="#ffffff"
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M140 124C140 112.954 148.954 104 160 104H268C321.019 104 360 137.565 360 184C360 214.12 343.39 239.47 317.88 251.42C350.69 263.74 372 292.69 372 330C372 381.915 329.915 416 272 416H160C148.954 416 140 407.046 140 396V124ZM204 162V228H260C281.539 228 296 214.569 296 195C296 175.431 281.539 162 260 162H204ZM204 282V356H268C292.301 356 308 341.673 308 319C308 296.327 292.301 282 268 282H204Z"
+                    />
+                  </svg>
+                </div>
+                <span className="text-lg font-extrabold tracking-tight text-[#161224]">bomie.ai</span>
+              </div>
+              <p className="max-w-sm text-xs leading-relaxed text-slate-600">
+                AI-Native Local Commerce Operating System connecting Main Street businesses and neighborhood creators with built-in FTC compliance and 30/40/30 Stripe Escrow.
+              </p>
+              <div className="flex items-center gap-2 pt-1 text-xs font-medium text-slate-500">
+                <ShieldCheck className="h-4 w-4 text-violet-600" />
+                <span>© 2026 BOMIES LLC · San Francisco, CA</span>
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <div className="font-mono text-[11px] font-bold uppercase tracking-wider text-[#161224]">
+                Product
+              </div>
+              <ul className="space-y-2 text-xs">
+                <li>
+                  <Link href="/commerce-os" className="hover:text-violet-700">
+                    Commerce OS
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/merchant" className="hover:text-violet-700">
+                    For Merchants
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/creator" className="hover:text-violet-700">
+                    For Creators
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/pricing" className="hover:text-violet-700">
+                    Pricing (MVP Free)
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            <div className="space-y-3">
+              <div className="font-mono text-[11px] font-bold uppercase tracking-wider text-[#161224]">
+                Cities
+              </div>
+              <ul className="space-y-2 text-xs">
+                <li>
+                  <Link href="/stories/sf" className="hover:text-violet-700">
+                    San Francisco
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/stories/la" className="hover:text-violet-700">
+                    Los Angeles
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/stories/seattle" className="hover:text-violet-700">
+                    Seattle
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/stories/vegas" className="hover:text-violet-700">
+                    Las Vegas
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            <div className="space-y-3">
+              <div className="font-mono text-[11px] font-bold uppercase tracking-wider text-[#161224]">
+                Company &amp; Legal
+              </div>
+              <ul className="space-y-2 text-xs">
+                <li>
+                  <Link href="/why-bomie/founder" className="hover:text-violet-700">
+                    Founder
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/why-bomie/stories" className="hover:text-violet-700">
+                    Bomie Stories
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/why-bomie/research" className="hover:text-violet-700">
+                    Bomie Research
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/privacy" className="hover:text-violet-700">
+                    Privacy Policy
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/terms" className="hover:text-violet-700">
+                    Terms of Service
+                  </Link>
+                </li>
+                <li>
+                  <a href="mailto:lucian.wang@bomie.ai" className="hover:text-violet-700">
+                    lucian.wang@bomie.ai
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </footer>
