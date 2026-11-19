@@ -217,7 +217,7 @@ export default function BrandFooter() {
             <ul className="space-y-2 text-xs">
               <li>
                 <Link href="/why-bomie/stories" className="hover:text-violet-700">
-                  Bomie Stories
+                  Founder &amp; Stories
                 </Link>
               </li>
               <li>

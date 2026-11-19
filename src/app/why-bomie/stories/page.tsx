@@ -1,16 +1,61 @@
 import Link from 'next/link';
-import { ArrowLeft, HeartHandshake, MapPin, Sparkles, Store, TrendingUp, Video } from 'lucide-react';
+import {
+  ArrowLeft,
+  CheckCircle2,
+  Mail,
+  MapPin,
+  Sparkles,
+  Store,
+  TrendingUp,
+  Video,
+} from 'lucide-react';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Bomie Stories — Empowering 40M+ U.S. Small Businesses & Local Creators | Bomie AI',
+  title: 'Founder & Bomie Stories — Lucian Wang & Our Main Street Mission | Bomie AI',
   description:
-    'Discover Bomie AI’s vision for helping America’s small businesses and neighborhood creators grow together through AI-powered local commerce.',
+    'Meet Lucian Wang, Founder & CEO of Bomie AI (BOMIES LLC) in San Francisco, and discover how North America’s first AI Commerce OS empowers 40M+ local small businesses and creators.',
 };
+
+const visionPillars = [
+  {
+    icon: Store,
+    badgeClass: 'bg-violet-500/15 text-violet-700',
+    title: '40M+ Small Businesses',
+    desc: 'Independent restaurants, salons, gyms, and neighborhood shops deserve Fortune 500-grade creator marketing without hiring expensive agencies or learning complex ad dashboards.',
+  },
+  {
+    icon: Video,
+    badgeClass: 'bg-fuchsia-500/15 text-fuchsia-700',
+    title: 'Everyday Local Creators',
+    desc: 'You don’t need 1 million followers to drive real foot traffic. A 15K-follower neighborhood foodie or lifestyle creator has 4× higher local trust—and deserves fast, guaranteed pay.',
+  },
+  {
+    icon: TrendingUp,
+    badgeClass: 'bg-amber-400/15 text-amber-700',
+    title: 'Thriving Neighborhoods',
+    desc: 'When local marketing budgets go to local creators instead of faceless ad auctions, dollars circulate right back into the community—filling weekend tables and main streets.',
+  },
+];
+
+const operatingPrinciples = [
+  {
+    title: 'Zero Technical Friction',
+    desc: 'Built for busy restaurant owners and creators—describe your goal in plain English and let AI handle matching and briefs.',
+  },
+  {
+    title: '100% Payment Transparency',
+    desc: 'During our MVP launch, Bomie charges $0 monthly fee and 0% platform commission, backed by 30/40/30 Stripe escrow.',
+  },
+  {
+    title: 'Community Prosperity First',
+    desc: 'Every dollar stays in the neighborhood—helping independent shops pack tables and local storytellers earn fairly.',
+  },
+];
 
 export default function BomieStoriesPage() {
   return (
-    <div className="min-h-screen bg-[#f7f4ff] text-[#161224] selection:bg-violet-500 selection:text-[#161224]">
+    <div className="min-h-screen bg-[#f7f4ff] text-[#161224] selection:bg-violet-600 selection:text-white">
       <header className="sticky top-0 z-40 border-b border-violet-200/70 bg-[#f7f4ff]/85 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Link href="/" className="flex items-center gap-3">
@@ -30,13 +75,7 @@ export default function BomieStoriesPage() {
             </div>
             <span className="text-lg font-extrabold tracking-tight text-[#161224]">bomie.ai</span>
           </Link>
-          <div className="flex items-center gap-3">
-            <Link
-              href="/why-bomie/founder"
-              className="hidden sm:inline-flex text-xs font-semibold text-slate-600 hover:text-violet-950"
-            >
-              Founder
-            </Link>
+          <div className="flex items-center gap-4">
             <Link
               href="/why-bomie/research"
               className="hidden sm:inline-flex text-xs font-semibold text-slate-600 hover:text-violet-950"
@@ -55,50 +94,99 @@ export default function BomieStoriesPage() {
       </header>
 
       <main className="mx-auto max-w-6xl px-6 py-16 space-y-14">
-        <div className="space-y-4">
-          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-[#161224]">
-            Powering Millions of Main Streets &amp; Local Storytellers Across America.
+        {/* Hero: Combined Vision & Founder Origin */}
+        <section className="space-y-4">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-violet-200 bg-white px-3.5 py-1 font-mono text-[11px] font-semibold uppercase tracking-widest text-violet-700 shadow-xs">
+            <Sparkles className="h-3.5 w-3.5 text-fuchsia-600" />
+            Founder &amp; Bomie Stories · San Francisco
+          </span>
+          <h1 className="max-w-4xl text-4xl sm:text-5xl font-extrabold tracking-tight leading-tight text-[#161224]">
+            Built for Main Street, by Builders Who Care.
           </h1>
           <p className="max-w-3xl text-base sm:text-lg leading-relaxed text-slate-600">
-            Small businesses are the heartbeat of every American city—yet traditional digital ads drain margins without building real community trust. Bomie AI exists to flip the equation.
+            Small businesses are the heartbeat of every American city—yet traditional digital ads drain margins without building real community trust. Meet the founder and story behind North America&apos;s first AI Commerce OS built to flip the equation.
           </p>
-        </div>
+        </section>
+
+        {/* Founder Spotlight Card */}
+        <section
+          id="founder"
+          className="scroll-mt-24 rounded-3xl border border-violet-500/35 bg-gradient-to-br from-violet-100/70 via-white to-white p-8 sm:p-10 shadow-2xl"
+        >
+          <div className="flex flex-wrap items-center justify-between gap-5 border-b border-violet-200/70 pb-8">
+            <div className="flex items-center gap-5">
+              <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-3xl bg-gradient-to-tr from-[#5b21b6] via-[#d946ef] to-[#fbbf24] text-2xl font-extrabold text-white shadow-xl shadow-violet-500/30">
+                LW
+              </div>
+              <div>
+                <div className="font-mono text-[11px] font-semibold uppercase tracking-widest text-violet-700">
+                  Founder &amp; CEO · BOMIES LLC
+                </div>
+                <h2 className="mt-1 text-2xl sm:text-3xl font-extrabold text-[#161224]">Lucian Wang</h2>
+                <div className="mt-2 flex items-center gap-2.5">
+                  <a
+                    href="mailto:lucian.wang@bomie.ai"
+                    aria-label="Email lucian.wang@bomie.ai"
+                    title="lucian.wang@bomie.ai"
+                    className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-violet-200 bg-white text-violet-700 shadow-sm transition hover:border-violet-400 hover:bg-violet-50 hover:text-violet-950"
+                  >
+                    <Mail className="h-4 w-4" />
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/in/lucianwang18"
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="Lucian Wang on LinkedIn"
+                    title="LinkedIn"
+                    className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-violet-200 bg-white text-[#0A66C2] shadow-sm transition hover:border-violet-400 hover:bg-violet-50"
+                  >
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
+                      <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
+                    </svg>
+                  </a>
+                  <span className="inline-flex items-center gap-1 rounded-lg border border-violet-200/70 bg-white/80 px-2.5 py-1 text-xs font-medium text-slate-600">
+                    <MapPin className="h-3.5 w-3.5 text-violet-600" />
+                    San Francisco, CA
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-8 space-y-5 text-base leading-relaxed text-slate-600">
+            <p className="text-lg sm:text-xl font-medium text-[#161224] italic">
+              &ldquo;We built Bomie AI so every neighborhood restaurant, spa, and boutique can harness the same AI creator engine as Fortune 500 brands—with zero technical complexity and full payment transparency.&rdquo;
+            </p>
+            <p>
+              Across the United States, over 40 million small businesses power local culture and neighborhood jobs—yet most are priced out of enterprise influencer agencies or burned by opaque ad spend that never turns into real walk-in customers. Meanwhile, millions of talented local nano- and micro-creators spend hours sending cold DMs only to be ghosted.
+            </p>
+            <p>
+              At Bomie AI, our mission is to replace friction with autonomous trust: combining hyper-local AI matching, 30-second creative co-creation, built-in FTC 16 CFR Part 255 compliance, and 30/40/30 milestone escrow so both small businesses and local creators prosper together.
+            </p>
+          </div>
+        </section>
 
         {/* 3 Vision Pillars */}
-        <div className="grid gap-6 md:grid-cols-3">
-          <div className="rounded-3xl border border-violet-200/70 bg-white shadow-sm p-7 space-y-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-violet-500/15 text-violet-700">
-              <Store className="h-5 w-5" />
-            </div>
-            <h2 className="text-xl font-bold text-[#161224]">40M+ Small Businesses</h2>
-            <p className="text-sm leading-relaxed text-slate-600">
-              Independent restaurants, salons, gyms, and neighborhood shops deserve Fortune 500-grade creator marketing without hiring expensive agencies or learning complex ad dashboards.
-            </p>
-          </div>
-
-          <div className="rounded-3xl border border-violet-200/70 bg-white shadow-sm p-7 space-y-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-fuchsia-500/15 text-fuchsia-700">
-              <Video className="h-5 w-5" />
-            </div>
-            <h2 className="text-xl font-bold text-[#161224]">Everyday Local Creators</h2>
-            <p className="text-sm leading-relaxed text-slate-600">
-              You don&apos;t need 1 million followers to drive real foot traffic. A 15K-follower neighborhood foodie or lifestyle creator has 4× higher local trust—and deserves fast, guaranteed pay.
-            </p>
-          </div>
-
-          <div className="rounded-3xl border border-violet-200/70 bg-white shadow-sm p-7 space-y-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-amber-400/15 text-amber-700">
-              <TrendingUp className="h-5 w-5" />
-            </div>
-            <h2 className="text-xl font-bold text-[#161224]">Thriving Neighborhoods</h2>
-            <p className="text-sm leading-relaxed text-slate-600">
-              When local marketing budgets go to local creators instead of faceless ad auctions, dollars circulate right back into the community—filling weekend tables and main streets.
-            </p>
-          </div>
-        </div>
+        <section className="grid gap-6 md:grid-cols-3">
+          {visionPillars.map((pillar) => {
+            const Icon = pillar.icon;
+            return (
+              <div
+                key={pillar.title}
+                className="rounded-3xl border border-violet-200/70 bg-white shadow-sm p-7 space-y-3"
+              >
+                <div className={`flex h-11 w-11 items-center justify-center rounded-2xl ${pillar.badgeClass}`}>
+                  <Icon className="h-5 w-5" />
+                </div>
+                <h2 className="text-xl font-bold text-[#161224]">{pillar.title}</h2>
+                <p className="text-sm leading-relaxed text-slate-600">{pillar.desc}</p>
+              </div>
+            );
+          })}
+        </section>
 
         {/* Editorial Story Block */}
-        <div className="rounded-3xl border border-violet-200/70 bg-gradient-to-r from-violet-100/60 via-white to-fuchsia-50/70 p-8 sm:p-10 space-y-6">
+        <section className="rounded-3xl border border-violet-200/70 bg-gradient-to-r from-violet-100/60 via-white to-fuchsia-50/70 p-8 sm:p-10 space-y-6">
           <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-amber-700">
             <MapPin className="h-4 w-4" />
             From San Francisco to Main Streets Nationwide
@@ -114,11 +202,22 @@ export default function BomieStoriesPage() {
               href="/#stories"
               className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 px-5 py-3 text-xs sm:text-sm font-bold text-white shadow-md shadow-violet-600/20 transition hover:opacity-95"
             >
-              <Sparkles className="h-4 w-4 text-violet-600" />
+              <Sparkles className="h-4 w-4 text-amber-200" />
               Explore Live City Case Studies →
             </Link>
           </div>
-        </div>
+        </section>
+
+        {/* 3 Operating Principles */}
+        <section className="grid gap-5 md:grid-cols-3">
+          {operatingPrinciples.map((item) => (
+            <div key={item.title} className="rounded-2xl border border-violet-200/70 bg-white shadow-sm p-6">
+              <CheckCircle2 className="h-5 w-5 text-emerald-500 mb-3" />
+              <h3 className="text-base font-bold text-[#161224]">{item.title}</h3>
+              <p className="mt-2 text-xs sm:text-sm leading-relaxed text-slate-600">{item.desc}</p>
+            </div>
+          ))}
+        </section>
       </main>
     </div>
   );

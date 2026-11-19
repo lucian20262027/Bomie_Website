@@ -14,7 +14,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/stories/la', priority: 0.8, changeFrequency: 'monthly' },
     { path: '/stories/seattle', priority: 0.8, changeFrequency: 'monthly' },
     { path: '/stories/vegas', priority: 0.8, changeFrequency: 'monthly' },
-    { path: '/why-bomie/founder', priority: 0.7, changeFrequency: 'monthly' },
     { path: '/why-bomie/stories', priority: 0.7, changeFrequency: 'monthly' },
     { path: '/why-bomie/research', priority: 0.7, changeFrequency: 'monthly' },
     { path: '/privacy', priority: 0.3, changeFrequency: 'monthly' },

@@ -56,16 +56,10 @@ export default function BomieResearchPage() {
           </Link>
           <div className="flex items-center gap-3">
             <Link
-              href="/why-bomie/founder"
-              className="hidden sm:inline-flex text-xs font-semibold text-slate-600 hover:text-violet-950"
-            >
-              Founder
-            </Link>
-            <Link
               href="/why-bomie/stories"
               className="hidden sm:inline-flex text-xs font-semibold text-slate-600 hover:text-violet-950"
             >
-              Bomie Stories
+              Founder &amp; Stories
             </Link>
             <Link
               href="/"

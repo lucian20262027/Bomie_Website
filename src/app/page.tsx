@@ -1918,20 +1918,12 @@ export default function BomieLandingPage() {
                   >
                     <div className="rounded-2xl border border-violet-200/80 bg-white/95 p-2 shadow-2xl shadow-violet-900/10 backdrop-blur-2xl space-y-1">
                       <Link
-                        href="/why-bomie/founder"
-                        onClick={() => setOpenNavMenu(null)}
-                        className="flex items-center gap-3 rounded-xl px-3.5 py-2.5 transition hover:bg-violet-50"
-                      >
-                        <Award className="h-4 w-4 shrink-0 text-amber-500" />
-                        <span className="text-xs font-bold text-[#161224]">Founder</span>
-                      </Link>
-                      <Link
                         href="/why-bomie/stories"
                         onClick={() => setOpenNavMenu(null)}
                         className="flex items-center gap-3 rounded-xl px-3.5 py-2.5 transition hover:bg-violet-50"
                       >
-                        <Sparkles className="h-4 w-4 shrink-0 text-fuchsia-600" />
-                        <span className="text-xs font-bold text-[#161224]">Bomie Stories</span>
+                        <Award className="h-4 w-4 shrink-0 text-amber-500" />
+                        <span className="text-xs font-bold text-[#161224]">Founder &amp; Stories</span>
                       </Link>
                       <Link
                         href="/why-bomie/research"
@@ -2127,20 +2119,12 @@ export default function BomieLandingPage() {
                   </div>
                   <div className="grid grid-cols-1 gap-1.5">
                     <Link
-                      href="/why-bomie/founder"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center gap-2.5 rounded-xl border border-violet-200/70 bg-white px-3.5 py-2.5 text-xs font-semibold text-[#161224] shadow-xs"
-                    >
-                      <Award className="h-4 w-4 text-amber-500" />
-                      Founder
-                    </Link>
-                    <Link
                       href="/why-bomie/stories"
                       onClick={() => setMobileMenuOpen(false)}
                       className="flex items-center gap-2.5 rounded-xl border border-violet-200/70 bg-white px-3.5 py-2.5 text-xs font-semibold text-[#161224] shadow-xs"
                     >
-                      <Sparkles className="h-4 w-4 text-fuchsia-600" />
-                      Bomie Stories
+                      <Award className="h-4 w-4 text-amber-500" />
+                      Founder &amp; Stories
                     </Link>
                     <Link
                       href="/why-bomie/research"
