@@ -1,6 +1,7 @@
 import Link from 'next/link';
-import { ArrowLeft, MapPin, Sparkles, Star } from 'lucide-react';
+import { ArrowLeft, MapPin, Star } from 'lucide-react';
 import type { Metadata } from 'next';
+import CityBookDemoButton from './CityBookDemoButton';
 
 type CityKey = 'sf' | 'la' | 'seattle' | 'vegas';
 
@@ -404,13 +405,7 @@ export default async function CityStoriesPage({
         </div>
 
         <div className="flex justify-center pt-4">
-          <Link
-            href="/#pricing"
-            className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-violet-600 to-fuchsia-600 px-7 py-3.5 text-sm font-bold text-white shadow-md shadow-violet-600/20 transition hover:opacity-95"
-          >
-            <Sparkles className="h-4 w-4 text-violet-600" />
-            Launch a Free MVP Campaign in {active.name} →
-          </Link>
+          <CityBookDemoButton cityName={active.name} />
         </div>
       </main>
     </div>
