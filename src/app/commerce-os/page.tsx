@@ -545,11 +545,7 @@ export default function CommerceOsPage() {
               <div className="relative flex-1">
                 {customPrompt === '' && !isInputFocused && (
                   <div className="pointer-events-none absolute inset-0 flex items-center overflow-hidden px-4 text-sm text-slate-400">
-                    <span
-                      className={`mr-0.5 inline-block h-4 w-[2px] animate-pulse ${
-                        role === 'merchant' ? 'bg-violet-600' : 'bg-fuchsia-600'
-                      }`}
-                    />
+                    <span className="mr-0.5 inline-block h-4 w-[2px] bg-[#161224] animate-caret-blink" />
                     <span className="truncate">
                       {role === 'merchant'
                         ? 'e.g., I run a Sichuan restaurant in San Francisco with a $1,800 budget...'

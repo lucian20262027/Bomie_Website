@@ -20,105 +20,11 @@ import {
   XCircle,
 } from 'lucide-react';
 
-interface GeneratedMerchantPlan {
-  title: string;
-  city: string;
-  baseBudget: number;
-  creators: {
-    id: string;
-    handle: string;
-    niche: string;
-    distance: string;
-    followers: string;
-    match: string;
-    weight: number;
-  }[];
-  hookTemplate: string;
-  shots: string[];
-}
-
-function buildCustomMerchantPlan(promptText: string): GeneratedMerchantPlan {
-  const lower = promptText.toLowerCase();
-  const budgetMatch = promptText.match(/\$?\s*(\d{1,3}(?:,\d{3})+|\d{3,5})/);
-  const parsedBudget = budgetMatch
-    ? Math.max(500, Math.min(5000, Math.round(Number(budgetMatch[1].replace(/,/g, '')) / 100) * 100))
-    : 1800;
-
-  let city = 'San Francisco, CA';
-  if (lower.includes('la') || lower.includes('los angeles')) city = 'Los Angeles, CA';
-  else if (lower.includes('seattle')) city = 'Seattle, WA';
-  else if (lower.includes('vegas') || lower.includes('las vegas')) city = 'Las Vegas, NV';
-  else if (lower.includes('new york') || lower.includes('nyc')) city = 'New York, NY';
-  else if (lower.includes('austin')) city = 'Austin, TX';
-
-  let bizLabel = 'Local Storefront';
-  let niche = 'Neighborhood Lifestyle';
-  let hookTemplate = '“POV: You just found the best hidden-gem spot in town—scan for {PROMO}!”';
-  let shots = [
-    '0–3s: Storefront entrance + signature product close-up',
-    '3–18s: Authentic behind-the-scenes / customer reaction',
-    '18–30s: Show QR voucher for {PROMO} in-store',
-  ];
-
-  if (
-    lower.includes('sichuan') ||
-    lower.includes('restaurant') ||
-    lower.includes('dining') ||
-    lower.includes('food') ||
-    lower.includes('boba') ||
-    lower.includes('cafe') ||
-    lower.includes('coffee')
-  ) {
-    bizLabel =
-      lower.includes('boba') || lower.includes('coffee') || lower.includes('cafe')
-        ? 'Neighborhood Cafe & Drinks'
-        : 'Local Dining & Kitchen';
-    niche = 'Foodie & Dining';
-    hookTemplate = '“Wait until you see this tableside pour—grab {PROMO} when you scan our local QR code!”';
-    shots = [
-      '0–3s: Sizzling dish / signature drink pour in warm lighting',
-      '3–18s: First-bite reaction + cozy neighborhood atmosphere',
-      '18–30s: Show QR table tent for {PROMO} weekend dine-in',
-    ];
-  } else if (
-    lower.includes('spa') ||
-    lower.includes('skin') ||
-    lower.includes('beauty') ||
-    lower.includes('salon') ||
-    lower.includes('facial')
-  ) {
-    bizLabel = 'Beauty & Wellness Studio';
-    niche = 'Clean Beauty & Self-Care';
-    hookTemplate = '“The 45-minute glow reset everyone in town is booking—claim {PROMO} below.”';
-    shots = [
-      '0–3s: Sunlit treatment room & calming studio aesthetic',
-      '3–18s: ASMR skincare / sculpting treatment close-up',
-      '18–30s: Post-glow result + new-client {PROMO} QR code',
-    ];
-  } else if (lower.includes('candle') || lower.includes('craft') || lower.includes('boutique') || lower.includes('shop')) {
-    bizLabel = 'Independent Craft & Boutique';
-    niche = 'Home & Local Goods';
-    hookTemplate = '“Found a local artisan studio right down the street—unlock {PROMO} this weekend.”';
-    shots = [
-      '0–3s: Hands crafting & packaging signature local product',
-      '3–18s: Aesthetic home styling & unboxing moment',
-      '18–30s: Weekend pop-up / {PROMO} in-store pickup perk',
-    ];
-  }
-
-  return {
-    title: `${bizLabel} · ${city.split(',')[0]} Campaign`,
-    city,
-    baseBudget: parsedBudget,
-    creators: [
-      { id: 'c1', handle: '@localtaste_club', niche, distance: '0.8 mi away', followers: '34.2K', match: '98% Match', weight: 0.38 },
-      { id: 'c2', handle: '@neighborhood_vibes', niche, distance: '1.4 mi away', followers: '21.8K', match: '96% Match', weight: 0.34 },
-      { id: 'c3', handle: '@cityhidden_gems', niche, distance: '2.1 mi away', followers: '16.5K', match: '95% Match', weight: 0.28 },
-    ],
-    hookTemplate,
-    shots,
-  };
-}
+import {
+  buildCustomMerchantPlan,
+  computeDynamicRoas,
+  type GeneratedMerchantPlan,
+} from '../../lib/sandboxEngine';
 
 export default function MerchantPage() {
   const [guideStep, setGuideStep] = useState<1 | 2 | 3>(1);
@@ -190,6 +96,7 @@ export default function MerchantPage() {
   const totalWeight = activeCreators.reduce((s, c) => s + c.weight, 0) || 1;
   const estViewsK = Math.round((budgetSlider / 100) * 2.9 * (activeCreators.length / 3));
   const estVisits = Math.round((budgetSlider / 15.5) * (activeCreators.length / 3));
+  const dynamicRoas = computeDynamicRoas(activePlan.baseRoas, budgetSlider, activeCreators.length, promoOffer);
   const renderedHook = activePlan.hookTemplate.replace('{PROMO}', promoOffer);
 
   const handleLaunchSubmit = async (e: React.FormEvent) => {
@@ -363,7 +270,7 @@ export default function MerchantPage() {
               <div className="relative flex-1">
                 {!customPrompt && !isInputFocused && (
                   <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 flex items-center text-sm text-slate-400">
-                    <span className="mr-0.5 inline-block h-4 w-[2px] bg-violet-600 animate-pulse" />
+                    <span className="mr-0.5 inline-block h-4 w-[2px] bg-[#161224] animate-caret-blink" />
                     <span>e.g., I run a boba shop in Seattle with a $1,000 budget...</span>
                   </span>
                 )}
@@ -448,7 +355,7 @@ export default function MerchantPage() {
                 <h3 className="mt-1 text-2xl font-bold text-[#161224]">{activePlan.title}</h3>
               </div>
               <span className="self-start rounded-full border border-amber-300 bg-amber-50 px-3.5 py-1 text-xs font-bold text-amber-800">
-                3.45x Projected ROAS
+                {dynamicRoas}x Projected ROAS
               </span>
             </div>
 
@@ -466,9 +373,9 @@ export default function MerchantPage() {
                 </div>
                 <input
                   type="range"
-                  min={500}
+                  min={200}
                   max={5000}
-                  step={100}
+                  step={50}
                   value={budgetSlider}
                   onChange={(e) => {
                     setBudgetSlider(Number(e.target.value));
@@ -477,7 +384,7 @@ export default function MerchantPage() {
                   className="w-full accent-violet-600 cursor-pointer"
                 />
                 <div className="flex justify-between text-[11px] text-slate-500">
-                  <span>$500 Starter</span>
+                  <span>$200 Starter</span>
                   <span>$2,500 Growth</span>
                   <span>$5,000 City Blitz</span>
                 </div>

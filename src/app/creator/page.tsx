@@ -18,65 +18,7 @@ import {
   XCircle,
 } from 'lucide-react';
 
-interface CreatorDealPlan {
-  handle: string;
-  city: string;
-  offers: {
-    id: string;
-    merchant: string;
-    distance: string;
-    pay: number;
-    perk: string;
-    deliverable: string;
-  }[];
-  hooks: {
-    vlog: string;
-    asmr: string;
-    top3: string;
-  };
-}
-
-function buildCreatorPlan(promptText: string): CreatorDealPlan {
-  const lower = promptText.toLowerCase();
-  let city = 'San Francisco';
-  if (lower.includes('la') || lower.includes('los angeles')) city = 'Los Angeles';
-  else if (lower.includes('seattle')) city = 'Seattle';
-  else if (lower.includes('vegas')) city = 'Las Vegas';
-  else if (lower.includes('austin')) city = 'Austin';
-
-  const handleMatch = promptText.match(/@[a-zA-Z0-9_.]+/);
-  const handle = handleMatch ? handleMatch[0] : '@your_local_handle';
-
-  if (lower.includes('beauty') || lower.includes('spa') || lower.includes('skin') || lower.includes('fashion')) {
-    return {
-      handle: `${handle} · ${city}`,
-      city,
-      offers: [
-        { id: 'o1', merchant: 'Lumina Skin & Spa', distance: '0.9 mi away', pay: 520, perk: '+ Free Sculpting Facial', deliverable: '1x 30s Reel' },
-        { id: 'o2', merchant: 'Silver Lake Pilates Club', distance: '1.6 mi away', pay: 450, perk: '+ 4-Class VIP Pass', deliverable: '1x Morning Vlog' },
-      ],
-      hooks: {
-        vlog: '“Come with me to try the viral sculpting facial everyone in town is talking about…”',
-        asmr: '[Soft studio ambience] “30 seconds of pure self-care magic right down the street.”',
-        top3: '“3 hidden self-care spots in ' + city + ' you actually need to book this weekend.”',
-      },
-    };
-  }
-
-  return {
-    handle: `${handle} · ${city}`,
-    city,
-    offers: [
-      { id: 'o1', merchant: 'Sichuan Bistro ' + city.split(' ')[0], distance: '0.7 mi away', pay: 420, perk: '+ $80 Tasting Dinner', deliverable: '1x 30s TikTok/Reel' },
-      { id: 'o2', merchant: 'Fog City Matcha & Cafe', distance: '1.2 mi away', pay: 340, perk: '+ 2 Guest Drinks', deliverable: '1x 25s Drink Pour' },
-    ],
-    hooks: {
-      vlog: '“POV: You just found the best neighborhood spot in ' + city + ' with a 20% local QR perk.”',
-      asmr: '[Crisp pour & sizzle audio] “No talking—just 25 seconds of pure flavor.”',
-      top3: '“Top 3 reasons locals line up at this ' + city + ' gem every Friday night.”',
-    },
-  };
-}
+import { buildCreatorPlan, type CreatorDealPlan } from '../../lib/sandboxEngine';
 
 export default function CreatorPage() {
   const [guideStep, setGuideStep] = useState<1 | 2 | 3>(1);
@@ -307,7 +249,7 @@ export default function CreatorPage() {
               <div className="relative flex-1">
                 {!customPrompt && !isInputFocused && (
                   <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 flex items-center text-sm text-slate-400">
-                    <span className="mr-0.5 inline-block h-4 w-[2px] bg-fuchsia-600 animate-pulse" />
+                    <span className="mr-0.5 inline-block h-4 w-[2px] bg-[#161224] animate-caret-blink" />
                     <span>e.g., I am @latte_lover in Seattle looking for paid cafe deals...</span>
                   </span>
                 )}
