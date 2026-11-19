@@ -169,9 +169,7 @@ export default function CreatorPage() {
         <section className="space-y-7">
           <div className="space-y-4">
             <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#161224] leading-[1.12]">
-              <span className="block font-[family-name:var(--font-playfair)] italic font-semibold text-fuchsia-700 text-2xl sm:text-3xl mb-1.5">
-                My Local Creators:
-              </span>
+              <span className="block mb-1">My Local Creators:</span>
               Stop Chasing Cold DMs and Late Invoices
             </h1>
             <p className="max-w-2xl text-base leading-relaxed text-slate-600">

@@ -189,9 +189,7 @@ export default function MerchantPage() {
         <section className="space-y-7">
           <div className="space-y-4">
             <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#161224] leading-[1.12]">
-              <span className="block font-[family-name:var(--font-playfair)] italic font-semibold text-violet-700 text-2xl sm:text-3xl mb-1.5">
-                Dear Local Business Owners:
-              </span>
+              <span className="block mb-1">Dear Local Business Owners:</span>
               Why Traditional Local Marketing Always Fails You
             </h1>
             <p className="max-w-2xl text-base leading-relaxed text-slate-600">
