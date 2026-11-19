@@ -1690,7 +1690,7 @@ export default function BomieLandingPage() {
               <span className="text-xl sm:text-[26px] font-extrabold tracking-tight text-[#161224] leading-none whitespace-nowrap">
                 bomie.ai
               </span>
-              <div className="hidden sm:flex items-center mt-1.5">
+              <div className="hidden lg:flex items-center mt-1.5">
                 <motion.span
                   animate={{ backgroundPosition: ['115% 0%', '-15% 0%'] }}
                   transition={{
@@ -1713,7 +1713,7 @@ export default function BomieLandingPage() {
           </Link>
 
           {/* 2. Three Single-Line Center Dropdown Menus (Oura-Style Dedicated Pages) */}
-          <nav className="hidden self-end pb-0.5 items-center gap-2 lg:gap-4 md:flex shrink-0">
+          <nav className="hidden md:self-center lg:self-end pb-0.5 items-center gap-1 lg:gap-4 md:flex shrink-0">
             {/* Dropdown 1: Commerce OS */}
             <div
               className="relative"
@@ -1905,7 +1905,7 @@ export default function BomieLandingPage() {
             </div>
           </nav>
 
-          <div className="flex shrink-0 self-end pb-0.5 items-center gap-2 sm:gap-3">
+          <div className="flex shrink-0 self-center lg:self-end pb-0.5 items-center gap-2 sm:gap-3">
             <button
               onClick={() => setShowLoginModal(true)}
               className="hidden sm:inline-flex rounded-lg px-3.5 py-1.5 text-sm font-semibold text-slate-700 transition hover:bg-violet-200/50 hover:text-violet-950"
@@ -2128,8 +2128,8 @@ export default function BomieLandingPage() {
             className="mx-auto mt-14 w-full overflow-hidden rounded-3xl border border-violet-200/60 bg-[#0b0b14] text-left shadow-2xl shadow-violet-950/15"
           >
             <div>
-              {/* Visual Hero Stage (Widescreen Cinematic Height) */}
-              <div className="relative h-[340px] sm:h-[430px] lg:h-[480px] w-full overflow-hidden">
+              {/* Visual Hero Stage (Responsive 16:9 Video Framing: Mobile -> iPad -> Desktop) */}
+              <div className="relative h-[270px] sm:h-[360px] md:h-[420px] lg:h-[480px] w-full overflow-hidden">
                 {/* Preloaded Stacked Cross-Fade Video/Image Reels (Zero Black Flash) */}
                 {liveMatches.map((m, idx) => {
                   const isActive = selectedMatch === idx;

@@ -307,7 +307,7 @@ export default async function CityStoriesPage({
             <span className="font-mono text-xs font-semibold uppercase tracking-widest text-amber-700">
               Success Stories · City Hub
             </span>
-            <h1 className="mt-1 text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-[#161224] whitespace-nowrap">
+            <h1 className="mt-1 text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-[#161224] lg:whitespace-nowrap">
               {active.name} Local Commerce
             </h1>
           </div>
