@@ -1243,7 +1243,7 @@ export default function BomieLandingPage() {
       headline: 'Artisanal Local Dining',
       subline: 'Sizzling kitchen storytelling · 30% weekend walk-in lift',
       image:
-        'https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=1400',
+        '/images/pexels/262978.jpg',
       video: '/videos/dining.mp4',
       business: 'TastyTaco Artisanal Kitchen',
       location: '0.8 mi away · San Francisco, CA',
@@ -1257,7 +1257,7 @@ export default function BomieLandingPage() {
       headline: 'Boutique Style & Wellness',
       subline: 'Sunlit studio vlogs · High-intent local appointment bookings',
       image:
-        'https://images.pexels.com/photos/3997993/pexels-photo-3997993.jpeg?auto=compress&cs=tinysrgb&w=1400',
+        '/images/pexels/3997993.jpg',
       video: '/videos/spa.mp4',
       business: 'Modest Muse & Lumina Studio',
       location: '1.2 mi away · Los Angeles, CA',
@@ -1271,7 +1271,7 @@ export default function BomieLandingPage() {
       headline: 'Neighborhood Craft & Home',
       subline: 'Cozy creator co-creation · Tracked in-store QR redemptions',
       image:
-        'https://images.pexels.com/photos/4207785/pexels-photo-4207785.jpeg?auto=compress&cs=tinysrgb&w=1400',
+        '/images/pexels/4207785.jpg',
       video: '/videos/craft.mp4',
       business: 'Bloom Studio Candles',
       location: '0.6 mi away · Austin, TX',
@@ -1491,7 +1491,7 @@ export default function BomieLandingPage() {
       name: 'San Francisco',
       tagline: 'Culinary Craft, Specialty Roasteries & Neighborhood Boutiques',
       heroImage:
-        'https://images.pexels.com/photos/208745/pexels-photo-208745.jpeg?auto=compress&cs=tinysrgb&w=1400',
+        '/images/pexels/208745.jpg',
       overview:
         'Across the Mission, Hayes Valley, Inner Sunset, and Marina, Bomie AI connects San Francisco’s iconic independent restaurants, specialty coffee bars, and craft studios with hyper-local foodie and lifestyle creators—turning 30-second neighborhood reels into packed weekend tables.',
       stats: [
@@ -1506,7 +1506,7 @@ export default function BomieLandingPage() {
           creator: '@sfnoodleclub (34.2K)',
           metric: '+38% Weekend Covers · 3.6x ROAS',
           image:
-            'https://images.pexels.com/photos/955137/pexels-photo-955137.jpeg?auto=compress&cs=tinysrgb&w=800',
+            '/images/pexels/955137.jpg',
           summary:
             '4 local foodie creators filmed tableside chili-oil pours with a 20% off dumpling QR voucher, generating 142 tracked dine-in tables in 5 days.',
           quote:
@@ -1518,7 +1518,7 @@ export default function BomieLandingPage() {
           creator: '@bayareabites_sam (26.8K)',
           metric: '410+ QR Drink Redemptions',
           image:
-            'https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg?auto=compress&cs=tinysrgb&w=800',
+            '/images/pexels/302899.jpg',
           summary:
             'Launched a seasonal strawberry-hojicha latte drop with 3 SF lifestyle creators, creating a 2-block morning line on Saturday.',
           quote:
@@ -1530,7 +1530,7 @@ export default function BomieLandingPage() {
           creator: '@fogcityfoodie (18.4K)',
           metric: '$6,800 Launch Weekend Sales',
           image:
-            'https://images.pexels.com/photos/3735657/pexels-photo-3735657.jpeg?auto=compress&cs=tinysrgb&w=800',
+            '/images/pexels/3735657.jpg',
           summary:
             'Nano-creators shared in-store custom fragrance blending sessions, driving high-ticket gift box purchases both in-store and online.',
           quote:
@@ -1542,7 +1542,7 @@ export default function BomieLandingPage() {
           creator: '@goldengategrub (41.5K)',
           metric: '48 Sold-Out Workshop Seats',
           image:
-            'https://images.pexels.com/photos/2162938/pexels-photo-2162938.jpeg?auto=compress&cs=tinysrgb&w=800',
+            '/images/pexels/2162938.jpg',
           summary:
             'Couples date-night pottery reels filled every weekend wheel-throwing workshop for 6 consecutive weeks.',
           quote:
@@ -1555,7 +1555,7 @@ export default function BomieLandingPage() {
       name: 'Los Angeles',
       tagline: 'Clean Beauty Studios, Reformer Pilates & West Coast Resort Retail',
       heroImage:
-        'https://images.pexels.com/photos/2695679/pexels-photo-2695679.jpeg?auto=compress&cs=tinysrgb&w=1400',
+        '/images/pexels/2695679.jpg',
       overview:
         'From West Hollywood and Melrose Place to Santa Monica and Silver Lake, LA’s wellness studios, aesthetic spas, and boutique fashion labels use Bomie AI to turn sunlit creator vlogs into booked appointments and VIP recurring memberships.',
       stats: [
@@ -1570,7 +1570,7 @@ export default function BomieLandingPage() {
           creator: '@glowwithchloe_la (48.0K)',
           metric: '52 First-Visit Bookings · 4.1x ROAS',
           image:
-            'https://images.pexels.com/photos/3997993/pexels-photo-3997993.jpeg?auto=compress&cs=tinysrgb&w=800',
+            '/images/pexels/3997993.jpg',
           summary:
             '4 LA skincare creators filmed "Sunday Reset" glass-skin hydro-facial vlogs with FTC-compliant cosmetic claims and $35-off booking codes.',
           quote:
@@ -1582,7 +1582,7 @@ export default function BomieLandingPage() {
           creator: '@santamonicaserenity (31.5K)',
           metric: '64 New Monthly Memberships',
           image:
-            'https://images.pexels.com/photos/4056535/pexels-photo-4056535.jpeg?auto=compress&cs=tinysrgb&w=800',
+            '/images/pexels/4056535.jpg',
           summary:
             'Post-class matcha & reformer studio tours drove 64 high-retention intro class pack conversions in 10 days.',
           quote:
@@ -1594,7 +1594,7 @@ export default function BomieLandingPage() {
           creator: '@lafoodiediary (52.0K)',
           metric: '78K Local Views · +42% Foot Traffic',
           image:
-            'https://images.pexels.com/photos/5946968/pexels-photo-5946968.jpeg?auto=compress&cs=tinysrgb&w=800',
+            '/images/pexels/5946968.jpg',
           summary:
             'Adaptogenic cloud-foam matcha reels went viral across East LA neighborhoods, doubling weekend afternoon store traffic.',
           quote:
@@ -1606,7 +1606,7 @@ export default function BomieLandingPage() {
           creator: '@chloestylediary (28.1K)',
           metric: '3.9x Pop-Up Store ROAS',
           image:
-            'https://images.pexels.com/photos/1884581/pexels-photo-1884581.jpeg?auto=compress&cs=tinysrgb&w=800',
+            '/images/pexels/1884581.jpg',
           summary:
             'Coastal try-on hauls inside the Venice flagship store drove both weekend foot traffic and direct Shopify orders.',
           quote:
@@ -1619,7 +1619,7 @@ export default function BomieLandingPage() {
       name: 'Seattle',
       tagline: 'Craft Espresso Roasters, Nordic-PNW Dining & Cozy Lifestyle',
       heroImage:
-        'https://images.pexels.com/photos/3964406/pexels-photo-3964406.jpeg?auto=compress&cs=tinysrgb&w=1400',
+        '/images/pexels/3964406.jpg',
       overview:
         'Across Capitol Hill, Ballard, Fremont, and South Lake Union, Seattle’s independent coffee roasters, neighborhood bistros, and wellness clubs partner with high-trust local creators to build year-round community loyalty.',
       stats: [
@@ -1634,7 +1634,7 @@ export default function BomieLandingPage() {
           creator: '@seattlecoffeeculture (29.4K)',
           metric: '520+ Morning QR Scans · 3.9x ROAS',
           image:
-            'https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&w=800',
+            '/images/pexels/312418.jpg',
           summary:
             'Rainy-morning pour-over & cardamom bun reels drove over 500 tracked commuter visits during a 7-day autumn drop.',
           quote:
@@ -1646,7 +1646,7 @@ export default function BomieLandingPage() {
           creator: '@pnwfoodiefinds (36.1K)',
           metric: '+35% Rainy-Weekend Covers',
           image:
-            'https://images.pexels.com/photos/205961/pexels-photo-205961.jpeg?auto=compress&cs=tinysrgb&w=800',
+            '/images/pexels/205961.jpg',
           summary:
             'Behind-the-scenes sourdough & smoked salmon brunch reels booked out weekend reservations two weeks in advance.',
           quote:
@@ -1658,7 +1658,7 @@ export default function BomieLandingPage() {
           creator: '@cozyseattlehome (16.5K)',
           metric: '$5,400 Workshop & Retail Sales',
           image:
-            'https://images.pexels.com/photos/4503273/pexels-photo-4503273.jpeg?auto=compress&cs=tinysrgb&w=800',
+            '/images/pexels/4503273.jpg',
           summary:
             'Nano-creators hosted "Build Your Own Moss Terrarium" reels, converting viewers into weekend store visitors.',
           quote:
@@ -1670,7 +1670,7 @@ export default function BomieLandingPage() {
           creator: '@seattlewellness (24.0K)',
           metric: '44 Intro Pass Conversions',
           image:
-            'https://images.pexels.com/photos/39237331/pexels-photo-39237331.jpeg?auto=compress&cs=tinysrgb&w=800',
+            '/images/pexels/39237331.jpg',
           summary:
             'Evening cedar sauna & cold plunge recovery vlogs attracted tech professionals within a 1-mile radius.',
           quote:
@@ -1683,7 +1683,7 @@ export default function BomieLandingPage() {
       name: 'Las Vegas',
       tagline: 'Experiential Dining, Artisanal Dessert Lounges & Resort Day Spas',
       heroImage:
-        'https://images.pexels.com/photos/415999/pexels-photo-415999.jpeg?auto=compress&cs=tinysrgb&w=1400',
+        '/images/pexels/415999.jpg',
       overview:
         'Beyond the Strip—across the Arts District, Summerlin, Chinatown, and Henderson—Las Vegas’s booming culinary spots, dessert lounges, and luxury med-spas use Bomie AI to capture both high-spending locals and weekend visitors.',
       stats: [
@@ -1698,7 +1698,7 @@ export default function BomieLandingPage() {
           creator: '@vegasfoodieinsider (58.2K)',
           metric: '95K Views · 4.4x Store-Visit ROAS',
           image:
-            'https://images.pexels.com/photos/2098085/pexels-photo-2098085.jpeg?auto=compress&cs=tinysrgb&w=800',
+            '/images/pexels/2098085.jpg',
           summary:
             'Tableside wagyu sear & craft mocktail reels drove 180+ tracked group dinner redemptions over a single weekend.',
           quote:
@@ -1710,7 +1710,7 @@ export default function BomieLandingPage() {
           creator: '@vegasglowguide (33.0K)',
           metric: '39 High-Ticket Package Bookings',
           image:
-            'https://images.pexels.com/photos/3757942/pexels-photo-3757942.jpeg?auto=compress&cs=tinysrgb&w=800',
+            '/images/pexels/3757942.jpg',
           summary:
             'Desert stone massage & hydration lounge tours generated $11,200 in verified package bookings.',
           quote:
@@ -1722,7 +1722,7 @@ export default function BomieLandingPage() {
           creator: '@sweettoothvegas (44.5K)',
           metric: '380+ Weekend Voucher Scans',
           image:
-            'https://images.pexels.com/photos/291528/pexels-photo-291528.jpeg?auto=compress&cs=tinysrgb&w=800',
+            '/images/pexels/291528.jpg',
           summary:
             'Pistachio kunefe crepe & espresso martini reels turned a neighborhood bakery into a late-night destination.',
           quote:
@@ -1734,7 +1734,7 @@ export default function BomieLandingPage() {
           creator: '@fitinvegas (21.8K)',
           metric: '58 New Class Pack Sign-Ups',
           image:
-            'https://images.pexels.com/photos/4498606/pexels-photo-4498606.jpeg?auto=compress&cs=tinysrgb&w=800',
+            '/images/pexels/4498606.jpg',
           summary:
             'Morning workout + iced collagen matcha bundle reels converted Henderson locals into recurring studio members.',
           quote:
@@ -2904,7 +2904,7 @@ export default function BomieLandingPage() {
                 className="absolute -inset-8"
               >
                 <img
-                  src="https://images.pexels.com/photos/1001682/pexels-photo-1001682.jpeg?auto=compress&cs=tinysrgb&w=1920"
+                  src="/images/pexels/1001682.jpg"
                   alt="Real Ocean Tide Waves"
                   className="h-full w-full object-cover object-center opacity-80 saturate-150 contrast-125"
                 />
@@ -2927,7 +2927,7 @@ export default function BomieLandingPage() {
                 className="absolute -inset-8 mix-blend-screen"
               >
                 <img
-                  src="https://images.pexels.com/photos/1295138/pexels-photo-1295138.jpeg?auto=compress&cs=tinysrgb&w=1920"
+                  src="/images/pexels/1295138.jpg"
                   alt="Foaming Ocean Surf"
                   className="h-full w-full object-cover object-bottom contrast-125"
                 />
@@ -2939,7 +2939,7 @@ export default function BomieLandingPage() {
                 loop
                 muted
                 playsInline
-                poster="https://images.pexels.com/photos/1001682/pexels-photo-1001682.jpeg?auto=compress&cs=tinysrgb&w=1920"
+                poster="/images/pexels/1001682.jpg"
                 className="absolute inset-0 h-full w-full object-cover opacity-65 mix-blend-lighten contrast-125"
               >
                 <source

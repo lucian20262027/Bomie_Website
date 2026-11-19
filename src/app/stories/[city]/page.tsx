@@ -27,7 +27,7 @@ const cityData: Record<
   sf: {
     name: 'San Francisco',
     tagline: 'Culinary Craft, Specialty Roasteries & Neighborhood Boutiques',
-    heroImage: 'https://images.pexels.com/photos/208745/pexels-photo-208745.jpeg?auto=compress&cs=tinysrgb&w=1400',
+    heroImage: '/images/pexels/208745.jpg',
     overview:
       'Across the Mission, Hayes Valley, Inner Sunset, and Marina, Bomie AI connects San Francisco’s iconic independent restaurants, specialty coffee bars, and craft studios with hyper-local foodie and lifestyle creators—turning 30-second neighborhood reels into packed weekend tables.',
     stats: [
@@ -41,7 +41,7 @@ const cityData: Record<
         industry: 'Artisanal Dining · Inner Sunset',
         creator: '@sfnoodleclub (34.2K)',
         metric: '+38% Weekend Covers · 3.6x ROAS',
-        image: 'https://images.pexels.com/photos/955137/pexels-photo-955137.jpeg?auto=compress&cs=tinysrgb&w=800',
+        image: '/images/pexels/955137.jpg',
         summary:
           '4 local foodie creators filmed tableside chili-oil pours with a 20% off dumpling QR voucher, generating 142 tracked dine-in tables in 5 days.',
         quote: '“We saw a 38% jump in weekend walk-ins after just two creator reels.” — Chef & Founder',
@@ -51,7 +51,7 @@ const cityData: Record<
         industry: 'Specialty Cafe · Hayes Valley',
         creator: '@bayareabites_sam (26.8K)',
         metric: '410+ QR Drink Redemptions',
-        image: 'https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg?auto=compress&cs=tinysrgb&w=800',
+        image: '/images/pexels/302899.jpg',
         summary:
           'Launched a seasonal strawberry-hojicha latte drop with 3 SF lifestyle creators, creating a 2-block morning line on Saturday.',
         quote: '“Bomie matched us with creators who actually live 10 minutes away.”',
@@ -61,7 +61,7 @@ const cityData: Record<
         industry: 'Clean Beauty & Home · Marina District',
         creator: '@fogcityfoodie (18.4K)',
         metric: '$6,800 Launch Weekend Sales',
-        image: 'https://images.pexels.com/photos/3735657/pexels-photo-3735657.jpeg?auto=compress&cs=tinysrgb&w=800',
+        image: '/images/pexels/3735657.jpg',
         summary:
           'Nano-creators shared in-store custom fragrance blending sessions, driving high-ticket gift box purchases both in-store and online.',
         quote: '“Zero cold DMs, zero awkward price haggling. Saved us 20 hours a week.”',
@@ -71,7 +71,7 @@ const cityData: Record<
         industry: 'Artisan Studio · Mission District',
         creator: '@goldengategrub (41.5K)',
         metric: '48 Sold-Out Workshop Seats',
-        image: 'https://images.pexels.com/photos/2162938/pexels-photo-2162938.jpeg?auto=compress&cs=tinysrgb&w=800',
+        image: '/images/pexels/2162938.jpg',
         summary:
           'Couples date-night pottery reels filled every weekend wheel-throwing workshop for 6 consecutive weeks.',
         quote: '“Every dollar went straight to real neighbors who brought real customers through our doors.”',
@@ -81,7 +81,7 @@ const cityData: Record<
   la: {
     name: 'Los Angeles',
     tagline: 'Clean Beauty, Wellness Studios & Trendy Neighborhood Dining',
-    heroImage: 'https://images.pexels.com/photos/1388030/pexels-photo-1388030.jpeg?auto=compress&cs=tinysrgb&w=1400',
+    heroImage: '/images/pexels/1388030.jpg',
     overview:
       'From Silver Lake and West Hollywood to Santa Monica and Arts District, Bomie AI powers LA’s fastest-growing facial studios, Pilates clubs, and concept eateries with aesthetic, FTC-compliant local creator storytelling.',
     stats: [
@@ -95,7 +95,7 @@ const cityData: Record<
         industry: 'Holistic Facial Studio · West Hollywood',
         creator: '@glowwithchloe_la (28.1K)',
         metric: '64 Booked Facials · 3.9x ROAS',
-        image: 'https://images.pexels.com/photos/3997993/pexels-photo-3997993.jpeg?auto=compress&cs=tinysrgb&w=800',
+        image: '/images/pexels/3997993.jpg',
         summary:
           'ASMR facial sculpting reels paired with our 3-Agent FTC compliance gate drove 64 new-client bookings in 10 days.',
         quote: '“Having built-in FTC #ad checks gave us total peace of mind while scaling beauty creators.”',
@@ -105,7 +105,7 @@ const cityData: Record<
         industry: 'Boutique Fitness · Silver Lake',
         creator: '@lavellewellness (19.6K)',
         metric: '92 Intro Pack Sign-Ups',
-        image: 'https://images.pexels.com/photos/4056535/pexels-photo-4056535.jpeg?auto=compress&cs=tinysrgb&w=800',
+        image: '/images/pexels/4056535.jpg',
         summary:
           'Morning reformer routine vlogs with a tracked studio QR pass filled mid-day classes that used to sit at 40% capacity.',
         quote: '“Our Tuesday & Thursday noon classes went from half-empty to a waitlist.”',
@@ -115,7 +115,7 @@ const cityData: Record<
         industry: 'Independent Fashion · Fairfax',
         creator: '@socalstylefiles (33.4K)',
         metric: '$9,400 Weekend Drop Revenue',
-        image: 'https://images.pexels.com/photos/1884584/pexels-photo-1884584.jpeg?auto=compress&cs=tinysrgb&w=800',
+        image: '/images/pexels/1884584.jpg',
         summary:
           '“Get Ready With Me” try-on hauls inside our Melrose flagship drove 310+ weekend shoppers.',
         quote: '“Far higher ROI than running Meta ads—plus we kept all the creator video assets.”',
@@ -125,7 +125,7 @@ const cityData: Record<
         industry: 'Neighborhood Dining · Venice',
         creator: '@veniceeats_dan (24.0K)',
         metric: '+47% Taco Tuesday Traffic',
-        image: 'https://images.pexels.com/photos/2092507/pexels-photo-2092507.jpeg?auto=compress&cs=tinysrgb&w=800',
+        image: '/images/pexels/2092507.jpg',
         summary:
           'Golden-hour patio reels spotlighted fresh handmade tortillas and mezcal flights, driving immediate neighborhood walk-ins.',
         quote: '“Creators showed up, filmed in 45 minutes, and our patio was packed that same Friday.”',
@@ -135,7 +135,7 @@ const cityData: Record<
   seattle: {
     name: 'Seattle',
     tagline: 'Specialty Coffee, Craft Bakeries & Pacific Northwest Hospitality',
-    heroImage: 'https://images.pexels.com/photos/656195/pexels-photo-656195.jpeg?auto=compress&cs=tinysrgb&w=1400',
+    heroImage: '/images/pexels/656195.jpg',
     overview:
       'Across Capitol Hill, Ballard, Fremont, and Bellevue, Bomie AI helps Seattle’s beloved coffee roasters, sourdough bakeries, and outdoor lifestyle shops turn rainy-day scrollers into loyal neighborhood regulars.',
     stats: [
@@ -149,7 +149,7 @@ const cityData: Record<
         industry: 'Artisan Bakery · Ballard',
         creator: '@seattlecravings (22.3K)',
         metric: 'Sold Out by 11:30 AM Daily',
-        image: 'https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg?auto=compress&cs=tinysrgb&w=800',
+        image: '/images/pexels/1775043.jpg',
         summary:
           'Warm cardamom-bun pull-apart clips filmed at 7 AM opening drove massive weekend foot traffic across North Seattle.',
         quote: '“One 28-second reel brought more new faces into Ballard than a year of flyers.”',
@@ -159,7 +159,7 @@ const cityData: Record<
         industry: 'Coffee & Beans · Capitol Hill',
         creator: '@pnwcoffeeclub (15.7K)',
         metric: '260+ Bag Subscriptions',
-        image: 'https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&w=800',
+        image: '/images/pexels/312418.jpg',
         summary:
           'Pour-over tasting flight reels paired with an in-store QR bag discount converted local coffee lovers into recurring subscribers.',
         quote: '“The AI brief nailed our roasting story on the first try.”',
@@ -169,7 +169,7 @@ const cityData: Record<
         industry: 'Local Outdoor Boutique · Fremont',
         creator: '@hikepnw_alex (31.0K)',
         metric: '$7,200 Seasonal Jacket Lift',
-        image: 'https://images.pexels.com/photos/1365425/pexels-photo-1365425.jpeg?auto=compress&cs=tinysrgb&w=800',
+        image: '/images/pexels/1365425.jpg',
         summary:
           'Real rainy-hike waterproof tests on Rattlesnake Ledge drove direct in-store fittings and local pickup orders.',
         quote: '“Authentic Pacific Northwest creators made our gear look unstoppable.”',
@@ -179,7 +179,7 @@ const cityData: Record<
         industry: 'Seafood Bistro · Pike / Belltown',
         creator: '@raincityplates (27.4K)',
         metric: '+32% Happy Hour Covers',
-        image: 'https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg?auto=compress&cs=tinysrgb&w=800',
+        image: '/images/pexels/1267320.jpg',
         summary:
           '4–6 PM oyster shucking reels with a tracked $20 tasting flight voucher packed early-evening bar seats.',
         quote: '“Tracked POS attribution proved the exact revenue from every creator.”',
@@ -189,7 +189,7 @@ const cityData: Record<
   vegas: {
     name: 'Las Vegas',
     tagline: 'Experiential Dining, Off-Strip Gems & Luxury Wellness Spas',
-    heroImage: 'https://images.pexels.com/photos/415999/pexels-photo-415999.jpeg?auto=compress&cs=tinysrgb&w=1400',
+    heroImage: '/images/pexels/415999.jpg',
     overview:
       'Beyond the Strip—in Chinatown, Summerlin, Henderson, and Arts District—Bomie AI helps Las Vegas’s hottest independent restaurants, dessert bars, and med-spas capture both locals and high-spending weekend visitors.',
     stats: [
@@ -203,7 +203,7 @@ const cityData: Record<
         industry: 'Late-Night Dining · Chinatown',
         creator: '@vegasfoodbible (48.9K)',
         metric: '320+ Tracked Reservations',
-        image: 'https://images.pexels.com/photos/2313686/pexels-photo-2313686.jpeg?auto=compress&cs=tinysrgb&w=800',
+        image: '/images/pexels/2313686.jpg',
         summary:
           'Tableside torch-seared wagyu nigiri reels triggered a viral wave among both Vegas locals and weekend LA travelers.',
         quote: '“Our 10 PM–1 AM seating went from quiet to 100% booked in one week.”',
@@ -213,7 +213,7 @@ const cityData: Record<
         industry: 'Dessert Bar · Arts District',
         creator: '@sincitysweets (29.5K)',
         metric: '540+ BOGO QR Redemptions',
-        image: 'https://images.pexels.com/photos/1352278/pexels-photo-1352278.jpeg?auto=compress&cs=tinysrgb&w=800',
+        image: '/images/pexels/1352278.jpg',
         summary:
           'Vibrant neon-lit dessert pours drove massive Friday & Saturday night foot traffic in the Arts District.',
         quote: '“Bomie’s 30s shot checklist made filming effortless for our creators.”',
@@ -223,7 +223,7 @@ const cityData: Record<
         industry: 'Wellness & Spa · Summerlin',
         creator: '@vegaswellness_mia (17.2K)',
         metric: '$8,900 Membership Sign-Ups',
-        image: 'https://images.pexels.com/photos/3757942/pexels-photo-3757942.jpeg?auto=compress&cs=tinysrgb&w=800',
+        image: '/images/pexels/3757942.jpg',
         summary:
           '3-Agent FTC compliance check ensured zero medical-claim violations while driving high-intent Summerlin memberships.',
         quote: '“The built-in FTC gate caught risky wording before we ever published.”',
@@ -233,7 +233,7 @@ const cityData: Record<
         industry: 'Boutique Fitness · Henderson',
         creator: '@fitinvegas (21.8K)',
         metric: '58 New Class Pack Sign-Ups',
-        image: 'https://images.pexels.com/photos/4498606/pexels-photo-4498606.jpeg?auto=compress&cs=tinysrgb&w=800',
+        image: '/images/pexels/4498606.jpg',
         summary:
           'Morning workout + iced collagen matcha bundle reels converted Henderson locals into recurring studio members.',
         quote: '“So simple to run—we posted the brief on Monday and had 4 incredible local videos live by Friday.”',
