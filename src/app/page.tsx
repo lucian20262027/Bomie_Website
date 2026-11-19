@@ -2201,19 +2201,15 @@ export default function BomieLandingPage() {
                   {liveMatches.map((m, idx) => (
                     <div key={m.tag} className="relative h-full w-full shrink-0 overflow-hidden">
                       {'video' in m && m.video ? (
-                        <motion.video
+                        <video
                           src={m.video}
-                          poster={m.image}
                           autoPlay
                           muted
                           loop
                           playsInline
                           preload="auto"
-                          initial={{ scale: 1.0 }}
-                          animate={{ scale: selectedMatch === idx ? 1.1 : 1.0 }}
-                          transition={{ duration: 4.5, ease: 'easeOut' }}
                           className={`h-full w-full object-cover pointer-events-none ${
-                            idx === 0 ? 'object-[center_36%] origin-[35%_32%]' : ''
+                            idx === 0 ? 'object-[center_30%]' : ''
                           }`}
                         />
                       ) : (
