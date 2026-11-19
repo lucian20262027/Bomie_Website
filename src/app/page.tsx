@@ -1213,6 +1213,39 @@ export default function BomieLandingPage() {
     },
   ];
 
+  const dragStartXRef = useRef<number | null>(null);
+  const lastWheelSwipeRef = useRef<number>(0);
+
+  const handleShowcaseWheel = (e: React.WheelEvent<HTMLDivElement>) => {
+    // Support MacBook trackpad horizontal two-finger swipe without blocking vertical scroll
+    if (Math.abs(e.deltaX) > Math.abs(e.deltaY) && Math.abs(e.deltaX) > 24) {
+      const now = Date.now();
+      if (now - lastWheelSwipeRef.current < 600) return;
+      lastWheelSwipeRef.current = now;
+      if (e.deltaX > 0) {
+        setSelectedMatch((prev) => (prev + 1) % liveMatches.length);
+      } else {
+        setSelectedMatch((prev) => (prev - 1 + liveMatches.length) % liveMatches.length);
+      }
+    }
+  };
+
+  const handleShowcasePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    dragStartXRef.current = e.clientX;
+  };
+
+  const handleShowcasePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (dragStartXRef.current === null) return;
+    const dx = e.clientX - dragStartXRef.current;
+    dragStartXRef.current = null;
+    if (Math.abs(dx) < 40) return;
+    if (dx < 0) {
+      setSelectedMatch((prev) => (prev + 1) % liveMatches.length);
+    } else {
+      setSelectedMatch((prev) => (prev - 1 + liveMatches.length) % liveMatches.length);
+    }
+  };
+
   // Auto-rotate Hero Showcase (Dining -> Fashion & Spa -> Craft Goods) every 4.5s, pause on hover
   useEffect(() => {
     if (isMatchPaused) return;
@@ -2128,8 +2161,21 @@ export default function BomieLandingPage() {
             className="mx-auto mt-14 w-full overflow-hidden rounded-3xl border border-violet-200/60 bg-[#0b0b14] text-left shadow-2xl shadow-violet-950/15"
           >
             <div>
-              {/* Visual Hero Stage (Responsive 16:9 Video Framing: Mobile -> iPad -> Desktop) */}
-              <div className="relative h-[270px] sm:h-[360px] md:h-[420px] lg:h-[480px] w-full overflow-hidden">
+              {/* Visual Hero Stage (Responsive 16:9 Video Framing + Trackpad/Mouse/Touch Swipe) */}
+              <div
+                onWheel={handleShowcaseWheel}
+                onPointerDown={handleShowcasePointerDown}
+                onPointerUp={handleShowcasePointerUp}
+                onKeyDown={(e) => {
+                  if (e.key === 'ArrowRight') {
+                    setSelectedMatch((prev) => (prev + 1) % liveMatches.length);
+                  } else if (e.key === 'ArrowLeft') {
+                    setSelectedMatch((prev) => (prev - 1 + liveMatches.length) % liveMatches.length);
+                  }
+                }}
+                tabIndex={0}
+                className="relative h-[270px] sm:h-[360px] md:h-[420px] lg:h-[480px] w-full overflow-hidden cursor-grab active:cursor-grabbing select-none touch-pan-y focus:outline-none"
+              >
                 {/* Preloaded Stacked Cross-Fade Video/Image Reels (Zero Black Flash) */}
                 {liveMatches.map((m, idx) => {
                   const isActive = selectedMatch === idx;
