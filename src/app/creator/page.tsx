@@ -167,16 +167,15 @@ export default function CreatorPage() {
       <main className="mx-auto max-w-5xl px-6 py-14 space-y-14">
         {/* 1. Creator Pain Points First */}
         <section className="space-y-7">
-          <div className="space-y-3">
-            <div className="inline-flex items-center gap-2 rounded-full border border-fuchsia-500/35 bg-fuchsia-500/10 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-fuchsia-700">
-              <Video className="h-3.5 w-3.5" />
-              For Local Creators &amp; Storytellers
-            </div>
-            <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#161224]">
+          <div className="space-y-4">
+            <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#161224] leading-[1.12]">
+              <span className="block font-[family-name:var(--font-playfair)] italic font-semibold text-fuchsia-700 text-2xl sm:text-3xl mb-1.5">
+                My Local Creators:
+              </span>
               Stop Chasing Cold DMs and Late Invoices
             </h1>
-            <p className="max-w-2xl text-base text-slate-600">
-              Your neighborhood influence is valuable even at 2K–50K followers. Bomie AI brings paid local brand deals directly to you—with guaranteed escrow payouts.
+            <p className="max-w-2xl text-base leading-relaxed text-slate-600">
+              Your neighborhood trust is worth real money—even at 2K–50K followers. Stop getting ignored by mega-agencies or offered &ldquo;free exposure.&rdquo; Let paid local brand deals come straight to you, with instant escrow payouts.
             </p>
           </div>
 
