@@ -3543,11 +3543,6 @@ export default function BomieLandingPage() {
               </div>
               <ul className="space-y-2 text-xs">
                 <li>
-                  <Link href="/why-bomie/founder" className="hover:text-violet-700">
-                    Founder
-                  </Link>
-                </li>
-                <li>
                   <Link href="/why-bomie/stories" className="hover:text-violet-700">
                     Bomie Stories
                   </Link>
