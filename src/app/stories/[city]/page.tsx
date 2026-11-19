@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { ArrowLeft, MapPin, Star } from 'lucide-react';
 import type { Metadata } from 'next';
+import BrandFooter from '../../../components/BrandFooter';
 import CityBookDemoButton from './CityBookDemoButton';
 
 type CityKey = 'sf' | 'la' | 'seattle' | 'vegas';
@@ -408,6 +409,7 @@ export default async function CityStoriesPage({
           <CityBookDemoButton cityName={active.name} />
         </div>
       </main>
+      <BrandFooter />
     </div>
   );
 }

@@ -22,6 +22,9 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.bomie.ai"),
+  alternates: {
+    canonical: "./",
+  },
   title: "Bomie AI | North America's First AI Commerce OS for Local Businesses & Creators",
   description:
     "North America's First AI Commerce OS for Local Businesses & Creators — AI smart matching, 30s script copilot, built-in FTC compliance, and 30/40/30 Stripe Escrow.",
@@ -89,6 +92,43 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           priceCurrency: "USD",
           description: "$0 platform fee during MVP launch for local businesses and creators.",
         },
+      },
+      {
+        "@type": "FAQPage",
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "What is Bomie AI?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Bomie AI (BOMIES LLC) is North America's first AI Commerce OS connecting neighborhood small businesses and local creators through AI smart matching, 30-second script co-creation, built-in FTC 16 CFR Part 255 compliance, and 30/40/30 milestone escrow.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "How much does Bomie AI cost during the MVP launch?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Bomie AI charges $0 monthly platform fee and 0% platform commission during the MVP launch. Merchants allocate 100% of their campaign budget directly to local creators.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "How do 30/40/30 Stripe escrow milestones and FTC compliance work?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Campaign funds are protected through 30/40/30 milestone escrow (30% on brief acceptance, 40% on verified FTC-compliant draft approval, 30% on publish/attribution verification), while Bomie's pre-flight compliance gate checks 16 CFR Part 255 disclosures and commercial audio safety automatically.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Which cities does Bomie AI support?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Bomie AI highlights active hyper-local creator networks in San Francisco, Los Angeles, Seattle, and Las Vegas, and supports neighborhood businesses and creators across North America.",
+            },
+          },
+        ],
       },
     ],
   };

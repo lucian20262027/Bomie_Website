@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import BrandFooter from '../../../components/BrandFooter';
 import { ArrowLeft, BarChart3, BookOpen, FileText, ShieldCheck, Sparkles } from 'lucide-react';
 import type { Metadata } from 'next';
 
@@ -116,11 +117,12 @@ export default function BomieResearchPage() {
             href="mailto:lucian.wang@bomie.ai?subject=Request%20Bomie%20Research%20Report"
             className="shrink-0 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 px-5 py-3 text-xs sm:text-sm font-bold text-white shadow-md shadow-violet-600/20 transition hover:opacity-95"
           >
-            <FileText className="h-4 w-4 text-violet-600" />
+            <FileText className="h-4 w-4 text-amber-200" />
             Request Report via Email
           </a>
         </div>
       </main>
+      <BrandFooter />
     </div>
   );
 }

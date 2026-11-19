@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import BrandFooter from '../../components/BrandFooter';
 import {
   ArrowLeft,
   ArrowRight,
@@ -358,6 +359,7 @@ export default function PricingClient() {
           </div>
         </section>
       </main>
+      <BrandFooter />
 
       {/* Registration Modal (Founding Creator Onboarding OR Free MVP Merchant Demo) */}
       {modal.kind !== 'closed' && (

@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import BrandFooter from '../../components/BrandFooter';
 import {
   ArrowLeft,
   ArrowRight,
@@ -904,6 +905,7 @@ export default function CommerceOsPage() {
           </div>
         </section>
       </main>
+      <BrandFooter />
     </div>
   );
 }

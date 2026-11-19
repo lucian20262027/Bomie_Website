@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import BrandFooter from '../../../components/BrandFooter';
 import {
   ArrowLeft,
   CheckCircle2,
@@ -211,6 +212,7 @@ export default function BomieStoriesPage() {
           ))}
         </section>
       </main>
+      <BrandFooter />
     </div>
   );
 }

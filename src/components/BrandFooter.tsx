@@ -101,7 +101,7 @@ const infraRails = [
 
 export default function BrandFooter() {
   return (
-    <footer className="border-t border-violet-200/80 bg-white/60 py-14 text-sm text-slate-600">
+    <footer className="border-t border-violet-200/80 bg-white/60 pt-14 pb-24 lg:pb-16 text-sm text-slate-600">
       <div className="mx-auto max-w-[1440px] px-6 lg:px-10">
         {/* AI, Cloud, Banking & Payment Infrastructure Strip */}
         <div className="mb-12 border-b border-violet-200/70 pb-10">
@@ -130,7 +130,7 @@ export default function BrandFooter() {
           </div>
         </div>
 
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5 lg:pr-48">
           <div className="lg:col-span-2 space-y-3">
             <div className="flex items-center gap-2.5">
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-tr from-[#5b21b6] via-[#d946ef] to-[#fbbf24]">

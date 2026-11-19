@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import BrandFooter from '../../components/BrandFooter';
 import { ArrowLeft, ShieldCheck } from 'lucide-react';
 import type { Metadata } from 'next';
 
@@ -89,6 +90,7 @@ export default function PrivacyPolicyPage() {
           </p>
         </section>
       </main>
+      <BrandFooter />
     </div>
   );
 }

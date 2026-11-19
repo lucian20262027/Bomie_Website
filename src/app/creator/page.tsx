@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import BrandFooter from '../../components/BrandFooter';
 import {
   ArrowLeft,
   ArrowRight,
@@ -559,6 +560,7 @@ export default function CreatorPage() {
           </div>
         </section>
       </main>
+      <BrandFooter />
 
       {/* In-Page Claim Creator Handle Modal (Sends directly to Discord!) */}
       {showClaimModal && (

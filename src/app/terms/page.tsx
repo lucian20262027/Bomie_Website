@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import BrandFooter from '../../components/BrandFooter';
 import { ArrowLeft, FileText } from 'lucide-react';
 import type { Metadata } from 'next';
 
@@ -85,6 +86,7 @@ export default function TermsOfServicePage() {
           </p>
         </section>
       </main>
+      <BrandFooter />
     </div>
   );
 }

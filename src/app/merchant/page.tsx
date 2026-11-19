@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import BrandFooter from '../../components/BrandFooter';
 import {
   ArrowLeft,
   ArrowRight,
@@ -642,6 +643,7 @@ export default function MerchantPage() {
           </div>
         </section>
       </main>
+      <BrandFooter />
 
       {/* In-Page Launch Campaign Modal (Sends customized campaign straight to Discord!) */}
       {showLaunchModal && (
