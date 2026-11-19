@@ -2198,10 +2198,10 @@ export default function BomieLandingPage() {
                   }
                   className="flex h-full w-full"
                 >
-                  {liveMatches.map((m) => (
+                  {liveMatches.map((m, idx) => (
                     <div key={m.tag} className="relative h-full w-full shrink-0 overflow-hidden">
                       {'video' in m && m.video ? (
-                        <video
+                        <motion.video
                           src={m.video}
                           poster={m.image}
                           autoPlay
@@ -2209,6 +2209,9 @@ export default function BomieLandingPage() {
                           loop
                           playsInline
                           preload="auto"
+                          initial={false}
+                          animate={{ scale: selectedMatch === idx ? 1.07 : 1.0 }}
+                          transition={{ duration: 4.5, ease: 'easeOut' }}
                           className="h-full w-full object-cover pointer-events-none"
                         />
                       ) : (
