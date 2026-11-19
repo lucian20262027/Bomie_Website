@@ -2210,10 +2210,10 @@ export default function BomieLandingPage() {
                           playsInline
                           preload="auto"
                           initial={{ scale: 1.0 }}
-                          animate={{ scale: selectedMatch === idx ? 1.08 : 1.0 }}
+                          animate={{ scale: selectedMatch === idx ? 1.1 : 1.0 }}
                           transition={{ duration: 4.5, ease: 'easeOut' }}
                           className={`h-full w-full object-cover pointer-events-none ${
-                            idx === 0 ? 'object-[center_68%]' : ''
+                            idx === 0 ? 'object-[center_36%] origin-[35%_32%]' : ''
                           }`}
                         />
                       ) : (
