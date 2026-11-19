@@ -789,6 +789,74 @@ const CREATOR_PERSONAS: Record<CreatorPersonaId, CreatorPersona> = {
   },
 };
 
+/**
+ * Shared 1:1 horizontal drag, trackpad two-finger swipe, and arrow-key spring carousel controller.
+ */
+function useHorizontalCarousel(currentIndex: number, onStep: (delta: number) => void) {
+  const dragStartXRef = useRef<number | null>(null);
+  const didDragRef = useRef<boolean>(false);
+  const lastWheelRef = useRef<number>(0);
+  const [dragOffset, setDragOffset] = useState<number>(0);
+  const [isDragging, setIsDragging] = useState<boolean>(false);
+
+  const onWheel = (e: React.WheelEvent<HTMLDivElement>) => {
+    if (Math.abs(e.deltaX) > Math.abs(e.deltaY) && Math.abs(e.deltaX) > 16) {
+      const now = Date.now();
+      if (now - lastWheelRef.current < 350) return;
+      lastWheelRef.current = now;
+      onStep(e.deltaX > 0 ? 1 : -1);
+    }
+  };
+
+  const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    dragStartXRef.current = e.clientX;
+    didDragRef.current = false;
+    setIsDragging(true);
+  };
+
+  const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (dragStartXRef.current === null) return;
+    const dx = e.clientX - dragStartXRef.current;
+    if (Math.abs(dx) > 8) didDragRef.current = true;
+    setDragOffset(dx);
+  };
+
+  const finishDrag = (dx: number) => {
+    dragStartXRef.current = null;
+    setIsDragging(false);
+    setDragOffset(0);
+    if (Math.abs(dx) >= 35) {
+      onStep(dx < 0 ? 1 : -1);
+    }
+  };
+
+  const onPointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (dragStartXRef.current === null) return;
+    finishDrag(e.clientX - dragStartXRef.current);
+  };
+
+  const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'ArrowRight') onStep(1);
+    else if (e.key === 'ArrowLeft') onStep(-1);
+  };
+
+  return {
+    didDragRef,
+    trackAnimate: { x: `calc(-${currentIndex * 100}% + ${dragOffset}px)` },
+    trackTransition: isDragging
+      ? { duration: 0 }
+      : { type: 'spring' as const, stiffness: 300, damping: 32 },
+    containerHandlers: {
+      onWheel,
+      onPointerDown,
+      onPointerMove,
+      onPointerUp,
+      onPointerCancel: onPointerUp,
+      onKeyDown,
+    },
+  };
+}
+
 export default function BomieLandingPage() {
   const [activeTab, setActiveTab] = useState<'business' | 'creator'>('business');
   const [selectedMatch, setSelectedMatch] = useState<number>(0);
@@ -841,6 +909,7 @@ export default function BomieLandingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const [selectedCity, setSelectedCity] = useState<'sf' | 'la' | 'seattle' | 'vegas'>('sf');
   const [cityExpanded, setCityExpanded] = useState<boolean>(false);
+  const [isCityPaused, setIsCityPaused] = useState<boolean>(false);
   const [sandboxViewMode, setSandboxViewMode] = useState<'simple' | 'pro'>('simple');
   const [simplePresetIdx, setSimplePresetIdx] = useState<number>(0);
   const [simpleCustomPrompt, setSimpleCustomPrompt] = useState<string>(
@@ -1213,50 +1282,12 @@ export default function BomieLandingPage() {
     },
   ];
 
-  const dragStartXRef = useRef<number | null>(null);
-  const lastWheelSwipeRef = useRef<number>(0);
   const showcaseVideoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const hasMountedShowcaseRef = useRef<boolean>(false);
-  const [dragOffset, setDragOffset] = useState<number>(0);
-  const [isDraggingShowcase, setIsDraggingShowcase] = useState<boolean>(false);
 
-  const handleShowcaseWheel = (e: React.WheelEvent<HTMLDivElement>) => {
-    // Support MacBook trackpad horizontal two-finger swipe without blocking vertical scroll
-    if (Math.abs(e.deltaX) > Math.abs(e.deltaY) && Math.abs(e.deltaX) > 16) {
-      const now = Date.now();
-      if (now - lastWheelSwipeRef.current < 350) return;
-      lastWheelSwipeRef.current = now;
-      if (e.deltaX > 0) {
-        setSelectedMatch((prev) => (prev + 1) % liveMatches.length);
-      } else {
-        setSelectedMatch((prev) => (prev - 1 + liveMatches.length) % liveMatches.length);
-      }
-    }
-  };
-
-  const handleShowcasePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
-    dragStartXRef.current = e.clientX;
-    setIsDraggingShowcase(true);
-  };
-
-  const handleShowcasePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (dragStartXRef.current === null) return;
-    setDragOffset(e.clientX - dragStartXRef.current);
-  };
-
-  const handleShowcasePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (dragStartXRef.current === null) return;
-    const dx = e.clientX - dragStartXRef.current;
-    dragStartXRef.current = null;
-    setIsDraggingShowcase(false);
-    setDragOffset(0);
-    if (Math.abs(dx) < 35) return;
-    if (dx < 0) {
-      setSelectedMatch((prev) => (prev + 1) % liveMatches.length);
-    } else {
-      setSelectedMatch((prev) => (prev - 1 + liveMatches.length) % liveMatches.length);
-    }
-  };
+  const heroCarousel = useHorizontalCarousel(selectedMatch, (delta) => {
+    setSelectedMatch((prev) => (prev + delta + liveMatches.length) % liveMatches.length);
+  });
 
   // Auto-rotate Hero Showcase (Dining -> Fashion & Spa -> Craft Goods) every 3.85s (synced to 3.92s clips), pause on hover
   useEffect(() => {
@@ -1713,7 +1744,31 @@ export default function BomieLandingPage() {
     },
   };
 
+  const cityOrder: ('sf' | 'la' | 'seattle' | 'vegas')[] = ['sf', 'la', 'seattle', 'vegas'];
+  const selectedCityIndex = cityOrder.indexOf(selectedCity);
   const activeCityData = cityStories[selectedCity];
+
+  const stepCity = (delta: number) => {
+    setSelectedCity((prev) => {
+      const idx = cityOrder.indexOf(prev);
+      return cityOrder[(idx + delta + cityOrder.length) % cityOrder.length];
+    });
+    setCityExpanded(false);
+  };
+
+  const cityCarousel = useHorizontalCarousel(selectedCityIndex, stepCity);
+
+  // Auto-rotate 4 Cultural Hub cities every 5s unless hovered or expanded to read case studies
+  useEffect(() => {
+    if (isCityPaused || cityExpanded) return;
+    const timer = setInterval(() => {
+      setSelectedCity((prev) => {
+        const idx = cityOrder.indexOf(prev);
+        return cityOrder[(idx + 1) % cityOrder.length];
+      });
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [selectedCity, isCityPaused, cityExpanded]);
 
   return (
     <div className="min-h-screen overflow-x-clip bg-[#f7f4ff] text-[#161224] selection:bg-violet-600 selection:text-white">
@@ -2192,29 +2247,14 @@ export default function BomieLandingPage() {
             <div>
               {/* Visual Hero Stage (Responsive 16:9 Video Framing + Physical Horizontal Spring Carousel) */}
               <div
-                onWheel={handleShowcaseWheel}
-                onPointerDown={handleShowcasePointerDown}
-                onPointerMove={handleShowcasePointerMove}
-                onPointerUp={handleShowcasePointerUp}
-                onPointerCancel={handleShowcasePointerUp}
-                onKeyDown={(e) => {
-                  if (e.key === 'ArrowRight') {
-                    setSelectedMatch((prev) => (prev + 1) % liveMatches.length);
-                  } else if (e.key === 'ArrowLeft') {
-                    setSelectedMatch((prev) => (prev - 1 + liveMatches.length) % liveMatches.length);
-                  }
-                }}
+                {...heroCarousel.containerHandlers}
                 tabIndex={0}
                 className="relative h-[270px] sm:h-[360px] md:h-[420px] lg:h-[480px] w-full overflow-hidden cursor-grab active:cursor-grabbing select-none touch-pan-y focus:outline-none"
               >
                 {/* Horizontal Spring Track (1:1 Live Drag + Silky Slide Transition) */}
                 <motion.div
-                  animate={{ x: `calc(-${selectedMatch * 100}% + ${dragOffset}px)` }}
-                  transition={
-                    isDraggingShowcase
-                      ? { duration: 0 }
-                      : { type: 'spring', stiffness: 300, damping: 32 }
-                  }
+                  animate={heroCarousel.trackAnimate}
+                  transition={heroCarousel.trackTransition}
                   className="flex h-full w-full"
                 >
                   {liveMatches.map((m, idx) => (
@@ -2428,20 +2468,14 @@ export default function BomieLandingPage() {
                 </span>
               </h2>
               <p className="mt-2 text-sm sm:text-base text-slate-600">
-                Select a city to view its local commerce overview, then click the city card to unfold 4 verified brand collaborations.
+                Swipe or select a city to explore its local commerce ecosystem, then click any city card to unfold 4 verified brand collaborations.
               </p>
             </div>
 
             {/* 4 City Tabs — Strictly 1 Single Row on Desktop */}
             <div className="inline-flex flex-nowrap shrink-0 items-center gap-1.5 overflow-x-auto rounded-2xl border border-violet-200 bg-white p-1.5 shadow-sm">
-              {(
-                [
-                  { id: 'sf', label: 'San Francisco' },
-                  { id: 'la', label: 'Los Angeles' },
-                  { id: 'seattle', label: 'Seattle' },
-                  { id: 'vegas', label: 'Las Vegas' },
-                ] as const
-              ).map((c) => {
+              {cityOrder.map((cityId) => {
+                const c = cityStories[cityId];
                 const active = selectedCity === c.id;
                 return (
                   <button
@@ -2457,168 +2491,233 @@ export default function BomieLandingPage() {
                         : 'text-slate-600 hover:text-violet-950'
                     }`}
                   >
-                    {c.label}
+                    {c.name}
                   </button>
                 );
               })}
             </div>
           </div>
 
-          {/* Step 1: City Overview Card (Click to Expand/Collapse 4 Illustrated Brand Collaborations) */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeCityData.id}
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -14 }}
-              transition={{ duration: 0.3 }}
-              className="mt-10 space-y-6"
+          {/* Step 1: Swipeable Horizontal Spring Track Across All 4 Cities */}
+          <div
+            onMouseEnter={() => setIsCityPaused(true)}
+            onMouseLeave={() => setIsCityPaused(false)}
+            className="mt-10 space-y-6"
+          >
+            <div
+              {...cityCarousel.containerHandlers}
+              tabIndex={0}
+              className="overflow-hidden rounded-3xl border border-white/15 bg-slate-950 shadow-2xl transition hover:border-violet-500/50 cursor-grab active:cursor-grabbing select-none touch-pan-y focus:outline-none"
             >
-              <div
-                onClick={() => setCityExpanded(!cityExpanded)}
-                className="group cursor-pointer overflow-hidden rounded-3xl border border-white/15 bg-slate-950 shadow-2xl transition hover:border-violet-500/50"
+              <motion.div
+                animate={cityCarousel.trackAnimate}
+                transition={cityCarousel.trackTransition}
+                className="flex w-full"
               >
-                <div className="grid grid-cols-1 lg:grid-cols-12">
-                  {/* City Visual Banner */}
-                  <div className="relative h-64 sm:h-80 lg:h-auto lg:col-span-5 overflow-hidden">
-                    <img
-                      src={activeCityData.heroImage}
-                      alt={activeCityData.name}
-                      className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-[#090912]" />
-                    <div className="absolute bottom-5 left-6">
-                      <span className="inline-flex items-center gap-1.5 rounded-full bg-black/65 px-3 py-1 font-mono text-xs text-amber-300 backdrop-blur-md border border-white/15">
-                        <MapPin className="h-3.5 w-3.5" />
-                        {activeCityData.name} Hub
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* City Overview Details & Expand Trigger */}
-                  <div className="flex flex-col justify-between p-7 sm:p-10 lg:col-span-7 bg-[#090912]">
-                    <div className="space-y-4">
-                      <div className="flex flex-wrap items-center justify-between gap-2">
-                        <span className="font-mono text-xs uppercase tracking-widest text-violet-400">
-                          {activeCityData.tagline}
-                        </span>
-                        <span className="rounded-full bg-emerald-500/15 px-3 py-1 font-mono text-xs font-semibold text-emerald-300">
-                          4 Verified Case Studies
-                        </span>
-                      </div>
-                      <h3 className="text-3xl sm:text-4xl font-extrabold text-white">
-                        {activeCityData.name} Creator Commerce Ecosystem
-                      </h3>
-                      <p className="text-sm sm:text-base leading-relaxed text-slate-300">
-                        {activeCityData.overview}
-                      </p>
-
-                      <div className="grid grid-cols-3 gap-4 pt-2">
-                        {activeCityData.stats.map((st, i) => (
-                          <div
-                            key={i}
-                            className="rounded-2xl border border-white/10 bg-white/[0.03] p-3.5"
-                          >
-                            <div className="font-mono text-xl sm:text-2xl font-bold text-white">
-                              {st.value}
-                            </div>
-                            <div className="text-xs text-slate-400 mt-0.5">{st.label}</div>
+                {cityOrder.map((cityId) => {
+                  const cityData = cityStories[cityId];
+                  const isCurrent = selectedCity === cityId;
+                  return (
+                    <div
+                      key={cityData.id}
+                      onClick={() => {
+                        if (cityCarousel.didDragRef.current) {
+                          cityCarousel.didDragRef.current = false;
+                          return;
+                        }
+                        if (!isCurrent) {
+                          setSelectedCity(cityId);
+                          setCityExpanded(false);
+                          return;
+                        }
+                        setCityExpanded((prev) => !prev);
+                      }}
+                      className="group w-full shrink-0 cursor-pointer"
+                    >
+                      <div className="grid grid-cols-1 lg:grid-cols-12">
+                        {/* City Visual Banner */}
+                        <div className="relative h-64 sm:h-80 lg:h-auto lg:col-span-5 overflow-hidden">
+                          <img
+                            src={cityData.heroImage}
+                            alt={cityData.name}
+                            draggable={false}
+                            className="h-full w-full object-cover pointer-events-none transition duration-700 group-hover:scale-105"
+                          />
+                          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-[#090912]" />
+                          <div className="absolute bottom-5 left-6">
+                            <span className="inline-flex items-center gap-1.5 rounded-full bg-black/65 px-3 py-1 font-mono text-xs text-amber-300 backdrop-blur-md border border-white/15">
+                              <MapPin className="h-3.5 w-3.5" />
+                              {cityData.name} Hub
+                            </span>
                           </div>
-                        ))}
-                      </div>
-                    </div>
+                        </div>
 
-                    <div className="mt-7 flex items-center justify-between border-t border-white/10 pt-5">
-                      <span className="text-xs font-mono text-slate-400">
-                        {cityExpanded
-                          ? `Showing all 4 ${activeCityData.name} merchant collaborations below`
-                          : `Click to unfold 4 ${activeCityData.name} brand case studies`}
-                      </span>
-                      <button
-                        type="button"
-                        className="inline-flex items-center gap-2 rounded-xl bg-white px-5 py-2.5 text-xs font-bold text-slate-950 shadow-md transition group-hover:bg-amber-200"
-                      >
-                        <span>
-                          {cityExpanded
-                            ? `Hide ${activeCityData.name} Case Studies`
-                            : `Explore 4 ${activeCityData.name} Brand Stories`}
-                        </span>
-                        <ChevronDown
-                          className={`h-4 w-4 transition-transform duration-300 ${
-                            cityExpanded ? 'rotate-180' : ''
-                          }`}
-                        />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Step 2: Expandable 4 Illustrated Local Brand Case Studies */}
-              <AnimatePresence>
-                {cityExpanded && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.35 }}
-                    className="overflow-hidden"
-                  >
-                    <div className="grid gap-6 pt-2 md:grid-cols-2">
-                      {activeCityData.cases.map((cs, idx) => (
-                        <motion.div
-                          key={cs.brand}
-                          initial={{ opacity: 0, y: 16 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: idx * 0.06 }}
-                          className="overflow-hidden rounded-3xl border border-white/10 bg-slate-950 flex flex-col justify-between shadow-xl"
-                        >
-                          <div>
-                            <div className="relative h-52 w-full overflow-hidden">
-                              <img
-                                src={cs.image}
-                                alt={cs.brand}
-                                className="h-full w-full object-cover"
-                              />
-                              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
-                              <div className="absolute top-4 left-4 rounded-full bg-black/65 px-3 py-1 font-mono text-[11px] text-white backdrop-blur-md border border-white/15">
-                                {cs.industry}
-                              </div>
-                              <div className="absolute bottom-3 left-5 right-5 flex items-end justify-between">
-                                <h4 className="text-xl font-bold text-white">{cs.brand}</h4>
-                                <span className="rounded-full bg-emerald-500/20 border border-emerald-500/40 px-3 py-1 font-mono text-xs font-bold text-emerald-300">
-                                  {cs.metric}
-                                </span>
-                              </div>
+                        {/* City Overview Details & Expand Trigger */}
+                        <div className="flex flex-col justify-between p-7 sm:p-10 lg:col-span-7 bg-[#090912]">
+                          <div className="space-y-4">
+                            <div className="flex flex-wrap items-center justify-between gap-2">
+                              <span className="font-mono text-xs uppercase tracking-widest text-violet-400">
+                                {cityData.tagline}
+                              </span>
+                              <span className="rounded-full bg-emerald-500/15 px-3 py-1 font-mono text-xs font-semibold text-emerald-300">
+                                4 Verified Case Studies
+                              </span>
                             </div>
+                            <h3 className="text-3xl sm:text-4xl font-extrabold text-white">
+                              {cityData.name} Creator Commerce Ecosystem
+                            </h3>
+                            <p className="text-sm sm:text-base leading-relaxed text-slate-300">
+                              {cityData.overview}
+                            </p>
 
-                            <div className="p-6 space-y-3">
-                              <div className="flex items-center justify-between text-xs">
-                                <span className="text-violet-300 font-semibold">
-                                  Matched Lead Creator: {cs.creator}
-                                </span>
-                                <div className="flex items-center gap-0.5 text-amber-400">
-                                  {[...Array(5)].map((_, sIdx) => (
-                                    <Star key={sIdx} className="h-3.5 w-3.5 fill-current" />
-                                  ))}
+                            <div className="grid grid-cols-3 gap-4 pt-2">
+                              {cityData.stats.map((st, i) => (
+                                <div
+                                  key={i}
+                                  className="rounded-2xl border border-white/10 bg-white/[0.03] p-3.5"
+                                >
+                                  <div className="font-mono text-xl sm:text-2xl font-bold text-white">
+                                    {st.value}
+                                  </div>
+                                  <div className="text-xs text-slate-400 mt-0.5">{st.label}</div>
                                 </div>
-                              </div>
-                              <p className="text-xs sm:text-sm leading-relaxed text-slate-300">
-                                {cs.summary}
-                              </p>
-                              <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-3.5 text-xs italic text-slate-400">
-                                {cs.quote}
-                              </div>
+                              ))}
                             </div>
                           </div>
-                        </motion.div>
-                      ))}
+
+                          <div className="mt-7 flex items-center justify-between border-t border-white/10 pt-5">
+                            <span className="text-xs font-mono text-slate-400">
+                              {isCurrent && cityExpanded
+                                ? `Showing all 4 ${cityData.name} merchant collaborations below`
+                                : `Click to unfold 4 ${cityData.name} brand case studies`}
+                            </span>
+                            <button
+                              type="button"
+                              className="inline-flex items-center gap-2 rounded-xl bg-white px-5 py-2.5 text-xs font-bold text-slate-950 shadow-md transition group-hover:bg-amber-200"
+                            >
+                              <span>
+                                {isCurrent && cityExpanded
+                                  ? `Hide ${cityData.name} Case Studies`
+                                  : `Explore 4 ${cityData.name} Brand Stories`}
+                              </span>
+                              <ChevronDown
+                                className={`h-4 w-4 transition-transform duration-300 ${
+                                  isCurrent && cityExpanded ? 'rotate-180' : ''
+                                }`}
+                              />
+                            </button>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.div>
-          </AnimatePresence>
+                  );
+                })}
+              </motion.div>
+            </div>
+
+            {/* 4-City Dash Progress Pill + Swipe Cue (Matches Hero Carousel Feel) */}
+            <div className="flex flex-wrap items-center justify-between gap-3 px-1">
+              <span className="font-mono text-[11px] text-slate-500">
+                Swipe or drag ↔ to glide across cities · Auto-rotates until hovered or expanded
+              </span>
+              <div className="inline-flex items-center gap-2 rounded-full border border-violet-200/80 bg-white px-4 py-2 shadow-xs">
+                {cityOrder.map((cityId, idx) => (
+                  <button
+                    key={cityId}
+                    type="button"
+                    aria-label={`View ${cityStories[cityId].name}`}
+                    onClick={() => {
+                      setSelectedCity(cityId);
+                      setCityExpanded(false);
+                    }}
+                    className={`relative h-1.5 overflow-hidden rounded-full transition-all duration-300 ${
+                      selectedCityIndex === idx
+                        ? 'w-10 bg-violet-200'
+                        : 'w-3.5 bg-slate-300 hover:bg-violet-400'
+                    }`}
+                  >
+                    {selectedCityIndex === idx && !isCityPaused && !cityExpanded && (
+                      <motion.span
+                        key={`city-progress-${selectedCity}`}
+                        initial={{ width: '0%' }}
+                        animate={{ width: '100%' }}
+                        transition={{ duration: 5, ease: 'linear' }}
+                        className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-violet-600 via-fuchsia-500 to-amber-400"
+                      />
+                    )}
+                    {selectedCityIndex === idx && (isCityPaused || cityExpanded) && (
+                      <span className="absolute inset-0 rounded-full bg-gradient-to-r from-violet-600 to-fuchsia-600" />
+                    )}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Step 2: Expandable 4 Illustrated Local Brand Case Studies */}
+            <AnimatePresence>
+              {cityExpanded && (
+                <motion.div
+                  key={`cases-${activeCityData.id}`}
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.35 }}
+                  className="overflow-hidden"
+                >
+                  <div className="grid gap-6 pt-2 md:grid-cols-2">
+                    {activeCityData.cases.map((cs, idx) => (
+                      <motion.div
+                        key={cs.brand}
+                        initial={{ opacity: 0, y: 16 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: idx * 0.06 }}
+                        className="overflow-hidden rounded-3xl border border-white/10 bg-slate-950 flex flex-col justify-between shadow-xl"
+                      >
+                        <div>
+                          <div className="relative h-52 w-full overflow-hidden">
+                            <img
+                              src={cs.image}
+                              alt={cs.brand}
+                              className="h-full w-full object-cover"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
+                            <div className="absolute top-4 left-4 rounded-full bg-black/65 px-3 py-1 font-mono text-[11px] text-white backdrop-blur-md border border-white/15">
+                              {cs.industry}
+                            </div>
+                            <div className="absolute bottom-3 left-5 right-5 flex items-end justify-between">
+                              <h4 className="text-xl font-bold text-white">{cs.brand}</h4>
+                              <span className="rounded-full bg-emerald-500/20 border border-emerald-500/40 px-3 py-1 font-mono text-xs font-bold text-emerald-300">
+                                {cs.metric}
+                              </span>
+                            </div>
+                          </div>
+
+                          <div className="p-6 space-y-3">
+                            <div className="flex items-center justify-between text-xs">
+                              <span className="text-violet-300 font-semibold">
+                                Matched Lead Creator: {cs.creator}
+                              </span>
+                              <div className="flex items-center gap-0.5 text-amber-400">
+                                {[...Array(5)].map((_, sIdx) => (
+                                  <Star key={sIdx} className="h-3.5 w-3.5 fill-current" />
+                                ))}
+                              </div>
+                            </div>
+                            <p className="text-xs sm:text-sm leading-relaxed text-slate-300">
+                              {cs.summary}
+                            </p>
+                            <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-3.5 text-xs italic text-slate-400">
+                              {cs.quote}
+                            </div>
+                          </div>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </div>
       </section>
 
