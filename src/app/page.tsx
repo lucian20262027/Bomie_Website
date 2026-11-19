@@ -1215,6 +1215,8 @@ export default function BomieLandingPage() {
 
   const dragStartXRef = useRef<number | null>(null);
   const lastWheelSwipeRef = useRef<number>(0);
+  const showcaseVideoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+  const hasMountedShowcaseRef = useRef<boolean>(false);
   const [dragOffset, setDragOffset] = useState<number>(0);
   const [isDraggingShowcase, setIsDraggingShowcase] = useState<boolean>(false);
 
@@ -1256,14 +1258,31 @@ export default function BomieLandingPage() {
     }
   };
 
-  // Auto-rotate Hero Showcase (Dining -> Fashion & Spa -> Craft Goods) every 4.5s, pause on hover
+  // Auto-rotate Hero Showcase (Dining -> Fashion & Spa -> Craft Goods) every 3.85s (synced to 3.92s clips), pause on hover
   useEffect(() => {
     if (isMatchPaused) return;
     const timer = setInterval(() => {
       setSelectedMatch((prev) => (prev + 1) % liveMatches.length);
-    }, 4500);
+    }, 3850);
     return () => clearInterval(timer);
   }, [selectedMatch, isMatchPaused, liveMatches.length]);
+
+  // Keep only active slide video playing; reset newly activated slide to 0s without re-seeking on initial load
+  useEffect(() => {
+    const isInitialMount = !hasMountedShowcaseRef.current;
+    hasMountedShowcaseRef.current = true;
+    showcaseVideoRefs.current.forEach((video, idx) => {
+      if (!video) return;
+      if (idx === selectedMatch) {
+        if (!isInitialMount) {
+          video.currentTime = 0;
+        }
+        video.play().catch(() => {});
+      } else {
+        video.pause();
+      }
+    });
+  }, [selectedMatch]);
 
   const marqueeItems = [
     'AI Hyper-Local Matching',
@@ -2202,8 +2221,11 @@ export default function BomieLandingPage() {
                     <div key={m.tag} className="relative h-full w-full shrink-0 overflow-hidden">
                       {'video' in m && m.video ? (
                         <video
+                          ref={(el) => {
+                            showcaseVideoRefs.current[idx] = el;
+                          }}
                           src={m.video}
-                          autoPlay
+                          autoPlay={idx === 0}
                           muted
                           loop
                           playsInline
@@ -2257,7 +2279,7 @@ export default function BomieLandingPage() {
                     </p>
                   </div>
 
-                  {/* Material Flask Style Dash Indicator Pill with 4.5s Apple-Style Progress Fill */}
+                  {/* Material Flask Style Dash Indicator Pill with 3.85s Apple-Style Progress Fill */}
                   <div className="inline-flex items-center gap-2 self-start sm:self-end rounded-full border border-white/15 bg-black/65 px-4 py-2.5 backdrop-blur-md">
                     {liveMatches.map((_, idx) => (
                       <button
@@ -2276,7 +2298,7 @@ export default function BomieLandingPage() {
                             key={`progress-${selectedMatch}`}
                             initial={{ width: '0%' }}
                             animate={{ width: '100%' }}
-                            transition={{ duration: 4.5, ease: 'linear' }}
+                            transition={{ duration: 3.85, ease: 'linear' }}
                             className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-violet-300 via-white to-amber-200"
                           />
                         )}
