@@ -98,16 +98,16 @@ export default function BrandFooter() {
             </span>
           </div>
 
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+          <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 sm:gap-3 lg:grid-cols-5">
             {infraRails.map((rail) => (
               <div
                 key={rail.name}
-                className={`flex items-center gap-3 rounded-2xl border border-violet-200/70 bg-white/85 px-4 py-3 shadow-xs transition hover:border-violet-300 hover:bg-white hover:shadow-sm ${rail.spanClass}`}
+                className={`flex items-center gap-2 sm:gap-3 rounded-2xl border border-violet-200/70 bg-white/85 px-2.5 py-2.5 sm:px-4 sm:py-3 shadow-xs transition hover:border-violet-300 hover:bg-white hover:shadow-sm ${rail.spanClass}`}
               >
                 {rail.badge}
                 <div className="min-w-0">
-                  <div className="truncate text-xs font-bold text-[#161224]">{rail.name}</div>
-                  <div className="truncate text-[11px] text-slate-500">{rail.role}</div>
+                  <div className="text-[11.5px] sm:text-xs font-bold leading-tight text-[#161224]">{rail.name}</div>
+                  <div className="text-[10px] sm:text-[11px] leading-tight text-slate-500">{rail.role}</div>
                 </div>
               </div>
             ))}
