@@ -3,20 +3,21 @@ import { ShieldCheck } from 'lucide-react';
 
 const infraRails = [
   {
-    name: 'AWS',
-    role: 'Cloud & Compute',
-    spanClass: '',
+    name: 'Google Gemini',
+    role: 'Multimodal AI',
     badge: (
-      <div className="flex h-9 w-9 shrink-0 flex-col items-center justify-center rounded-xl bg-slate-900 px-1.5 text-white">
-        <span className="text-[11px] font-black leading-none tracking-tight">aws</span>
-        <svg viewBox="0 0 36 10" fill="none" className="mt-0.5 h-2 w-6" aria-hidden="true">
-          <path d="M2 2.5C11 8.5 23 8.5 32 3" stroke="#FF9900" strokeWidth="2.2" strokeLinecap="round" />
+      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-slate-200/80 bg-white">
+        <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" aria-hidden="true">
+          <defs>
+            <linearGradient id="bomieGeminiGrad" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stopColor="#1C7EFF" />
+              <stop offset="55%" stopColor="#8E75FF" />
+              <stop offset="100%" stopColor="#D96570" />
+            </linearGradient>
+          </defs>
           <path
-            d="M28.5 1.8L33.2 2.9L31.4 7.2"
-            stroke="#FF9900"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+            d="M12 2C12.7 7.1 16.9 11.3 22 12C16.9 12.7 12.7 16.9 12 22C11.3 16.9 7.1 12.7 2 12C7.1 11.3 11.3 7.1 12 2Z"
+            fill="url(#bomieGeminiGrad)"
           />
         </svg>
       </div>
@@ -25,7 +26,6 @@ const infraRails = [
   {
     name: 'Google Cloud',
     role: 'AI Infrastructure',
-    spanClass: '',
     badge: (
       <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-slate-200/80 bg-white">
         <svg viewBox="0 0 28 22" fill="none" className="h-5 w-6" aria-hidden="true">
@@ -43,9 +43,27 @@ const infraRails = [
     ),
   },
   {
+    name: 'AWS',
+    role: 'Cloud & Compute',
+    badge: (
+      <div className="flex h-9 w-9 shrink-0 flex-col items-center justify-center rounded-xl bg-slate-900 px-1.5 text-white">
+        <span className="text-[11px] font-black leading-none tracking-tight">aws</span>
+        <svg viewBox="0 0 36 10" fill="none" className="mt-0.5 h-2 w-6" aria-hidden="true">
+          <path d="M2 2.5C11 8.5 23 8.5 32 3" stroke="#FF9900" strokeWidth="2.2" strokeLinecap="round" />
+          <path
+            d="M28.5 1.8L33.2 2.9L31.4 7.2"
+            stroke="#FF9900"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </div>
+    ),
+  },
+  {
     name: 'Microsoft Azure',
     role: 'Enterprise Cloud',
-    spanClass: '',
     badge: (
       <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-slate-200/80 bg-white">
         <svg viewBox="0 0 20 20" fill="none" className="h-4.5 w-4.5" aria-hidden="true">
@@ -60,7 +78,6 @@ const infraRails = [
   {
     name: 'Mercury',
     role: 'Business Banking',
-    spanClass: '',
     badge: (
       <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#1E1B4B] text-white">
         <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" aria-hidden="true">
@@ -74,7 +91,6 @@ const infraRails = [
   {
     name: 'Stripe',
     role: 'Escrow & Payouts',
-    spanClass: 'col-span-2 sm:col-span-1',
     badge: (
       <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#635BFF] text-white">
         <span className="text-base font-black leading-none tracking-tighter">S</span>
@@ -87,22 +103,22 @@ export default function BrandFooter() {
   return (
     <footer className="border-t border-violet-200/80 bg-white/60 py-14 text-sm text-slate-600">
       <div className="mx-auto max-w-[1440px] px-6 lg:px-10">
-        {/* Cloud, Banking & Payment Infrastructure Strip */}
+        {/* AI, Cloud, Banking & Payment Infrastructure Strip */}
         <div className="mb-12 border-b border-violet-200/70 pb-10">
           <div className="mb-5 flex flex-col items-start justify-between gap-1.5 sm:flex-row sm:items-center">
             <span className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-violet-700/85">
-              Cloud, Banking &amp; Payment Infrastructure
+              AI, Cloud, Banking &amp; Payment Infrastructure
             </span>
             <span className="text-xs text-slate-500">
-              Built on enterprise cloud compute, US business banking &amp; 30/40/30 escrow rails
+              Powered by frontier AI, enterprise cloud compute, US business banking &amp; 30/40/30 escrow rails
             </span>
           </div>
 
-          <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 sm:gap-3 lg:grid-cols-5">
+          <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 sm:gap-3 lg:grid-cols-6">
             {infraRails.map((rail) => (
               <div
                 key={rail.name}
-                className={`flex items-center gap-2 sm:gap-3 rounded-2xl border border-violet-200/70 bg-white/85 px-2.5 py-2.5 sm:px-4 sm:py-3 shadow-xs transition hover:border-violet-300 hover:bg-white hover:shadow-sm ${rail.spanClass}`}
+                className="flex items-center gap-2 sm:gap-2.5 rounded-2xl border border-violet-200/70 bg-white/85 px-2.5 py-2.5 sm:px-3.5 sm:py-3 shadow-xs transition hover:border-violet-300 hover:bg-white hover:shadow-sm"
               >
                 {rail.badge}
                 <div className="min-w-0">
