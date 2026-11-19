@@ -12,9 +12,9 @@ import {
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Founder & Bomie Stories — Lucian Wang & Our Main Street Mission | Bomie AI',
+  title: 'Founder & Mission — Lucian Wang & Our Main Street Vision | Bomie AI',
   description:
-    'Meet Lucian Wang, Founder & CEO of Bomie AI (BOMIES LLC) in San Francisco, and discover how North America’s first AI Commerce OS empowers 40M+ local small businesses and creators.',
+    'Meet Lucian Wang, Founder & CEO of Bomie AI (BOMIES LLC) in San Francisco, and discover the mission behind North America’s first AI Commerce OS for 40M+ small businesses and local creators.',
 };
 
 const visionPillars = [
@@ -98,7 +98,7 @@ export default function BomieStoriesPage() {
         <section className="space-y-4">
           <span className="inline-flex items-center gap-1.5 rounded-full border border-violet-200 bg-white px-3.5 py-1 font-mono text-[11px] font-semibold uppercase tracking-widest text-violet-700 shadow-xs">
             <Sparkles className="h-3.5 w-3.5 text-fuchsia-600" />
-            Founder &amp; Bomie Stories · San Francisco
+            Founder &amp; Mission · San Francisco
           </span>
           <h1 className="max-w-4xl text-4xl sm:text-5xl font-extrabold tracking-tight leading-tight text-[#161224]">
             Built for Main Street, by Builders Who Care.

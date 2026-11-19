@@ -59,7 +59,7 @@ export default function BomieResearchPage() {
               href="/why-bomie/stories"
               className="hidden sm:inline-flex text-xs font-semibold text-slate-600 hover:text-violet-950"
             >
-              Founder &amp; Stories
+              Founder &amp; Mission
             </Link>
             <Link
               href="/"
