@@ -69,20 +69,37 @@ export default function MerchantPage() {
     },
   ];
 
-  const runGeneration = (promptToRun: string) => {
+  const runGeneration = async (promptToRun: string) => {
     setGuideStep(2);
     setDispatchedBrief(false);
     setThinkingStage(1);
-    setTimeout(() => setThinkingStage(2), 380);
-    setTimeout(() => setThinkingStage(3), 760);
+    setTimeout(() => setThinkingStage(2), 340);
+    setTimeout(() => setThinkingStage(3), 680);
+
+    let nextPlan = buildCustomMerchantPlan(promptToRun);
+    try {
+      const res = await fetch('/api/sandbox', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ mode: 'merchant', prompt: promptToRun }),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data?.ok && data?.plan?.creators?.length) {
+          nextPlan = data.plan;
+        }
+      }
+    } catch {
+      // fallback already computed
+    }
+
     setTimeout(() => {
-      const next = buildCustomMerchantPlan(promptToRun);
-      setActivePlan(next);
-      setBudgetSlider(next.baseBudget);
-      setSelectedCreatorIds(next.creators.map((c) => c.id));
+      setActivePlan(nextPlan);
+      setBudgetSlider(nextPlan.baseBudget);
+      setSelectedCreatorIds(nextPlan.creators.map((c) => c.id));
       setThinkingStage(4);
       setGuideStep(3);
-    }, 1150);
+    }, 350);
   };
 
   const toggleCreator = (id: string) => {
@@ -355,7 +372,7 @@ export default function MerchantPage() {
                 <h3 className="mt-1 text-2xl font-bold text-[#161224]">{activePlan.title}</h3>
               </div>
               <span className="self-start rounded-full border border-amber-300 bg-amber-50 px-3.5 py-1 text-xs font-bold text-amber-800">
-                {dynamicRoas}x Projected ROAS
+                {dynamicRoas.range} Projected ROAS
               </span>
             </div>
 
@@ -498,6 +515,9 @@ export default function MerchantPage() {
                       <div className="mt-3 text-base font-bold text-[#161224]">{c.handle}</div>
                       <div className="text-xs text-slate-600">
                         {c.followers} · {c.distance}
+                      </div>
+                      <div className="mt-1.5 text-[11px] font-medium text-emerald-700">
+                        {c.localAudiencePct}% Local · {c.authenticityScore}/100 Auth · {c.engagementRate} ER
                       </div>
                       <div className="mt-3 flex items-center justify-between border-t border-violet-200/60 pt-2.5 text-xs">
                         <span className="text-slate-500">{c.niche}</span>

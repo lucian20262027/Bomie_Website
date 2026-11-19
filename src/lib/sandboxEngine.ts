@@ -1,20 +1,44 @@
+export interface CreatorCandidate {
+  id: string;
+  handle: string;
+  niche: string;
+  distance: string;
+  distanceMiles: number;
+  followers: string;
+  localAudiencePct: number;
+  engagementRate: string;
+  authenticityScore: number;
+  match: string;
+  weight: number;
+}
+
 export interface GeneratedMerchantPlan {
   title: string;
   city: string;
   category: string;
   baseBudget: number;
   baseRoas: number;
-  creators: {
-    id: string;
-    handle: string;
-    niche: string;
-    distance: string;
-    followers: string;
-    match: string;
-    weight: number;
-  }[];
+  creators: CreatorCandidate[];
   hookTemplate: string;
   shots: string[];
+  aiSource?: 'gemini-live' | 'scientific-engine';
+}
+
+export function scoreCreatorCandidate(
+  semanticFit: number,
+  distanceMiles: number,
+  localAudiencePct: number,
+  authenticityScore: number
+): string {
+  // Hybrid Ranking: 45% Semantic Fit + 25% Geo-Decay + 20% Local Audience % + 10% Authenticity
+  const geoScore = Math.exp(-0.15 * Math.max(0, distanceMiles));
+  const raw =
+    0.45 * semanticFit +
+    0.25 * geoScore +
+    0.2 * (localAudiencePct / 100) +
+    0.1 * (authenticityScore / 100);
+  const pct = Math.min(99, Math.max(82, Math.round(raw * 100)));
+  return `${pct}% Match`;
 }
 
 export interface CreatorDealPlan {
@@ -85,9 +109,45 @@ export function buildCustomMerchantPlan(promptText: string): GeneratedMerchantPl
       baseBudget: parsedBudget,
       baseRoas: 4.12,
       creators: [
-        { id: 'c1', handle: '@wanderlust_maya', niche: 'Travel & Itineraries', distance: 'Verified Hub', followers: '42.1K', match: '98% Match', weight: 0.4 },
-        { id: 'c2', handle: '@weekend_escapes', niche: 'Destination Guides', distance: 'Verified Hub', followers: '26.8K', match: '96% Match', weight: 0.33 },
-        { id: 'c3', handle: '@passport_deals', niche: 'Travel Tips & Stays', distance: 'Verified Hub', followers: '18.4K', match: '95% Match', weight: 0.27 },
+        {
+          id: 'c1',
+          handle: '@wanderlust_maya',
+          niche: 'Travel & Itineraries',
+          distance: 'Verified Hub',
+          distanceMiles: 1.2,
+          followers: '42.1K',
+          localAudiencePct: 71,
+          engagementRate: '5.4%',
+          authenticityScore: 98,
+          match: scoreCreatorCandidate(0.98, 1.2, 71, 98),
+          weight: 0.4,
+        },
+        {
+          id: 'c2',
+          handle: '@weekend_escapes',
+          niche: 'Destination Guides',
+          distance: 'Verified Hub',
+          distanceMiles: 2.1,
+          followers: '26.8K',
+          localAudiencePct: 68,
+          engagementRate: '4.9%',
+          authenticityScore: 96,
+          match: scoreCreatorCandidate(0.95, 2.1, 68, 96),
+          weight: 0.33,
+        },
+        {
+          id: 'c3',
+          handle: '@passport_deals',
+          niche: 'Travel Tips & Stays',
+          distance: 'Verified Hub',
+          distanceMiles: 2.8,
+          followers: '18.4K',
+          localAudiencePct: 65,
+          engagementRate: '5.1%',
+          authenticityScore: 95,
+          match: scoreCreatorCandidate(0.93, 2.8, 65, 95),
+          weight: 0.27,
+        },
       ],
       hookTemplate: `“Planning a ${cityShort} trip? Save these 3 insider ${cityShort} tips & unlock {PROMO} on your booking!”`,
       shots: [
@@ -114,9 +174,9 @@ export function buildCustomMerchantPlan(promptText: string): GeneratedMerchantPl
       baseBudget: parsedBudget,
       baseRoas: 3.68,
       creators: [
-        { id: 'c1', handle: '@glowwithchloe', niche: 'Skincare & ASMR', distance: '0.8 mi away', followers: '31.4K', match: '98% Match', weight: 0.39 },
-        { id: 'c2', handle: '@selfcare_diary', niche: 'Wellness Routines', distance: '1.3 mi away', followers: '22.6K', match: '96% Match', weight: 0.34 },
-        { id: 'c3', handle: '@cleanbeauty_maya', niche: 'Local Spa Reviews', distance: '2.0 mi away', followers: '17.2K', match: '95% Match', weight: 0.27 },
+        { id: 'c1', handle: '@glowwithchloe', niche: 'Skincare & ASMR', distance: '0.8 mi away', distanceMiles: 0.8, followers: '31.4K', localAudiencePct: 76, engagementRate: '5.6%', authenticityScore: 98, match: scoreCreatorCandidate(0.98, 0.8, 76, 98), weight: 0.39 },
+        { id: 'c2', handle: '@selfcare_diary', niche: 'Wellness Routines', distance: '1.3 mi away', distanceMiles: 1.3, followers: '22.6K', localAudiencePct: 72, engagementRate: '4.8%', authenticityScore: 96, match: scoreCreatorCandidate(0.95, 1.3, 72, 96), weight: 0.34 },
+        { id: 'c3', handle: '@cleanbeauty_maya', niche: 'Local Spa Reviews', distance: '2.0 mi away', distanceMiles: 2.0, followers: '17.2K', localAudiencePct: 69, engagementRate: '5.1%', authenticityScore: 95, match: scoreCreatorCandidate(0.93, 2.0, 69, 95), weight: 0.27 },
       ],
       hookTemplate: `“The 45-minute glow reset everyone in ${cityShort} is booking—claim {PROMO} below.”`,
       shots: [
@@ -141,9 +201,9 @@ export function buildCustomMerchantPlan(promptText: string): GeneratedMerchantPl
       baseBudget: parsedBudget,
       baseRoas: 3.38,
       creators: [
-        { id: 'c1', handle: '@pilates_club_sf', niche: 'Studio Workouts', distance: '0.7 mi away', followers: '29.5K', match: '97% Match', weight: 0.38 },
-        { id: 'c2', handle: '@morning_run_crew', niche: 'Active Lifestyle', distance: '1.4 mi away', followers: '19.8K', match: '95% Match', weight: 0.34 },
-        { id: 'c3', handle: '@wellness_with_sam', niche: 'Healthy Routines', distance: '1.9 mi away', followers: '15.1K', match: '94% Match', weight: 0.28 },
+        { id: 'c1', handle: '@pilates_club_sf', niche: 'Studio Workouts', distance: '0.7 mi away', distanceMiles: 0.7, followers: '29.5K', localAudiencePct: 78, engagementRate: '5.2%', authenticityScore: 97, match: scoreCreatorCandidate(0.97, 0.7, 78, 97), weight: 0.38 },
+        { id: 'c2', handle: '@morning_run_crew', niche: 'Active Lifestyle', distance: '1.4 mi away', distanceMiles: 1.4, followers: '19.8K', localAudiencePct: 71, engagementRate: '4.7%', authenticityScore: 95, match: scoreCreatorCandidate(0.94, 1.4, 71, 95), weight: 0.34 },
+        { id: 'c3', handle: '@wellness_with_sam', niche: 'Healthy Routines', distance: '1.9 mi away', distanceMiles: 1.9, followers: '15.1K', localAudiencePct: 68, engagementRate: '5.0%', authenticityScore: 94, match: scoreCreatorCandidate(0.92, 1.9, 68, 94), weight: 0.28 },
       ],
       hookTemplate: `“Come with me to my favorite new class in ${cityShort}—grab {PROMO} on your first drop-in!”`,
       shots: [
@@ -170,9 +230,9 @@ export function buildCustomMerchantPlan(promptText: string): GeneratedMerchantPl
       baseBudget: parsedBudget,
       baseRoas: 3.44,
       creators: [
-        { id: 'c1', handle: '@cozyhomewithsam', niche: 'Home Aesthetics', distance: '0.6 mi away', followers: '24.8K', match: '98% Match', weight: 0.38 },
-        { id: 'c2', handle: '@neighborhood_finds', niche: 'Local Shopping', distance: '1.2 mi away', followers: '19.4K', match: '96% Match', weight: 0.34 },
-        { id: 'c3', handle: '@artisan_curator', niche: 'Craft & Goods', distance: '1.8 mi away', followers: '14.9K', match: '95% Match', weight: 0.28 },
+        { id: 'c1', handle: '@cozyhomewithsam', niche: 'Home Aesthetics', distance: '0.6 mi away', distanceMiles: 0.6, followers: '24.8K', localAudiencePct: 75, engagementRate: '5.5%', authenticityScore: 98, match: scoreCreatorCandidate(0.98, 0.6, 75, 98), weight: 0.38 },
+        { id: 'c2', handle: '@neighborhood_finds', niche: 'Local Shopping', distance: '1.2 mi away', distanceMiles: 1.2, followers: '19.4K', localAudiencePct: 72, engagementRate: '4.9%', authenticityScore: 96, match: scoreCreatorCandidate(0.95, 1.2, 72, 96), weight: 0.34 },
+        { id: 'c3', handle: '@artisan_curator', niche: 'Craft & Goods', distance: '1.8 mi away', distanceMiles: 1.8, followers: '14.9K', localAudiencePct: 69, engagementRate: '5.1%', authenticityScore: 95, match: scoreCreatorCandidate(0.93, 1.8, 69, 95), weight: 0.28 },
       ],
       hookTemplate: `“Found a local artisan studio right in ${cityShort}—unlock {PROMO} this weekend.”`,
       shots: [
@@ -203,9 +263,9 @@ export function buildCustomMerchantPlan(promptText: string): GeneratedMerchantPl
       baseBudget: parsedBudget,
       baseRoas: isCafe ? 3.28 : 3.52,
       creators: [
-        { id: 'c1', handle: '@localtaste_club', niche: 'Foodie & Dining', distance: '0.7 mi away', followers: '34.2K', match: '98% Match', weight: 0.39 },
-        { id: 'c2', handle: '@bite_sized_city', niche: 'Weekend Eats', distance: '1.3 mi away', followers: '23.1K', match: '96% Match', weight: 0.33 },
-        { id: 'c3', handle: '@hidden_kitchens', niche: 'Local Gems', distance: '1.9 mi away', followers: '16.5K', match: '95% Match', weight: 0.28 },
+        { id: 'c1', handle: '@localtaste_club', niche: 'Foodie & Dining', distance: '0.7 mi away', distanceMiles: 0.7, followers: '34.2K', localAudiencePct: 77, engagementRate: '5.8%', authenticityScore: 98, match: scoreCreatorCandidate(0.98, 0.7, 77, 98), weight: 0.39 },
+        { id: 'c2', handle: '@bite_sized_city', niche: 'Weekend Eats', distance: '1.3 mi away', distanceMiles: 1.3, followers: '23.1K', localAudiencePct: 73, engagementRate: '5.0%', authenticityScore: 96, match: scoreCreatorCandidate(0.95, 1.3, 73, 96), weight: 0.33 },
+        { id: 'c3', handle: '@hidden_kitchens', niche: 'Local Gems', distance: '1.9 mi away', distanceMiles: 1.9, followers: '16.5K', localAudiencePct: 70, engagementRate: '5.2%', authenticityScore: 95, match: scoreCreatorCandidate(0.93, 1.9, 70, 95), weight: 0.28 },
       ],
       hookTemplate: `“Wait until you see this tableside pour in ${cityShort}—grab {PROMO} when you scan our QR code!”`,
       shots: [
@@ -223,9 +283,9 @@ export function buildCustomMerchantPlan(promptText: string): GeneratedMerchantPl
     baseBudget: parsedBudget,
     baseRoas: 3.18,
     creators: [
-      { id: 'c1', handle: '@localspotlight', niche: 'Neighborhood Discovery', distance: '0.8 mi away', followers: '28.6K', match: '97% Match', weight: 0.38 },
-      { id: 'c2', handle: '@city_insider_guide', niche: 'Local Reviews', distance: '1.4 mi away', followers: '20.4K', match: '95% Match', weight: 0.34 },
-      { id: 'c3', handle: '@everyday_local', niche: 'Community Picks', distance: '2.1 mi away', followers: '15.2K', match: '94% Match', weight: 0.28 },
+      { id: 'c1', handle: '@localspotlight', niche: 'Neighborhood Discovery', distance: '0.8 mi away', distanceMiles: 0.8, followers: '28.6K', localAudiencePct: 74, engagementRate: '4.9%', authenticityScore: 96, match: scoreCreatorCandidate(0.95, 0.8, 74, 96), weight: 0.38 },
+      { id: 'c2', handle: '@city_insider_guide', niche: 'Local Reviews', distance: '1.4 mi away', distanceMiles: 1.4, followers: '20.4K', localAudiencePct: 70, engagementRate: '4.6%', authenticityScore: 95, match: scoreCreatorCandidate(0.93, 1.4, 70, 95), weight: 0.34 },
+      { id: 'c3', handle: '@everyday_local', niche: 'Community Picks', distance: '2.1 mi away', distanceMiles: 2.1, followers: '15.2K', localAudiencePct: 67, engagementRate: '4.8%', authenticityScore: 94, match: scoreCreatorCandidate(0.91, 2.1, 67, 94), weight: 0.28 },
     ],
     hookTemplate: `“POV: You just discovered this local favorite in ${cityShort}—scan for {PROMO}!”`,
     shots: [
@@ -241,7 +301,7 @@ export function computeDynamicRoas(
   budget: number,
   selectedCreatorCount: number,
   promoOffer: '20% Off' | 'Free Appetizer' | 'BOGO Deal'
-): string {
+): { mid: string; range: string } {
   // Budget curve: smaller starter budgets have slightly tighter reach, mid-scale ($1500-$3000) hits peak efficiency
   const budgetDelta =
     budget < 600
@@ -256,7 +316,12 @@ export function computeDynamicRoas(
   const promoDelta = promoOffer === 'BOGO Deal' ? 0.21 : promoOffer === '20% Off' ? 0.12 : 0.06;
 
   const finalRoas = Math.max(2.4, Math.min(4.95, baseRoas + budgetDelta + creatorDelta + promoDelta));
-  return finalRoas.toFixed(2);
+  const low = Math.max(2.1, finalRoas - 0.32).toFixed(1);
+  const high = Math.min(5.3, finalRoas + 0.34).toFixed(1);
+  return {
+    mid: finalRoas.toFixed(2),
+    range: `${low}x – ${high}x`,
+  };
 }
 
 export function buildCreatorPlan(promptText: string): CreatorDealPlan {

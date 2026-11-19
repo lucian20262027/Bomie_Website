@@ -61,19 +61,36 @@ export default function CreatorPage() {
     },
   ];
 
-  const runMatch = (text: string) => {
+  const runMatch = async (text: string) => {
     setGuideStep(2);
     setWithdrawn(false);
     setThinkingStage(1);
-    setTimeout(() => setThinkingStage(2), 380);
-    setTimeout(() => setThinkingStage(3), 760);
+    setTimeout(() => setThinkingStage(2), 340);
+    setTimeout(() => setThinkingStage(3), 680);
+
+    let nextPlan = buildCreatorPlan(text);
+    try {
+      const res = await fetch('/api/sandbox', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ mode: 'creator', prompt: text }),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data?.ok && data?.plan?.offers?.length) {
+          nextPlan = data.plan;
+        }
+      }
+    } catch {
+      // fallback already computed
+    }
+
     setTimeout(() => {
-      const next = buildCreatorPlan(text);
-      setPlan(next);
-      setAcceptedOfferId(next.offers[0].id);
+      setPlan(nextPlan);
+      setAcceptedOfferId(nextPlan.offers[0].id);
       setThinkingStage(4);
       setGuideStep(3);
-    }, 1150);
+    }, 350);
   };
 
   const activeOffer = plan.offers.find((o) => o.id === acceptedOfferId) || plan.offers[0];
