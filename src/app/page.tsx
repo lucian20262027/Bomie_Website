@@ -2141,7 +2141,7 @@ export default function BomieLandingPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
+            className="mt-7 flex flex-col items-center justify-center gap-4 sm:flex-row"
           >
             <Link
               href="/merchant"
@@ -2168,7 +2168,7 @@ export default function BomieLandingPage() {
             transition={{ duration: 0.7, delay: 0.45 }}
             onMouseEnter={() => setIsMatchPaused(true)}
             onMouseLeave={() => setIsMatchPaused(false)}
-            className="mx-auto mt-14 w-full overflow-hidden rounded-3xl border border-violet-200/60 bg-[#0b0b14] text-left shadow-2xl shadow-violet-950/15"
+            className="mx-auto mt-9 w-full overflow-hidden rounded-3xl border border-violet-200/60 bg-[#0b0b14] text-left shadow-2xl shadow-violet-950/15"
           >
             <div>
               {/* Visual Hero Stage (Responsive 16:9 Video Framing + Physical Horizontal Spring Carousel) */}
