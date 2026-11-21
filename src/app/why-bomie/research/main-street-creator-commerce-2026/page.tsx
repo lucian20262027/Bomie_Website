@@ -52,6 +52,16 @@ const articleJsonLd = {
   url: REPORT_URL,
   mainEntityOfPage: REPORT_URL,
   inLanguage: 'en-US',
+  identifier: {
+    '@type': 'PropertyValue',
+    propertyID: 'DOI',
+    value: '10.5281/zenodo.24410731',
+  },
+  sameAs: [
+    'https://doi.org/10.5281/zenodo.24410731',
+    'https://zenodo.org/records/24410731',
+  ],
+  license: 'https://creativecommons.org/licenses/by/4.0/',
   author: {
     '@type': 'Person',
     name: 'Lucian Wang',
@@ -251,7 +261,18 @@ export default function MainStreetCreatorCommerceReport2026Page() {
                 San Francisco, CA
               </span>
               <span>
-                <strong className="text-[#161224]">Release:</strong> November 2026
+                <strong className="text-[#161224]">Release:</strong> November 20, 2026
+              </span>
+              <span>
+                <strong className="text-[#161224]">DOI:</strong>{' '}
+                <a
+                  href="https://doi.org/10.5281/zenodo.24410731"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-mono font-semibold text-violet-700 hover:underline"
+                >
+                  10.5281/zenodo.24410731
+                </a>
               </span>
             </div>
           </header>
@@ -649,6 +670,24 @@ export default function MainStreetCreatorCommerceReport2026Page() {
                   formal legal advice.
                 </em>
               </p>
+              <div className="rounded-xl border border-violet-200/70 bg-white/80 p-3.5 text-xs text-slate-700">
+                <strong className="text-[#161224]">Suggested Citation (APA):</strong>{' '}
+                Wang, L. (2026).{' '}
+                <em>
+                  The 2026–2027 State of Main Street Creator Commerce: Why Hyper-Local AI
+                  Orchestration &amp; Milestone Escrow Are Replacing Agency Retainers for
+                  U.S. Small Businesses
+                </em>
+                . Bomie AI.{' '}
+                <a
+                  href="https://doi.org/10.5281/zenodo.24410731"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-mono font-semibold text-violet-700 hover:underline"
+                >
+                  https://doi.org/10.5281/zenodo.24410731
+                </a>
+              </div>
             </div>
 
             <div className="rounded-2xl border border-violet-200/70 bg-white p-5 space-y-2">
