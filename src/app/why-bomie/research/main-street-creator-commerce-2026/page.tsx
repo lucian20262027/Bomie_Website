@@ -697,9 +697,8 @@ export default function MainStreetCreatorCommerceReport2026Page() {
               <p className="text-sm leading-relaxed text-slate-700">
                 <strong>Lucian Wang</strong> is the Founder &amp; CEO of{' '}
                 <strong>Bomie AI</strong> in San Francisco and an alumnus of{' '}
-                <strong>Babson College</strong> (MBA) and the{' '}
-                <strong>University of Cambridge</strong> (Diploma in International
-                Relations). Bomie (
+                <strong>Babson College</strong> and the{' '}
+                <strong>University of Cambridge</strong>. Bomie (
                 <Link href="/" className="font-semibold text-violet-700 hover:underline">
                   www.bomie.ai
                 </Link>
