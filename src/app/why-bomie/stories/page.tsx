@@ -15,7 +15,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Founder & Mission — Lucian Wang & Our Main Street Vision | Bomie AI',
   description:
-    'Meet Lucian Wang, Founder & CEO of Bomie AI (BOMIES LLC) in San Francisco, and discover the mission behind North America’s first AI Commerce OS for 40M+ small businesses and local creators.',
+    'Meet Lucian Wang, Founder & CEO of Bomie AI in San Francisco, and discover the mission behind North America’s first AI Commerce OS for 40M+ small businesses and local creators.',
 };
 
 const visionPillars = [

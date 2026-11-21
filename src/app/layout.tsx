@@ -129,7 +129,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             name: "What is Bomie AI?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Bomie AI (BOMIES LLC) is North America's first AI Commerce OS connecting neighborhood small businesses and local creators through AI smart matching, 30-second script co-creation, built-in FTC 16 CFR Part 255 compliance, and 30/40/30 milestone escrow.",
+              text: "Bomie AI is North America's first AI Commerce OS connecting neighborhood small businesses and local creators through AI smart matching, 30-second script co-creation, built-in FTC 16 CFR Part 255 compliance, and 30/40/30 milestone escrow.",
             },
           },
           {

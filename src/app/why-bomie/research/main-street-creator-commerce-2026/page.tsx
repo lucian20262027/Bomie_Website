@@ -56,15 +56,21 @@ const articleJsonLd = {
     '@type': 'Person',
     name: 'Lucian Wang',
     jobTitle: 'Founder & CEO',
-    alumniOf: {
-      '@type': 'CollegeOrUniversity',
-      name: 'Babson College',
-    },
+    alumniOf: [
+      {
+        '@type': 'CollegeOrUniversity',
+        name: 'Babson College',
+      },
+      {
+        '@type': 'CollegeOrUniversity',
+        name: 'University of Cambridge',
+      },
+    ],
     url: 'https://www.linkedin.com/in/lucianwang18',
   },
   publisher: {
     '@type': 'Organization',
-    name: 'Bomie AI (BOMIES LLC)',
+    name: 'Bomie AI',
     url: 'https://www.bomie.ai',
   },
   about: [
@@ -227,7 +233,6 @@ export default function MainStreetCreatorCommerceReport2026Page() {
             <div className="flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-violet-100 pt-5 text-xs text-slate-600">
               <span>
                 <strong className="text-[#161224]">Published by:</strong> Bomie AI
-                (BOMIES LLC)
               </span>
               <span>
                 <strong className="text-[#161224]">Author:</strong>{' '}
@@ -637,7 +642,7 @@ export default function MainStreetCreatorCommerceReport2026Page() {
                 </strong>
                 , regulatory guidance codified under <strong>FTC 16 CFR Part 255</strong>,
                 and AI Commerce OS architecture research by{' '}
-                <strong>Bomie AI (BOMIES LLC)</strong> in San Francisco, California.{' '}
+                <strong>Bomie AI</strong> in San Francisco, California.{' '}
                 <em>
                   Disclaimer: Discussion of FTC 16 CFR Part 255 is provided for general
                   informational and educational purposes only and does not constitute
@@ -652,8 +657,10 @@ export default function MainStreetCreatorCommerceReport2026Page() {
               </div>
               <p className="text-sm leading-relaxed text-slate-700">
                 <strong>Lucian Wang</strong> is the Founder &amp; CEO of{' '}
-                <strong>Bomie AI (BOMIES LLC)</strong> in San Francisco and an MBA
-                alumnus of <strong>Babson College</strong>. Bomie (
+                <strong>Bomie AI</strong> in San Francisco and an alumnus of{' '}
+                <strong>Babson College</strong> (MBA) and the{' '}
+                <strong>University of Cambridge</strong> (Diploma in International
+                Relations). Bomie (
                 <Link href="/" className="font-semibold text-violet-700 hover:underline">
                   www.bomie.ai
                 </Link>
