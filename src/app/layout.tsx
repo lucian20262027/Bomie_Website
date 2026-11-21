@@ -25,23 +25,31 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "./",
   },
-  title: "Bomie AI | North America's First AI Commerce OS for Local Businesses & Creators",
+  title: "Bomie — North America's First AI Commerce OS for Local Businesses & Creators | Bomie AI",
   description:
-    "North America's First AI Commerce OS for Local Businesses & Creators — AI smart matching, 30s script copilot, built-in FTC compliance, and 30/40/30 Stripe Escrow.",
+    "Bomie (Bomie AI) is North America's First AI Commerce OS for Local Businesses & Creators — AI smart matching, 30s script copilot, built-in FTC compliance, and 30/40/30 Stripe Escrow.",
+  keywords: [
+    "Bomie",
+    "Bomie AI",
+    "bomie.ai",
+    "AI Commerce OS",
+    "local creator marketing",
+    "BOMIES LLC",
+  ],
   openGraph: {
-    title: "Bomie AI — Where Local Businesses Meet Booming Creators",
+    title: "Bomie (Bomie AI) — Where Local Businesses Meet Booming Creators",
     description:
-      "North America's First AI Commerce OS for Local Businesses & Creators — AI smart matching, 30s script copilot, built-in FTC compliance, and 30/40/30 Stripe Escrow.",
+      "Bomie (Bomie AI) is North America's First AI Commerce OS for Local Businesses & Creators — AI smart matching, 30s script copilot, built-in FTC compliance, and 30/40/30 Stripe Escrow.",
     url: "https://www.bomie.ai",
-    siteName: "Bomie AI",
+    siteName: "Bomie",
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Bomie AI — Where Local Businesses Meet Booming Creators",
+    title: "Bomie (Bomie AI) — Where Local Businesses Meet Booming Creators",
     description:
-      "North America's First AI Commerce OS for Local Businesses & Creators.",
+      "Bomie (Bomie AI) — North America's First AI Commerce OS for Local Businesses & Creators.",
   },
   icons: {
     icon: [{ url: "/icon.svg?v=2", type: "image/svg+xml" }],
@@ -55,14 +63,30 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     "@context": "https://schema.org",
     "@graph": [
       {
+        "@type": "WebSite",
+        "@id": "https://www.bomie.ai/#website",
+        name: "Bomie",
+        alternateName: ["Bomie AI", "bomie.ai", "bomieai.com", "bomie.co"],
+        url: "https://www.bomie.ai",
+        publisher: {
+          "@id": "https://www.bomie.ai/#organization",
+        },
+      },
+      {
         "@type": "Organization",
         "@id": "https://www.bomie.ai/#organization",
         name: "Bomie AI",
+        alternateName: ["Bomie", "bomie.ai", "BOMIES LLC"],
         legalName: "BOMIES LLC",
         url: "https://www.bomie.ai",
         logo: "https://www.bomie.ai/icon.svg?v=2",
+        sameAs: [
+          "https://www.linkedin.com/in/lucianwang18",
+          "https://bomieai.com",
+          "https://bomie.co",
+        ],
         description:
-          "North America's First AI Commerce OS for Local Businesses & Creators — AI smart matching, 30s script copilot, built-in FTC compliance, and 30/40/30 Stripe Escrow.",
+          "Bomie (Bomie AI) is North America's First AI Commerce OS for Local Businesses & Creators — AI smart matching, 30s script copilot, built-in FTC compliance, and 30/40/30 Stripe Escrow.",
         address: {
           "@type": "PostalAddress",
           addressLocality: "San Francisco",
@@ -83,9 +107,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       {
         "@type": "SoftwareApplication",
         name: "Bomie Commerce OS",
+        alternateName: ["Bomie", "Bomie AI"],
         applicationCategory: "BusinessApplication",
         operatingSystem: "Web",
         url: "https://www.bomie.ai",
+        publisher: {
+          "@id": "https://www.bomie.ai/#organization",
+        },
         offers: {
           "@type": "Offer",
           price: "0",
