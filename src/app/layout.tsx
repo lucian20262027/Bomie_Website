@@ -81,6 +81,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         url: "https://www.bomie.ai",
         logo: "https://www.bomie.ai/icon.svg?v=2",
         sameAs: [
+          "https://www.crunchbase.com/organization/bomie-ai",
+          "https://bomieai.substack.com",
           "https://www.linkedin.com/in/lucianwang18",
           "https://bomieai.com",
           "https://bomie.co",
