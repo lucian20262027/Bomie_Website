@@ -639,7 +639,9 @@ export default function DemoClient() {
                             {s.timestamp}
                           </div>
                           <div className="text-[11px] font-semibold text-[#161224]">{s.visual}</div>
-                          <div className="text-[10px] text-slate-500">{s.audio}</div>
+                          <div className="text-[10px] text-slate-500">
+                            {s.audio.replace('{QR}', result.creators[0]?.qrCode || 'BOMIE-01')}
+                          </div>
                         </div>
                       ))}
                     </div>

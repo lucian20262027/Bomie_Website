@@ -147,14 +147,15 @@ export function evaluateCampaignDemo(input: {
     lower.includes('skip disclosure');
 
   const hasMedicalClaim =
-    lower.includes('permanently cure') ||
-    lower.includes('permanent cure') ||
-    lower.includes('cures acne') ||
-    lower.includes('reverse aging') ||
-    lower.includes('reverses aging') ||
-    lower.includes('100% effective') ||
-    lower.includes('fda-approved cure') ||
-    lower.includes('guaranteed weight loss');
+    !lower.includes('no unsubstantiated claims') &&
+    (lower.includes('permanently cure') ||
+      (lower.includes('permanent cure') && !lower.includes('no permanent cure')) ||
+      lower.includes('cures acne') ||
+      lower.includes('reverse aging') ||
+      lower.includes('reverses aging') ||
+      lower.includes('100% effective') ||
+      lower.includes('fda-approved cure') ||
+      lower.includes('guaranteed weight loss'));
 
   const hasCashNoContract =
     lower.includes('no contract') ||
@@ -379,7 +380,7 @@ export function evaluateCampaignDemo(input: {
         buttonLabel: 'Apply AI Compliance Fix & Re-Run Gate',
         fixedBudget: Math.max(budget, 1200),
         fixedTargetTier: '5K–30K Local Beauty Creators (0.5–10 mi)',
-        fixedBrief: `Promote facial consultations at ${businessName} in ${cityShort}. Match 3 local beauty creators (5K–30K) for 30s honest experience Reels with clear on-screen + caption #ad disclosure, factual consultation walkthrough (no permanent cure claims), royalty-free commercial audio, tracked QR consultation voucher, and 30/40/30 Stripe milestone escrow.`,
+        fixedBrief: `Promote facial consultations at ${businessName} in ${cityShort}. Match 3 local beauty creators (5K–30K) for 30s honest experience Reels with clear on-screen + caption #ad disclosure, factual consultation walkthrough (no unsubstantiated claims), royalty-free commercial audio, tracked QR consultation voucher, and 30/40/30 Stripe milestone escrow.`,
         summary:
           'Rewrites brief to comply with FTC 16 CFR § 255.5, removes medical cure claims, switches to licensed audio, and enables 30/40/30 Stripe escrow.',
       },
