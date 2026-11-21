@@ -1,35 +1,46 @@
 import Link from 'next/link';
 import BrandFooter from '../../../components/BrandFooter';
-import { ArrowLeft, BarChart3, BookOpen, FileText, ShieldCheck, Sparkles } from 'lucide-react';
+import { ArrowLeft, ArrowRight, BookOpen, FileText, ShieldCheck } from 'lucide-react';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Bomie Research — Local Business & Creator Economy Reports | Bomie AI',
   description:
-    'Research insights, benchmarks, and upcoming whitepapers from Bomie AI on U.S. small business marketing ROI, nano-creator conversion, and FTC compliance.',
+    'Research insights, industry reports, and whitepapers from Bomie AI on U.S. small business marketing ROI, hyper-local creator conversion, and FTC 16 CFR Part 255 compliance.',
+  alternates: {
+    canonical: 'https://www.bomie.ai/why-bomie/research',
+  },
 };
 
 export default function BomieResearchPage() {
   const reports = [
     {
-      tag: 'Benchmark Report · Q4 2026',
-      title: 'Why 2K–50K Neighborhood Creators Outperform Broad Paid Ads by 3.6× for Local Dining & Spas',
+      tag: 'Flagship Report · Q4 2026 / 2027 Outlook',
+      title: 'The 2026–2027 State of Main Street Creator Commerce',
       summary:
-        'An empirical study across San Francisco, Los Angeles, Seattle, and Las Vegas analyzing QR redemption rates, foot-traffic lift, and cost-per-visit across 40+ local campaigns.',
+        'An industry report synthesizing U.S. SBA 2026 small business demographics (36.2M firms, 82.3% nonemployers) and FTC 16 CFR Part 255 compliance standards to show why hyper-local AI orchestration and 30/40/30 Stripe escrow replace traditional agency retainers.',
+      status: 'Published · Full Report',
+      href: '/why-bomie/research/main-street-creator-commerce-2026',
+    },
+    {
+      tag: 'Benchmark Brief · Q4 2026',
+      title: 'Why 2K–50K Neighborhood Creators Outperform Broad Paid Ads for Local Dining & Spas',
+      summary:
+        'City showcase benchmarks across San Francisco, Los Angeles, Seattle, and Las Vegas examining QR redemption workflows, trade-radius matching, and offline store visit attribution.',
       status: 'Published Summary',
     },
     {
       tag: 'Compliance Whitepaper',
       title: 'Automating FTC 16 CFR Part 255 Endorsement Governance for Main Street Businesses',
       summary:
-        'How multi-agent AI auditing eliminates #ad disclosure misses, medical/spa claim risks, and commercial audio copyright strikes before content goes live.',
+        'How multi-agent pre-flight auditing checks #ad disclosures, medical/spa efficacy claims, and commercial audio licensing risks before content goes live.',
       status: 'Published Summary',
     },
     {
-      tag: 'Upcoming Study · 2027',
-      title: 'The State of AI Adoption Among America’s 40M+ Small Businesses: Chat-First vs. Dashboards',
+      tag: 'Upcoming Field Study · 2027',
+      title: 'The State of AI Adoption Among North America’s 40M+ Small Businesses: Chat-First vs. Dashboards',
       summary:
-        'Field research on why non-technical storefront owners prefer natural-language AI workflows and milestone escrow over traditional SaaS ad managers.',
+        'Ongoing field research on why non-technical storefront owners prefer natural-language AI workflows and milestone escrow over traditional SaaS ad managers.',
       status: 'In Progress',
     },
   ];
@@ -97,8 +108,28 @@ export default function BomieResearchPage() {
                   {rep.status}
                 </span>
               </div>
-              <h2 className="mt-3 text-xl sm:text-2xl font-bold text-[#161224]">{rep.title}</h2>
+              <h2 className="mt-3 text-xl sm:text-2xl font-bold text-[#161224]">
+                {rep.href ? (
+                  <Link href={rep.href} className="hover:text-violet-700 transition">
+                    {rep.title}
+                  </Link>
+                ) : (
+                  rep.title
+                )}
+              </h2>
               <p className="mt-2.5 text-sm leading-relaxed text-slate-600">{rep.summary}</p>
+              {rep.href && (
+                <div className="mt-5">
+                  <Link
+                    href={rep.href}
+                    className="inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 px-4 py-2 text-xs font-bold text-white shadow-sm shadow-violet-600/20 transition hover:opacity-95"
+                  >
+                    <BookOpen className="h-3.5 w-3.5 text-amber-200" />
+                    Read Full Report &amp; Download PDF
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </Link>
+                </div>
+              )}
             </div>
           ))}
         </div>
