@@ -1476,66 +1476,42 @@ export default function BomieLandingPage() {
   }, [selectedCity, isCityPaused, cityExpanded]);
 
   return (
-    <div className="min-h-screen overflow-x-clip bg-[#f7f4ff] text-[#161224] selection:bg-violet-600 selection:text-white">
-      {/* Sticky Soft Lavender Glass Navbar */}
+    <div className="min-h-screen overflow-x-clip bg-[#f7f4ff] text-[#161224] selection:bg-[#161224] selection:text-[#f7f4ff]">
+      {/* Sticky Soft Lavender Editorial Navbar */}
       <motion.header
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
         onMouseLeave={() => setOpenNavMenu(null)}
-        className="sticky top-0 z-50 border-b border-violet-200/70 bg-[#f7f4ff]/85 backdrop-blur-xl"
+        className="sticky top-0 z-50 border-b border-[#161224]/10 bg-[#f7f4ff]/90 backdrop-blur-xl"
       >
         <div className="mx-auto flex max-w-[1440px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-10 py-3.5 sm:py-4">
-          {/* 1. Enlarged Bespoke Geometric B✦ Logo + Stacked Shimmer Tagline Underneath */}
+          {/* 1. Calm Archival B Logo + Clean Subtitle */}
           <Link href="/" className="group flex min-w-0 items-center gap-3.5">
-            <div className="relative flex h-11 w-11 sm:h-13 sm:w-13 shrink-0 items-center justify-center rounded-xl sm:rounded-2xl bg-gradient-to-tr from-[#5b21b6] via-[#d946ef] to-[#fbbf24] p-[1px] shadow-lg shadow-violet-500/25 transition-transform duration-300 group-hover:scale-105">
-              <div className="flex h-full w-full items-center justify-center rounded-[11px] sm:rounded-[15px] bg-gradient-to-tr from-violet-700/95 via-fuchsia-500/95 to-amber-400/95 backdrop-blur-sm">
-                <svg
-                  viewBox="0 0 512 512"
-                  fill="none"
-                  className="h-7 w-7 sm:h-8 sm:w-8 drop-shadow-[0_2px_8px_rgba(46,16,101,0.35)]"
-                >
-                  <path
-                    fill="#ffffff"
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M140 124C140 112.954 148.954 104 160 104H268C321.019 104 360 137.565 360 184C360 214.12 343.39 239.47 317.88 251.42C350.69 263.74 372 292.69 372 330C372 381.915 329.915 416 272 416H160C148.954 416 140 407.046 140 396V124ZM204 162V228H260C281.539 228 296 214.569 296 195C296 175.431 281.539 162 260 162H204ZM204 282V356H268C292.301 356 308 341.673 308 319C308 296.327 292.301 282 268 282H204Z"
-                  />
-                  <path
-                    fill="#fef08a"
-                    d="M396 76C399.5 103.5 412.5 116.5 440 120C412.5 123.5 399.5 136.5 396 164C392.5 136.5 379.5 123.5 352 120C379.5 116.5 392.5 103.5 396 76Z"
-                  />
-                </svg>
-              </div>
+            <div className="relative flex h-9 w-9 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-xl bg-[#161224] text-[#f7f4ff] transition-transform duration-300 group-hover:scale-105">
+              <svg viewBox="0 0 512 512" fill="none" className="h-5 w-5">
+                <path
+                  fill="currentColor"
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M140 124C140 112.954 148.954 104 160 104H268C321.019 104 360 137.565 360 184C360 214.12 343.39 239.47 317.88 251.42C350.69 263.74 372 292.69 372 330C372 381.915 329.915 416 272 416H160C148.954 416 140 407.046 140 396V124ZM204 162V228H260C281.539 228 296 214.569 296 195C296 175.431 281.539 162 260 162H204ZM204 282V356H268C292.301 356 308 341.673 308 319C308 296.327 292.301 282 268 282H204Z"
+                />
+              </svg>
             </div>
             <div className="flex min-w-0 flex-col justify-center">
-              <span className="text-xl sm:text-[26px] font-extrabold tracking-tight text-[#161224] leading-none whitespace-nowrap">
-                bomie.ai
+              <span className="text-[19px] sm:text-[21px] font-semibold tracking-[-0.025em] text-[#161224] leading-none whitespace-nowrap">
+                BOMIE
               </span>
               <div className="hidden xl:flex items-center mt-1.5">
-                <motion.span
-                  animate={{ backgroundPosition: ['115% 0%', '-15% 0%'] }}
-                  transition={{
-                    duration: 3.6,
-                    repeat: Infinity,
-                    repeatDelay: 0.8,
-                    ease: 'easeInOut',
-                  }}
-                  style={{
-                    backgroundImage:
-                      'linear-gradient(90deg, #5b21b6 0%, #5b21b6 38%, #db2777 48%, #d97706 51%, #7c3aed 55%, #5b21b6 64%, #5b21b6 100%)',
-                    backgroundSize: '240% 100%',
-                  }}
-                  className="bg-clip-text text-[11px] lg:text-xs font-semibold tracking-wide text-transparent leading-none whitespace-nowrap"
-                >
-                  North America&apos;s First AI Commerce OS for Local Businesses &amp; Creators
-                </motion.span>
+                <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#161224]/50 leading-none whitespace-nowrap">
+                  AI COMMERCE OS · LOCAL BUSINESSES &amp; CREATORS
+                </span>
               </div>
             </div>
           </Link>
 
-          {/* 2. Three Single-Line Center Dropdown Menus (Oura-Style Dedicated Pages) */}
-          <nav className="hidden lg:flex lg:self-center xl:self-end pb-0.5 items-center gap-2 xl:gap-4 shrink-0">
+          {/* 2. Three Single-Line Center Dropdown Menus */}
+          <nav className="hidden lg:flex lg:self-center pb-0.5 items-center gap-2 xl:gap-5 shrink-0">
             {/* Dropdown 1: Commerce OS */}
             <div
               className="relative"
@@ -1544,7 +1520,7 @@ export default function BomieLandingPage() {
               <button
                 type="button"
                 onClick={() => setOpenNavMenu(openNavMenu === 'os' ? null : 'os')}
-                className="flex items-center gap-1.5 whitespace-nowrap rounded-lg px-3 py-1.5 text-sm font-semibold text-slate-700 transition hover:bg-violet-200/50 hover:text-violet-950"
+                className="flex items-center gap-1.5 whitespace-nowrap rounded-lg px-3 py-1.5 text-[13px] font-medium text-[#161224]/68 transition hover:bg-[#161224]/[0.05] hover:text-[#161224]"
               >
                 <span>Commerce OS</span>
                 <ChevronDown
@@ -1602,7 +1578,7 @@ export default function BomieLandingPage() {
               <button
                 type="button"
                 onClick={() => setOpenNavMenu(openNavMenu === 'why' ? null : 'why')}
-                className="flex items-center gap-1.5 whitespace-nowrap rounded-lg px-3 py-1.5 text-sm font-semibold text-slate-700 transition hover:bg-violet-200/50 hover:text-violet-950"
+                className="flex items-center gap-1.5 whitespace-nowrap rounded-lg px-3 py-1.5 text-[13px] font-medium text-[#161224]/68 transition hover:bg-[#161224]/[0.05] hover:text-[#161224]"
               >
                 <span>Why Bomie</span>
                 <ChevronDown
@@ -1652,7 +1628,7 @@ export default function BomieLandingPage() {
               <button
                 type="button"
                 onClick={() => setOpenNavMenu(openNavMenu === 'stories' ? null : 'stories')}
-                className="flex items-center gap-1.5 whitespace-nowrap rounded-lg px-3 py-1.5 text-sm font-semibold text-slate-700 transition hover:bg-violet-200/50 hover:text-violet-950"
+                className="flex items-center gap-1.5 whitespace-nowrap rounded-lg px-3 py-1.5 text-[13px] font-medium text-[#161224]/68 transition hover:bg-[#161224]/[0.05] hover:text-[#161224]"
               >
                 <span>Success Stories</span>
                 <ChevronDown
@@ -1719,10 +1695,10 @@ export default function BomieLandingPage() {
             </div>
           </nav>
 
-          <div className="flex shrink-0 self-center lg:self-end pb-0.5 items-center gap-2 sm:gap-3">
+          <div className="flex shrink-0 self-center pb-0.5 items-center gap-2 sm:gap-3">
             <button
               onClick={() => setShowLoginModal(true)}
-              className="hidden sm:inline-flex rounded-lg px-3.5 py-1.5 text-sm font-semibold text-slate-700 transition hover:bg-violet-200/50 hover:text-violet-950"
+              className="hidden sm:inline-flex rounded-lg px-3.5 py-1.5 text-[13px] font-medium text-[#161224]/68 transition hover:bg-[#161224]/[0.05] hover:text-[#161224]"
             >
               Log in
             </button>
@@ -1734,9 +1710,9 @@ export default function BomieLandingPage() {
                 setDemoError('');
                 setShowDemoModal(true);
               }}
-              className="inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-lg bg-gradient-to-r from-violet-600 via-fuchsia-600 to-violet-700 px-4 sm:px-5 py-2 text-xs sm:text-sm font-bold text-white shadow-lg shadow-violet-600/25 transition hover:opacity-95"
+              className="inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-[10px] border border-[#161224]/30 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.12em] text-[#161224] transition hover:bg-[#161224] hover:text-[#f7f4ff]"
             >
-              Book a Demo
+              BOOK A DEMO
             </motion.button>
             <button
               type="button"
@@ -2413,54 +2389,54 @@ export default function BomieLandingPage() {
       </section>
 
       {/* Pilot Testimonials + Zero Risk & Escrow Protection */}
-      <section id="pricing" className="border-t border-violet-200/70 py-14 scroll-mt-16">
+      <section id="pricing" className="border-t border-[#161224]/12 py-14 scroll-mt-16">
         <div className="mx-auto max-w-[1440px] px-6 lg:px-10 space-y-14">
           {/* 3-Card Real Pilot Voices Strip */}
           <div className="space-y-6">
             <div>
-              <span className="font-mono text-xs font-semibold uppercase tracking-widest text-violet-700">
+              <span className="font-mono text-xs font-medium uppercase tracking-widest text-[#6D28D9]">
                 Pilot Voices · Bay Area &amp; Los Angeles
               </span>
-              <h2 className="mt-1.5 text-2xl font-bold tracking-tight text-[#161224] sm:text-3xl">
+              <h2 className="mt-1.5 text-2xl font-medium tracking-[-0.015em] text-[#161224] sm:text-3xl">
                 Trusted by Local Store Owners &amp; Creators
               </h2>
             </div>
 
-            <div className="grid gap-5 md:grid-cols-3">
+            <div className="grid gap-6 md:grid-cols-3">
               {[
                 {
                   quote:
                     '“We skipped a $3,500/mo agency retainer, matched 3 neighborhood foodies in minutes, and saw 96 new weekend dine-in tables.”',
                   author: 'David L.',
                   role: 'Owner, Chili & Silk Sichuan · San Francisco',
-                  tag: '3.6x ROAS',
+                  tag: '3.6X ROAS',
                 },
                 {
                   quote:
                     '“The 3-Agent FTC check caught risky wording before filming, and every beauty creator brought real local facial bookings.”',
                   author: 'Elena R.',
                   role: 'Founder, Lumina Skin Studio · Los Angeles',
-                  tag: '+41% Bookings',
+                  tag: '+41% BOOKINGS',
                 },
                 {
                   quote:
                     '“No cold DMs and zero waiting 60 days for Net-60 invoices. I get paid via Stripe as soon as my 30s reel goes live.”',
                   author: '@sfnoodleclub',
                   role: 'Local Food Creator (34.2K) · Bay Area',
-                  tag: '0% Creator Fee',
+                  tag: '0% CREATOR FEE',
                 },
               ].map((t) => (
                 <div
                   key={t.author}
-                  className="flex flex-col justify-between rounded-3xl border border-violet-200/80 bg-white p-6 shadow-sm"
+                  className="flex flex-col justify-between border-t-2 border-dotted border-[#161224]/20 pt-6"
                 >
-                  <p className="text-sm leading-relaxed text-slate-700">{t.quote}</p>
-                  <div className="mt-5 flex items-center justify-between border-t border-violet-100 pt-4">
+                  <p className="text-[15px] leading-relaxed text-[#161224]/75">{t.quote}</p>
+                  <div className="mt-5 flex items-center justify-between border-t border-[#161224]/10 pt-4">
                     <div>
-                      <div className="text-xs font-extrabold text-[#161224]">{t.author}</div>
-                      <div className="text-[11px] text-slate-500">{t.role}</div>
+                      <div className="text-xs font-semibold text-[#161224]">{t.author}</div>
+                      <div className="text-[11px] text-[#161224]/55">{t.role}</div>
                     </div>
-                    <span className="rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 font-mono text-[10px] font-bold text-emerald-700">
+                    <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#6D28D9]">
                       {t.tag}
                     </span>
                   </div>
@@ -2472,68 +2448,69 @@ export default function BomieLandingPage() {
           <div>
             <div className="flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
               <div>
-                <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/35 bg-emerald-500/10 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-emerald-700">
-                  Zero Risk &amp; Escrow Protection
+                <div className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.16em] text-[#161224]/60">
+                  <span className="h-2 w-2 rounded-full bg-[#6D28D9]" />
+                  <span>ZERO RISK &amp; ESCROW PROTECTION</span>
                 </div>
-                <h2 className="mt-3 text-3xl font-bold tracking-tight text-[#161224] sm:text-4xl">
+                <h2 className="mt-3 text-3xl font-medium tracking-[-0.02em] text-[#161224] sm:text-4xl">
                   $0 Monthly Fee in MVP. Protected at Every Step.
                 </h2>
-                <p className="mt-2 max-w-2xl text-sm sm:text-base text-slate-600">
+                <p className="mt-2 max-w-2xl text-sm sm:text-base text-[#161224]/65">
                   Every campaign runs on 30/40/30 Stripe Escrow with a 100% pre-acceptance refund guarantee—so local businesses never risk wasted ad spend.
                 </p>
               </div>
               <Link
                 href="/pricing"
-                className="self-start lg:self-end rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 px-5 py-3 text-xs sm:text-sm font-bold text-white shadow-md shadow-violet-600/20 transition hover:opacity-95"
+                className="self-start lg:self-end rounded-[10px] border border-[#161224]/30 px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.12em] text-[#161224] transition hover:bg-[#161224] hover:text-[#f7f4ff]"
               >
-                View Full Pricing &amp; MVP Free Plan →
+                VIEW PRICING &amp; MVP PLAN →
               </Link>
             </div>
 
             <div className="mt-8 grid gap-5 md:grid-cols-3">
-              <div className="rounded-3xl border border-emerald-200 bg-white p-6 shadow-sm">
+              <div className="rounded-sm bg-[#ECE6FC] p-7 space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="font-mono text-xs font-semibold uppercase text-emerald-700">
+                  <span className="font-mono text-xs font-medium uppercase tracking-[0.12em] text-[#6D28D9]">
                     01 · Zero Platform Fee
                   </span>
-                  <span className="rounded-full bg-emerald-100 px-2.5 py-0.5 text-xs font-bold text-emerald-700">
-                    MVP Free
+                  <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#161224]/55">
+                    MVP FREE
                   </span>
                 </div>
-                <div className="mt-3 text-3xl font-extrabold text-[#161224]">
-                  $0 <span className="text-sm font-medium text-slate-500">/ month</span>
+                <div className="mt-3 text-3xl font-medium tracking-tight text-[#161224]">
+                  $0 <span className="text-sm font-normal text-[#161224]/55">/ month</span>
                 </div>
-                <p className="mt-2 text-xs sm:text-sm leading-relaxed text-slate-600">
+                <p className="mt-2 text-xs sm:text-sm leading-relaxed text-[#161224]/68">
                   No annual contracts, no setup fees, and 0% Bomie platform cut during our limited-time MVP launch. Pay strictly per campaign you approve.
                 </p>
               </div>
 
-              <div className="rounded-3xl border border-violet-200 bg-white p-6 shadow-sm">
+              <div className="rounded-sm bg-[#ECE6FC] p-7 space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="font-mono text-xs font-semibold uppercase text-violet-700">
+                  <span className="font-mono text-xs font-medium uppercase tracking-[0.12em] text-[#6D28D9]">
                     02 · 100% Refund Guarantee
                   </span>
-                  <Lock className="h-4 w-4 text-violet-600" />
+                  <Lock className="h-4 w-4 text-[#161224]/55" />
                 </div>
-                <div className="mt-3 text-3xl font-extrabold text-[#161224]">
-                  100% <span className="text-sm font-medium text-slate-500">Money-Back</span>
+                <div className="mt-3 text-3xl font-medium tracking-tight text-[#161224]">
+                  100% <span className="text-sm font-normal text-[#161224]/55">Money-Back</span>
                 </div>
-                <p className="mt-2 text-xs sm:text-sm leading-relaxed text-slate-600">
+                <p className="mt-2 text-xs sm:text-sm leading-relaxed text-[#161224]/68">
                   Cancel anytime before a creator accepts your brief for an instant 100% refund back to your card or bank account—zero questions asked.
                 </p>
               </div>
 
-              <div className="rounded-3xl border border-amber-200 bg-white p-6 shadow-sm">
+              <div className="rounded-sm bg-[#ECE6FC] p-7 space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="font-mono text-xs font-semibold uppercase text-amber-700">
+                  <span className="font-mono text-xs font-medium uppercase tracking-[0.12em] text-[#6D28D9]">
                     03 · 30 / 40 / 30 Stripe Escrow
                   </span>
-                  <ShieldCheck className="h-4 w-4 text-amber-600" />
+                  <ShieldCheck className="h-4 w-4 text-[#161224]/55" />
                 </div>
-                <div className="mt-3 text-3xl font-extrabold text-[#161224]">
-                  30 · 40 · 30 <span className="text-sm font-medium text-slate-500">Split</span>
+                <div className="mt-3 text-3xl font-medium tracking-tight text-[#161224]">
+                  30 · 40 · 30 <span className="text-sm font-normal text-[#161224]/55">Split</span>
                 </div>
-                <p className="mt-2 text-xs sm:text-sm leading-relaxed text-slate-600">
+                <p className="mt-2 text-xs sm:text-sm leading-relaxed text-[#161224]/68">
                   30% released when brief is accepted, 40% when you approve the 30s script/draft, and the final 30% only after live post &amp; FTC #ad verification.
                 </p>
               </div>
