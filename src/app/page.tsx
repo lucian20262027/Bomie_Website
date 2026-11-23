@@ -1475,6 +1475,9 @@ export default function BomieLandingPage() {
     return () => clearInterval(timer);
   }, [selectedCity, isCityPaused, cityExpanded]);
 
+  const [midSectionVariant, setMidSectionVariant] = useState<'A' | 'B' | 'C'>('B');
+  const [activePilotIndex, setActivePilotIndex] = useState(0);
+
   return (
     <div className="min-h-screen overflow-x-clip bg-[#f7f4ff] text-[#161224] selection:bg-violet-600 selection:text-white">
       {/* Sticky Soft Lavender Glass Navbar */}
@@ -2414,132 +2417,439 @@ export default function BomieLandingPage() {
 
       {/* Pilot Testimonials + Zero Risk & Escrow Protection */}
       <section id="pricing" className="border-t border-[#161224]/12 py-14 scroll-mt-16">
-        <div className="mx-auto max-w-[1440px] px-6 lg:px-10 space-y-14">
-          {/* 3-Card Real Pilot Voices Strip */}
-          <div className="space-y-6">
-            <div>
-              <span className="font-mono text-xs font-medium uppercase tracking-widest text-[#6D28D9]">
-                Pilot Voices · Bay Area &amp; Los Angeles
+        <div className="mx-auto max-w-[1440px] px-6 lg:px-10 space-y-8">
+          {/* A/B Test Switcher Bar */}
+          <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-[#161224]/10 bg-white/70 p-3 backdrop-blur-md">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#161224]/60">
+                A/B Test UX/UI:
               </span>
-              <h2 className="mt-1.5 text-2xl font-bold sm:font-extrabold tracking-tight text-[#161224] sm:text-3xl">
-                Trusted by Local Store Owners &amp; Creators
-              </h2>
-            </div>
-
-            <div className="grid gap-6 md:grid-cols-3">
-              {[
-                {
-                  quote:
-                    '“We skipped a $3,500/mo agency retainer, matched 3 neighborhood foodies in minutes, and saw 96 new weekend dine-in tables.”',
-                  author: 'David L.',
-                  role: 'Owner, Chili & Silk Sichuan · San Francisco',
-                  tag: '3.6X ROAS',
-                },
-                {
-                  quote:
-                    '“The 3-Agent FTC check caught risky wording before filming, and every beauty creator brought real local facial bookings.”',
-                  author: 'Elena R.',
-                  role: 'Founder, Lumina Skin Studio · Los Angeles',
-                  tag: '+41% BOOKINGS',
-                },
-                {
-                  quote:
-                    '“No cold DMs and zero waiting 60 days for Net-60 invoices. I get paid via Stripe as soon as my 30s reel goes live.”',
-                  author: '@sfnoodleclub',
-                  role: 'Local Food Creator (34.2K) · Bay Area',
-                  tag: '0% CREATOR FEE',
-                },
-              ].map((t) => (
-                <div
-                  key={t.author}
-                  className="flex flex-col justify-between border-t-2 border-dotted border-[#161224]/20 pt-6"
+              <div className="inline-flex rounded-xl border border-[#161224]/12 bg-[#f7f4ff] p-1 shadow-inner">
+                <button
+                  type="button"
+                  onClick={() => setMidSectionVariant('B')}
+                  className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition ${
+                    midSectionVariant === 'B'
+                      ? 'bg-[#5b21b6] text-white shadow-sm'
+                      : 'text-[#161224]/65 hover:text-[#161224]'
+                  }`}
                 >
-                  <p className="text-[15px] leading-relaxed text-[#161224]/75">{t.quote}</p>
-                  <div className="mt-5 flex items-center justify-between border-t border-[#161224]/10 pt-4">
-                    <div>
-                      <div className="text-xs font-semibold text-[#161224]">{t.author}</div>
-                      <div className="text-[11px] text-[#161224]/55">{t.role}</div>
-                    </div>
-                    <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#6D28D9]">
-                      {t.tag}
+                  方案 B · 左右非对称 Bento（推荐）
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setMidSectionVariant('C')}
+                  className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition ${
+                    midSectionVariant === 'C'
+                      ? 'bg-[#5b21b6] text-white shadow-sm'
+                      : 'text-[#161224]/65 hover:text-[#161224]'
+                  }`}
+                >
+                  方案 C · 流程轻盈带 + 评价卡
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setMidSectionVariant('A')}
+                  className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition ${
+                    midSectionVariant === 'A'
+                      ? 'bg-[#5b21b6] text-white shadow-sm'
+                      : 'text-[#161224]/65 hover:text-[#161224]'
+                  }`}
+                >
+                  方案 A · 原版双排堆叠
+                </button>
+              </div>
+            </div>
+            <div className="font-mono text-[11px] text-[#5b21b6] font-medium">
+              {midSectionVariant === 'B' && '✓ 消除双排 3 列文字墙，左定核心保障、右聚真实声量'}
+              {midSectionVariant === 'C' && '✓ 上浮评价卡片 + 下连 30/40/30 线性轻量流程条'}
+              {midSectionVariant === 'A' && '原版 6 块纯文字双排堆叠'}
+            </div>
+          </div>
+
+          {/* VARIANT B: Split Bento (左右非对称结构，彻底消除堆砌感) */}
+          {midSectionVariant === 'B' && (
+            <div className="grid gap-6 lg:grid-cols-12 items-stretch">
+              {/* Left Wing: Zero Risk & Escrow Protection (5 Columns) */}
+              <div className="lg:col-span-5 flex flex-col justify-between rounded-3xl border border-violet-200/80 bg-gradient-to-br from-[#ECE6FC] via-white to-[#f7f4ff] p-7 sm:p-9 shadow-sm">
+                <div>
+                  <div className="inline-flex items-center gap-2 font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-violet-800">
+                    <span className="h-2 w-2 rounded-full bg-violet-600 animate-pulse" />
+                    <span>ZERO RISK &amp; ESCROW PROTECTION</span>
+                  </div>
+                  <h2 className="mt-3 text-2xl sm:text-3xl font-extrabold tracking-tight text-[#161224]">
+                    $0 Monthly Fee in MVP.{' '}
+                    <span className="bg-gradient-to-r from-violet-700 to-fuchsia-600 bg-clip-text text-transparent">
+                      Protected at Every Step.
                     </span>
+                  </h2>
+                  <p className="mt-2 text-xs sm:text-sm leading-relaxed text-[#161224]/70">
+                    Every campaign runs on 30/40/30 Stripe Escrow with a 100% pre-acceptance refund guarantee—zero risk of wasted ad spend.
+                  </p>
+
+                  {/* 3 Compact Milestone Rows */}
+                  <div className="mt-6 space-y-2.5">
+                    <div className="flex items-center gap-3.5 rounded-2xl border border-[#161224]/6 bg-white/85 p-3.5 shadow-2xs">
+                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-violet-100 text-violet-700 font-mono text-xs font-bold">
+                        $0
+                      </div>
+                      <div className="min-w-0">
+                        <div className="text-xs font-bold text-[#161224]">01 · Zero Platform Fee</div>
+                        <div className="text-[11px] text-[#161224]/60">100% Waived during limited MVP launch. Pay only creator payouts.</div>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-3.5 rounded-2xl border border-[#161224]/6 bg-white/85 p-3.5 shadow-2xs">
+                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-emerald-100 text-emerald-700">
+                        <Lock className="h-4 w-4" />
+                      </div>
+                      <div className="min-w-0">
+                        <div className="text-xs font-bold text-[#161224]">02 · 100% Refund Guarantee</div>
+                        <div className="text-[11px] text-[#161224]/60">Cancel anytime before creator accepts brief for instant card refund.</div>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-3.5 rounded-2xl border border-[#161224]/6 bg-white/85 p-3.5 shadow-2xs">
+                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-amber-100 text-amber-700">
+                        <ShieldCheck className="h-4 w-4" />
+                      </div>
+                      <div className="min-w-0">
+                        <div className="text-xs font-bold text-[#161224]">03 · 30 / 40 / 30 Stripe Escrow</div>
+                        <div className="text-[11px] text-[#161224]/60">30% kickoff, 40% draft approved, 30% only after live post &amp; FTC pass.</div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              ))}
-            </div>
-          </div>
 
-          <div>
-            <div className="flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
+                <div className="mt-8 pt-5 border-t border-[#161224]/10 flex items-center justify-between">
+                  <span className="font-mono text-[11px] text-[#161224]/55">Stripe Connected Payouts</span>
+                  <Link
+                    href="/pricing"
+                    className="inline-flex items-center gap-1.5 rounded-xl bg-[#161224] px-4 py-2 font-mono text-[11px] uppercase tracking-[0.12em] text-[#f7f4ff] transition hover:bg-violet-900"
+                  >
+                    <span>View Pricing Plan</span>
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </Link>
+                </div>
+              </div>
+
+              {/* Right Wing: Pilot Voices Spotlight (7 Columns) */}
+              <div className="lg:col-span-7 flex flex-col justify-between rounded-3xl border border-[#161224]/10 bg-white p-7 sm:p-9 shadow-sm">
+                <div>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <span className="font-mono text-xs font-semibold uppercase tracking-widest text-[#6D28D9]">
+                        Pilot Voices · Bay Area &amp; Los Angeles
+                      </span>
+                      <h3 className="mt-1 text-xl sm:text-2xl font-bold tracking-tight text-[#161224]">
+                        Trusted by Local Store Owners &amp; Creators
+                      </h3>
+                    </div>
+                    <span className="hidden sm:inline-flex rounded-full bg-violet-100 border border-violet-200 px-3 py-1 font-mono text-xs font-bold text-violet-800">
+                      {[
+                        '3.6X ROAS',
+                        '+41% BOOKINGS',
+                        '0% CREATOR FEE',
+                      ][activePilotIndex]}
+                    </span>
+                  </div>
+
+                  {/* Active Featured Testimonial Spotlight */}
+                  <div className="mt-6 min-h-[160px] rounded-2xl bg-[#f7f4ff]/70 border border-violet-100 p-6 flex flex-col justify-between">
+                    <p className="text-base sm:text-lg italic leading-relaxed text-[#161224]/85">
+                      {[
+                        '“We skipped a $3,500/mo agency retainer, matched 3 neighborhood foodies in minutes, and saw 96 new weekend dine-in tables.”',
+                        '“The 3-Agent FTC check caught risky wording before filming, and every beauty creator brought real local facial bookings.”',
+                        '“No cold DMs and zero waiting 60 days for Net-60 invoices. I get paid via Stripe as soon as my 30s reel goes live.”',
+                      ][activePilotIndex]}
+                    </p>
+
+                    <div className="mt-5 flex items-center justify-between border-t border-violet-200/50 pt-4">
+                      <div>
+                        <div className="text-sm font-bold text-[#161224]">
+                          {['David L.', 'Elena R.', '@sfnoodleclub'][activePilotIndex]}
+                        </div>
+                        <div className="text-xs text-[#161224]/60">
+                          {[
+                            'Owner, Chili & Silk Sichuan · San Francisco',
+                            'Founder, Lumina Skin Studio · Los Angeles',
+                            'Local Food Creator (34.2K) · Bay Area',
+                          ][activePilotIndex]}
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-0.5 text-amber-400">
+                        {[...Array(5)].map((_, i) => (
+                          <Star key={i} className="h-4 w-4 fill-current" />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 3 Clickable Merchant Switcher Tabs */}
+                <div className="mt-6 pt-4 border-t border-[#161224]/8">
+                  <div className="text-[11px] font-mono uppercase tracking-wider text-[#161224]/50 mb-2.5">
+                    Select a Verified Story:
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                    {[
+                      { name: 'Chili & Silk (SF)', tag: '3.6X ROAS', type: 'Dining' },
+                      { name: 'Lumina Skin (LA)', tag: '+41% Bookings', type: 'Spa & Beauty' },
+                      { name: '@sfnoodleclub', tag: '0% Creator Fee', type: 'Creator' },
+                    ].map((item, idx) => (
+                      <button
+                        key={item.name}
+                        type="button"
+                        onClick={() => setActivePilotIndex(idx)}
+                        className={`flex flex-col text-left p-3 rounded-xl border transition ${
+                          activePilotIndex === idx
+                            ? 'border-violet-600 bg-violet-50/90 shadow-xs'
+                            : 'border-[#161224]/10 bg-white hover:bg-slate-50'
+                        }`}
+                      >
+                        <span className="text-xs font-bold text-[#161224] truncate">{item.name}</span>
+                        <span className="font-mono text-[10px] text-violet-700 font-semibold">{item.tag}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* VARIANT C: Milestone Ribbon (轻盈卡片 + 30/40/30 线性流程条) */}
+          {midSectionVariant === 'C' && (
+            <div className="space-y-10">
+              {/* Row 1: 3 Elevated Airy Quote Cards */}
+              <div className="space-y-5">
+                <div>
+                  <span className="font-mono text-xs font-semibold uppercase tracking-widest text-[#6D28D9]">
+                    Pilot Voices · Bay Area &amp; Los Angeles
+                  </span>
+                  <h2 className="mt-1.5 text-2xl font-bold tracking-tight text-[#161224] sm:text-3xl">
+                    Trusted by Local Store Owners &amp; Creators
+                  </h2>
+                </div>
+
+                <div className="grid gap-5 md:grid-cols-3">
+                  {[
+                    {
+                      quote: '“We skipped a $3,500/mo agency retainer, matched 3 neighborhood foodies in minutes, and saw 96 new weekend dine-in tables.”',
+                      author: 'David L.',
+                      role: 'Owner, Chili & Silk Sichuan · San Francisco',
+                      tag: '3.6X ROAS',
+                    },
+                    {
+                      quote: '“The 3-Agent FTC check caught risky wording before filming, and every beauty creator brought real local facial bookings.”',
+                      author: 'Elena R.',
+                      role: 'Founder, Lumina Skin Studio · Los Angeles',
+                      tag: '+41% BOOKINGS',
+                    },
+                    {
+                      quote: '“No cold DMs and zero waiting 60 days for Net-60 invoices. I get paid via Stripe as soon as my 30s reel goes live.”',
+                      author: '@sfnoodleclub',
+                      role: 'Local Food Creator (34.2K) · Bay Area',
+                      tag: '0% CREATOR FEE',
+                    },
+                  ].map((t) => (
+                    <div
+                      key={t.author}
+                      className="rounded-2xl border border-violet-200/60 bg-white p-6 shadow-sm flex flex-col justify-between"
+                    >
+                      <div>
+                        <div className="flex items-center justify-between mb-3">
+                          <div className="flex items-center gap-0.5 text-amber-400">
+                            {[...Array(5)].map((_, i) => (
+                              <Star key={i} className="h-3.5 w-3.5 fill-current" />
+                            ))}
+                          </div>
+                          <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-violet-700 bg-violet-100 px-2 py-0.5 rounded-full">
+                            {t.tag}
+                          </span>
+                        </div>
+                        <p className="text-sm leading-relaxed text-[#161224]/80 italic">{t.quote}</p>
+                      </div>
+                      <div className="mt-5 border-t border-[#161224]/8 pt-3">
+                        <div className="text-xs font-bold text-[#161224]">{t.author}</div>
+                        <div className="text-[11px] text-[#161224]/55">{t.role}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Row 2: Unified Milestone Track Ribbon */}
+              <div className="rounded-3xl border border-violet-200/80 bg-[#ECE6FC] p-8 space-y-6">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div>
+                    <div className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.16em] text-violet-800">
+                      <span className="h-2 w-2 rounded-full bg-violet-600" />
+                      <span>ZERO RISK &amp; ESCROW PROTECTION</span>
+                    </div>
+                    <h3 className="mt-1 text-2xl font-bold tracking-tight text-[#161224]">
+                      $0 Monthly Fee in MVP. Protected at Every Step.
+                    </h3>
+                  </div>
+                  <Link
+                    href="/pricing"
+                    className="self-start sm:self-auto rounded-xl bg-[#161224] px-4 py-2 font-mono text-xs uppercase tracking-wider text-white hover:bg-violet-950 transition"
+                  >
+                    View Pricing &amp; MVP Plan →
+                  </Link>
+                </div>
+
+                {/* 3 Steps in a Connected Progress Track */}
+                <div className="grid gap-4 md:grid-cols-3 relative">
+                  <div className="rounded-2xl bg-white/90 p-5 border border-white/60 shadow-xs">
+                    <span className="font-mono text-xs font-bold text-violet-700">01 · $0 PLATFORM FEE</span>
+                    <div className="mt-1 text-2xl font-bold text-[#161224]">$0 <span className="text-xs font-normal text-slate-500">MVP Free</span></div>
+                    <p className="mt-1.5 text-xs text-[#161224]/70">Zero software or monthly fee. Pay only per approved creator collaboration.</p>
+                  </div>
+                  <div className="rounded-2xl bg-white/90 p-5 border border-white/60 shadow-xs">
+                    <span className="font-mono text-xs font-bold text-emerald-700">02 · 100% REFUND</span>
+                    <div className="mt-1 text-2xl font-bold text-[#161224]">100% <span className="text-xs font-normal text-slate-500">Money-Back</span></div>
+                    <p className="mt-1.5 text-xs text-[#161224]/70">Instant refund back to card if cancelled before creator acceptance.</p>
+                  </div>
+                  <div className="rounded-2xl bg-white/90 p-5 border border-white/60 shadow-xs">
+                    <span className="font-mono text-xs font-bold text-amber-700">03 · 30/40/30 ESCROW</span>
+                    <div className="mt-1 text-2xl font-bold text-[#161224]">30 · 40 · 30 <span className="text-xs font-normal text-slate-500">Stripe Split</span></div>
+                    <p className="mt-1.5 text-xs text-[#161224]/70">30% kickoff, 40% draft approved, final 30% only after live post &amp; FTC pass.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* VARIANT A: Original Stacked Baseline */}
+          {midSectionVariant === 'A' && (
+            <div className="space-y-14">
+              {/* 3-Card Real Pilot Voices Strip */}
+              <div className="space-y-6">
+                <div>
+                  <span className="font-mono text-xs font-medium uppercase tracking-widest text-[#6D28D9]">
+                    Pilot Voices · Bay Area &amp; Los Angeles
+                  </span>
+                  <h2 className="mt-1.5 text-2xl font-bold sm:font-extrabold tracking-tight text-[#161224] sm:text-3xl">
+                    Trusted by Local Store Owners &amp; Creators
+                  </h2>
+                </div>
+
+                <div className="grid gap-6 md:grid-cols-3">
+                  {[
+                    {
+                      quote:
+                        '“We skipped a $3,500/mo agency retainer, matched 3 neighborhood foodies in minutes, and saw 96 new weekend dine-in tables.”',
+                      author: 'David L.',
+                      role: 'Owner, Chili & Silk Sichuan · San Francisco',
+                      tag: '3.6X ROAS',
+                    },
+                    {
+                      quote:
+                        '“The 3-Agent FTC check caught risky wording before filming, and every beauty creator brought real local facial bookings.”',
+                      author: 'Elena R.',
+                      role: 'Founder, Lumina Skin Studio · Los Angeles',
+                      tag: '+41% BOOKINGS',
+                    },
+                    {
+                      quote:
+                        '“No cold DMs and zero waiting 60 days for Net-60 invoices. I get paid via Stripe as soon as my 30s reel goes live.”',
+                      author: '@sfnoodleclub',
+                      role: 'Local Food Creator (34.2K) · Bay Area',
+                      tag: '0% CREATOR FEE',
+                    },
+                  ].map((t) => (
+                    <div
+                      key={t.author}
+                      className="flex flex-col justify-between border-t-2 border-dotted border-[#161224]/20 pt-6"
+                    >
+                      <p className="text-[15px] leading-relaxed text-[#161224]/75">{t.quote}</p>
+                      <div className="mt-5 flex items-center justify-between border-t border-[#161224]/10 pt-4">
+                        <div>
+                          <div className="text-xs font-semibold text-[#161224]">{t.author}</div>
+                          <div className="text-[11px] text-[#161224]/55">{t.role}</div>
+                        </div>
+                        <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#6D28D9]">
+                          {t.tag}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
               <div>
-                <div className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.16em] text-[#161224]/60">
-                  <span className="h-2 w-2 rounded-full bg-[#6D28D9]" />
-                  <span>ZERO RISK &amp; ESCROW PROTECTION</span>
+                <div className="flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
+                  <div>
+                    <div className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.16em] text-[#161224]/60">
+                      <span className="h-2 w-2 rounded-full bg-[#6D28D9]" />
+                      <span>ZERO RISK &amp; ESCROW PROTECTION</span>
+                    </div>
+                    <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-[#161224] sm:text-4xl">
+                      $0 Monthly Fee in MVP. Protected at Every Step.
+                    </h2>
+                    <p className="mt-2 max-w-2xl text-sm sm:text-base text-[#161224]/65">
+                      Every campaign runs on 30/40/30 Stripe Escrow with a 100% pre-acceptance refund guarantee—so local businesses never risk wasted ad spend.
+                    </p>
+                  </div>
+                  <Link
+                    href="/pricing"
+                    className="self-start lg:self-end rounded-[10px] border border-[#161224]/30 px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.12em] text-[#161224] transition hover:bg-[#161224] hover:text-[#f7f4ff]"
+                  >
+                    VIEW PRICING &amp; MVP PLAN →
+                  </Link>
                 </div>
-                <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-[#161224] sm:text-4xl">
-                  $0 Monthly Fee in MVP. Protected at Every Step.
-                </h2>
-                <p className="mt-2 max-w-2xl text-sm sm:text-base text-[#161224]/65">
-                  Every campaign runs on 30/40/30 Stripe Escrow with a 100% pre-acceptance refund guarantee—so local businesses never risk wasted ad spend.
-                </p>
+
+                <div className="mt-8 grid gap-5 md:grid-cols-3">
+                  <div className="rounded-sm bg-[#ECE6FC] p-7 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="font-mono text-xs font-medium uppercase tracking-[0.12em] text-[#6D28D9]">
+                        01 · Zero Platform Fee
+                      </span>
+                      <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#161224]/55">
+                        MVP FREE
+                      </span>
+                    </div>
+                    <div className="mt-3 text-3xl font-medium tracking-tight text-[#161224]">
+                      $0 <span className="text-sm font-normal text-[#161224]/55">/ month</span>
+                    </div>
+                    <p className="mt-2 text-xs sm:text-sm leading-relaxed text-[#161224]/68">
+                      No annual contracts, no setup fees, and 0% Bomie platform cut during our limited-time MVP launch. Pay strictly per campaign you approve.
+                    </p>
+                  </div>
+
+                  <div className="rounded-sm bg-[#ECE6FC] p-7 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="font-mono text-xs font-medium uppercase tracking-[0.12em] text-[#6D28D9]">
+                        02 · 100% Refund Guarantee
+                      </span>
+                      <Lock className="h-4 w-4 text-[#161224]/55" />
+                    </div>
+                    <div className="mt-3 text-3xl font-medium tracking-tight text-[#161224]">
+                      100% <span className="text-sm font-normal text-[#161224]/55">Money-Back</span>
+                    </div>
+                    <p className="mt-2 text-xs sm:text-sm leading-relaxed text-[#161224]/68">
+                      Cancel anytime before a creator accepts your brief for an instant 100% refund back to your card or bank account—zero questions asked.
+                    </p>
+                  </div>
+
+                  <div className="rounded-sm bg-[#ECE6FC] p-7 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="font-mono text-xs font-medium uppercase tracking-[0.12em] text-[#6D28D9]">
+                        03 · 30 / 40 / 30 Stripe Escrow
+                      </span>
+                      <ShieldCheck className="h-4 w-4 text-[#161224]/55" />
+                    </div>
+                    <div className="mt-3 text-3xl font-medium tracking-tight text-[#161224]">
+                      30 · 40 · 30 <span className="text-sm font-normal text-[#161224]/55">Split</span>
+                    </div>
+                    <p className="mt-2 text-xs sm:text-sm leading-relaxed text-[#161224]/68">
+                      30% released when brief is accepted, 40% when you approve the 30s script/draft, and the final 30% only after live post &amp; FTC #ad verification.
+                    </p>
+                  </div>
+                </div>
               </div>
-              <Link
-                href="/pricing"
-                className="self-start lg:self-end rounded-[10px] border border-[#161224]/30 px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.12em] text-[#161224] transition hover:bg-[#161224] hover:text-[#f7f4ff]"
-              >
-                VIEW PRICING &amp; MVP PLAN →
-              </Link>
             </div>
-
-            <div className="mt-8 grid gap-5 md:grid-cols-3">
-              <div className="rounded-sm bg-[#ECE6FC] p-7 space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-xs font-medium uppercase tracking-[0.12em] text-[#6D28D9]">
-                    01 · Zero Platform Fee
-                  </span>
-                  <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#161224]/55">
-                    MVP FREE
-                  </span>
-                </div>
-                <div className="mt-3 text-3xl font-medium tracking-tight text-[#161224]">
-                  $0 <span className="text-sm font-normal text-[#161224]/55">/ month</span>
-                </div>
-                <p className="mt-2 text-xs sm:text-sm leading-relaxed text-[#161224]/68">
-                  No annual contracts, no setup fees, and 0% Bomie platform cut during our limited-time MVP launch. Pay strictly per campaign you approve.
-                </p>
-              </div>
-
-              <div className="rounded-sm bg-[#ECE6FC] p-7 space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-xs font-medium uppercase tracking-[0.12em] text-[#6D28D9]">
-                    02 · 100% Refund Guarantee
-                  </span>
-                  <Lock className="h-4 w-4 text-[#161224]/55" />
-                </div>
-                <div className="mt-3 text-3xl font-medium tracking-tight text-[#161224]">
-                  100% <span className="text-sm font-normal text-[#161224]/55">Money-Back</span>
-                </div>
-                <p className="mt-2 text-xs sm:text-sm leading-relaxed text-[#161224]/68">
-                  Cancel anytime before a creator accepts your brief for an instant 100% refund back to your card or bank account—zero questions asked.
-                </p>
-              </div>
-
-              <div className="rounded-sm bg-[#ECE6FC] p-7 space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-xs font-medium uppercase tracking-[0.12em] text-[#6D28D9]">
-                    03 · 30 / 40 / 30 Stripe Escrow
-                  </span>
-                  <ShieldCheck className="h-4 w-4 text-[#161224]/55" />
-                </div>
-                <div className="mt-3 text-3xl font-medium tracking-tight text-[#161224]">
-                  30 · 40 · 30 <span className="text-sm font-normal text-[#161224]/55">Split</span>
-                </div>
-                <p className="mt-2 text-xs sm:text-sm leading-relaxed text-[#161224]/68">
-                  30% released when brief is accepted, 40% when you approve the 30s script/draft, and the final 30% only after live post &amp; FTC #ad verification.
-                </p>
-              </div>
-            </div>
-          </div>
+          )}
         </div>
       </section>
 
