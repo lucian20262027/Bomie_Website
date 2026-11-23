@@ -1983,6 +1983,7 @@ export default function BomieLandingPage() {
                     {liveMatches.map((m, i) => (
                       <button
                         key={m.tag}
+                        onMouseEnter={() => setSelectedMatch(i)}
                         onClick={() => setSelectedMatch(i)}
                         className={`rounded-full px-3.5 py-1 text-xs font-semibold transition ${
                           selectedMatch === i
@@ -2017,6 +2018,7 @@ export default function BomieLandingPage() {
                         key={idx}
                         type="button"
                         aria-label={`Slide ${idx + 1}`}
+                        onMouseEnter={() => setSelectedMatch(idx)}
                         onClick={() => setSelectedMatch(idx)}
                         className={`relative h-1.5 overflow-hidden rounded-full transition-all duration-300 ${
                           selectedMatch === idx
@@ -2172,6 +2174,10 @@ export default function BomieLandingPage() {
                   <button
                     key={c.id}
                     type="button"
+                    onMouseEnter={() => {
+                      setSelectedCity(c.id);
+                      setCityExpanded(false);
+                    }}
                     onClick={() => {
                       setSelectedCity(c.id);
                       setCityExpanded(false);
@@ -2318,6 +2324,10 @@ export default function BomieLandingPage() {
                     key={cityId}
                     type="button"
                     aria-label={`View ${cityStories[cityId].name}`}
+                    onMouseEnter={() => {
+                      setSelectedCity(cityId);
+                      setCityExpanded(false);
+                    }}
                     onClick={() => {
                       setSelectedCity(cityId);
                       setCityExpanded(false);
