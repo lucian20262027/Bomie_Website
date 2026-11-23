@@ -1544,7 +1544,7 @@ export default function BomieLandingPage() {
               <button
                 type="button"
                 onClick={() => setOpenNavMenu(openNavMenu === 'os' ? null : 'os')}
-                className="flex items-center gap-1.5 whitespace-nowrap rounded-lg px-3 py-1.5 text-[13px] font-medium text-[#161224]/68 transition hover:bg-[#161224]/[0.05] hover:text-[#161224]"
+                className="flex items-center gap-1.5 whitespace-nowrap rounded-lg px-3 py-1.5 text-sm font-semibold text-[#161224]/85 transition hover:bg-violet-200/40 hover:text-violet-950"
               >
                 <span>Commerce OS</span>
                 <ChevronDown
@@ -1602,7 +1602,7 @@ export default function BomieLandingPage() {
               <button
                 type="button"
                 onClick={() => setOpenNavMenu(openNavMenu === 'why' ? null : 'why')}
-                className="flex items-center gap-1.5 whitespace-nowrap rounded-lg px-3 py-1.5 text-[13px] font-medium text-[#161224]/68 transition hover:bg-[#161224]/[0.05] hover:text-[#161224]"
+                className="flex items-center gap-1.5 whitespace-nowrap rounded-lg px-3 py-1.5 text-sm font-semibold text-[#161224]/85 transition hover:bg-violet-200/40 hover:text-violet-950"
               >
                 <span>Why Bomie</span>
                 <ChevronDown
@@ -1652,7 +1652,7 @@ export default function BomieLandingPage() {
               <button
                 type="button"
                 onClick={() => setOpenNavMenu(openNavMenu === 'stories' ? null : 'stories')}
-                className="flex items-center gap-1.5 whitespace-nowrap rounded-lg px-3 py-1.5 text-[13px] font-medium text-[#161224]/68 transition hover:bg-[#161224]/[0.05] hover:text-[#161224]"
+                className="flex items-center gap-1.5 whitespace-nowrap rounded-lg px-3 py-1.5 text-sm font-semibold text-[#161224]/85 transition hover:bg-violet-200/40 hover:text-violet-950"
               >
                 <span>Success Stories</span>
                 <ChevronDown
@@ -1722,7 +1722,7 @@ export default function BomieLandingPage() {
           <div className="flex shrink-0 self-center pb-0.5 items-center gap-2 sm:gap-3">
             <button
               onClick={() => setShowLoginModal(true)}
-              className="hidden sm:inline-flex rounded-lg px-3.5 py-1.5 text-[13px] font-medium text-[#161224]/68 transition hover:bg-[#161224]/[0.05] hover:text-[#161224]"
+              className="hidden sm:inline-flex rounded-lg px-3.5 py-1.5 text-sm font-semibold text-[#161224]/85 transition hover:bg-violet-200/40 hover:text-violet-950"
             >
               Log in
             </button>
@@ -1734,9 +1734,9 @@ export default function BomieLandingPage() {
                 setDemoError('');
                 setShowDemoModal(true);
               }}
-              className="inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-[10px] border border-[#161224]/30 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.12em] text-[#161224] transition hover:bg-[#161224] hover:text-[#f7f4ff]"
+              className="inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-lg bg-gradient-to-r from-violet-600 via-fuchsia-600 to-violet-700 px-4 sm:px-5 py-2 text-xs sm:text-sm font-bold text-white shadow-lg shadow-violet-600/25 transition hover:opacity-95"
             >
-              BOOK A DEMO
+              Book a Demo
             </motion.button>
             <button
               type="button"
