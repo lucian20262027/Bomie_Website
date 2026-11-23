@@ -1628,7 +1628,7 @@ export default function BomieLandingPage() {
                         className="flex items-center gap-3 rounded-xl px-3.5 py-2.5 transition hover:bg-violet-50"
                       >
                         <Award className="h-4 w-4 shrink-0 text-amber-500" />
-                        <span className="text-xs font-bold text-[#161224]">Founder &amp; Mission</span>
+                        <span className="text-xs font-bold text-[#161224]">Mission &amp; Founder</span>
                       </Link>
                       <Link
                         href="/why-bomie/research"
@@ -1829,7 +1829,7 @@ export default function BomieLandingPage() {
                       className="flex items-center gap-2.5 rounded-xl border border-violet-200/70 bg-white px-3.5 py-2.5 text-xs font-semibold text-[#161224] shadow-xs"
                     >
                       <Award className="h-4 w-4 text-amber-500" />
-                      Founder &amp; Mission
+                      Mission &amp; Founder
                     </Link>
                     <Link
                       href="/why-bomie/research"
