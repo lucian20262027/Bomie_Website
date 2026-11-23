@@ -2435,10 +2435,10 @@ export default function BomieLandingPage() {
                   </div>
                   <Link
                     href="/pricing"
-                    className="group shrink-0 inline-flex items-center gap-1.5 rounded-xl border border-violet-300 bg-gradient-to-r from-violet-600 to-fuchsia-500 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.12em] text-white shadow-md shadow-violet-500/20 transition-all hover:shadow-lg hover:shadow-violet-500/30 hover:brightness-110 self-start sm:self-center"
+                    className="group shrink-0 inline-flex items-center gap-1.5 rounded-full border border-violet-200/90 bg-white/85 px-3.5 py-1.5 text-xs font-semibold text-violet-900 shadow-2xs backdrop-blur-sm transition-all hover:bg-white hover:border-violet-400 hover:shadow-xs self-start sm:self-center"
                   >
                     <span>View Pricing Plan</span>
-                    <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+                    <ArrowRight className="h-3.5 w-3.5 text-violet-600 transition-transform group-hover:translate-x-0.5" />
                   </Link>
                 </div>
 
