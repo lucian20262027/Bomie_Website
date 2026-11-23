@@ -2414,143 +2414,165 @@ export default function BomieLandingPage() {
         </div>
       </section>
 
-      {/* Pilot Testimonials + Zero Risk & Escrow Protection — Finalized 50/50 Balanced Bento */}
-      <section id="pricing" className="border-t border-[#161224]/12 py-14 scroll-mt-16">
+      {/* Pilot Testimonials + Zero Risk & Escrow Protection — Compact 6:4 Bento with Horizontal Steps */}
+      <section id="pricing" className="border-t border-[#161224]/12 py-10 sm:py-12 scroll-mt-16">
         <div className="mx-auto max-w-[1440px] px-6 lg:px-10">
-            <div className="grid gap-6 lg:grid-cols-2 items-stretch">
-              {/* Left Wing: Zero Risk & Escrow Protection (50% Width) */}
-              <div className="flex flex-col justify-between rounded-3xl border border-violet-200/80 bg-gradient-to-br from-[#ECE6FC] via-white to-[#f7f4ff] p-7 sm:p-9 shadow-sm">
-                <div>
-                  <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#161224]">
-                    $0 Monthly Fee in MVP.{' '}
-                    <span className="bg-gradient-to-r from-violet-700 to-fuchsia-600 bg-clip-text text-transparent">
-                      Protected at Every Step.
-                    </span>
-                  </h2>
-                  <p className="mt-2 text-xs sm:text-sm leading-relaxed text-[#161224]/70">
-                    Every campaign runs on 30/40/30 Stripe Escrow with a 100% pre-acceptance refund guarantee—zero risk of wasted ad spend.
-                  </p>
-
-                  {/* 3 Compact Milestone Rows */}
-                  <div className="mt-6 space-y-2.5">
-                    <div className="flex items-center gap-3.5 rounded-2xl border border-[#161224]/6 bg-white/85 p-3.5 shadow-2xs">
-                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-violet-100 text-violet-700 font-mono text-xs font-bold">
-                        $0
-                      </div>
-                      <div className="min-w-0">
-                        <div className="text-xs font-bold text-[#161224]">01 · Zero Platform Fee</div>
-                        <div className="text-[11px] text-[#161224]/60">100% Waived during limited MVP launch. Pay only creator payouts.</div>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-3.5 rounded-2xl border border-[#161224]/6 bg-white/85 p-3.5 shadow-2xs">
-                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-emerald-100 text-emerald-700">
-                        <Lock className="h-4 w-4" />
-                      </div>
-                      <div className="min-w-0">
-                        <div className="text-xs font-bold text-[#161224]">02 · 100% Refund Guarantee</div>
-                        <div className="text-[11px] text-[#161224]/60">Cancel anytime before creator accepts brief for instant card refund.</div>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-3.5 rounded-2xl border border-[#161224]/6 bg-white/85 p-3.5 shadow-2xs">
-                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-amber-100 text-amber-700">
-                        <ShieldCheck className="h-4 w-4" />
-                      </div>
-                      <div className="min-w-0">
-                        <div className="text-xs font-bold text-[#161224]">03 · 30 / 40 / 30 Stripe Escrow</div>
-                        <div className="text-[11px] text-[#161224]/60">30% kickoff, 40% draft approved, 30% only after live post &amp; FTC pass.</div>
-                      </div>
-                    </div>
+          <div className="grid gap-6 lg:grid-cols-5 items-stretch">
+            {/* Left Wing: Zero Risk & Escrow Protection (60% Width, Horizontal Steps) */}
+            <div className="lg:col-span-3 flex flex-col justify-between rounded-3xl border border-violet-200/80 bg-gradient-to-br from-[#ECE6FC] via-white to-[#f7f4ff] p-6 sm:p-8 shadow-sm">
+              <div>
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div>
+                    <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight text-[#161224]">
+                      $0 Monthly Fee in MVP.{' '}
+                      <span className="bg-gradient-to-r from-violet-700 to-fuchsia-600 bg-clip-text text-transparent">
+                        Protected at Every Step.
+                      </span>
+                    </h2>
+                    <p className="mt-1 text-xs sm:text-sm leading-relaxed text-[#161224]/70 max-w-xl">
+                      Every campaign runs on 30/40/30 Stripe Escrow with a 100% pre-acceptance refund guarantee—zero risk of wasted ad spend.
+                    </p>
                   </div>
-                </div>
-
-                <div className="mt-8 pt-5 border-t border-[#161224]/10 flex items-center justify-end">
                   <Link
                     href="/pricing"
-                    className="group inline-flex items-center gap-2 rounded-xl border border-violet-300 bg-gradient-to-r from-violet-600 to-fuchsia-500 px-5 py-2.5 font-mono text-[11px] uppercase tracking-[0.12em] text-white shadow-md shadow-violet-500/20 transition-all hover:shadow-lg hover:shadow-violet-500/30 hover:brightness-110"
+                    className="group shrink-0 inline-flex items-center gap-1.5 rounded-xl border border-violet-300 bg-gradient-to-r from-violet-600 to-fuchsia-500 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.12em] text-white shadow-md shadow-violet-500/20 transition-all hover:shadow-lg hover:shadow-violet-500/30 hover:brightness-110 self-start sm:self-center"
                   >
                     <span>View Pricing Plan</span>
                     <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
                   </Link>
                 </div>
-              </div>
 
-              {/* Right Wing: Pilot Voices Spotlight (50% Width, No Blank Gap) */}
-              <div className="flex flex-col justify-between rounded-3xl border border-[#161224]/10 bg-white p-7 sm:p-9 shadow-sm">
-                <div>
-                  <div className="flex items-center justify-between">
-                    <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-[#161224]">
-                      Trusted by Local Store Owners &amp; Creators
-                    </h3>
-                    <span className="hidden sm:inline-flex rounded-full bg-violet-100 border border-violet-200 px-3 py-1 font-mono text-xs font-bold text-violet-800">
-                      {[
-                        '3.6X ROAS',
-                        '+41% BOOKINGS',
-                        'BAY AREA CREATOR',
-                      ][activePilotIndex]}
-                    </span>
+                {/* 3 Compact Milestone Steps in 1 Horizontal Row */}
+                <div className="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <div className="flex flex-col justify-between rounded-2xl border border-[#161224]/6 bg-white/90 p-3.5 shadow-2xs">
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-violet-100 text-violet-700 font-mono text-xs font-bold">
+                        $0
+                      </div>
+                      <span className="font-mono text-[9px] uppercase tracking-wider text-violet-700 font-bold bg-violet-50 px-1.5 py-0.5 rounded">
+                        MVP Free
+                      </span>
+                    </div>
+                    <div>
+                      <div className="text-xs font-bold text-[#161224]">01 · Zero Platform Fee</div>
+                      <div className="mt-1 text-[11px] leading-snug text-[#161224]/60">
+                        100% Waived during limited MVP. Pay only creator payouts.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col justify-between rounded-2xl border border-[#161224]/6 bg-white/90 p-3.5 shadow-2xs">
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-100 text-emerald-700">
+                        <Lock className="h-3.5 w-3.5" />
+                      </div>
+                      <span className="font-mono text-[9px] uppercase tracking-wider text-emerald-700 font-bold bg-emerald-50 px-1.5 py-0.5 rounded">
+                        100% Refund
+                      </span>
+                    </div>
+                    <div>
+                      <div className="text-xs font-bold text-[#161224]">02 · Refund Guarantee</div>
+                      <div className="mt-1 text-[11px] leading-snug text-[#161224]/60">
+                        Cancel anytime before creator accepts brief for instant card refund.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col justify-between rounded-2xl border border-[#161224]/6 bg-white/90 p-3.5 shadow-2xs">
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-amber-100 text-amber-700">
+                        <ShieldCheck className="h-3.5 w-3.5" />
+                      </div>
+                      <span className="font-mono text-[9px] uppercase tracking-wider text-amber-700 font-bold bg-amber-50 px-1.5 py-0.5 rounded">
+                        Stripe Escrow
+                      </span>
+                    </div>
+                    <div>
+                      <div className="text-xs font-bold text-[#161224]">03 · 30 / 40 / 30 Escrow</div>
+                      <div className="mt-1 text-[11px] leading-snug text-[#161224]/60">
+                        30% kickoff, 40% draft, 30% only after live post &amp; FTC pass.
+                      </div>
+                    </div>
                   </div>
                 </div>
+              </div>
+            </div>
 
-                {/* Active Featured Testimonial Spotlight — flex-1 smoothly fills the card height */}
-                <div className="my-5 flex-1 flex flex-col justify-between rounded-2xl bg-[#f7f4ff]/80 border border-violet-100/90 p-5 sm:p-6 shadow-2xs">
-                  <p className="text-[15px] sm:text-base italic leading-relaxed text-[#161224]/85">
+            {/* Right Wing: Pilot Voices Spotlight (40% Width) */}
+            <div className="lg:col-span-2 flex flex-col justify-between rounded-3xl border border-[#161224]/10 bg-white p-6 sm:p-7 shadow-sm">
+              <div>
+                <div className="flex items-center justify-between gap-2">
+                  <h3 className="text-base sm:text-lg font-bold tracking-tight text-[#161224] truncate">
+                    Trusted by Local Owners &amp; Creators
+                  </h3>
+                  <span className="shrink-0 rounded-full bg-violet-100 border border-violet-200 px-2.5 py-0.5 font-mono text-[10px] font-bold text-violet-800">
                     {[
-                      '\u201cWe skipped a $3,500/mo agency retainer, matched 3 neighborhood foodies in minutes, and saw 96 new weekend dine-in tables within 14 days. The escrow payout meant creators only got paid once our verified voucher redemption targets were met.\u201d',
-                      '\u201cThe 3-Agent FTC check caught risky medical claims before filming, and every beauty creator brought real neighborhood facial bookings. No back-and-forth contract negotiation\u2014Bomie handled the entire campaign autonomously.\u201d',
-                      '\u201cNo cold DMs, no awkward rate haggling, and zero waiting 60 days for Net-60 invoices. The campaign brief was clear, FTC compliance was automatic, and funds unlocked into my Stripe account the moment my 30s reel went live.\u201d',
+                      '3.6X ROAS',
+                      '+41% BOOKINGS',
+                      'BAY AREA CREATOR',
+                    ][activePilotIndex]}
+                  </span>
+                </div>
+
+                {/* Active Featured Testimonial Spotlight */}
+                <div className="mt-3.5 rounded-2xl bg-[#f7f4ff]/80 border border-violet-100/90 p-4 shadow-2xs flex flex-col justify-between">
+                  <p className="text-xs sm:text-[13px] italic leading-relaxed text-[#161224]/85">
+                    {[
+                      '\u201cWe skipped a $3,500/mo agency retainer, matched 3 neighborhood foodies in minutes, and saw 96 new weekend tables within 14 days.\u201d',
+                      '\u201cThe 3-Agent FTC check caught risky medical claims before filming, and every beauty creator brought real neighborhood bookings.\u201d',
+                      '\u201cNo cold DMs, no awkward rate haggling, and zero waiting 60 days for Net-60 invoices. Funds unlocked the moment my reel went live.\u201d',
                     ][activePilotIndex]}
                   </p>
 
-                  <div className="mt-4 flex items-center justify-between border-t border-violet-200/50 pt-3.5">
+                  <div className="mt-3 flex items-center justify-between border-t border-violet-200/50 pt-2.5">
                     <div>
-                      <div className="text-sm font-bold text-[#161224]">
+                      <div className="text-xs font-bold text-[#161224]">
                         {['David L.', 'Elena R.', '@sfnoodleclub'][activePilotIndex]}
                       </div>
-                      <div className="text-xs text-[#161224]/60">
+                      <div className="text-[10px] text-[#161224]/60">
                         {[
-                          'Owner, Chili & Silk Sichuan · San Francisco',
-                          'Founder, Lumina Skin Studio · Los Angeles',
-                          'Local Food Creator (34.2K) · Bay Area',
+                          'Owner, Chili & Silk · San Francisco',
+                          'Founder, Lumina Skin · Los Angeles',
+                          'Food Creator (34.2K) · Bay Area',
                         ][activePilotIndex]}
                       </div>
                     </div>
                     <div className="flex items-center gap-0.5 text-amber-400">
                       {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="h-4 w-4 fill-current" />
+                        <Star key={i} className="h-3.5 w-3.5 fill-current" />
                       ))}
                     </div>
                   </div>
                 </div>
+              </div>
 
-                {/* 3 Hover-Swipe Merchant Switcher Tabs */}
-                <div className="pt-1">
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                    {[
-                      { name: 'Chili & Silk (SF)', tag: '3.6X ROAS' },
-                      { name: 'Lumina Skin (LA)', tag: '+41% Bookings' },
-                      { name: '@sfnoodleclub', tag: 'Bay Area Creator' },
-                    ].map((item, idx) => (
-                      <button
-                        key={item.name}
-                        type="button"
-                        onMouseEnter={() => setActivePilotIndex(idx)}
-                        onClick={() => setActivePilotIndex(idx)}
-                        className={`flex flex-col text-left p-3 rounded-xl border transition-all duration-200 ${
-                          activePilotIndex === idx
-                            ? 'border-violet-600 bg-violet-50/90 shadow-xs'
-                            : 'border-[#161224]/10 bg-white hover:bg-violet-50/50 hover:border-violet-300'
-                        }`}
-                      >
-                        <span className="text-xs font-bold text-[#161224] truncate">{item.name}</span>
-                        <span className="font-mono text-[10px] text-violet-700 font-semibold">{item.tag}</span>
-                      </button>
-                    ))}
-                  </div>
+              {/* 3 Hover-Swipe Merchant Switcher Tabs */}
+              <div className="mt-3 pt-2.5 border-t border-[#161224]/8">
+                <div className="grid grid-cols-3 gap-1.5">
+                  {[
+                    { name: 'Chili & Silk', tag: '3.6X ROAS' },
+                    { name: 'Lumina Skin', tag: '+41% Bookings' },
+                    { name: '@sfnoodleclub', tag: 'Creator' },
+                  ].map((item, idx) => (
+                    <button
+                      key={item.name}
+                      type="button"
+                      onMouseEnter={() => setActivePilotIndex(idx)}
+                      onClick={() => setActivePilotIndex(idx)}
+                      className={`flex flex-col text-left p-2 rounded-xl border transition-all duration-200 ${
+                        activePilotIndex === idx
+                          ? 'border-violet-600 bg-violet-50/90 shadow-xs'
+                          : 'border-[#161224]/10 bg-white hover:bg-violet-50/50 hover:border-violet-300'
+                      }`}
+                    >
+                      <span className="text-[11px] font-bold text-[#161224] truncate">{item.name}</span>
+                      <span className="font-mono text-[9px] text-violet-700 font-semibold">{item.tag}</span>
+                    </button>
+                  ))}
                 </div>
               </div>
             </div>
+          </div>
         </div>
       </section>
 
