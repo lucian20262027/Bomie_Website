@@ -131,23 +131,62 @@ const LEDGER_GROUPS: {
   },
 ];
 
+const PALETTE = {
+  pageBg: 'bg-[#f7f4ff] text-[#161224] selection:bg-[#161224] selection:text-[#f7f4ff]',
+  header: 'border-b border-[#161224]/10 bg-[#f7f4ff]',
+  logoBox: 'bg-[#161224] text-[#f7f4ff]',
+  ink: 'text-[#161224]',
+  mutedNav: 'text-[#161224]/62 hover:text-[#161224]',
+  ctaBtn: 'border-[#161224]/30 text-[#161224] hover:bg-[#161224] hover:text-[#f7f4ff]',
+  orbBg: 'bg-[#1E1535]',
+  orbAtmosphere:
+    'radial-gradient(circle at 75% 24%, rgba(235, 227, 255, 0.20) 0%, rgba(30, 21, 53, 0) 55%), linear-gradient(155deg, #171029 0%, #2A1D4B 55%, #140E24 100%)',
+  orbCrescent:
+    'radial-gradient(circle at 68% 32%, #F6F2FF 0%, rgba(221, 210, 255, 0.56) 32%, rgba(30, 21, 53, 0) 72%)',
+  orbMask: 'bg-[#1E1535]',
+  badge: 'border-[#161224]/20 bg-[#161224]/[0.04] text-[#161224]/65',
+  prose: 'text-[#161224]/65',
+  proseStrong: 'text-[#161224]/85',
+  dotBg: 'bg-[#6D28D9]',
+  dotHex: '#6D28D9',
+  svgStroke: '#161224',
+  linkPrimary: 'text-[#161224]/75 decoration-[#161224]/40 hover:text-[#161224]',
+  linkSecondary: 'text-[#161224]/60 decoration-[#161224]/30 hover:text-[#161224]',
+  cardBg: 'bg-[#ECE6FC]',
+  cardBadge: 'border-[#161224]/15 bg-[#f7f4ff]/85 text-[#161224]',
+  cardSubtle: 'text-[#161224]/48',
+  cardFooterBorder: 'border-[#161224]/10 text-[#161224]/55',
+  tabDivider: 'border-[#161224]/12',
+  tabActiveRing: 'border-[#6D28D9]/45 bg-[#6D28D9]/10',
+  tabIdleRing: 'border-[#161224]/15 bg-[#161224]/[0.04] group-hover:border-[#6D28D9]/35',
+  tabActiveDot: 'bg-[#6D28D9]',
+  tabIdleText: 'text-[#161224]/50 hover:text-[#161224]/80',
+  chipActive: 'border-[#161224] bg-[#161224] text-[#f7f4ff]',
+  chipIdle: 'border-[#161224]/22 text-[#161224]/75 hover:border-[#161224]',
+  dottedRule: 'border-[#161224]/18',
+  metaFaint: 'text-[#161224]/50',
+  footer: 'border-t border-[#161224]/12 bg-[#f7f4ff]',
+  footerText: 'text-[#161224]/60',
+} as const;
+
 export default function FounderProfileClient() {
   const [activeTabId, setActiveTabId] = useState<string>('governance');
   const [filter, setFilter] = useState<LedgerFilter>('ALL');
 
+  const p = PALETTE;
   const activeTab = FOUNDER_TABS.find((t) => t.id === activeTabId) ?? FOUNDER_TABS[0];
 
   const visibleGroups =
     filter === 'ALL' ? LEDGER_GROUPS : LEDGER_GROUPS.filter((g) => g.key === filter);
 
   return (
-    <div className="min-h-screen bg-[#FBFBF8] text-[#3C2E2A] selection:bg-[#3C2E2A] selection:text-[#FBFBF8]">
+    <div className={`min-h-screen ${p.pageBg}`}>
       {/* Minimal Header with Level-2 Breadcrumb */}
-      <header className="w-full border-b border-[#3C2E2A]/10 bg-[#FBFBF8]">
+      <header className={`w-full ${p.header}`}>
         <div className="mx-auto flex max-w-[1440px] items-center justify-between px-6 sm:px-10 h-[74px]">
           <div className="flex items-center gap-8">
             <Link href="/" className="flex items-center gap-2.5 group">
-              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#3C2E2A] text-[#FBFBF8] transition group-hover:opacity-85">
+              <div className={`flex h-7 w-7 items-center justify-center rounded-lg ${p.logoBox} transition group-hover:opacity-85`}>
                 <svg viewBox="0 0 512 512" fill="none" className="h-4 w-4">
                   <path
                     fill="currentColor"
@@ -157,14 +196,14 @@ export default function FounderProfileClient() {
                   />
                 </svg>
               </div>
-              <span className="text-base font-semibold tracking-tight text-[#3C2E2A]">
+              <span className={`text-base font-semibold tracking-tight ${p.ink}`}>
                 BOMIE
               </span>
             </Link>
 
             <Link
               href="/why-bomie/stories"
-              className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-[#3C2E2A]/62 hover:text-[#3C2E2A] transition"
+              className={`inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.14em] transition ${p.mutedNav}`}
             >
               <ArrowLeft className="h-3.5 w-3.5" />
               MISSION &amp; FOUNDER
@@ -173,7 +212,7 @@ export default function FounderProfileClient() {
 
           <a
             href="mailto:lucian.wang@bomie.ai"
-            className="inline-flex items-center justify-center rounded-[10px] border border-[#3C2E2A]/35 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.12em] text-[#3C2E2A] transition hover:bg-[#3C2E2A] hover:text-[#FBFBF8]"
+            className={`inline-flex items-center justify-center rounded-[10px] border px-4 py-2 font-mono text-[11px] uppercase tracking-[0.12em] transition ${p.ctaBtn}`}
           >
             CONTACT FOUNDER
           </a>
@@ -185,23 +224,21 @@ export default function FounderProfileClient() {
         <section className="mx-auto max-w-[1440px]">
           <div className="grid lg:grid-cols-2">
             {/* Left 1:1 Matte Dark Horizon Panel */}
-            <div className="relative aspect-square w-full overflow-hidden bg-[#2A201E]">
+            <div className={`relative aspect-square w-full overflow-hidden ${p.orbBg}`}>
               <div
                 className="absolute inset-0"
                 style={{
-                  background:
-                    'radial-gradient(circle at 75% 24%, rgba(251, 251, 248, 0.14) 0%, rgba(42, 32, 30, 0) 55%), linear-gradient(155deg, #211817 0%, #362926 55%, #1d1514 100%)',
+                  background: p.orbAtmosphere,
                 }}
               />
               {/* Soft Crescent Glow */}
               <div
                 className="absolute right-[-12%] top-[-10%] h-[76%] w-[76%] rounded-full opacity-90 blur-[36px]"
                 style={{
-                  background:
-                    'radial-gradient(circle at 68% 32%, #f4f1ea 0%, rgba(235, 228, 218, 0.48) 32%, rgba(42, 32, 30, 0) 72%)',
+                  background: p.orbCrescent,
                 }}
               />
-              <div className="absolute right-[8%] top-[8%] h-[70%] w-[70%] rounded-full bg-[#2A201E] opacity-95 blur-[24px]" />
+              <div className={`absolute right-[8%] top-[8%] h-[70%] w-[70%] rounded-full ${p.orbMask} opacity-95 blur-[24px]`} />
 
               {/* Subtle Archival Monogram Stamp */}
               <div className="relative z-10 flex h-full flex-col justify-between p-8 sm:p-10">
@@ -223,16 +260,16 @@ export default function FounderProfileClient() {
             <div className="flex flex-col justify-center px-6 py-14 sm:px-12 lg:px-16 lg:py-20">
               <div className="mx-auto w-full max-w-lg space-y-10">
                 <div className="flex items-start gap-4">
-                  <span className="mt-1 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-[#3C2E2A]/20 bg-[#3C2E2A]/[0.04] font-mono text-[10px] text-[#3C2E2A]/65">
+                  <span className={`mt-1 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full border font-mono text-[10px] ${p.badge}`}>
                     01
                   </span>
-                  <h1 className="text-[22px] sm:text-[25px] font-medium leading-[1.32] tracking-[-0.015em] text-[#3C2E2A]">
+                  <h1 className={`text-[22px] sm:text-[25px] font-medium leading-[1.32] tracking-[-0.015em] ${p.ink}`}>
                     Lucian Wang — Founder &amp; CEO building autonomous AI infrastructure
                     for Main Street.
                   </h1>
                 </div>
 
-                <div className="pl-10 sm:pl-16 space-y-5 text-[15px] leading-[1.65] text-[#3C2E2A]/62">
+                <div className={`pl-10 sm:pl-16 space-y-5 text-[15px] leading-[1.65] ${p.prose}`}>
                   <p>
                     Before founding Bomie AI in San Francisco, I led global seller
                     analytics and platform governance at TikTok (ByteDance), scaling
@@ -247,7 +284,7 @@ export default function FounderProfileClient() {
                     end-to-end—combining strict marketplace governance with real-world
                     merchant empathy.
                   </p>
-                  <p className="text-[#3C2E2A]/80">
+                  <p className={p.proseStrong}>
                     Based in the Bay Area, partnering with neighborhood operators and
                     creators nationwide.
                   </p>
@@ -255,8 +292,8 @@ export default function FounderProfileClient() {
 
                 <div className="pl-10 sm:pl-16 space-y-7 pt-2">
                   <div className="flex items-center gap-3.5">
-                    <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-[#dc4a2d]" />
-                    <h2 className="text-[17px] sm:text-[19px] font-medium tracking-[-0.01em] text-[#3C2E2A]">
+                    <span className={`h-2.5 w-2.5 shrink-0 rounded-full ${p.dotBg}`} />
+                    <h2 className={`text-[17px] sm:text-[19px] font-medium tracking-[-0.01em] ${p.ink}`}>
                       Engineering rigor meets storefront reality
                     </h2>
                   </div>
@@ -266,19 +303,19 @@ export default function FounderProfileClient() {
                       href="https://www.linkedin.com/in/lucianwang18"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-mono text-[11px] uppercase tracking-[0.16em] text-[#3C2E2A]/70 underline decoration-[#3C2E2A]/40 underline-offset-[6px] transition hover:text-[#3C2E2A]"
+                      className={`font-mono text-[11px] uppercase tracking-[0.16em] underline underline-offset-[6px] transition ${p.linkPrimary}`}
                     >
                       LINKEDIN PROFILE
                     </a>
                     <a
                       href="mailto:lucian.wang@bomie.ai"
-                      className="font-mono text-[11px] uppercase tracking-[0.16em] text-[#3C2E2A]/60 underline decoration-[#3C2E2A]/30 underline-offset-[6px] transition hover:text-[#3C2E2A]"
+                      className={`font-mono text-[11px] uppercase tracking-[0.16em] underline underline-offset-[6px] transition ${p.linkSecondary}`}
                     >
                       LUCIAN.WANG@BOMIE.AI
                     </a>
                     <Link
                       href="/why-bomie/stories"
-                      className="font-mono text-[11px] uppercase tracking-[0.16em] text-[#3C2E2A]/60 underline decoration-[#3C2E2A]/30 underline-offset-[6px] transition hover:text-[#3C2E2A]"
+                      className={`font-mono text-[11px] uppercase tracking-[0.16em] underline underline-offset-[6px] transition ${p.linkSecondary}`}
                     >
                       ← MISSION
                     </Link>
@@ -293,10 +330,10 @@ export default function FounderProfileClient() {
         <section className="mx-auto max-w-[1440px] px-6 sm:px-10 pt-24 sm:pt-32 pb-16">
           <div className="grid lg:grid-cols-12">
             <div className="lg:col-start-3 lg:col-span-6 flex items-start gap-4">
-              <span className="mt-1 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-[#3C2E2A]/20 bg-[#3C2E2A]/[0.04] font-mono text-[10px] text-[#3C2E2A]/65">
+              <span className={`mt-1 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full border font-mono text-[10px] ${p.badge}`}>
                 02
               </span>
-              <h2 className="text-[22px] sm:text-[26px] font-medium leading-[1.3] tracking-[-0.015em] text-[#3C2E2A]">
+              <h2 className={`text-[22px] sm:text-[26px] font-medium leading-[1.3] tracking-[-0.015em] ${p.ink}`}>
                 How builder conviction shapes every decision at Bomie.
               </h2>
             </div>
@@ -304,29 +341,29 @@ export default function FounderProfileClient() {
 
           <div className="mt-14 grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             <div className="lg:col-span-5">
-              <div className="relative aspect-square w-full overflow-hidden rounded-sm bg-[#EAECE6] p-7 flex flex-col justify-between">
+              <div className={`relative aspect-square w-full overflow-hidden rounded-sm ${p.cardBg} p-7 flex flex-col justify-between`}>
                 <div className="flex items-center justify-between">
-                  <span className="rounded-full border border-[#3C2E2A]/15 bg-[#FBFBF8]/80 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-[#3C2E2A]">
+                  <span className={`rounded-full border px-3 py-1 font-mono text-[10px] uppercase tracking-[0.14em] ${p.cardBadge}`}>
                     {activeTab.badge}
                   </span>
-                  <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-[#3C2E2A]/45">
+                  <span className={`font-mono text-[10px] uppercase tracking-[0.14em] ${p.cardSubtle}`}>
                     OPERATING CODE
                   </span>
                 </div>
 
                 <svg viewBox="0 0 320 240" fill="none" className="w-full max-w-[290px] mx-auto opacity-80">
-                  <rect x="44" y="44" width="232" height="152" rx="4" stroke="#3C2E2A" strokeWidth="1" strokeDasharray="3 4" />
-                  <circle cx="160" cy="120" r="54" stroke="#3C2E2A" strokeWidth="1.2" />
-                  <path d="M106 120 H214 M160 66 V174" stroke="#3C2E2A" strokeWidth="0.9" strokeOpacity="0.4" />
+                  <rect x="44" y="44" width="232" height="152" rx="4" stroke={p.svgStroke} strokeWidth="1" strokeDasharray="3 4" />
+                  <circle cx="160" cy="120" r="54" stroke={p.svgStroke} strokeWidth="1.2" />
+                  <path d="M106 120 H214 M160 66 V174" stroke={p.svgStroke} strokeWidth="0.9" strokeOpacity="0.4" />
                   <circle
                     cx={activeTabId === 'governance' ? 160 : activeTabId === 'operator' ? 214 : activeTabId === 'builder' ? 160 : 106}
                     cy={activeTabId === 'governance' ? 66 : activeTabId === 'operator' ? 120 : activeTabId === 'builder' ? 174 : 120}
                     r="6"
-                    fill="#dc4a2d"
+                    fill={p.dotHex}
                   />
                 </svg>
 
-                <div className="flex items-center justify-between border-t border-[#3C2E2A]/10 pt-3 font-mono text-[10px] uppercase tracking-[0.14em] text-[#3C2E2A]/55">
+                <div className={`flex items-center justify-between border-t pt-3 font-mono text-[10px] uppercase tracking-[0.14em] ${p.cardFooterBorder}`}>
                   <span>CITY CS · BABSON MBA</span>
                   <span>CAMBRIDGE ALUMNUS</span>
                 </div>
@@ -334,7 +371,7 @@ export default function FounderProfileClient() {
             </div>
 
             <div className="lg:col-span-6 lg:col-start-7 space-y-8">
-              <div role="tablist" className="flex flex-wrap gap-x-6 gap-y-3 border-b border-[#3C2E2A]/12 pb-5">
+              <div role="tablist" className={`flex flex-wrap gap-x-6 gap-y-3 border-b ${p.tabDivider} pb-5`}>
                 {FOUNDER_TABS.map((tab) => {
                   const isActive = tab.id === activeTabId;
                   return (
@@ -348,20 +385,18 @@ export default function FounderProfileClient() {
                     >
                       <span
                         className={`flex h-5 w-5 items-center justify-center rounded-full border transition ${
-                          isActive
-                            ? 'border-[#3C2E2A]/35 bg-[#3C2E2A]/10'
-                            : 'border-[#3C2E2A]/15 bg-[#3C2E2A]/[0.04] group-hover:border-[#3C2E2A]/30'
+                          isActive ? p.tabActiveRing : p.tabIdleRing
                         }`}
                       >
                         <span
                           className={`h-2 w-2 rounded-full transition ${
-                            isActive ? 'bg-[#3C2E2A]' : 'bg-transparent'
+                            isActive ? p.tabActiveDot : 'bg-transparent'
                           }`}
                         />
                       </span>
                       <span
                         className={`text-sm font-medium transition ${
-                          isActive ? 'text-[#3C2E2A]' : 'text-[#3C2E2A]/50 hover:text-[#3C2E2A]/80'
+                          isActive ? p.ink : p.tabIdleText
                         }`}
                       >
                         {tab.label}
@@ -371,28 +406,39 @@ export default function FounderProfileClient() {
                 })}
               </div>
 
-              <p className="text-[19px] sm:text-[22px] leading-[1.45] tracking-[-0.01em] text-[#3C2E2A]/62">
-                <span className="text-[#3C2E2A] font-medium">{activeTab.lead}</span>
+              <p className={`text-[19px] sm:text-[22px] leading-[1.45] tracking-[-0.01em] ${p.prose}`}>
+                <span className={`${p.ink} font-medium`}>{activeTab.lead}</span>
                 {activeTab.rest}
               </p>
             </div>
           </div>
         </section>
 
-        {/* SECTION 03: Founder Record & Credentials Ledger */}
+        {/* SECTION 03: Anchored 2-Column Founder Record & Credentials Ledger */}
         <section className="mx-auto max-w-[1440px] px-6 sm:px-10 pt-20 pb-28">
-          <div className="grid lg:grid-cols-12 mb-12">
-            <div className="lg:col-start-3 lg:col-span-6 flex items-start gap-4">
-              <span className="mt-1 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-[#3C2E2A]/20 bg-[#3C2E2A]/[0.04] font-mono text-[10px] text-[#3C2E2A]/65">
-                03
-              </span>
-              <h2 className="text-[22px] sm:text-[26px] font-medium leading-[1.3] tracking-[-0.015em] text-[#3C2E2A]">
-                Experience, academic record, and public artifacts.
-              </h2>
-            </div>
-          </div>
+          <div className={`border-t ${p.tabDivider} pt-16 grid lg:grid-cols-12 gap-12 lg:gap-10 items-start`}>
+            <div className="lg:col-span-5 lg:sticky lg:top-14 space-y-6">
+              <div className="flex items-start gap-4">
+                <span className={`mt-1 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full border font-mono text-[10px] ${p.badge}`}>
+                  03
+                </span>
+                <h2 className={`text-[22px] sm:text-[26px] font-medium leading-[1.3] tracking-[-0.015em] ${p.ink}`}>
+                  Experience, academic record, and public artifacts.
+                </h2>
+              </div>
 
-          <div className="grid lg:grid-cols-12">
+              <div className={`pl-10 space-y-5 text-[14px] leading-[1.65] ${p.prose}`}>
+                <p>
+                  Verified operating experience across marketplace governance, physical
+                  B2B unit economics, graduate engineering, and peer-archived commerce
+                  research.
+                </p>
+                <div className={`pt-3 border-t ${p.tabDivider} font-mono text-[10px] uppercase tracking-[0.16em] ${p.metaFaint}`}>
+                  FOUNDER LEDGER · VERIFIED RECORD
+                </div>
+              </div>
+            </div>
+
             <div className="lg:col-span-6 lg:col-start-7 space-y-10">
               <div className="flex flex-wrap gap-2">
                 {(
@@ -410,9 +456,7 @@ export default function FounderProfileClient() {
                       type="button"
                       onClick={() => setFilter(chip.id)}
                       className={`rounded-[10px] border px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-[0.12em] transition cursor-pointer ${
-                        active
-                          ? 'border-[#3C2E2A] bg-[#3C2E2A] text-[#FBFBF8]'
-                          : 'border-[#3C2E2A]/25 text-[#3C2E2A]/75 hover:border-[#3C2E2A]'
+                        active ? p.chipActive : p.chipIdle
                       }`}
                     >
                       {chip.label}
@@ -425,13 +469,13 @@ export default function FounderProfileClient() {
                 {visibleGroups.map((group) => (
                   <div
                     key={group.num}
-                    className="border-t-2 border-dotted border-[#3C2E2A]/20 pt-7 space-y-6"
+                    className={`border-t-2 border-dotted ${p.dottedRule} pt-7 space-y-6`}
                   >
                     <div className="flex items-center gap-3">
-                      <span className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-[#3C2E2A]/20 bg-[#3C2E2A]/[0.04] font-mono text-[10px] text-[#3C2E2A]/65">
+                      <span className={`inline-flex h-6 w-6 items-center justify-center rounded-full border font-mono text-[10px] ${p.badge}`}>
                         {group.num}
                       </span>
-                      <h3 className="text-base font-medium text-[#3C2E2A]">
+                      <h3 className={`text-base font-medium ${p.ink}`}>
                         {group.name}
                       </h3>
                     </div>
@@ -440,14 +484,14 @@ export default function FounderProfileClient() {
                       {group.entries.map((entry) => {
                         const content = (
                           <div className="space-y-1">
-                            <div className="inline-flex items-center gap-1.5 text-[16px] font-medium text-[#3C2E2A] group-hover:underline underline-offset-4">
+                            <div className={`inline-flex items-center gap-1.5 text-[16px] font-medium ${p.ink} group-hover:underline underline-offset-4`}>
                               <span>{entry.title}</span>
                               {entry.href && (
                                 <ArrowUpRight className="h-3.5 w-3.5 opacity-55 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                               )}
                             </div>
-                            <div className="text-xs text-[#3C2E2A]/62">{entry.detail}</div>
-                            <div className="font-mono text-[11px] text-[#3C2E2A]/50">
+                            <div className={`text-xs ${p.prose}`}>{entry.detail}</div>
+                            <div className={`font-mono text-[11px] ${p.metaFaint}`}>
                               {entry.meta}
                             </div>
                           </div>
@@ -490,20 +534,20 @@ export default function FounderProfileClient() {
         </section>
       </main>
 
-      <footer className="border-t border-[#3C2E2A]/12 bg-[#FBFBF8]">
-        <div className="mx-auto flex max-w-[1440px] flex-col sm:flex-row items-center justify-between gap-4 px-6 sm:px-10 py-6 font-mono text-[11px] uppercase tracking-[0.12em] text-[#3C2E2A]/60">
+      <footer className={p.footer}>
+        <div className={`mx-auto flex max-w-[1440px] flex-col sm:flex-row items-center justify-between gap-4 px-6 sm:px-10 py-6 font-mono text-[11px] uppercase tracking-[0.12em] ${p.footerText}`}>
           <span>© 2026 BOMIE AI · SAN FRANCISCO</span>
           <div className="flex flex-wrap items-center gap-6">
-            <Link href="/why-bomie/stories" className="hover:text-[#3C2E2A]">
+            <Link href="/why-bomie/stories" className="hover:opacity-100">
               MISSION &amp; FOUNDER
             </Link>
-            <Link href="/demo" className="hover:text-[#3C2E2A]">
+            <Link href="/demo" className="hover:opacity-100">
               LIVE DEMO
             </Link>
-            <Link href="/why-bomie/research" className="hover:text-[#3C2E2A]">
+            <Link href="/why-bomie/research" className="hover:opacity-100">
               RESEARCH
             </Link>
-            <Link href="/privacy" className="hover:text-[#3C2E2A]">
+            <Link href="/privacy" className="hover:opacity-100">
               PRIVACY
             </Link>
           </div>
@@ -512,11 +556,11 @@ export default function FounderProfileClient() {
               href="https://www.linkedin.com/in/lucianwang18"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-[#3C2E2A]"
+              className="hover:opacity-100"
             >
               LINKEDIN
             </a>
-            <a href="mailto:lucian.wang@bomie.ai" className="hover:text-[#3C2E2A]">
+            <a href="mailto:lucian.wang@bomie.ai" className="hover:opacity-100">
               EMAIL
             </a>
           </div>
