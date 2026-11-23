@@ -1476,6 +1476,7 @@ export default function BomieLandingPage() {
   }, [selectedCity, isCityPaused, cityExpanded]);
 
   const [activePilotIndex, setActivePilotIndex] = useState(0);
+  const [ledgerVariant, setLedgerVariant] = useState<'A' | 'B' | 'C'>('A');
 
   return (
     <div className="min-h-screen overflow-x-clip bg-[#f7f4ff] text-[#161224] selection:bg-violet-600 selection:text-white">
@@ -2428,7 +2429,49 @@ export default function BomieLandingPage() {
       <section id="pricing" className="border-t border-[#161224]/12 py-12 sm:py-16 scroll-mt-16">
         <div className="mx-auto max-w-[1440px] px-6 lg:px-10">
           <div className="space-y-10">
-            {/* Middle Tier: 3-Column Architectural Ledger (三列发丝分割线，大数字) */}
+            {/* A/B Test Switcher (temporary) */}
+            <div className="flex flex-wrap items-center gap-2 rounded-2xl border border-violet-200/80 bg-white/70 p-3 backdrop-blur-md">
+              <span className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#161224]/60">A/B Test 三组数字:</span>
+              <div className="inline-flex rounded-xl border border-violet-200/60 bg-[#f7f4ff] p-1 shadow-inner">
+                {([
+                  ['A', '方案 A · 模仿图一居中数字条'],
+                  ['B', '方案 B · 直接删除'],
+                  ['C', '方案 C · 当前三列说明'],
+                ] as const).map(([v, label]) => (
+                  <button
+                    key={v}
+                    type="button"
+                    onClick={() => setLedgerVariant(v)}
+                    className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition ${
+                      ledgerVariant === v ? 'bg-[#5b21b6] text-white shadow-sm' : 'text-[#161224]/65 hover:text-[#161224]'
+                    }`}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Variant A: Mirror of the Cultural Hubs centered 3-metric strip */}
+            {ledgerVariant === 'A' && (
+              <div className="mx-auto grid max-w-4xl grid-cols-3 divide-x divide-violet-200/80 border-b border-violet-200/80 pb-8 text-center">
+                <div className="px-2 sm:px-6">
+                  <div className="text-2xl sm:text-4xl font-extrabold tracking-tight text-violet-700">$0</div>
+                  <div className="mt-1 text-[11px] sm:text-sm font-medium text-slate-600">Platform Fee in MVP</div>
+                </div>
+                <div className="px-2 sm:px-6">
+                  <div className="text-2xl sm:text-4xl font-extrabold tracking-tight text-emerald-600">100%</div>
+                  <div className="mt-1 text-[11px] sm:text-sm font-medium text-slate-600">Pre-Acceptance Refund</div>
+                </div>
+                <div className="px-2 sm:px-6">
+                  <div className="text-2xl sm:text-4xl font-extrabold tracking-tight text-amber-600">30·40·30</div>
+                  <div className="mt-1 text-[11px] sm:text-sm font-medium text-slate-600">Stripe Milestone Escrow</div>
+                </div>
+              </div>
+            )}
+
+            {/* Variant C: Current 3-column ledger */}
+            {ledgerVariant === 'C' && (
             <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[#161224]/10 py-2 border-b border-[#161224]/10">
               {/* Col 1 */}
               <div className="py-4 md:py-2 md:pr-8">
@@ -2471,6 +2514,8 @@ export default function BomieLandingPage() {
                 </p>
               </div>
             </div>
+
+            )}
 
             {/* Lower Tier: Expansive Pilot Voices Spotlight (大气全宽名言引述与故事切换) */}
             <div className="pt-2">
