@@ -211,17 +211,20 @@ export default function PricingClient() {
             Escrow—with zero hidden agency markups.
           </p>
 
-          <div className="flex flex-wrap items-center justify-center gap-3 pt-2 font-mono text-xs">
-            <span className="rounded-full border border-violet-200 bg-white px-3.5 py-1.5 font-semibold text-violet-800 shadow-sm">
-              $0/mo MVP Software Fee
+          <p className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 pt-2 text-xs font-medium text-slate-500 sm:text-[13px]">
+            <span className="inline-flex items-center gap-1.5">
+              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
+              $0 MVP platform fee
             </span>
-            <span className="rounded-full border border-violet-200 bg-white px-3.5 py-1.5 font-semibold text-fuchsia-800 shadow-sm">
-              0% Creator Commission Forever
+            <span className="inline-flex items-center gap-1.5">
+              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
+              No credit card required
             </span>
-            <span className="rounded-full border border-violet-200 bg-white px-3.5 py-1.5 font-semibold text-emerald-800 shadow-sm">
-              100% Refundable Pre-Accept
+            <span className="inline-flex items-center gap-1.5">
+              <ShieldCheck className="h-3.5 w-3.5 text-violet-600" />
+              100% pre-acceptance escrow refund
             </span>
-          </div>
+          </p>
         </section>
 
         {/* Pricing Cards */}

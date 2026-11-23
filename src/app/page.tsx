@@ -1924,27 +1924,6 @@ export default function BomieLandingPage() {
             </Link>
           </motion.div>
 
-          {/* Proven Friction-Reducer Micro-Copy (B2B Conversion Booster) */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.35 }}
-            className="mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-xs font-medium text-slate-500"
-          >
-            <span className="inline-flex items-center gap-1.5">
-              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
-              $0 MVP platform fee
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
-              No credit card required
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <ShieldCheck className="h-3.5 w-3.5 text-violet-600" />
-              100% pre-acceptance escrow refund
-            </span>
-          </motion.p>
-
           {/* Material-Style Widescreen Visual Stage Framed in Crisp Lavender Glass */}
           <motion.div
             initial={{ opacity: 0, y: 36 }}
@@ -1952,7 +1931,7 @@ export default function BomieLandingPage() {
             transition={{ duration: 0.7, delay: 0.45 }}
             onMouseEnter={() => setIsMatchPaused(true)}
             onMouseLeave={() => setIsMatchPaused(false)}
-            className="mx-auto mt-7 w-full overflow-hidden rounded-3xl border border-violet-200/60 bg-[#0b0b14] text-left shadow-2xl shadow-violet-950/15"
+            className="mx-auto mt-8 w-full overflow-hidden rounded-3xl border border-violet-200/60 bg-[#0b0b14] text-left shadow-2xl shadow-violet-950/15"
           >
             <div>
               {/* Visual Hero Stage (Responsive 16:9 Video Framing + Physical Horizontal Spring Carousel) */}
