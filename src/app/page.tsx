@@ -1476,7 +1476,6 @@ export default function BomieLandingPage() {
   }, [selectedCity, isCityPaused, cityExpanded]);
 
   const [activePilotIndex, setActivePilotIndex] = useState(0);
-  const [ledgerVariant, setLedgerVariant] = useState<'A' | 'B' | 'C'>('A');
 
   return (
     <div className="min-h-screen overflow-x-clip bg-[#f7f4ff] text-[#161224] selection:bg-violet-600 selection:text-white">
@@ -2425,105 +2424,38 @@ export default function BomieLandingPage() {
         </div>
       </section>
 
-      {/* Pilot Testimonials + Zero Risk & Escrow Protection — Finalized Ode Architectural Ribbon */}
+      {/* Pilot Testimonials + Zero Risk & Escrow Protection — Cohesive Centered Editorial Flow */}
       <section id="pricing" className="border-t border-[#161224]/12 py-12 sm:py-16 scroll-mt-16">
         <div className="mx-auto max-w-[1440px] px-6 lg:px-10">
           <div className="space-y-10">
-            {/* A/B Test Switcher (temporary) */}
-            <div className="flex flex-wrap items-center gap-2 rounded-2xl border border-violet-200/80 bg-white/70 p-3 backdrop-blur-md">
-              <span className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#161224]/60">A/B Test 三组数字:</span>
-              <div className="inline-flex rounded-xl border border-violet-200/60 bg-[#f7f4ff] p-1 shadow-inner">
-                {([
-                  ['A', '方案 A · 模仿图一居中数字条'],
-                  ['B', '方案 B · 直接删除'],
-                  ['C', '方案 C · 当前三列说明'],
-                ] as const).map(([v, label]) => (
-                  <button
-                    key={v}
-                    type="button"
-                    onClick={() => setLedgerVariant(v)}
-                    className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition ${
-                      ledgerVariant === v ? 'bg-[#5b21b6] text-white shadow-sm' : 'text-[#161224]/65 hover:text-[#161224]'
-                    }`}
-                  >
-                    {label}
-                  </button>
-                ))}
+            {/* Top Tier: Lightweight Centered 3-Metric Strip (Mirrors Cultural Hubs Aesthetic) */}
+            <div className="mx-auto grid max-w-4xl grid-cols-3 divide-x divide-violet-200/80 border-b border-violet-200/80 pb-8 text-center">
+              <div className="px-2 sm:px-6">
+                <div className="text-2xl sm:text-4xl font-extrabold tracking-tight text-violet-700">$0</div>
+                <div className="mt-1 text-[11px] sm:text-sm font-medium text-slate-600">Platform Fee in MVP</div>
+              </div>
+              <div className="px-2 sm:px-6">
+                <div className="text-2xl sm:text-4xl font-extrabold tracking-tight text-emerald-600">100%</div>
+                <div className="mt-1 text-[11px] sm:text-sm font-medium text-slate-600">Pre-Acceptance Refund</div>
+              </div>
+              <div className="px-2 sm:px-6">
+                <div className="text-2xl sm:text-4xl font-extrabold tracking-tight text-amber-600">30·40·30</div>
+                <div className="mt-1 text-[11px] sm:text-sm font-medium text-slate-600">Stripe Milestone Escrow</div>
               </div>
             </div>
 
-            {/* Variant A: Mirror of the Cultural Hubs centered 3-metric strip */}
-            {ledgerVariant === 'A' && (
-              <div className="mx-auto grid max-w-4xl grid-cols-3 divide-x divide-violet-200/80 border-b border-violet-200/80 pb-8 text-center">
-                <div className="px-2 sm:px-6">
-                  <div className="text-2xl sm:text-4xl font-extrabold tracking-tight text-violet-700">$0</div>
-                  <div className="mt-1 text-[11px] sm:text-sm font-medium text-slate-600">Platform Fee in MVP</div>
-                </div>
-                <div className="px-2 sm:px-6">
-                  <div className="text-2xl sm:text-4xl font-extrabold tracking-tight text-emerald-600">100%</div>
-                  <div className="mt-1 text-[11px] sm:text-sm font-medium text-slate-600">Pre-Acceptance Refund</div>
-                </div>
-                <div className="px-2 sm:px-6">
-                  <div className="text-2xl sm:text-4xl font-extrabold tracking-tight text-amber-600">30·40·30</div>
-                  <div className="mt-1 text-[11px] sm:text-sm font-medium text-slate-600">Stripe Milestone Escrow</div>
-                </div>
-              </div>
-            )}
-
-            {/* Variant C: Current 3-column ledger */}
-            {ledgerVariant === 'C' && (
-            <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[#161224]/10 py-2 border-b border-[#161224]/10">
-              {/* Col 1 */}
-              <div className="py-4 md:py-2 md:pr-8">
-                <div className="font-mono text-xs uppercase tracking-wider text-[#6D28D9] font-semibold">
-                  01 · Zero Platform Fee
-                </div>
-                <div className="mt-2 text-3xl sm:text-4xl font-bold tracking-tight text-[#161224]">
-                  $0 <span className="text-sm font-normal text-[#161224]/50 font-mono">MVP FREE</span>
-                </div>
-                <p className="mt-2 text-xs sm:text-sm text-[#161224]/65 leading-relaxed">
-                  100% Waived during limited MVP launch. Pay strictly for approved creator collaborations.
-                </p>
-              </div>
-
-              {/* Col 2 */}
-              <div className="py-4 md:py-2 md:px-8">
-                <div className="font-mono text-xs uppercase tracking-wider text-emerald-700 font-semibold flex items-center gap-1.5">
-                  <Lock className="h-3.5 w-3.5" />
-                  <span>02 · 100% Refund Guarantee</span>
-                </div>
-                <div className="mt-2 text-3xl sm:text-4xl font-bold tracking-tight text-[#161224]">
-                  100% <span className="text-sm font-normal text-[#161224]/50 font-mono">MONEY-BACK</span>
-                </div>
-                <p className="mt-2 text-xs sm:text-sm text-[#161224]/65 leading-relaxed">
-                  Cancel anytime before a creator accepts your brief for an instant card or bank refund.
-                </p>
-              </div>
-
-              {/* Col 3 */}
-              <div className="py-4 md:py-2 md:pl-8">
-                <div className="font-mono text-xs uppercase tracking-wider text-amber-700 font-semibold flex items-center gap-1.5">
-                  <ShieldCheck className="h-3.5 w-3.5" />
-                  <span>03 · Milestone Protection</span>
-                </div>
-                <div className="mt-2 text-3xl sm:text-4xl font-bold tracking-tight text-[#161224]">
-                  30 · 40 · 30 <span className="text-sm font-normal text-[#161224]/50 font-mono">STRIPE ESCROW</span>
-                </div>
-                <p className="mt-2 text-xs sm:text-sm text-[#161224]/65 leading-relaxed">
-                  30% kickoff, 40% draft approved, and final 30% only after live video post &amp; FTC compliance.
-                </p>
-              </div>
-            </div>
-
-            )}
-
-            {/* Lower Tier: Expansive Pilot Voices Spotlight (大气全宽名言引述与故事切换) */}
-            <div className="pt-2">
-              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
-                {/* Left: Quote */}
-                <div className="flex-1 max-w-3xl">
-                  <div className="flex items-center gap-3 mb-3">
-                    <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-violet-800 bg-violet-100/80 px-2.5 py-0.5 rounded-full border border-violet-200">
+            {/* Lower Tier: Centered Editorial Pilot Spotlight + Unified Pill Switcher */}
+            <div className="mx-auto max-w-3xl text-center">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activePilotIndex}
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -6 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <div className="inline-flex items-center justify-center gap-3 mb-4">
+                    <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-violet-800 bg-violet-100/80 px-3 py-0.5 rounded-full border border-violet-200">
                       {['3.6X ROAS · 96 NEW TABLES', '+41% BOOKINGS · 100% FTC SAFE', 'STRIPE INSTANT PAYOUT · 34.2K FOODIES'][activePilotIndex]}
                     </span>
                     <div className="flex items-center gap-0.5 text-amber-400">
@@ -2532,6 +2464,7 @@ export default function BomieLandingPage() {
                       ))}
                     </div>
                   </div>
+
                   <p className="text-lg sm:text-xl lg:text-2xl italic leading-relaxed text-[#161224]/90 font-serif">
                     {[
                       '\u201cWe skipped a $3,500/mo agency retainer, matched 3 neighborhood foodies in minutes, and saw 96 new weekend tables within 14 days.\u201d',
@@ -2539,46 +2472,55 @@ export default function BomieLandingPage() {
                       '\u201cNo cold DMs, no awkward rate haggling, and zero waiting 60 days for Net-60 invoices. Funds unlocked the moment my reel went live.\u201d',
                     ][activePilotIndex]}
                   </p>
-                  <div className="mt-4 flex items-center gap-3">
-                    <div className="text-sm font-bold text-[#161224]">
+
+                  <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-xs text-[#161224]/65">
+                    <span className="text-sm font-bold text-[#161224]">
                       {['David L.', 'Elena R.', '@sfnoodleclub'][activePilotIndex]}
-                    </div>
+                    </span>
                     <span className="text-[#161224]/30">·</span>
-                    <div className="text-xs text-[#161224]/65">
+                    <span>
                       {[
                         'Owner, Chili & Silk Sichuan · San Francisco',
                         'Founder, Lumina Skin Studio · Los Angeles',
                         'Local Food Creator (34.2K) · Bay Area',
                       ][activePilotIndex]}
-                    </div>
+                    </span>
                   </div>
-                </div>
+                </motion.div>
+              </AnimatePresence>
 
-                {/* Right: Quick Switcher Navigation */}
-                <div className="flex flex-wrap lg:flex-col gap-2 shrink-0">
+              {/* Unified Hover-to-Switch Pill Bar (Matches Cultural Hubs Switcher) */}
+              <div className="mt-7 flex justify-center">
+                <div className="inline-flex flex-wrap items-center justify-center gap-1.5 rounded-2xl border border-violet-200 bg-white/85 p-1.5 shadow-sm backdrop-blur-sm">
                   {[
-                    { name: 'Chili & Silk (SF)', tag: '3.6X ROAS', type: 'Dining' },
-                    { name: 'Lumina Skin (LA)', tag: '+41% Bookings', type: 'Beauty & Spa' },
-                    { name: '@sfnoodleclub', tag: 'Bay Area Creator', type: 'Creator' },
-                  ].map((item, idx) => (
-                    <button
-                      key={item.name}
-                      type="button"
-                      onMouseEnter={() => setActivePilotIndex(idx)}
-                      onClick={() => setActivePilotIndex(idx)}
-                      className={`flex items-center justify-between gap-4 px-4 py-2.5 rounded-xl border transition-all text-left min-w-[200px] ${
-                        activePilotIndex === idx
-                          ? 'border-violet-600 bg-white shadow-sm'
-                          : 'border-[#161224]/8 bg-white/40 hover:bg-white hover:border-violet-200'
-                      }`}
-                    >
-                      <div>
-                        <div className="text-xs font-bold text-[#161224]">{item.name}</div>
-                        <div className="text-[10px] text-[#161224]/50">{item.type}</div>
-                      </div>
-                      <span className="font-mono text-[10px] text-violet-700 font-semibold">{item.tag}</span>
-                    </button>
-                  ))}
+                    { name: 'Chili & Silk (SF)', tag: '3.6X ROAS' },
+                    { name: 'Lumina Skin (LA)', tag: '+41% Bookings' },
+                    { name: '@sfnoodleclub', tag: 'Bay Area Creator' },
+                  ].map((item, idx) => {
+                    const active = activePilotIndex === idx;
+                    return (
+                      <button
+                        key={item.name}
+                        type="button"
+                        onMouseEnter={() => setActivePilotIndex(idx)}
+                        onClick={() => setActivePilotIndex(idx)}
+                        className={`inline-flex items-center gap-2 rounded-xl px-4 py-2 text-xs sm:text-sm font-semibold transition ${
+                          active
+                            ? 'bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white shadow-md'
+                            : 'text-slate-600 hover:text-violet-950'
+                        }`}
+                      >
+                        <span>{item.name}</span>
+                        <span
+                          className={`font-mono text-[10px] ${
+                            active ? 'text-violet-100' : 'text-violet-700/80'
+                          }`}
+                        >
+                          {item.tag}
+                        </span>
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
             </div>
