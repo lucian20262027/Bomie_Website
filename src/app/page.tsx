@@ -2414,12 +2414,12 @@ export default function BomieLandingPage() {
         </div>
       </section>
 
-      {/* Pilot Testimonials + Zero Risk & Escrow Protection — Finalized Variant B */}
+      {/* Pilot Testimonials + Zero Risk & Escrow Protection — Finalized 50/50 Balanced Bento */}
       <section id="pricing" className="border-t border-[#161224]/12 py-14 scroll-mt-16">
         <div className="mx-auto max-w-[1440px] px-6 lg:px-10">
-            <div className="grid gap-6 lg:grid-cols-12 items-stretch">
-              {/* Left Wing: Zero Risk & Escrow Protection (5 Columns) */}
-              <div className="lg:col-span-5 flex flex-col justify-between rounded-3xl border border-violet-200/80 bg-gradient-to-br from-[#ECE6FC] via-white to-[#f7f4ff] p-7 sm:p-9 shadow-sm">
+            <div className="grid gap-6 lg:grid-cols-2 items-stretch">
+              {/* Left Wing: Zero Risk & Escrow Protection (50% Width) */}
+              <div className="flex flex-col justify-between rounded-3xl border border-violet-200/80 bg-gradient-to-br from-[#ECE6FC] via-white to-[#f7f4ff] p-7 sm:p-9 shadow-sm">
                 <div>
                   <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#161224]">
                     $0 Monthly Fee in MVP.{' '}
@@ -2476,8 +2476,8 @@ export default function BomieLandingPage() {
                 </div>
               </div>
 
-              {/* Right Wing: Pilot Voices Spotlight (7 Columns) */}
-              <div className="lg:col-span-7 flex flex-col justify-between rounded-3xl border border-[#161224]/10 bg-white p-7 sm:p-9 shadow-sm">
+              {/* Right Wing: Pilot Voices Spotlight (50% Width, No Blank Gap) */}
+              <div className="flex flex-col justify-between rounded-3xl border border-[#161224]/10 bg-white p-7 sm:p-9 shadow-sm">
                 <div>
                   <div className="flex items-center justify-between">
                     <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-[#161224]">
@@ -2487,44 +2487,45 @@ export default function BomieLandingPage() {
                       {[
                         '3.6X ROAS',
                         '+41% BOOKINGS',
-                      ][activePilotIndex] || '3.6X ROAS'}
+                        'BAY AREA CREATOR',
+                      ][activePilotIndex]}
                     </span>
                   </div>
+                </div>
 
-                  {/* Active Featured Testimonial Spotlight */}
-                  <div className="mt-5 rounded-2xl bg-[#f7f4ff]/70 border border-violet-100 p-5 sm:p-6 flex flex-col justify-between">
-                    <p className="text-base sm:text-[17px] italic leading-relaxed text-[#161224]/85">
-                      {[
-                        '\u201cWe skipped a $3,500/mo agency retainer, matched 3 neighborhood foodies in minutes, and saw 96 new weekend dine-in tables.\u201d',
-                        '\u201cThe 3-Agent FTC check caught risky wording before filming, and every beauty creator brought real local facial bookings.\u201d',
-                        '\u201cNo cold DMs and zero waiting 60 days for Net-60 invoices. I get paid via Stripe as soon as my 30s reel goes live.\u201d',
-                      ][activePilotIndex]}
-                    </p>
+                {/* Active Featured Testimonial Spotlight — flex-1 smoothly fills the card height */}
+                <div className="my-5 flex-1 flex flex-col justify-between rounded-2xl bg-[#f7f4ff]/80 border border-violet-100/90 p-5 sm:p-6 shadow-2xs">
+                  <p className="text-[15px] sm:text-base italic leading-relaxed text-[#161224]/85">
+                    {[
+                      '\u201cWe skipped a $3,500/mo agency retainer, matched 3 neighborhood foodies in minutes, and saw 96 new weekend dine-in tables within 14 days. The escrow payout meant creators only got paid once our verified voucher redemption targets were met.\u201d',
+                      '\u201cThe 3-Agent FTC check caught risky medical claims before filming, and every beauty creator brought real neighborhood facial bookings. No back-and-forth contract negotiation\u2014Bomie handled the entire campaign autonomously.\u201d',
+                      '\u201cNo cold DMs, no awkward rate haggling, and zero waiting 60 days for Net-60 invoices. The campaign brief was clear, FTC compliance was automatic, and funds unlocked into my Stripe account the moment my 30s reel went live.\u201d',
+                    ][activePilotIndex]}
+                  </p>
 
-                    <div className="mt-4 flex items-center justify-between border-t border-violet-200/50 pt-3.5">
-                      <div>
-                        <div className="text-sm font-bold text-[#161224]">
-                          {['David L.', 'Elena R.', '@sfnoodleclub'][activePilotIndex]}
-                        </div>
-                        <div className="text-xs text-[#161224]/60">
-                          {[
-                            'Owner, Chili & Silk Sichuan · San Francisco',
-                            'Founder, Lumina Skin Studio · Los Angeles',
-                            'Local Food Creator (34.2K) · Bay Area',
-                          ][activePilotIndex]}
-                        </div>
+                  <div className="mt-4 flex items-center justify-between border-t border-violet-200/50 pt-3.5">
+                    <div>
+                      <div className="text-sm font-bold text-[#161224]">
+                        {['David L.', 'Elena R.', '@sfnoodleclub'][activePilotIndex]}
                       </div>
-                      <div className="flex items-center gap-0.5 text-amber-400">
-                        {[...Array(5)].map((_, i) => (
-                          <Star key={i} className="h-4 w-4 fill-current" />
-                        ))}
+                      <div className="text-xs text-[#161224]/60">
+                        {[
+                          'Owner, Chili & Silk Sichuan · San Francisco',
+                          'Founder, Lumina Skin Studio · Los Angeles',
+                          'Local Food Creator (34.2K) · Bay Area',
+                        ][activePilotIndex]}
                       </div>
+                    </div>
+                    <div className="flex items-center gap-0.5 text-amber-400">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="h-4 w-4 fill-current" />
+                      ))}
                     </div>
                   </div>
                 </div>
 
                 {/* 3 Hover-Swipe Merchant Switcher Tabs */}
-                <div className="mt-5 pt-3.5 border-t border-[#161224]/8">
+                <div className="pt-1">
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                     {[
                       { name: 'Chili & Silk (SF)', tag: '3.6X ROAS' },
