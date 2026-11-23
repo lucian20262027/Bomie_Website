@@ -1,96 +1,135 @@
-import Link from 'next/link';
-import BrandFooter from '../../components/BrandFooter';
-import { ArrowLeft, ShieldCheck } from 'lucide-react';
+import {
+  EditorialFooter,
+  EditorialHeader,
+} from '../../components/EditorialChrome';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy | Bomie AI',
-  description: 'Privacy Policy for Bomie AI (BOMIES LLC) — how we protect merchant and creator data.',
+  description:
+    'Privacy Policy for Bomie AI (BOMIES LLC) — how we protect merchant and creator data.',
 };
+
+const PRIVACY_SECTIONS = [
+  {
+    num: '01',
+    title: 'Information We Collect',
+    body: (
+      <p>
+        When you book a demo, create a Merchant OS or Creator Copilot account, or submit
+        campaign briefs on <strong className="font-medium text-[#161224]">bomie.ai</strong>,
+        we collect information you directly provide, including your name, work email,
+        business or creator handle, city/region, campaign preferences, and connected
+        social media public profile metrics (such as TikTok, Instagram Reels, or YouTube
+        Shorts engagement data authorized via OAuth).
+      </p>
+    ),
+  },
+  {
+    num: '02',
+    title: 'How We Use Your Data',
+    body: (
+      <ul className="space-y-2.5 list-disc pl-5">
+        <li>
+          Match local businesses with verified neighborhood creators based on location,
+          audience fit, and content style.
+        </li>
+        <li>
+          Run automated 3-Agent FTC 16 CFR Part 255 disclosure and content compliance
+          checks.
+        </li>
+        <li>
+          Process milestone escrow payouts (30% / 40% / 30%) securely via regulated payment
+          processors such as Stripe.
+        </li>
+        <li>
+          Respond to demo requests, support inquiries, and product onboarding
+          communications.
+        </li>
+      </ul>
+    ),
+  },
+  {
+    num: '03',
+    title: 'Data Sharing & Security',
+    body: (
+      <p>
+        We do not sell personal data to third-party data brokers. Information is shared
+        only with matched campaign counterparties (for example, a merchant brief shared
+        with an invited creator), payment infrastructure providers, and cloud hosting
+        partners under strict confidentiality and encryption-in-transit (TLS 1.3)
+        safeguards.
+      </p>
+    ),
+  },
+  {
+    num: '04',
+    title: 'Your Rights & Contact',
+    body: (
+      <p>
+        Under CCPA/CPRA and applicable U.S. state privacy laws, you may request access,
+        correction, or deletion of your personal data at any time by contacting our privacy
+        team at{' '}
+        <a
+          href="mailto:lucian.wang@bomie.ai"
+          className="text-[#6D28D9] underline underline-offset-4 hover:text-[#161224]"
+        >
+          lucian.wang@bomie.ai
+        </a>
+        .
+      </p>
+    ),
+  },
+];
 
 export default function PrivacyPolicyPage() {
   return (
-    <div className="min-h-screen bg-[#f7f4ff] text-[#161224] selection:bg-violet-500 selection:text-[#161224]">
-      <header className="border-b border-violet-200/70 bg-[#f7f4ff]/85 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-4xl items-center justify-between px-6 py-4">
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-tr from-[#5b21b6] via-[#d946ef] to-[#fbbf24] shadow-md shadow-violet-500/30">
-              <svg viewBox="0 0 512 512" fill="none" className="h-5 w-5">
-                <path
-                  fill="#ffffff"
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M140 124C140 112.954 148.954 104 160 104H268C321.019 104 360 137.565 360 184C360 214.12 343.39 239.47 317.88 251.42C350.69 263.74 372 292.69 372 330C372 381.915 329.915 416 272 416H160C148.954 416 140 407.046 140 396V124ZM204 162V228H260C281.539 228 296 214.569 296 195C296 175.431 281.539 162 260 162H204ZM204 282V356H268C292.301 356 308 341.673 308 319C308 296.327 292.301 282 268 282H204Z"
-                />
-                <path
-                  fill="#fef08a"
-                  d="M396 76C399.5 103.5 412.5 116.5 440 120C412.5 123.5 399.5 136.5 396 164C392.5 136.5 379.5 123.5 352 120C379.5 116.5 392.5 103.5 396 76Z"
-                />
-              </svg>
+    <div className="min-h-screen bg-[#f7f4ff] text-[#161224] selection:bg-[#161224] selection:text-[#f7f4ff]">
+      <EditorialHeader activeNav="legal" />
+
+      <main className="mx-auto max-w-[1440px] px-6 sm:px-10 py-16 sm:py-24">
+        <div className="grid lg:grid-cols-12 gap-12 items-start">
+          {/* Left Sticky Legal Index Anchor */}
+          <div className="lg:col-span-4 lg:sticky lg:top-14 space-y-5">
+            <div className="flex items-center gap-2.5 font-mono text-[10px] uppercase tracking-[0.16em] text-[#161224]/60">
+              <span className="h-2 w-2 rounded-full bg-[#6D28D9]" />
+              <span>LEGAL &amp; DATA PROTECTION</span>
             </div>
-            <span className="text-lg font-extrabold tracking-tight text-[#161224]">bomie.ai</span>
-          </Link>
-          <Link
-            href="/"
-            className="inline-flex items-center gap-1.5 rounded-xl border border-violet-200/80 bg-white shadow-sm px-4 py-2 text-xs font-semibold text-slate-700 transition hover:bg-violet-50 hover:text-violet-950"
-          >
-            <ArrowLeft className="h-3.5 w-3.5" />
-            Back to Home
-          </Link>
-        </div>
-      </header>
-
-      <main className="mx-auto max-w-4xl px-6 py-14 space-y-8">
-        <div className="space-y-3 border-b border-violet-200/70 pb-8">
-          <div className="inline-flex items-center gap-2 rounded-full border border-violet-500/30 bg-violet-500/10 px-3 py-1 text-xs font-semibold text-violet-700">
-            <ShieldCheck className="h-3.5 w-3.5" />
-            Legal &amp; Data Protection
+            <h1 className="text-[28px] sm:text-[34px] font-medium leading-[1.2] tracking-[-0.02em] text-[#161224]">
+              Privacy Policy
+            </h1>
+            <p className="text-[14px] leading-[1.65] text-[#161224]/65">
+              How BOMIES LLC (&ldquo;Bomie AI&rdquo;) handles merchant, creator, and
+              compliance records across our platform.
+            </p>
+            <div className="border-t border-dotted border-[#161224]/20 pt-4 font-mono text-[10px] uppercase tracking-[0.14em] text-[#161224]/50 space-y-1">
+              <div>EFFECTIVE: NOVEMBER 17, 2026</div>
+              <div>ENTITY: BOMIES LLC · SAN FRANCISCO</div>
+            </div>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#161224]">
-            Privacy Policy
-          </h1>
-          <p className="text-sm text-slate-600">
-            Effective Date: November 17, 2026 · Entity: BOMIES LLC (&ldquo;Bomie AI&rdquo;, &ldquo;we&rdquo;, &ldquo;our&rdquo;)
-          </p>
+
+          {/* Right Dotted Legal Clauses */}
+          <div className="lg:col-span-7 lg:col-start-6 divide-y divide-dotted divide-[#161224]/20 border-t border-b border-dotted border-[#161224]/20">
+            {PRIVACY_SECTIONS.map((sec) => (
+              <section key={sec.num} className="py-8 space-y-3">
+                <div className="flex items-center gap-3">
+                  <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-[#161224]/20 bg-[#161224]/[0.04] font-mono text-[10px] text-[#161224]/65">
+                    {sec.num}
+                  </span>
+                  <h2 className="text-[19px] font-medium tracking-[-0.01em] text-[#161224]">
+                    {sec.title}
+                  </h2>
+                </div>
+                <div className="pl-9 text-[15px] leading-[1.7] text-[#161224]/68">
+                  {sec.body}
+                </div>
+              </section>
+            ))}
+          </div>
         </div>
-
-        <section className="space-y-3">
-          <h2 className="text-xl font-bold text-[#161224]">1. Information We Collect</h2>
-          <p className="text-sm leading-relaxed text-slate-600">
-            When you book a demo, create a Merchant OS or Creator Copilot account, or submit campaign briefs on{' '}
-            <span className="text-violet-700">bomie.ai</span>, we collect information you directly provide, including your name, work email, business or creator handle, city/region, campaign preferences, and connected social media public profile metrics (such as TikTok, Instagram Reels, or YouTube Shorts engagement data authorized via OAuth).
-          </p>
-        </section>
-
-        <section className="space-y-3">
-          <h2 className="text-xl font-bold text-[#161224]">2. How We Use Your Data</h2>
-          <ul className="list-disc pl-5 space-y-2 text-sm leading-relaxed text-slate-600">
-            <li>Match local businesses with verified neighborhood creators based on location, audience fit, and content style.</li>
-            <li>Run automated 3-Agent FTC 16 CFR Part 255 disclosure and content compliance checks.</li>
-            <li>Process milestone escrow payouts (30% / 40% / 30%) securely via regulated payment processors such as Stripe.</li>
-            <li>Respond to demo requests, support inquiries, and product onboarding communications.</li>
-          </ul>
-        </section>
-
-        <section className="space-y-3">
-          <h2 className="text-xl font-bold text-[#161224]">3. Data Sharing &amp; Security</h2>
-          <p className="text-sm leading-relaxed text-slate-600">
-            We do not sell personal data to third-party data brokers. Information is shared only with matched campaign counterparties (for example, a merchant brief shared with an invited creator), payment infrastructure providers, and cloud hosting partners under strict confidentiality and encryption-in-transit (TLS 1.3) safeguards.
-          </p>
-        </section>
-
-        <section className="space-y-3">
-          <h2 className="text-xl font-bold text-[#161224]">4. Your Rights &amp; Contact</h2>
-          <p className="text-sm leading-relaxed text-slate-600">
-            Under CCPA/CPRA and applicable U.S. state privacy laws, you may request access, correction, or deletion of your personal data at any time by contacting our privacy team at{' '}
-            <a href="mailto:lucian.wang@bomie.ai" className="text-violet-700 underline hover:text-violet-950">
-              lucian.wang@bomie.ai
-            </a>
-            .
-          </p>
-        </section>
       </main>
-      <BrandFooter />
+
+      <EditorialFooter />
     </div>
   );
 }

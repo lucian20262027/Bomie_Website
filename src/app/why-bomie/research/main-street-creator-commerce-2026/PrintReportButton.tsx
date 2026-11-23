@@ -7,10 +7,11 @@ export default function PrintReportButton() {
     <button
       type="button"
       onClick={() => window.print()}
-      className="print:hidden inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 px-4 py-2 text-xs font-bold text-white shadow-sm shadow-violet-600/20 transition hover:opacity-95 cursor-pointer"
+      className="print:hidden inline-flex items-center gap-1.5 whitespace-nowrap rounded-[10px] border border-[#161224] bg-[#161224] px-3 sm:px-4 py-2 font-mono text-[11px] uppercase tracking-[0.12em] text-[#f7f4ff] transition hover:opacity-90 cursor-pointer"
     >
-      <Printer className="h-3.5 w-3.5 text-amber-200" />
-      Download / Print PDF
+      <Printer className="h-3.5 w-3.5 shrink-0" />
+      <span className="sm:hidden">PDF</span>
+      <span className="hidden sm:inline">Download / Print PDF</span>
     </button>
   );
 }
