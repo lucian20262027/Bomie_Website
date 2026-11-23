@@ -1476,36 +1476,60 @@ export default function BomieLandingPage() {
   }, [selectedCity, isCityPaused, cityExpanded]);
 
   return (
-    <div className="min-h-screen overflow-x-clip bg-[#f7f4ff] text-[#161224] selection:bg-[#161224] selection:text-[#f7f4ff]">
-      {/* Sticky Soft Lavender Editorial Navbar */}
+    <div className="min-h-screen overflow-x-clip bg-[#f7f4ff] text-[#161224] selection:bg-violet-600 selection:text-white">
+      {/* Sticky Soft Lavender Glass Navbar */}
       <motion.header
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
         onMouseLeave={() => setOpenNavMenu(null)}
-        className="sticky top-0 z-50 border-b border-[#161224]/10 bg-[#f7f4ff]/90 backdrop-blur-xl"
+        className="sticky top-0 z-50 border-b border-violet-200/70 bg-[#f7f4ff]/85 backdrop-blur-xl"
       >
         <div className="mx-auto flex max-w-[1440px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-10 py-3.5 sm:py-4">
-          {/* 1. Calm Archival B Logo + Clean Subtitle */}
+          {/* 1. Enlarged Bespoke Geometric B✦ Logo + Stacked Shimmer Tagline Underneath */}
           <Link href="/" className="group flex min-w-0 items-center gap-3.5">
-            <div className="relative flex h-9 w-9 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-xl bg-[#161224] text-[#f7f4ff] transition-transform duration-300 group-hover:scale-105">
-              <svg viewBox="0 0 512 512" fill="none" className="h-5 w-5">
-                <path
-                  fill="currentColor"
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M140 124C140 112.954 148.954 104 160 104H268C321.019 104 360 137.565 360 184C360 214.12 343.39 239.47 317.88 251.42C350.69 263.74 372 292.69 372 330C372 381.915 329.915 416 272 416H160C148.954 416 140 407.046 140 396V124ZM204 162V228H260C281.539 228 296 214.569 296 195C296 175.431 281.539 162 260 162H204ZM204 282V356H268C292.301 356 308 341.673 308 319C308 296.327 292.301 282 268 282H204Z"
-                />
-              </svg>
+            <div className="relative flex h-11 w-11 sm:h-13 sm:w-13 shrink-0 items-center justify-center rounded-xl sm:rounded-2xl bg-gradient-to-tr from-[#5b21b6] via-[#d946ef] to-[#fbbf24] p-[1px] shadow-lg shadow-violet-500/25 transition-transform duration-300 group-hover:scale-105">
+              <div className="flex h-full w-full items-center justify-center rounded-[11px] sm:rounded-[15px] bg-gradient-to-tr from-violet-700/95 via-fuchsia-500/95 to-amber-400/95 backdrop-blur-sm">
+                <svg
+                  viewBox="0 0 512 512"
+                  fill="none"
+                  className="h-7 w-7 sm:h-8 sm:w-8 drop-shadow-[0_2px_8px_rgba(46,16,101,0.35)]"
+                >
+                  <path
+                    fill="#ffffff"
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M140 124C140 112.954 148.954 104 160 104H268C321.019 104 360 137.565 360 184C360 214.12 343.39 239.47 317.88 251.42C350.69 263.74 372 292.69 372 330C372 381.915 329.915 416 272 416H160C148.954 416 140 407.046 140 396V124ZM204 162V228H260C281.539 228 296 214.569 296 195C296 175.431 281.539 162 260 162H204ZM204 282V356H268C292.301 356 308 341.673 308 319C308 296.327 292.301 282 268 282H204Z"
+                  />
+                  <path
+                    fill="#fef08a"
+                    d="M396 76C399.5 103.5 412.5 116.5 440 120C412.5 123.5 399.5 136.5 396 164C392.5 136.5 379.5 123.5 352 120C379.5 116.5 392.5 103.5 396 76Z"
+                  />
+                </svg>
+              </div>
             </div>
             <div className="flex min-w-0 flex-col justify-center">
-              <span className="text-[19px] sm:text-[21px] font-semibold tracking-[-0.025em] text-[#161224] leading-none whitespace-nowrap">
-                BOMIE
+              <span className="text-xl sm:text-[26px] font-extrabold tracking-tight text-[#161224] leading-none whitespace-nowrap">
+                bomie.ai
               </span>
               <div className="hidden xl:flex items-center mt-1.5">
-                <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#161224]/50 leading-none whitespace-nowrap">
-                  AI COMMERCE OS · LOCAL BUSINESSES &amp; CREATORS
-                </span>
+                <motion.span
+                  animate={{ backgroundPosition: ['115% 0%', '-15% 0%'] }}
+                  transition={{
+                    duration: 3.6,
+                    repeat: Infinity,
+                    repeatDelay: 0.8,
+                    ease: 'easeInOut',
+                  }}
+                  style={{
+                    backgroundImage:
+                      'linear-gradient(90deg, #5b21b6 0%, #5b21b6 38%, #db2777 48%, #d97706 51%, #7c3aed 55%, #5b21b6 64%, #5b21b6 100%)',
+                    backgroundSize: '240% 100%',
+                  }}
+                  className="bg-clip-text text-[11px] lg:text-xs font-semibold tracking-wide text-transparent leading-none whitespace-nowrap"
+                >
+                  North America&apos;s First AI Commerce OS for Local Businesses &amp; Creators
+                </motion.span>
               </div>
             </div>
           </Link>
@@ -2397,7 +2421,7 @@ export default function BomieLandingPage() {
               <span className="font-mono text-xs font-medium uppercase tracking-widest text-[#6D28D9]">
                 Pilot Voices · Bay Area &amp; Los Angeles
               </span>
-              <h2 className="mt-1.5 text-2xl font-medium tracking-[-0.015em] text-[#161224] sm:text-3xl">
+              <h2 className="mt-1.5 text-2xl font-bold sm:font-extrabold tracking-tight text-[#161224] sm:text-3xl">
                 Trusted by Local Store Owners &amp; Creators
               </h2>
             </div>
@@ -2452,7 +2476,7 @@ export default function BomieLandingPage() {
                   <span className="h-2 w-2 rounded-full bg-[#6D28D9]" />
                   <span>ZERO RISK &amp; ESCROW PROTECTION</span>
                 </div>
-                <h2 className="mt-3 text-3xl font-medium tracking-[-0.02em] text-[#161224] sm:text-4xl">
+                <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-[#161224] sm:text-4xl">
                   $0 Monthly Fee in MVP. Protected at Every Step.
                 </h2>
                 <p className="mt-2 max-w-2xl text-sm sm:text-base text-[#161224]/65">

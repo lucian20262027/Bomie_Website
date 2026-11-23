@@ -104,19 +104,14 @@ export default function ResearchClient() {
         {/* SECTION 01: Editorial Index Header */}
         <section className="px-6 sm:px-10 pt-11 pb-10 border-b border-dotted border-[#161224]/20">
           <div className="grid lg:grid-cols-12">
-            <div className="lg:col-start-3 lg:col-span-7 flex items-start gap-4">
-              <span className="mt-1 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-[#161224]/20 bg-[#161224]/[0.04] font-mono text-[10px] text-[#161224]/65">
-                01
-              </span>
-              <div className="space-y-2.5">
-                <h1 className="text-[24px] sm:text-[30px] font-medium leading-[1.25] tracking-[-0.02em] text-[#161224]">
-                  Bomie Research — Small Business &amp; Local Creator Economy
-                </h1>
-                <p className="max-w-xl text-[15px] leading-[1.6] text-[#161224]/65">
-                  Field studies, neighborhood ROI benchmarks, and FTC 16 CFR Part 255
-                  compliance whitepapers from the Bomie AI research team in San Francisco.
-                </p>
-              </div>
+            <div className="lg:col-start-3 lg:col-span-7 space-y-2.5">
+              <h1 className="text-[24px] sm:text-[30px] font-medium leading-[1.25] tracking-[-0.02em] text-[#161224]">
+                Bomie Research — Small Business &amp; Local Creator Economy
+              </h1>
+              <p className="max-w-xl text-[15px] leading-[1.6] text-[#161224]/65">
+                Field studies, neighborhood ROI benchmarks, and FTC 16 CFR Part 255
+                compliance whitepapers from the Bomie AI research team in San Francisco.
+              </p>
             </div>
           </div>
         </section>

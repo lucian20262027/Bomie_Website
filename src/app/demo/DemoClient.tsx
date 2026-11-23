@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import {
   AlertTriangle,
@@ -8,8 +8,11 @@ import {
   Bot,
   CheckCircle2,
   Cpu,
+  FastForward,
   Lock,
   MapPin,
+  MousePointer2,
+  Play,
   QrCode,
   RotateCcw,
   ShieldAlert,
@@ -45,6 +48,19 @@ export default function DemoClient() {
   const [activeTab, setActiveTab] = useState<OutputTab>('governance');
   const [milestoneStage, setMilestoneStage] = useState<0 | 1 | 2 | 3>(1);
   const [simulatedScans, setSimulatedScans] = useState<number>(142);
+  const [isAutoWalkingTabs, setIsAutoWalkingTabs] = useState<boolean>(false);
+
+  const timersRef = useRef<number[]>([]);
+  const pendingResultRef = useRef<DemoEvaluationResult | null>(null);
+
+  const clearScheduledTimers = () => {
+    timersRef.current.forEach((id) => window.clearTimeout(id));
+    timersRef.current = [];
+  };
+
+  useEffect(() => {
+    return () => clearScheduledTimers();
+  }, []);
 
   const [result, setResult] = useState<DemoEvaluationResult>(() =>
     evaluateCampaignDemo({
@@ -58,21 +74,64 @@ export default function DemoClient() {
     })
   );
 
-  const executeRun = async (params: {
-    businessName: string;
-    city: string;
-    category: string;
-    budget: number;
-    timelineDays: number;
-    targetTier: string;
-    brief: string;
-  }) => {
+  const finalizeRun = (nextResult: DemoEvaluationResult, autoTourTabs = false) => {
+    setResult(nextResult);
+    setPipelineStep(4);
+    setIsRunning(false);
+    setMilestoneStage(nextResult.gateStatus === 'PASS' ? 1 : 0);
+    setSimulatedScans(nextResult.gateStatus === 'PASS' ? 142 : 0);
+    setActiveTab('governance');
+
+    if (autoTourTabs) {
+      setIsAutoWalkingTabs(true);
+      const t1 = window.setTimeout(() => setActiveTab('creators'), 1400);
+      const t2 = window.setTimeout(() => setActiveTab('escrow'), 2900);
+      const t3 = window.setTimeout(() => {
+        setActiveTab('governance');
+        setIsAutoWalkingTabs(false);
+      }, 4400);
+      timersRef.current.push(t1, t2, t3);
+    }
+  };
+
+  const skipAnimationNow = () => {
+    clearScheduledTimers();
+    setIsAutoWalkingTabs(false);
+    if (pendingResultRef.current) {
+      finalizeRun(pendingResultRef.current, false);
+      pendingResultRef.current = null;
+    } else {
+      setIsRunning(false);
+      setPipelineStep(4);
+    }
+  };
+
+  const executeRun = async (
+    params: {
+      businessName: string;
+      city: string;
+      category: string;
+      budget: number;
+      timelineDays: number;
+      targetTier: string;
+      brief: string;
+    },
+    options?: { autoTourTabs?: boolean }
+  ) => {
+    clearScheduledTimers();
+    setIsAutoWalkingTabs(false);
     setIsRunning(true);
     setPipelineStep(1);
-    setTimeout(() => setPipelineStep(2), 180);
-    setTimeout(() => setPipelineStep(3), 360);
 
     let nextResult = evaluateCampaignDemo(params);
+    pendingResultRef.current = nextResult;
+
+    const step2Timer = window.setTimeout(() => setPipelineStep(2), 600);
+    const step3Timer = window.setTimeout(() => setPipelineStep(3), 1250);
+    const step4Timer = window.setTimeout(() => setPipelineStep(4), 1900);
+    timersRef.current.push(step2Timer, step3Timer, step4Timer);
+
+    const startedAt = Date.now();
     try {
       const res = await fetch('/api/demo-run', {
         method: 'POST',
@@ -83,20 +142,20 @@ export default function DemoClient() {
         const json = await res.json();
         if (json?.ok && json?.result) {
           nextResult = json.result;
+          pendingResultRef.current = nextResult;
         }
       }
     } catch {
       // deterministic engine already computed
     }
 
-    setTimeout(() => {
-      setResult(nextResult);
-      setPipelineStep(4);
-      setIsRunning(false);
-      setMilestoneStage(nextResult.gateStatus === 'PASS' ? 1 : 0);
-      setSimulatedScans(nextResult.gateStatus === 'PASS' ? 142 : 0);
-      setActiveTab('governance');
-    }, 420);
+    const elapsed = Date.now() - startedAt;
+    const remaining = Math.max(0, 2400 - elapsed);
+    const doneTimer = window.setTimeout(() => {
+      finalizeRun(pendingResultRef.current ?? nextResult, Boolean(options?.autoTourTabs));
+      pendingResultRef.current = null;
+    }, remaining);
+    timersRef.current.push(doneTimer);
   };
 
   const handleSelectPreset = (preset: DemoPreset) => {
@@ -141,6 +200,30 @@ export default function DemoClient() {
   const handleReset = () => {
     handleSelectPreset(DEMO_PRESETS[0]);
   };
+
+  const handleGuidedTour = () => {
+    void executeRun(
+      {
+        businessName,
+        city,
+        category,
+        budget,
+        timelineDays,
+        targetTier,
+        brief,
+      },
+      { autoTourTabs: true }
+    );
+  };
+
+  const pipelineStageStatus =
+    pipelineStep === 1
+      ? `Parsing ${businessName || 'storefront'} intake & ${city} radius...`
+      : pipelineStep === 2
+        ? 'Scanning FTC 16 CFR Part 255 (§ 255.5) disclosure & claims...'
+        : pipelineStep === 3
+          ? 'Scoring 2K–50K neighborhood creators & drafting 30s storyboard...'
+          : 'Locking 30/40/30 Stripe escrow & publishing gate verdict...';
 
   const gateBannerStyles =
     result.gateStatus === 'PASS'
@@ -363,56 +446,195 @@ export default function DemoClient() {
               />
             </div>
 
-            <button
-              type="button"
-              disabled={isRunning}
-              onClick={() =>
-                void executeRun({
-                  businessName,
-                  city,
-                  category,
-                  budget,
-                  timelineDays,
-                  targetTier,
-                  brief,
-                })
-              }
-              className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 px-4 py-2.5 text-xs font-bold text-white shadow-sm shadow-violet-600/25 transition hover:opacity-95 disabled:opacity-60 cursor-pointer"
-            >
-              <Cpu className="h-4 w-4 text-amber-200" />
-              {isRunning ? 'Running Multi-Agent Audit...' : 'Run Autonomous AI Audit & Match'}
-            </button>
+            <div className="flex flex-col sm:flex-row gap-2">
+              <button
+                type="button"
+                disabled={isRunning}
+                onClick={() =>
+                  void executeRun({
+                    businessName,
+                    city,
+                    category,
+                    budget,
+                    timelineDays,
+                    targetTier,
+                    brief,
+                  })
+                }
+                className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 px-4 py-2.5 text-xs font-bold text-white shadow-sm shadow-violet-600/25 transition hover:opacity-95 disabled:opacity-75 cursor-pointer"
+              >
+                <Cpu className={`h-4 w-4 text-amber-200 ${isRunning ? 'animate-spin' : ''}`} />
+                {isRunning ? `Step ${pipelineStep}/4 Running...` : 'Run Autonomous AI Audit & Match'}
+              </button>
+              <button
+                type="button"
+                onClick={handleGuidedTour}
+                disabled={isRunning || isAutoWalkingTabs}
+                title="Watch Bomie step cleanly through Stages 01-04 and all 3 tabs"
+                className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-violet-300 bg-violet-50 px-3.5 py-2.5 text-xs font-bold text-violet-800 transition hover:bg-violet-100 disabled:opacity-50 cursor-pointer"
+              >
+                <Play className="h-3.5 w-3.5 fill-violet-700" />
+                Guided Walkthrough
+              </button>
+            </div>
           </div>
         </section>
 
         {/* RIGHT COLUMN: Autonomous Orchestration Output */}
         <section className="lg:col-span-7 space-y-4">
-          {/* 4-Stage Pipeline Indicator */}
-          <div className="rounded-2xl border border-slate-200/90 bg-white p-3.5 shadow-sm grid grid-cols-4 gap-2">
-            {[
-              { step: 1, label: '01 Intake' },
-              { step: 2, label: '02 FTC Gate' },
-              { step: 3, label: '03 Match & 30s Script' },
-              { step: 4, label: '04 30/40/30 Escrow' },
-            ].map((item) => {
-              const active = pipelineStep >= item.step;
-              return (
+          {/* 4-Stage Pipeline Indicator with Luminous Sweeping Beam + Moving Pointer */}
+          <div className="rounded-2xl border border-slate-200/90 bg-white p-3.5 shadow-sm space-y-2.5">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 relative">
+              {[
+                { step: 1, label: '01 Intake' },
+                { step: 2, label: '02 FTC Gate' },
+                { step: 3, label: '03 Match & 30s Script' },
+                { step: 4, label: '04 30/40/30 Escrow' },
+              ].map((item) => {
+                const completed = !isRunning ? pipelineStep >= item.step : pipelineStep > item.step;
+                const current = isRunning && pipelineStep === item.step;
+                return (
+                  <div
+                    key={item.step}
+                    className={`relative rounded-lg px-2.5 py-2 text-center text-[11px] font-bold transition-all duration-300 flex items-center justify-center gap-1.5 ${
+                      current
+                        ? 'bg-gradient-to-r from-violet-600/15 via-fuchsia-500/15 to-violet-600/15 text-violet-900 border border-violet-500 ring-2 ring-violet-500/30 shadow-sm scale-[1.02]'
+                        : completed
+                          ? 'bg-violet-50 text-violet-800 border border-violet-200'
+                          : 'bg-slate-50 text-slate-400 border border-slate-100'
+                    }`}
+                  >
+                    {current ? (
+                      <MousePointer2 className="h-3.5 w-3.5 text-violet-700 animate-bounce shrink-0" />
+                    ) : completed ? (
+                      <CheckCircle2 className="h-3 w-3 text-emerald-600 shrink-0" />
+                    ) : null}
+                    <span>{item.label}</span>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Smooth Continuous Light Beam Progress Bar */}
+            <div className="space-y-1.5">
+              <div className="h-1.5 w-full overflow-hidden rounded-full bg-slate-100">
                 <div
-                  key={item.step}
-                  className={`rounded-lg px-2.5 py-2 text-center text-[11px] font-bold transition ${
-                    active
-                      ? 'bg-violet-50 text-violet-800 border border-violet-200'
-                      : 'bg-slate-50 text-slate-400 border border-slate-100'
-                  }`}
-                >
-                  {item.label}
+                  className="h-full rounded-full bg-gradient-to-r from-violet-600 via-fuchsia-500 to-amber-400 transition-all duration-500 ease-out"
+                  style={{
+                    width: !isRunning && pipelineStep === 4 ? '100%' : `${pipelineStep * 25}%`,
+                  }}
+                />
+              </div>
+              {(isRunning || isAutoWalkingTabs) && (
+                <div className="flex items-center justify-between gap-2 text-[11px] font-mono text-violet-800">
+                  <span className="inline-flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full bg-violet-600 animate-ping" />
+                    {isRunning
+                      ? pipelineStageStatus
+                      : `Auto-Walking Output Tabs · Currently Inspecting: ${activeTab.toUpperCase()}`}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={skipAnimationNow}
+                    className="inline-flex items-center gap-1 rounded border border-violet-200 bg-violet-50 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-violet-700 hover:bg-violet-100 cursor-pointer"
+                  >
+                    <FastForward className="h-2.5 w-2.5" />
+                    Skip
+                  </button>
                 </div>
-              );
-            })}
+              )}
+            </div>
           </div>
 
+          {/* Progressive Live Step-by-Step Execution Trace while Running */}
+          {isRunning ? (
+            <div className="rounded-2xl border border-violet-200 bg-white p-6 shadow-sm space-y-4">
+              <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+                <div className="space-y-0.5">
+                  <div className="inline-flex items-center gap-2 font-mono text-[10px] font-bold uppercase tracking-wider text-violet-700">
+                    <span className="h-2 w-2 rounded-full bg-violet-600 animate-pulse" />
+                    Bomie AI Execution Trace · {businessName}
+                  </div>
+                  <h2 className="text-sm font-bold text-[#161224]">
+                    Running autonomous evaluation step-by-step...
+                  </h2>
+                </div>
+                <span className="font-mono text-xs font-bold text-violet-700">
+                  {pipelineStep} / 4
+                </span>
+              </div>
+
+              <div className="space-y-3">
+                {[
+                  {
+                    step: 1,
+                    title: '01 · Campaign Intake & Catchment Parse',
+                    detail: `Loaded "${businessName}" (${city}) · Budget $${budget.toLocaleString()} · ${timelineDays}-day window · ${targetTier} tier.`,
+                  },
+                  {
+                    step: 2,
+                    title: '02 · 3-Agent FTC 16 CFR Part 255 Audit',
+                    detail:
+                      'Auditing #ad / Paid Partnership disclosures, efficacy & medical claim liability, and commercial audio licensing.',
+                  },
+                  {
+                    step: 3,
+                    title: '03 · Hyper-Local Matching & 30s Storyboard',
+                    detail: `Scoring verified 2K–50K creators within ${city} catchment radius and building vertical hook + shot list.`,
+                  },
+                  {
+                    step: 4,
+                    title: '04 · 30/40/30 Stripe Escrow & Final Verdict',
+                    detail:
+                      'Locking milestone release schedule ($0 MVP platform fee), generating unique QR voucher codes, and compiling verdict.',
+                  },
+                ].map((stage) => {
+                  const unlocked = pipelineStep >= stage.step;
+                  const activeNow = pipelineStep === stage.step;
+                  if (!unlocked) {
+                    return (
+                      <div
+                        key={stage.step}
+                        className="rounded-xl border border-dashed border-slate-200 bg-slate-50/50 px-4 py-3 text-xs text-slate-400"
+                      >
+                        {stage.title} — Queued...
+                      </div>
+                    );
+                  }
+                  return (
+                    <div
+                      key={stage.step}
+                      className={`rounded-xl border px-4 py-3.5 transition-all duration-300 ${
+                        activeNow
+                          ? 'border-violet-400 bg-violet-50/70 shadow-sm'
+                          : 'border-emerald-200 bg-emerald-50/40'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="inline-flex items-center gap-2 text-xs font-bold text-[#161224]">
+                          {activeNow ? (
+                            <span className="h-2.5 w-2.5 rounded-full bg-violet-600 animate-ping" />
+                          ) : (
+                            <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+                          )}
+                          {stage.title}
+                        </span>
+                        <span className="font-mono text-[10px] font-semibold uppercase text-violet-700">
+                          {activeNow ? 'PROCESSING' : 'VERIFIED'}
+                        </span>
+                      </div>
+                      <p className="mt-1.5 pl-6 text-xs leading-relaxed text-slate-600">
+                        {stage.detail}
+                      </p>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          ) : (
+          <>
           {/* Verdict Banner */}
-          <div className={`rounded-2xl border p-5 shadow-sm space-y-3 ${gateBannerStyles}`}>
+          <div className={`rounded-2xl border p-5 shadow-sm space-y-3 transition-all duration-300 ${gateBannerStyles}`}>
             <div className="flex flex-wrap items-start justify-between gap-3">
               <div className="space-y-1">
                 <div className="flex items-center gap-2">
@@ -473,37 +695,58 @@ export default function DemoClient() {
             <div className="flex border-b border-slate-200 bg-slate-50/70">
               <button
                 type="button"
-                onClick={() => setActiveTab('governance')}
+                onClick={() => {
+                  clearScheduledTimers();
+                  setIsAutoWalkingTabs(false);
+                  setActiveTab('governance');
+                }}
                 className={`flex-1 py-3 px-4 text-xs font-bold inline-flex items-center justify-center gap-1.5 border-b-2 transition cursor-pointer ${
                   activeTab === 'governance'
                     ? 'border-violet-600 text-violet-800 bg-white'
                     : 'border-transparent text-slate-500 hover:text-slate-800'
                 }`}
               >
+                {isAutoWalkingTabs && activeTab === 'governance' && (
+                  <MousePointer2 className="h-3.5 w-3.5 text-violet-700 animate-bounce shrink-0" />
+                )}
                 <Bot className="h-3.5 w-3.5" />
                 1. FTC Governance &amp; Agent Audit
               </button>
               <button
                 type="button"
-                onClick={() => setActiveTab('creators')}
+                onClick={() => {
+                  clearScheduledTimers();
+                  setIsAutoWalkingTabs(false);
+                  setActiveTab('creators');
+                }}
                 className={`flex-1 py-3 px-4 text-xs font-bold inline-flex items-center justify-center gap-1.5 border-b-2 transition cursor-pointer ${
                   activeTab === 'creators'
                     ? 'border-violet-600 text-violet-800 bg-white'
                     : 'border-transparent text-slate-500 hover:text-slate-800'
                 }`}
               >
+                {isAutoWalkingTabs && activeTab === 'creators' && (
+                  <MousePointer2 className="h-3.5 w-3.5 text-violet-700 animate-bounce shrink-0" />
+                )}
                 <Users className="h-3.5 w-3.5" />
                 2. Local Creators &amp; 30s Script
               </button>
               <button
                 type="button"
-                onClick={() => setActiveTab('escrow')}
+                onClick={() => {
+                  clearScheduledTimers();
+                  setIsAutoWalkingTabs(false);
+                  setActiveTab('escrow');
+                }}
                 className={`flex-1 py-3 px-4 text-xs font-bold inline-flex items-center justify-center gap-1.5 border-b-2 transition cursor-pointer ${
                   activeTab === 'escrow'
                     ? 'border-violet-600 text-violet-800 bg-white'
                     : 'border-transparent text-slate-500 hover:text-slate-800'
                 }`}
               >
+                {isAutoWalkingTabs && activeTab === 'escrow' && (
+                  <MousePointer2 className="h-3.5 w-3.5 text-violet-700 animate-bounce shrink-0" />
+                )}
                 <Lock className="h-3.5 w-3.5" />
                 3. 30/40/30 Escrow &amp; QR
               </button>
@@ -756,6 +999,8 @@ export default function DemoClient() {
               )}
             </div>
           </div>
+          </>
+          )}
         </section>
       </main>
     </div>

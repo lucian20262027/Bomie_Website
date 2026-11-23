@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { ArrowLeft, ArrowUpRight } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 
 interface FounderTab {
   id: string;
@@ -40,94 +40,6 @@ const FOUNDER_TABS: FounderTab[] = [
     badge: 'PRINCIPLE · 04',
     lead: 'Every product thesis should stand up to public empirical scrutiny.',
     rest: ' Our 2026–2027 Main Street Creator Commerce report synthesizes U.S. SBA advocacy benchmarks and FTC 16 CFR Part 255 statutes—permanently archived with a public Zenodo DOI.',
-  },
-];
-
-type LedgerFilter = 'ALL' | 'EXPERIENCE' | 'EDUCATION' | 'PUBLICATIONS';
-
-const LEDGER_GROUPS: {
-  num: string;
-  key: 'EXPERIENCE' | 'EDUCATION' | 'PUBLICATIONS';
-  name: string;
-  entries: {
-    title: string;
-    detail: string;
-    meta: string;
-    href?: string;
-    external?: boolean;
-  }[];
-}[] = [
-  {
-    num: '01',
-    key: 'EXPERIENCE',
-    name: 'Operating & Technical Track Record',
-    entries: [
-      {
-        title: 'Founder & CEO — Bomie AI',
-        detail: 'San Francisco, CA · Oct 2026 – Present',
-        meta: 'Solo Technical Builder · AI Commerce OS · FTC Governance · 30/40/30 Escrow',
-        href: '/demo',
-      },
-      {
-        title: 'Global Seller Analytics & Platform Governance — TikTok (ByteDance)',
-        detail: 'Marketplace Risk, Seller Health & Commerce Scale',
-        meta: 'Scaled governance & operational analytics for 350K+ weekly active sellers',
-      },
-      {
-        title: 'Founder & Operator — Cross-Border B2B Supply Chain',
-        detail: 'Multi-City Commercial Operations (8 Cities)',
-        meta: 'Unit Economics · Merchant Onboarding · Physical Commerce Execution',
-      },
-    ],
-  },
-  {
-    num: '02',
-    key: 'EDUCATION',
-    name: 'Academic Foundation',
-    entries: [
-      {
-        title: 'Babson College — MBA',
-        detail: 'F.W. Olin Graduate School of Business · Ranked #1 in Entrepreneurship',
-        meta: 'Entrepreneurial Thought & Action (ET&A) · Venture Scaling',
-      },
-      {
-        title: "City St George's, University of London — MS in Computer Science",
-        detail: 'Graduate Engineering & Distributed Systems',
-        meta: 'Computer Science · Systems Engineering & Applied AI',
-      },
-      {
-        title: 'University of Cambridge — Alumnus',
-        detail: 'International Relations & Global Institutional Frameworks',
-        meta: 'University of Cambridge PACE Alumnus',
-      },
-    ],
-  },
-  {
-    num: '03',
-    key: 'PUBLICATIONS',
-    name: 'Published Work & Verified Records',
-    entries: [
-      {
-        title: 'The 2026–2027 State of Main Street Creator Commerce (Bomie Research)',
-        detail: 'Primary Industry Whitepaper · U.S. SBA & FTC 16 CFR Part 255 Study',
-        meta: 'www.bomie.ai/why-bomie/research/main-street-creator-commerce-2026',
-        href: '/why-bomie/research/main-street-creator-commerce-2026',
-      },
-      {
-        title: 'Zenodo Permanent Academic Archive (DOI: 10.5281/zenodo.24410731)',
-        detail: 'Open-Access CC BY 4.0 Citation Record',
-        meta: 'https://doi.org/10.5281/zenodo.24410731',
-        href: 'https://doi.org/10.5281/zenodo.24410731',
-        external: true,
-      },
-      {
-        title: 'Crunchbase & LinkedIn Executive Profile',
-        detail: 'Bomie AI Ranked #1 Organization Search Result for "bomie"',
-        meta: 'crunchbase.com/organization/bomie-ai · linkedin.com/in/lucianwang18',
-        href: 'https://www.linkedin.com/in/lucianwang18',
-        external: true,
-      },
-    ],
   },
 ];
 
@@ -171,13 +83,9 @@ const PALETTE = {
 
 export default function FounderProfileClient() {
   const [activeTabId, setActiveTabId] = useState<string>('governance');
-  const [filter, setFilter] = useState<LedgerFilter>('ALL');
 
   const p = PALETTE;
   const activeTab = FOUNDER_TABS.find((t) => t.id === activeTabId) ?? FOUNDER_TABS[0];
-
-  const visibleGroups =
-    filter === 'ALL' ? LEDGER_GROUPS : LEDGER_GROUPS.filter((g) => g.key === filter);
 
   return (
     <div className={`min-h-screen ${p.pageBg}`}>
@@ -327,7 +235,7 @@ export default function FounderProfileClient() {
         </section>
 
         {/* SECTION 02: Tabbed Founder Operating Principles */}
-        <section className="mx-auto max-w-[1440px] px-6 sm:px-10 pt-24 sm:pt-32 pb-16">
+        <section className="mx-auto max-w-[1440px] px-6 sm:px-10 pt-24 sm:pt-32 pb-24 sm:pb-28">
           <div className="grid lg:grid-cols-12">
             <div className="lg:col-start-3 lg:col-span-6 flex items-start gap-4">
               <span className={`mt-1 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full border font-mono text-[10px] ${p.badge}`}>
@@ -410,125 +318,6 @@ export default function FounderProfileClient() {
                 <span className={`${p.ink} font-medium`}>{activeTab.lead}</span>
                 {activeTab.rest}
               </p>
-            </div>
-          </div>
-        </section>
-
-        {/* SECTION 03: Anchored 2-Column Founder Record & Credentials Ledger */}
-        <section className="mx-auto max-w-[1440px] px-6 sm:px-10 pt-20 pb-28">
-          <div className={`border-t ${p.tabDivider} pt-16 grid lg:grid-cols-12 gap-12 lg:gap-10 items-start`}>
-            <div className="lg:col-span-5 lg:sticky lg:top-14 space-y-6">
-              <div className="flex items-start gap-4">
-                <span className={`mt-1 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full border font-mono text-[10px] ${p.badge}`}>
-                  03
-                </span>
-                <h2 className={`text-[22px] sm:text-[26px] font-medium leading-[1.3] tracking-[-0.015em] ${p.ink}`}>
-                  Experience, academic record, and public artifacts.
-                </h2>
-              </div>
-
-              <div className={`pl-10 space-y-5 text-[14px] leading-[1.65] ${p.prose}`}>
-                <p>
-                  Verified operating experience across marketplace governance, physical
-                  B2B unit economics, graduate engineering, and peer-archived commerce
-                  research.
-                </p>
-                <div className={`pt-3 border-t ${p.tabDivider} font-mono text-[10px] uppercase tracking-[0.16em] ${p.metaFaint}`}>
-                  FOUNDER LEDGER · VERIFIED RECORD
-                </div>
-              </div>
-            </div>
-
-            <div className="lg:col-span-6 lg:col-start-7 space-y-10">
-              <div className="flex flex-wrap gap-2">
-                {(
-                  [
-                    { id: 'ALL', label: 'All' },
-                    { id: 'EXPERIENCE', label: 'Experience' },
-                    { id: 'EDUCATION', label: 'Education' },
-                    { id: 'PUBLICATIONS', label: 'Published Work' },
-                  ] as const
-                ).map((chip) => {
-                  const active = filter === chip.id;
-                  return (
-                    <button
-                      key={chip.id}
-                      type="button"
-                      onClick={() => setFilter(chip.id)}
-                      className={`rounded-[10px] border px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-[0.12em] transition cursor-pointer ${
-                        active ? p.chipActive : p.chipIdle
-                      }`}
-                    >
-                      {chip.label}
-                    </button>
-                  );
-                })}
-              </div>
-
-              <div className="space-y-10">
-                {visibleGroups.map((group) => (
-                  <div
-                    key={group.num}
-                    className={`border-t-2 border-dotted ${p.dottedRule} pt-7 space-y-6`}
-                  >
-                    <div className="flex items-center gap-3">
-                      <span className={`inline-flex h-6 w-6 items-center justify-center rounded-full border font-mono text-[10px] ${p.badge}`}>
-                        {group.num}
-                      </span>
-                      <h3 className={`text-base font-medium ${p.ink}`}>
-                        {group.name}
-                      </h3>
-                    </div>
-
-                    <div className="space-y-5 pl-9">
-                      {group.entries.map((entry) => {
-                        const content = (
-                          <div className="space-y-1">
-                            <div className={`inline-flex items-center gap-1.5 text-[16px] font-medium ${p.ink} group-hover:underline underline-offset-4`}>
-                              <span>{entry.title}</span>
-                              {entry.href && (
-                                <ArrowUpRight className="h-3.5 w-3.5 opacity-55 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                              )}
-                            </div>
-                            <div className={`text-xs ${p.prose}`}>{entry.detail}</div>
-                            <div className={`font-mono text-[11px] ${p.metaFaint}`}>
-                              {entry.meta}
-                            </div>
-                          </div>
-                        );
-
-                        if (entry.href && entry.external) {
-                          return (
-                            <a
-                              key={entry.title}
-                              href={entry.href}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="group block"
-                            >
-                              {content}
-                            </a>
-                          );
-                        }
-
-                        if (entry.href) {
-                          return (
-                            <Link key={entry.title} href={entry.href} className="group block">
-                              {content}
-                            </Link>
-                          );
-                        }
-
-                        return (
-                          <div key={entry.title} className="block">
-                            {content}
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                ))}
-              </div>
             </div>
           </div>
         </section>
