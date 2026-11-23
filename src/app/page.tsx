@@ -2428,30 +2428,6 @@ export default function BomieLandingPage() {
       <section id="pricing" className="border-t border-[#161224]/12 py-12 sm:py-16 scroll-mt-16">
         <div className="mx-auto max-w-[1440px] px-6 lg:px-10">
           <div className="space-y-10">
-            {/* Top Tier: Clean Heading & Escrow Subtitle */}
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-[#161224]/10">
-              <div className="max-w-3xl">
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-[#161224]">
-                  $0 Monthly Fee in MVP.{' '}
-                  <span className="bg-gradient-to-r from-violet-700 to-fuchsia-600 bg-clip-text text-transparent">
-                    Protected at Every Step.
-                  </span>
-                </h2>
-                <p className="mt-2 text-sm sm:text-base text-[#161224]/70 leading-relaxed">
-                  Every campaign runs on 30/40/30 Stripe Escrow with a 100% pre-acceptance refund guarantee—zero risk of wasted ad spend.
-                </p>
-              </div>
-              <Link
-                href="/pricing"
-                className="group inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-wider text-[#5b21b6] hover:text-violet-950 transition font-semibold shrink-0"
-              >
-                <span className="border-b border-[#5b21b6]/40 group-hover:border-[#5b21b6] pb-0.5">
-                  View Pricing &amp; Escrow Plan
-                </span>
-                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-              </Link>
-            </div>
-
             {/* Middle Tier: 3-Column Architectural Ledger (三列发丝分割线，大数字) */}
             <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[#161224]/10 py-2 border-b border-[#161224]/10">
               {/* Col 1 */}
