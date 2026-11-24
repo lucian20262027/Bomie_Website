@@ -1537,7 +1537,7 @@ export default function BomieLandingPage() {
           </Link>
 
           {/* 2. Three Single-Line Center Dropdown Menus */}
-          <nav className="hidden lg:flex lg:self-center pb-0.5 items-center gap-2 xl:gap-5 shrink-0">
+          <nav className="hidden lg:flex lg:self-end items-end gap-2 xl:gap-5 shrink-0">
             {/* Dropdown 1: Commerce OS */}
             <div
               className="relative"
@@ -1546,7 +1546,7 @@ export default function BomieLandingPage() {
               <button
                 type="button"
                 onClick={() => setOpenNavMenu(openNavMenu === 'os' ? null : 'os')}
-                className="flex items-center gap-1.5 whitespace-nowrap rounded-lg px-3 py-1.5 text-sm font-semibold text-[#161224]/85 transition hover:bg-violet-200/40 hover:text-violet-950"
+                className="flex items-center gap-1.5 whitespace-nowrap rounded-lg px-3 pt-1.5 pb-1 text-sm font-semibold leading-none text-[#161224]/85 transition hover:bg-violet-200/40 hover:text-violet-950"
               >
                 <span>Commerce OS</span>
                 <ChevronDown
@@ -1604,7 +1604,7 @@ export default function BomieLandingPage() {
               <button
                 type="button"
                 onClick={() => setOpenNavMenu(openNavMenu === 'why' ? null : 'why')}
-                className="flex items-center gap-1.5 whitespace-nowrap rounded-lg px-3 py-1.5 text-sm font-semibold text-[#161224]/85 transition hover:bg-violet-200/40 hover:text-violet-950"
+                className="flex items-center gap-1.5 whitespace-nowrap rounded-lg px-3 pt-1.5 pb-1 text-sm font-semibold leading-none text-[#161224]/85 transition hover:bg-violet-200/40 hover:text-violet-950"
               >
                 <span>Why Bomie</span>
                 <ChevronDown
@@ -1654,7 +1654,7 @@ export default function BomieLandingPage() {
               <button
                 type="button"
                 onClick={() => setOpenNavMenu(openNavMenu === 'stories' ? null : 'stories')}
-                className="flex items-center gap-1.5 whitespace-nowrap rounded-lg px-3 py-1.5 text-sm font-semibold text-[#161224]/85 transition hover:bg-violet-200/40 hover:text-violet-950"
+                className="flex items-center gap-1.5 whitespace-nowrap rounded-lg px-3 pt-1.5 pb-1 text-sm font-semibold leading-none text-[#161224]/85 transition hover:bg-violet-200/40 hover:text-violet-950"
               >
                 <span>Success Stories</span>
                 <ChevronDown
@@ -1721,10 +1721,10 @@ export default function BomieLandingPage() {
             </div>
           </nav>
 
-          <div className="flex shrink-0 self-center pb-0.5 items-center gap-2 sm:gap-3">
+          <div className="flex shrink-0 self-center lg:self-end items-end gap-2 sm:gap-3">
             <button
               onClick={() => setShowLoginModal(true)}
-              className="hidden sm:inline-flex rounded-lg px-3.5 py-1.5 text-sm font-semibold text-[#161224]/85 transition hover:bg-violet-200/40 hover:text-violet-950"
+              className="hidden sm:inline-flex rounded-lg px-3.5 pt-1.5 pb-1 text-sm font-semibold leading-none text-[#161224]/85 transition hover:bg-violet-200/40 hover:text-violet-950"
             >
               Log in
             </button>
