@@ -4,96 +4,77 @@ import { ShieldCheck } from 'lucide-react';
 const infraRails = [
   {
     name: 'Google Gemini',
-    role: 'Multimodal AI',
-    badge: (
-      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-slate-200/80 bg-white">
-        <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" aria-hidden="true">
-          <defs>
-            <linearGradient id="bomieGeminiGrad" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
-              <stop offset="0%" stopColor="#1C7EFF" />
-              <stop offset="55%" stopColor="#8E75FF" />
-              <stop offset="100%" stopColor="#D96570" />
-            </linearGradient>
-          </defs>
-          <path
-            d="M12 2C12.7 7.1 16.9 11.3 22 12C16.9 12.7 12.7 16.9 12 22C11.3 16.9 7.1 12.7 2 12C7.1 11.3 11.3 7.1 12 2Z"
-            fill="url(#bomieGeminiGrad)"
-          />
-        </svg>
-      </div>
+    miniIcon: (
+      <svg viewBox="0 0 24 24" fill="none" className="h-4 w-4 shrink-0" aria-hidden="true">
+        <defs>
+          <linearGradient id="bomieGeminiGradMini" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stopColor="#1C7EFF" />
+            <stop offset="55%" stopColor="#8E75FF" />
+            <stop offset="100%" stopColor="#D96570" />
+          </linearGradient>
+        </defs>
+        <path
+          d="M12 2C12.7 7.1 16.9 11.3 22 12C16.9 12.7 12.7 16.9 12 22C11.3 16.9 7.1 12.7 2 12C7.1 11.3 11.3 7.1 12 2Z"
+          fill="url(#bomieGeminiGradMini)"
+        />
+      </svg>
     ),
   },
   {
     name: 'Google Cloud',
-    role: 'AI Infrastructure',
-    badge: (
-      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-slate-200/80 bg-white">
-        <svg viewBox="0 0 28 22" fill="none" className="h-5 w-6" aria-hidden="true">
-          <path
-            d="M21.4 9.5C20.5 6.2 17.5 3.8 13.9 3.8C10.9 3.8 8.3 5.5 7 8C4.3 8.4 2.2 10.7 2.2 13.5C2.2 16.6 4.7 19.1 7.8 19.1H21C23.7 19.1 25.8 17 25.8 14.3C25.8 11.8 23.9 9.8 21.4 9.5Z"
-            stroke="#4285F4"
-            strokeWidth="2.4"
-            strokeLinejoin="round"
-          />
-          <path d="M7.8 19.1C4.7 19.1 2.2 16.6 2.2 13.5C2.2 10.7 4.3 8.4 7 8" stroke="#EA4335" strokeWidth="2.4" strokeLinecap="round" />
-          <path d="M7 8C8.3 5.5 10.9 3.8 13.9 3.8C16.1 3.8 18.1 4.7 19.5 6.2" stroke="#FBBC05" strokeWidth="2.4" strokeLinecap="round" />
-          <path d="M12.5 19.1H21C23.7 19.1 25.8 17 25.8 14.3" stroke="#34A853" strokeWidth="2.4" strokeLinecap="round" />
-        </svg>
-      </div>
+    miniIcon: (
+      <svg viewBox="0 0 28 22" fill="none" className="h-4 w-4.5 shrink-0" aria-hidden="true">
+        <path
+          d="M21.4 9.5C20.5 6.2 17.5 3.8 13.9 3.8C10.9 3.8 8.3 5.5 7 8C4.3 8.4 2.2 10.7 2.2 13.5C2.2 16.6 4.7 19.1 7.8 19.1H21C23.7 19.1 25.8 17 25.8 14.3C25.8 11.8 23.9 9.8 21.4 9.5Z"
+          stroke="#4285F4"
+          strokeWidth="2.6"
+          strokeLinejoin="round"
+        />
+        <path d="M7.8 19.1C4.7 19.1 2.2 16.6 2.2 13.5C2.2 10.7 4.3 8.4 7 8" stroke="#EA4335" strokeWidth="2.6" strokeLinecap="round" />
+        <path d="M7 8C8.3 5.5 10.9 3.8 13.9 3.8C16.1 3.8 18.1 4.7 19.5 6.2" stroke="#FBBC05" strokeWidth="2.6" strokeLinecap="round" />
+        <path d="M12.5 19.1H21C23.7 19.1 25.8 17 25.8 14.3" stroke="#34A853" strokeWidth="2.6" strokeLinecap="round" />
+      </svg>
     ),
   },
   {
     name: 'AWS',
-    role: 'Cloud & Compute',
-    badge: (
-      <div className="flex h-9 w-9 shrink-0 flex-col items-center justify-center rounded-xl bg-slate-900 px-1.5 text-white">
-        <span className="text-[11px] font-black leading-none tracking-tight">aws</span>
-        <svg viewBox="0 0 36 10" fill="none" className="mt-0.5 h-2 w-6" aria-hidden="true">
-          <path d="M2 2.5C11 8.5 23 8.5 32 3" stroke="#FF9900" strokeWidth="2.2" strokeLinecap="round" />
-          <path
-            d="M28.5 1.8L33.2 2.9L31.4 7.2"
-            stroke="#FF9900"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
+    miniIcon: (
+      <div className="flex h-5 w-5 shrink-0 flex-col items-center justify-center rounded bg-slate-900 text-white">
+        <span className="text-[7px] font-black leading-none">aws</span>
+        <svg viewBox="0 0 36 10" fill="none" className="mt-0.5 h-1 w-3.5" aria-hidden="true">
+          <path d="M2 2.5C11 8.5 23 8.5 32 3" stroke="#FF9900" strokeWidth="3" strokeLinecap="round" />
         </svg>
       </div>
     ),
   },
   {
     name: 'Microsoft Azure',
-    role: 'Enterprise Cloud',
-    badge: (
-      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-slate-200/80 bg-white">
-        <svg viewBox="0 0 20 20" fill="none" className="h-4.5 w-4.5" aria-hidden="true">
-          <rect x="2" y="2" width="7.2" height="7.2" rx="1" fill="#F25022" />
-          <rect x="10.8" y="2" width="7.2" height="7.2" rx="1" fill="#7FBA00" />
-          <rect x="2" y="10.8" width="7.2" height="7.2" rx="1" fill="#00A4EF" />
-          <rect x="10.8" y="10.8" width="7.2" height="7.2" rx="1" fill="#FFB900" />
-        </svg>
-      </div>
+    miniIcon: (
+      <svg viewBox="0 0 20 20" fill="none" className="h-4 w-4 shrink-0" aria-hidden="true">
+        <rect x="2" y="2" width="7.2" height="7.2" rx="1" fill="#F25022" />
+        <rect x="10.8" y="2" width="7.2" height="7.2" rx="1" fill="#7FBA00" />
+        <rect x="2" y="10.8" width="7.2" height="7.2" rx="1" fill="#00A4EF" />
+        <rect x="10.8" y="10.8" width="7.2" height="7.2" rx="1" fill="#FFB900" />
+      </svg>
     ),
   },
   {
     name: 'Mercury',
-    role: 'Business Banking',
-    badge: (
-      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#1E1B4B] text-white">
-        <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" aria-hidden="true">
-          <circle cx="12" cy="12" r="7" stroke="currentColor" strokeWidth="1.8" />
-          <circle cx="12" cy="12" r="2.6" fill="#A5B4FC" />
-          <path d="M6.5 6.5C9.5 4.5 14.5 4.5 17.5 6.5" stroke="#818CF8" strokeWidth="1.6" strokeLinecap="round" />
-        </svg>
-      </div>
+    miniIcon: (
+      <svg viewBox="0 0 24 24" fill="none" className="h-4.5 w-4.5 shrink-0 text-[#272A37]" aria-hidden="true">
+        <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.5" />
+        <path d="M12 3V6.5M12 17.5V21M3 12H6.5M17.5 12H21" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+        <path d="M6.2 8.8A6.5 6.5 0 0 1 15.2 6.2" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+        <path d="M17.8 15.2A6.5 6.5 0 0 1 8.8 17.8" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+        <circle cx="12" cy="12" r="1.6" stroke="currentColor" strokeWidth="1.3" />
+      </svg>
     ),
   },
   {
     name: 'Stripe',
-    role: 'Escrow & Payouts',
-    badge: (
-      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#635BFF] text-white">
-        <span className="text-base font-black leading-none tracking-tighter">S</span>
+    miniIcon: (
+      <div className="flex h-4.5 w-4.5 shrink-0 items-center justify-center rounded bg-[#635BFF] text-white">
+        <span className="text-[10px] font-black leading-none">S</span>
       </div>
     ),
   },
@@ -101,32 +82,27 @@ const infraRails = [
 
 export default function BrandFooter() {
   return (
-    <footer className="border-t border-violet-200/80 bg-white/60 pt-14 pb-24 lg:pb-16 text-sm text-slate-600">
+    <footer className="border-t border-violet-200/80 bg-white/60 pt-12 pb-24 lg:pb-16 text-sm text-slate-600">
       <div className="mx-auto max-w-[1440px] px-6 lg:px-10">
-        {/* AI, Cloud, Banking & Payment Infrastructure Strip */}
-        <div className="mb-12 border-b border-violet-200/70 pb-10">
-          <div className="mb-5 flex flex-col items-start justify-between gap-1.5 sm:flex-row sm:items-center">
-            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-violet-700/85">
-              AI, Cloud, Banking &amp; Payment Infrastructure
+        {/* Minimalist Borderless Infrastructure Trust Bar */}
+        <div className="mb-12 border-b border-violet-200/70 pb-9">
+          <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-violet-700/80 shrink-0">
+              Infrastructure Partners
             </span>
-            <span className="text-xs text-slate-500">
-              Powered by frontier AI, enterprise cloud compute, US business banking &amp; 30/40/30 escrow rails
-            </span>
-          </div>
-
-          <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 sm:gap-3 lg:grid-cols-6">
-            {infraRails.map((rail) => (
-              <div
-                key={rail.name}
-                className="flex items-center gap-2 sm:gap-2.5 rounded-2xl border border-violet-200/70 bg-white/85 px-2.5 py-2.5 sm:px-3.5 sm:py-3 shadow-xs transition hover:border-violet-300 hover:bg-white hover:shadow-sm"
-              >
-                {rail.badge}
-                <div className="min-w-0">
-                  <div className="text-[11.5px] sm:text-xs font-bold leading-tight text-[#161224]">{rail.name}</div>
-                  <div className="text-[10px] sm:text-[11px] leading-tight text-slate-500">{rail.role}</div>
+            <div className="flex flex-wrap items-center gap-x-8 gap-y-3">
+              {infraRails.map((rail) => (
+                <div
+                  key={rail.name}
+                  className="inline-flex items-center gap-2 text-[#161224]/80 transition hover:text-[#161224]"
+                >
+                  {rail.miniIcon}
+                  <span className="text-xs sm:text-[13px] font-semibold tracking-tight whitespace-nowrap">
+                    {rail.name}
+                  </span>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
 
