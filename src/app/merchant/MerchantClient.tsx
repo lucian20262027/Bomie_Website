@@ -26,11 +26,9 @@ import {
   computeDynamicRoas,
   type GeneratedMerchantPlan,
 } from '../../lib/sandboxEngine';
-import FlipPainCard from '../../components/FlipPainCard';
 import DemoShowcase from '../../components/DemoShowcase';
 
 export default function MerchantClient() {
-  const [topVariant, setTopVariant] = useState<'A' | 'B' | 'C'>('A');
   const [guideStep, setGuideStep] = useState<1 | 2 | 3>(1);
   const [presetIdx, setPresetIdx] = useState<number>(-1);
   const [customPrompt, setCustomPrompt] = useState<string>('');
@@ -189,131 +187,18 @@ export default function MerchantClient() {
       </header>
 
       <main className="mx-auto max-w-[1320px] px-4 sm:px-6 lg:px-10 py-10 space-y-12">
-        {/* A/B Test Switcher for Top Pain-Point Section */}
-        <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-violet-200/80 bg-white/80 p-3 backdrop-blur-md">
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#161224]/60">
-              A/B Test 顶部痛点区:
+        {/* TOP HERO: Positive Outcome Hook (Finalized Option A) */}
+        <section className="mx-auto max-w-3xl text-center space-y-3 pt-2">
+          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#161224] leading-[1.12]">
+            Turn neighborhood Reels into{' '}
+            <span className="bg-gradient-to-r from-violet-700 via-fuchsia-600 to-amber-500 bg-clip-text text-transparent">
+              verified walk-in traffic
             </span>
-            <div className="inline-flex flex-wrap rounded-xl border border-violet-200/60 bg-[#f7f4ff] p-1 shadow-inner">
-              {([
-                ['A', '方案 A · 直接删除（直奔 Demo）'],
-                ['B', '方案 B · 极简减缩对比条'],
-                ['C', '方案 C · 原版三张痛点卡'],
-              ] as const).map(([v, label]) => (
-                <button
-                  key={v}
-                  type="button"
-                  onClick={() => setTopVariant(v)}
-                  className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition cursor-pointer ${
-                    topVariant === v
-                      ? 'bg-[#5b21b6] text-white shadow-sm'
-                      : 'text-[#161224]/65 hover:text-[#161224]'
-                  }`}
-                >
-                  {label}
-                </button>
-              ))}
-            </div>
-          </div>
-          <span className="font-mono text-[11px] font-medium text-violet-700">
-            {topVariant === 'A' && '✓ 零废话首屏，打开直接看 4 步视频级 Demo'}
-            {topVariant === 'B' && '✓ 保留痛点对比但高度减缩 70%，不占首屏'}
-            {topVariant === 'C' && '原版大标题 + 3 张翻转痛点卡'}
-          </span>
-        </div>
-
-        {/* TOP VARIANT A: Direct Clean Merchant Hero (痛点区已删除，直奔主题) */}
-        {topVariant === 'A' && (
-          <section className="mx-auto max-w-3xl text-center space-y-3 pt-2">
-            <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#161224] leading-[1.12]">
-              Turn neighborhood Reels into{' '}
-              <span className="bg-gradient-to-r from-violet-700 via-fuchsia-600 to-amber-500 bg-clip-text text-transparent">
-                verified walk-in traffic
-              </span>
-            </h1>
-            <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
-              Watch how Bomie AI runs a full campaign in 4 visual steps—then test your own storefront live right below.
-            </p>
-          </section>
-        )}
-
-        {/* TOP VARIANT B: Slim 1-Row Contrast Strip (极简减缩对比条) */}
-        {topVariant === 'B' && (
-          <section className="space-y-6">
-            <div className="mx-auto max-w-3xl text-center space-y-2.5">
-              <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#161224] leading-[1.15]">
-                Stop burning margin on broad ads &amp;{' '}
-                <span className="bg-gradient-to-r from-violet-700 to-fuchsia-600 bg-clip-text text-transparent">
-                  $3,500/mo agency retainers
-                </span>
-              </h1>
-              <p className="text-sm text-slate-600">
-                Built for local business owners: hyper-local matching, built-in FTC protection, and 30/40/30 Stripe escrow.
-              </p>
-            </div>
-            <div className="mx-auto grid max-w-5xl grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-violet-200/80 rounded-2xl border border-violet-200/70 bg-white/80 py-4 px-2 text-center shadow-2xs">
-              <div className="px-4 py-2 md:py-0">
-                <div className="text-xs font-bold text-[#161224]">No Broad Ad Waste</div>
-                <div className="mt-1 text-[11px] text-slate-500">Match creators 0.5–15 mi from your store</div>
-              </div>
-              <div className="px-4 py-2 md:py-0">
-                <div className="text-xs font-bold text-[#161224]">Zero Cold DM Ghosting</div>
-                <div className="mt-1 text-[11px] text-slate-500">$0 MVP fee · Ready-to-film creators in &lt;5m</div>
-              </div>
-              <div className="px-4 py-2 md:py-0">
-                <div className="text-xs font-bold text-[#161224]">100% FTC &amp; Escrow Safe</div>
-                <div className="mt-1 text-[11px] text-slate-500">30/40/30 milestone payout + QR tracking</div>
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* TOP VARIANT C: Original 3 Pain-Point Flip Cards */}
-        {topVariant === 'C' && (
-        <section className="space-y-7">
-          <div className="space-y-4">
-            <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#161224] leading-[1.12]">
-              <span className="block mb-1">Dear Local Business Owners:</span>
-              Why Traditional Local Marketing Always Fails You
-            </h1>
-            <p className="max-w-2xl text-base leading-relaxed text-slate-600">
-              You pour your heart into your food, your craft, and your neighborhood. You shouldn&apos;t have to burn $3,500/mo on agencies or spend 15 hours a week DMing creators who ghost you just to fill weekend tables.
-            </p>
-          </div>
-
-          <div className="grid gap-5 md:grid-cols-3">
-            {[
-              {
-                title: 'Broad Social Ads Drain Margins',
-                desc: 'Boosting posts reaches people 30 miles away who never walk into your neighborhood store.',
-                solutionTitle: 'Hyper-Local 0.5–15 Mi Match',
-                solutionDesc: 'Bomie AI matches verified creators whose followers actually live, dine, and shop within walking or driving distance.',
-              },
-              {
-                title: 'Cold DMs & Agencies Don’t Scale',
-                desc: 'Agencies charge $3K–$5K/mo retainers, while DMing local creators yourself leads to endless ghosting.',
-                solutionTitle: '$0 MVP Fee · Instant Matching',
-                solutionDesc: 'Skip agency retainers and cold DMs—AI pairs your store with ready-to-film local creators in under 5 minutes.',
-              },
-              {
-                title: 'Zero FTC & Payout Protection',
-                desc: 'Paying upfront via Venmo risks missed #ad disclosures, no-shows, and untracked ROI.',
-                solutionTitle: '3-Agent FTC & 30/40/30 Escrow',
-                solutionDesc: 'Every brief is FTC-audited and funds release in 30/40/30 milestones only after live post & QR tracking.',
-              },
-            ].map((pain) => (
-              <FlipPainCard
-                key={pain.title}
-                title={pain.title}
-                desc={pain.desc}
-                solutionTitle={pain.solutionTitle}
-                solutionDesc={pain.solutionDesc}
-              />
-            ))}
-          </div>
+          </h1>
+          <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
+            Watch how Bomie AI runs a full campaign in 4 visual steps—then test your own storefront live right below.
+          </p>
         </section>
-        )}
 
         {/* MIDDLE SECTION: Embedded 4-Stage Auto-Playing Interactive Demo */}
         <section className="space-y-3">
@@ -731,6 +616,81 @@ export default function MerchantClient() {
                   <ArrowRight className="h-3.5 w-3.5" />
                 </button>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* CLOSING STAGE: Pain-Point Contrast + High-Converting Join Trigger */}
+        <section className="mx-auto max-w-5xl pt-4 pb-6">
+          <div className="relative overflow-hidden rounded-3xl border border-violet-400/25 bg-gradient-to-br from-[#161224] via-[#1f163b] to-[#120d21] p-8 sm:p-12 text-center text-white shadow-2xl shadow-violet-950/25">
+            {/* Subtle Ambient Glow */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -top-24 left-1/2 h-64 w-96 -translate-x-1/2 rounded-full bg-violet-600/25 blur-3xl"
+            />
+
+            <div className="relative mx-auto max-w-2xl space-y-3">
+              <span className="inline-flex items-center gap-2 font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-violet-300">
+                <span className="h-1.5 w-1.5 rounded-full bg-amber-300" />
+                Why Switch From Agencies &amp; Boosted Ads
+              </span>
+              <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight leading-[1.15]">
+                Stop burning margin on broad ads &amp;{' '}
+                <span className="bg-gradient-to-r from-violet-300 via-fuchsia-300 to-amber-300 bg-clip-text text-transparent">
+                  $3,500/mo agency retainers
+                </span>
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                Built for local business owners: hyper-local matching, built-in FTC protection, and 30/40/30 Stripe escrow.
+              </p>
+            </div>
+
+            {/* 3 Hairline-Divided Value Pillars */}
+            <div className="relative mt-8 grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/10 rounded-2xl border border-white/10 bg-white/[0.04] py-5 px-2 backdrop-blur-sm">
+              <div className="px-5 py-3 md:py-0">
+                <div className="text-sm font-bold text-white">No Broad Ad Waste</div>
+                <div className="mt-1 text-xs text-slate-300/80">
+                  Match creators 0.5–15 mi from your store
+                </div>
+              </div>
+              <div className="px-5 py-3 md:py-0">
+                <div className="text-sm font-bold text-white">Zero Cold DM Ghosting</div>
+                <div className="mt-1 text-xs text-slate-300/80">
+                  $0 MVP fee · Ready-to-film creators in &lt; 5m
+                </div>
+              </div>
+              <div className="px-5 py-3 md:py-0">
+                <div className="text-sm font-bold text-white">100% FTC &amp; Escrow Safe</div>
+                <div className="mt-1 text-xs text-slate-300/80">
+                  30/40/30 milestone payout + QR tracking
+                </div>
+              </div>
+            </div>
+
+            {/* Final Action Trigger */}
+            <div className="relative mt-8 flex flex-col items-center gap-3">
+              <div className="flex flex-wrap items-center justify-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => setShowLaunchModal(true)}
+                  className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-violet-500 via-fuchsia-500 to-amber-400 p-[1.5px] shadow-lg shadow-violet-600/30 transition hover:scale-[1.02] cursor-pointer"
+                >
+                  <span className="inline-flex items-center gap-2 rounded-[10.5px] bg-white px-6 py-3 text-sm font-extrabold text-[#161224] transition hover:bg-amber-50">
+                    <Sparkles className="h-4 w-4 text-violet-600" />
+                    Launch Your Free MVP Campaign
+                    <ArrowRight className="h-4 w-4 text-violet-600" />
+                  </span>
+                </button>
+                <Link
+                  href="/pricing"
+                  className="inline-flex items-center gap-1.5 rounded-xl border border-white/20 bg-white/5 px-5 py-3 text-xs sm:text-sm font-semibold text-white transition hover:bg-white/10"
+                >
+                  View Pricing &amp; Escrow
+                </Link>
+              </div>
+              <span className="font-mono text-[11px] text-slate-400">
+                $0 MVP platform fee · 100% pre-acceptance refund · No credit card required
+              </span>
             </div>
           </div>
         </section>
