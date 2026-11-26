@@ -4,6 +4,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import BrandFooter from '../components/BrandFooter';
+import TurnstileWidget from '../components/TurnstileWidget';
 import {
   HERO_LIVE_MATCHES,
   CULTURAL_HUB_CITIES,
@@ -910,7 +911,7 @@ export default function BomieLandingPage() {
   const [isSubmittingDemo, setIsSubmittingDemo] = useState<boolean>(false);
   const [demoLeadId, setDemoLeadId] = useState<string>('');
   const [demoError, setDemoError] = useState<string>('');
-  const [demoHumanVerified, setDemoHumanVerified] = useState<boolean>(false);
+  const [demoTurnstileToken, setDemoTurnstileToken] = useState<string>('');
   const [loginRole, setLoginRole] = useState<'merchant' | 'creator'>('merchant');
   const [openNavMenu, setOpenNavMenu] = useState<'os' | 'stories' | 'why' | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
@@ -959,8 +960,8 @@ export default function BomieLandingPage() {
   const handleDemoSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setDemoError('');
-    if (!demoHumanVerified) {
-      setDemoError('Please check "I am not a robot" to continue.');
+    if (!demoTurnstileToken) {
+      setDemoError('Please complete the human verification check below.');
       return;
     }
     setIsSubmittingDemo(true);
@@ -975,6 +976,7 @@ export default function BomieLandingPage() {
           preferredContact: demoPreferredContact,
           handle: demoHandle,
           city: demoCity,
+          turnstileToken: demoTurnstileToken,
         }),
       });
       const data = await res.json();
@@ -1741,7 +1743,7 @@ export default function BomieLandingPage() {
               onClick={() => {
                 setDemoSubmitted(false);
                 setDemoError('');
-                setDemoHumanVerified(false);
+                setDemoTurnstileToken('');
                 setShowDemoModal(true);
               }}
               className={`inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-full border px-4 py-2 text-xs sm:text-sm font-semibold transition-all duration-300 cursor-pointer ${
@@ -2889,26 +2891,17 @@ export default function BomieLandingPage() {
                   </div>
 
                   <div className="pt-1 space-y-3">
-                    <label className="flex items-center justify-between rounded-xl border border-violet-200 bg-[#faf8ff] px-3.5 py-2.5 cursor-pointer select-none transition hover:border-violet-300">
-                      <span className="flex items-center gap-3">
-                        <input
-                          type="checkbox"
-                          checked={demoHumanVerified}
-                          onChange={(e) => {
-                            setDemoHumanVerified(e.target.checked);
-                            if (e.target.checked && demoError) setDemoError('');
-                          }}
-                          className="h-4 w-4 rounded border-violet-300 text-violet-600 focus:ring-violet-500 cursor-pointer accent-violet-600"
-                        />
-                        <span className="text-xs font-semibold text-[#161224]">
-                          I am not a robot
-                        </span>
-                      </span>
-                      <span className="flex items-center gap-1 font-mono text-[10px] font-medium text-slate-400">
-                        <ShieldCheck className="h-3.5 w-3.5 text-violet-500" />
-                        Verified
-                      </span>
-                    </label>
+                    <TurnstileWidget
+                      onVerify={(token) => {
+                        setDemoTurnstileToken(token);
+                        if (demoError) setDemoError('');
+                      }}
+                      onExpire={() => setDemoTurnstileToken('')}
+                      onError={() => {
+                        setDemoTurnstileToken('');
+                        setDemoError('Verification failed to load. Please refresh and try again.');
+                      }}
+                    />
 
                     <button
                       type="submit"

@@ -9,12 +9,51 @@ export async function POST(request: Request) {
     const preferredContact = String(body?.preferredContact || 'either').trim();
     const handle = String(body?.handle || '').trim();
     const city = String(body?.city || '').trim();
+    const turnstileToken = String(body?.turnstileToken || '').trim();
 
     if (!name || !email || !handle || !city) {
       return NextResponse.json(
         { ok: false, error: 'Please fill in your name, email, business/handle, and city.' },
         { status: 400 }
       );
+    }
+
+    // Verify Cloudflare Turnstile token server-side when secret key is configured
+    const turnstileSecret = process.env.TURNSTILE_SECRET_KEY;
+    if (turnstileSecret) {
+      if (!turnstileToken) {
+        return NextResponse.json(
+          { ok: false, error: 'Please complete the human verification check.' },
+          { status: 400 }
+        );
+      }
+
+      const ipHeader = request.headers.get('x-forwarded-for') || '';
+      const remoteIp = ipHeader.split(',')[0]?.trim();
+
+      const verifyBody = new URLSearchParams({
+        secret: turnstileSecret,
+        response: turnstileToken,
+      });
+      if (remoteIp) {
+        verifyBody.set('remoteip', remoteIp);
+      }
+
+      const verifyRes = await fetch(
+        'https://challenges.cloudflare.com/turnstile/v0/siteverify',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: verifyBody.toString(),
+        }
+      );
+      const verifyData = (await verifyRes.json()) as { success?: boolean };
+      if (!verifyData?.success) {
+        return NextResponse.json(
+          { ok: false, error: 'Human verification failed. Please refresh and try again.' },
+          { status: 403 }
+        );
+      }
     }
 
     const phoneDisplay = phone || 'Not provided';
