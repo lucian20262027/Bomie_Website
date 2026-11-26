@@ -1484,6 +1484,34 @@ export default function BomieLandingPage() {
 
   const [activePilotIndex, setActivePilotIndex] = useState(0);
   const [isScrolledToVideo, setIsScrolledToVideo] = useState(false);
+  const [brandBounceKey, setBrandBounceKey] = useState(0);
+  const [brandMarqueeActive, setBrandMarqueeActive] = useState(false);
+
+  useEffect(() => {
+    let marqueeStartTimer: ReturnType<typeof setTimeout> | null = null;
+    let marqueeEndTimer: ReturnType<typeof setTimeout> | null = null;
+
+    const triggerBrandShow = () => {
+      setBrandBounceKey((k) => k + 1);
+      marqueeStartTimer = setTimeout(() => {
+        setBrandMarqueeActive(true);
+        marqueeEndTimer = setTimeout(() => {
+          setBrandMarqueeActive(false);
+        }, 9500);
+      }, 450);
+    };
+
+    // Initial showcase 3.5s after page load, then repeat every 5 minutes (300,000ms)
+    const initialTimer = setTimeout(triggerBrandShow, 3500);
+    const intervalTimer = setInterval(triggerBrandShow, 300_000);
+
+    return () => {
+      clearTimeout(initialTimer);
+      clearInterval(intervalTimer);
+      if (marqueeStartTimer) clearTimeout(marqueeStartTimer);
+      if (marqueeEndTimer) clearTimeout(marqueeEndTimer);
+    };
+  }, []);
 
   useEffect(() => {
     const onScroll = () => {
@@ -1527,9 +1555,36 @@ export default function BomieLandingPage() {
                 </svg>
               </div>
             </div>
-            <span className="text-xl sm:text-[26px] font-extrabold tracking-tight text-[#161224] leading-none whitespace-nowrap">
-              bomie.ai
-            </span>
+            <motion.div
+              key={brandBounceKey}
+              initial={brandBounceKey > 0 ? { y: 0 } : false}
+              animate={brandBounceKey > 0 ? { y: [0, -6, 0] } : undefined}
+              transition={{ duration: 0.45, ease: 'easeOut' }}
+              className="relative flex items-center h-8 overflow-hidden"
+            >
+              {brandMarqueeActive ? (
+                <div
+                  className="w-[150px] sm:w-[210px] overflow-hidden"
+                  style={{
+                    maskImage: 'linear-gradient(90deg, transparent 0%, black 12%, black 88%, transparent 100%)',
+                    WebkitMaskImage: 'linear-gradient(90deg, transparent 0%, black 12%, black 88%, transparent 100%)',
+                  }}
+                >
+                  <motion.span
+                    initial={{ x: '100%' }}
+                    animate={{ x: '-100%' }}
+                    transition={{ duration: 9.2, ease: 'linear' }}
+                    className="inline-block whitespace-nowrap bg-gradient-to-r from-violet-600 via-fuchsia-500 to-amber-500 bg-clip-text text-sm sm:text-[15px] font-bold tracking-tight text-transparent drop-shadow-[0_0_10px_rgba(217,70,239,0.35)]"
+                  >
+                    Bomie AI is North America&apos;s first AI Commerce OS for local businesses and creators.
+                  </motion.span>
+                </div>
+              ) : (
+                <span className="text-xl sm:text-[26px] font-extrabold tracking-tight text-[#161224] leading-none whitespace-nowrap">
+                  bomie ai
+                </span>
+              )}
+            </motion.div>
           </Link>
 
           {/* 2. Three Single-Line Center Dropdown Menus */}
