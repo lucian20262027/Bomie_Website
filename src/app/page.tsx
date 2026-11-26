@@ -1497,8 +1497,8 @@ export default function BomieLandingPage() {
         setBrandMarqueeActive(true);
         marqueeEndTimer = setTimeout(() => {
           setBrandMarqueeActive(false);
-        }, 9500);
-      }, 450);
+        }, 8500);
+      }, 220);
     };
 
     // Initial showcase 3.5s after page load, then repeat every 5 minutes (300,000ms)
@@ -1559,21 +1559,24 @@ export default function BomieLandingPage() {
               key={brandBounceKey}
               initial={brandBounceKey > 0 ? { y: 0 } : false}
               animate={brandBounceKey > 0 ? { y: [0, -6, 0] } : undefined}
-              transition={{ duration: 0.45, ease: 'easeOut' }}
+              transition={{ duration: 0.35, ease: 'easeOut' }}
               className="relative flex items-center h-8 overflow-hidden"
             >
               {brandMarqueeActive ? (
                 <div
-                  className="w-[150px] sm:w-[210px] overflow-hidden"
+                  className="w-[155px] sm:w-[215px] overflow-hidden"
                   style={{
-                    maskImage: 'linear-gradient(90deg, transparent 0%, black 12%, black 88%, transparent 100%)',
-                    WebkitMaskImage: 'linear-gradient(90deg, transparent 0%, black 12%, black 88%, transparent 100%)',
+                    maskImage: 'linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%)',
+                    WebkitMaskImage: 'linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%)',
                   }}
                 >
                   <motion.span
-                    initial={{ x: '100%' }}
-                    animate={{ x: '-100%' }}
-                    transition={{ duration: 9.2, ease: 'linear' }}
+                    initial={{ x: 185, opacity: 0.2 }}
+                    animate={{ x: '-100%', opacity: 1 }}
+                    transition={{
+                      x: { duration: 8.3, ease: 'linear' },
+                      opacity: { duration: 0.2 },
+                    }}
                     className="inline-block whitespace-nowrap bg-gradient-to-r from-violet-600 via-fuchsia-500 to-amber-500 bg-clip-text text-sm sm:text-[15px] font-bold tracking-tight text-transparent drop-shadow-[0_0_10px_rgba(217,70,239,0.35)]"
                   >
                     Bomie AI is North America&apos;s first AI Commerce OS for local businesses and creators.
