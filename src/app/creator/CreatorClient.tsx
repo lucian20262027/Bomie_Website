@@ -303,7 +303,7 @@ export default function CreatorClient() {
               <div className="mt-4 rounded-2xl border border-fuchsia-200 bg-[#f7f4ff] p-4 space-y-2 text-xs">
                 <div className="flex items-center gap-2 font-bold text-fuchsia-800">
                   <Sparkles className="h-3.5 w-3.5 text-fuchsia-600" />
-                  <span>Bomie Creator Copilot Pipeline:</span>
+                  <span>Bomie Creator OS Pipeline:</span>
                 </div>
                 <div className="space-y-1.5 pl-5">
                   <div className={thinkingStage >= 1 ? 'text-emerald-700 font-semibold' : 'text-slate-400'}>
@@ -329,7 +329,7 @@ export default function CreatorClient() {
               <div>
                 <div className="flex items-center gap-1.5 font-mono text-xs uppercase text-fuchsia-700">
                   <MapPin className="h-3.5 w-3.5" />
-                  <span>Creator Copilot Ready · Zero Cold DMs</span>
+                  <span>Creator OS Ready · Zero Cold DMs</span>
                 </div>
                 <h3 className="mt-1 text-2xl font-bold text-[#161224]">{plan.handle}</h3>
               </div>
@@ -648,7 +648,7 @@ export default function CreatorClient() {
               <form onSubmit={handleClaimSubmit} className="space-y-4">
                 <div>
                   <span className="font-mono text-xs uppercase tracking-wider text-fuchsia-600">
-                    Creator Copilot · 0% Fee (MVP Free)
+                    Creator OS · 0% Fee (MVP Free)
                   </span>
                   <h3 className="mt-1 text-2xl font-bold text-[#161224]">
                     Join Bomie AI Creators in {plan.city}

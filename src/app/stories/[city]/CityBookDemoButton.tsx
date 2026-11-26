@@ -91,7 +91,7 @@ export default function CityBookDemoButton({ cityName }: { cityName: string }) {
                     href="/merchant"
                     className="rounded-xl bg-gradient-to-r from-[#5b21b6] to-[#d946ef] px-5 py-2.5 text-xs font-bold text-white shadow-md hover:opacity-95"
                   >
-                    Try Merchant Sandbox →
+                    Try Merchant OS →
                   </Link>
                   <button
                     type="button"

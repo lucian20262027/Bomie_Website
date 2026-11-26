@@ -1311,7 +1311,7 @@ export default function BomieLandingPage() {
     {
       q: 'Do I need a minimum follower count to join as a creator?',
       a: 'No. Local businesses care most about authentic storytelling and neighborhood trust. Nano and micro-creators (even 2K–50K followers) with strong local engagement regularly win paid collaborations on Bomie.',
-      actionLabel: 'Try Creator Copilot →',
+      actionLabel: 'Try Creator OS →',
       actionType: 'creator' as const,
     },
     {
@@ -1388,8 +1388,8 @@ export default function BomieLandingPage() {
       return {
         text: isZh
           ? '作为本地达人（Creator），哪怕你是 2K–50K 粉丝的 KOC/Nano 达人，只要本地互动真实，就能收到附近餐厅、美学 Spa、精品店的付费邀请！自带 AI 30 秒脚本助手，发布即通过 Stripe / Apple Pay 秒级提现。'
-          : 'Creators love Bomie Copilot! You don’t need millions of followers—nano & micro creators (2K–50K) get direct paid invites from nearby restaurants, spas, and boutiques with instant Stripe / Apple Pay payouts.',
-        actionLabel: isZh ? '体验达人工作台 →' : 'Try Creator Copilot →',
+          : 'Creators love Bomie Creator OS! You don’t need millions of followers—nano & micro creators (2K–50K) get direct paid invites from nearby restaurants, spas, and boutiques with instant Stripe / Apple Pay payouts.',
+        actionLabel: isZh ? '体验达人工作台 →' : 'Try Creator OS →',
         actionType: 'creator',
       };
     }
@@ -2980,7 +2980,7 @@ export default function BomieLandingPage() {
                       : 'text-slate-600 hover:text-violet-950'
                   }`}
                 >
-                  Creator Copilot
+                  Creator OS
                 </button>
               </div>
 
@@ -3001,7 +3001,7 @@ export default function BomieLandingPage() {
                     }}
                     className="inline-flex w-full items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-[#5b21b6] to-[#d946ef] py-2.5 text-xs font-bold text-white"
                   >
-                    Open {loginRole === 'merchant' ? 'Merchant Workspace' : 'Creator Copilot'} →
+                    Open {loginRole === 'merchant' ? 'Merchant OS' : 'Creator OS'} →
                   </Link>
                 </div>
               ) : (

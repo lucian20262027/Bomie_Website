@@ -290,7 +290,6 @@ export default function CommerceOsClient() {
   const [isInputFocused, setIsInputFocused] = useState<boolean>(false);
   const [presetIdx, setPresetIdx] = useState<number>(-1);
   const [thinkingStage, setThinkingStage] = useState<0 | 1 | 2 | 3 | 4>(0);
-  const [demoLayoutVariant, setDemoLayoutVariant] = useState<'A' | 'B' | 'C'>('A');
   const [demoSide, setDemoSide] = useState<'merchant' | 'creator'>('merchant');
 
   // Merchant interactive state
@@ -431,210 +430,48 @@ export default function CommerceOsClient() {
           </p>
         </section>
 
-        {/* A/B/C Test Switcher for Dual-Sided Automated Demo Integration */}
-        <section className="space-y-6">
-          <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-violet-200/80 bg-white/80 p-3 backdrop-blur-md">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#161224]/60">
-                A/B/C Test 演示布局:
-              </span>
-              <div className="inline-flex flex-wrap rounded-xl border border-violet-200/60 bg-[#f7f4ff] p-1 shadow-inner">
-                {([
-                  ['A', '方案 A · 双端切换旗舰 Demo（推荐）'],
-                  ['B', '方案 B · 上下双阶梯全景展示'],
-                  ['C', '方案 C · 左右双屏同台对照'],
-                ] as const).map(([v, label]) => (
-                  <button
-                    key={v}
-                    type="button"
-                    onClick={() => setDemoLayoutVariant(v)}
-                    className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition cursor-pointer ${
-                      demoLayoutVariant === v
-                        ? 'bg-[#5b21b6] text-white shadow-sm'
-                        : 'text-[#161224]/65 hover:text-[#161224]'
-                    }`}
-                  >
-                    {label}
-                  </button>
-                ))}
-              </div>
+        {/* Unified Dual-Sided Automated Demo (Merchant OS / Creator OS) */}
+        <section className="space-y-4">
+          <div className="flex justify-center">
+            <div className="inline-flex items-center gap-1.5 rounded-2xl border border-violet-200 bg-white p-1.5 shadow-sm">
+              <button
+                type="button"
+                onMouseEnter={() => setDemoSide('merchant')}
+                onClick={() => setDemoSide('merchant')}
+                className={`inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-xs sm:text-sm font-bold transition cursor-pointer ${
+                  demoSide === 'merchant'
+                    ? 'bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white shadow-md'
+                    : 'text-slate-600 hover:bg-violet-50 hover:text-violet-950'
+                }`}
+              >
+                <Store className="h-4 w-4" />
+                <span>Merchant OS Demo</span>
+              </button>
+              <button
+                type="button"
+                onMouseEnter={() => setDemoSide('creator')}
+                onClick={() => setDemoSide('creator')}
+                className={`inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-xs sm:text-sm font-bold transition cursor-pointer ${
+                  demoSide === 'creator'
+                    ? 'bg-gradient-to-r from-fuchsia-600 to-violet-600 text-white shadow-md'
+                    : 'text-slate-600 hover:bg-fuchsia-50 hover:text-fuchsia-950'
+                }`}
+              >
+                <Video className="h-4 w-4" />
+                <span>Creator OS Demo</span>
+              </button>
             </div>
-            <span className="font-mono text-[11px] font-medium text-violet-700">
-              {demoLayoutVariant === 'A' && '✓ 悬停/点击一键切换 Merchant OS / Creator OS，紧凑不臃肿'}
-              {demoLayoutVariant === 'B' && '✓ 上下完整展开商家与达人两套自动演示，中间飞轮桥接'}
-              {demoLayoutVariant === 'C' && '✓ 左右分屏同步对照双端闭环，再配下方的深色收尾'}
-            </span>
           </div>
 
-          {/* VARIANT A: Unified Role-Switch Flagship Demo */}
-          {demoLayoutVariant === 'A' && (
-            <div className="space-y-4">
-              <div className="flex justify-center">
-                <div className="inline-flex items-center gap-1.5 rounded-2xl border border-violet-200 bg-white p-1.5 shadow-sm">
-                  <button
-                    type="button"
-                    onMouseEnter={() => setDemoSide('merchant')}
-                    onClick={() => setDemoSide('merchant')}
-                    className={`inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-xs sm:text-sm font-bold transition cursor-pointer ${
-                      demoSide === 'merchant'
-                        ? 'bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white shadow-md'
-                        : 'text-slate-600 hover:bg-violet-50 hover:text-violet-950'
-                    }`}
-                  >
-                    <Store className="h-4 w-4" />
-                    <span>Merchant OS Demo</span>
-                  </button>
-                  <button
-                    type="button"
-                    onMouseEnter={() => setDemoSide('creator')}
-                    onClick={() => setDemoSide('creator')}
-                    className={`inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-xs sm:text-sm font-bold transition cursor-pointer ${
-                      demoSide === 'creator'
-                        ? 'bg-gradient-to-r from-fuchsia-600 to-violet-600 text-white shadow-md'
-                        : 'text-slate-600 hover:bg-fuchsia-50 hover:text-fuchsia-950'
-                    }`}
-                  >
-                    <Video className="h-4 w-4" />
-                    <span>Creator OS Demo</span>
-                  </button>
-                </div>
-              </div>
-
-              {demoSide === 'merchant' ? (
-                <DemoShowcase showHero={false} hideCustomDrawerButton={true} />
-              ) : (
-                <CreatorDemoShowcase />
-              )}
-            </div>
-          )}
-
-          {/* VARIANT B: Stacked Dual-Engine Full Showcase */}
-          {demoLayoutVariant === 'B' && (
-            <div className="space-y-10">
-              <div className="space-y-3">
-                <div className="flex items-center justify-between px-4 sm:px-6 lg:px-10">
-                  <span className="inline-flex items-center gap-2 rounded-full border border-violet-200 bg-white px-3 py-1 font-mono text-[11px] font-bold uppercase tracking-wider text-violet-800">
-                    <Store className="h-3.5 w-3.5 text-violet-600" />
-                    01 · Merchant Operating System (Auto-Playing)
-                  </span>
-                  <Link href="/merchant" className="text-xs font-bold text-violet-700 hover:underline">
-                    Open Full Merchant Page →
-                  </Link>
-                </div>
-                <DemoShowcase showHero={false} hideCustomDrawerButton={true} />
-              </div>
-
-              <div className="mx-auto max-w-3xl flex items-center justify-center gap-3 rounded-2xl border border-violet-200/80 bg-white/80 px-5 py-3 text-center shadow-2xs">
-                <Repeat className="h-4 w-4 text-violet-600 shrink-0" />
-                <span className="font-mono text-xs font-semibold text-[#161224]">
-                  Synced Two-Sided Flywheel: Merchant Escrow Lock ⇄ Instant Creator Invite &amp; Payout
-                </span>
-              </div>
-
-              <div className="space-y-3">
-                <div className="flex items-center justify-between px-4 sm:px-6 lg:px-10">
-                  <span className="inline-flex items-center gap-2 rounded-full border border-fuchsia-200 bg-white px-3 py-1 font-mono text-[11px] font-bold uppercase tracking-wider text-fuchsia-800">
-                    <Video className="h-3.5 w-3.5 text-fuchsia-600" />
-                    02 · Creator Operating System (Auto-Playing)
-                  </span>
-                  <Link href="/creator" className="text-xs font-bold text-fuchsia-700 hover:underline">
-                    Open Full Creator Page →
-                  </Link>
-                </div>
-                <CreatorDemoShowcase />
-              </div>
-            </div>
-          )}
-
-          {/* VARIANT C: Side-by-Side Split-Screen Dual OS Theater */}
-          {demoLayoutVariant === 'C' && (
-            <div className="space-y-6">
-              <div className="grid gap-6 lg:grid-cols-2">
-                {/* Left Theater: Merchant OS */}
-                <div className="rounded-3xl border border-violet-200 bg-white p-6 shadow-sm space-y-5">
-                  <div className="flex items-center justify-between border-b border-slate-100 pb-4">
-                    <div className="flex items-center gap-2.5">
-                      <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-violet-100 text-violet-700">
-                        <Store className="h-4 w-4" />
-                      </div>
-                      <div>
-                        <div className="text-sm font-extrabold text-[#161224]">Merchant OS</div>
-                        <div className="text-[11px] text-slate-500">Storefront → FTC Audit → Walk-Ins</div>
-                      </div>
-                    </div>
-                    <Link
-                      href="/merchant"
-                      className="rounded-lg border border-violet-200 bg-violet-50 px-3 py-1.5 text-xs font-bold text-violet-800 hover:bg-violet-100"
-                    >
-                      Try Merchant →
-                    </Link>
-                  </div>
-                  <div className="space-y-2.5">
-                    {[
-                      { s: '01', title: 'Brief & AI Diff', detail: 'Extracts 0.5–10 mi catchment + #ad rules automatically' },
-                      { s: '02', title: 'Hyper-Local Match', detail: 'Scores 2K–50K creators with >70% neighborhood audience' },
-                      { s: '03', title: '30s Script & Score', detail: '96% FTC compliance gauge + high-retention storyboard' },
-                      { s: '04', title: '30/40/30 Escrow & QR', detail: '$0 MVP platform fee · 100% refundable pre-acceptance' },
-                    ].map((row) => (
-                      <div key={row.s} className="flex items-start gap-3 rounded-xl border border-slate-100 bg-slate-50/70 p-3">
-                        <span className="rounded-md bg-violet-600 px-2 py-0.5 font-mono text-[10px] font-bold text-white">
-                          {row.s}
-                        </span>
-                        <div>
-                          <div className="text-xs font-bold text-[#161224]">{row.title}</div>
-                          <div className="text-[11px] text-slate-600">{row.detail}</div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Right Theater: Creator OS */}
-                <div className="rounded-3xl border border-fuchsia-200 bg-white p-6 shadow-sm space-y-5">
-                  <div className="flex items-center justify-between border-b border-slate-100 pb-4">
-                    <div className="flex items-center gap-2.5">
-                      <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-fuchsia-100 text-fuchsia-700">
-                        <Video className="h-4 w-4" />
-                      </div>
-                      <div>
-                        <div className="text-sm font-extrabold text-[#161224]">Creator OS</div>
-                        <div className="text-[11px] text-slate-500">Inbound Deals → FTC Shield → Instant Pay</div>
-                      </div>
-                    </div>
-                    <Link
-                      href="/creator"
-                      className="rounded-lg border border-fuchsia-200 bg-fuchsia-50 px-3 py-1.5 text-xs font-bold text-fuchsia-800 hover:bg-fuchsia-100"
-                    >
-                      Try Creator →
-                    </Link>
-                  </div>
-                  <div className="space-y-2.5">
-                    {[
-                      { s: '01', title: 'Inbound Paid Offers', detail: 'Pre-funded neighborhood brand invites — zero cold DMs' },
-                      { s: '02', title: 'AI Script & FTC Shield', detail: 'Ready-to-paste #ad caption & cleared commercial audio' },
-                      { s: '03', title: 'Escrow Pre-Funded', detail: '100% base pay locked on Stripe before you start filming' },
-                      { s: '04', title: 'Instant Stripe Payout', detail: '0% creator fee · Withdraw in seconds, no Net-60 wait' },
-                    ].map((row) => (
-                      <div key={row.s} className="flex items-start gap-3 rounded-xl border border-slate-100 bg-slate-50/70 p-3">
-                        <span className="rounded-md bg-fuchsia-600 px-2 py-0.5 font-mono text-[10px] font-bold text-white">
-                          {row.s}
-                        </span>
-                        <div>
-                          <div className="text-xs font-bold text-[#161224]">{row.title}</div>
-                          <div className="text-[11px] text-slate-600">{row.detail}</div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-              <DemoShowcase showHero={false} hideCustomDrawerButton={true} />
-            </div>
+          {demoSide === 'merchant' ? (
+            <DemoShowcase showHero={false} hideCustomDrawerButton={true} />
+          ) : (
+            <CreatorDemoShowcase />
           )}
         </section>
 
         {/* Interactive Guided System Sandbox (Merged How It Works) */}
-        <section className="space-y-6">
+        <section className="space-y-6 px-4 sm:px-6 lg:px-10">
           <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
             <div>
               <div className="font-mono text-xs font-semibold uppercase tracking-widest text-violet-700">
@@ -669,7 +506,7 @@ export default function CommerceOsClient() {
                 }`}
               >
                 <Video className="h-3.5 w-3.5" />
-                Creator Copilot
+                Creator OS
               </button>
             </div>
           </div>
@@ -959,7 +796,7 @@ export default function CommerceOsClient() {
                       href="/merchant"
                       className="inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-[#5b21b6] to-[#d946ef] px-4 py-2 text-xs font-bold text-white shadow-sm transition hover:opacity-95"
                     >
-                      Open Full Merchant Workspace
+                      Open Full Merchant OS
                       <ArrowRight className="h-3.5 w-3.5" />
                     </Link>
                   </div>
@@ -1026,7 +863,7 @@ export default function CommerceOsClient() {
                       href="/creator"
                       className="inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-[#d946ef] to-[#7c3aed] px-4 py-2 text-xs font-bold text-white shadow-sm transition hover:opacity-95"
                     >
-                      Open Full Creator Copilot
+                      Open Full Creator OS
                       <ArrowRight className="h-3.5 w-3.5" />
                     </Link>
                   </div>
@@ -1037,7 +874,7 @@ export default function CommerceOsClient() {
         </section>
 
         {/* Section 3: 6-Node Closed-Loop System Architecture */}
-        <section className="space-y-6">
+        <section className="space-y-6 px-4 sm:px-6 lg:px-10">
           <div>
             <div className="font-mono text-xs font-semibold uppercase tracking-widest text-violet-700">
               SYSTEM ARCHITECTURE · 6 CLOSED-LOOP NODES
@@ -1087,7 +924,8 @@ export default function CommerceOsClient() {
         </section>
 
         {/* Bottom CTA */}
-        <section className="flex flex-col items-start justify-between gap-6 rounded-3xl border border-violet-300/80 bg-gradient-to-r from-violet-100 via-white to-fuchsia-100 p-8 sm:flex-row sm:items-center">
+        <section className="px-4 sm:px-6 lg:px-10">
+        <div className="flex flex-col items-start justify-between gap-6 rounded-3xl border border-violet-300/80 bg-gradient-to-r from-violet-100 via-white to-fuchsia-100 p-8 sm:flex-row sm:items-center">
           <div>
             <h3 className="text-xl font-extrabold text-[#161224]">
               Ready to try Bomie Commerce OS with $0 platform fee?
@@ -1111,6 +949,7 @@ export default function CommerceOsClient() {
               <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>
+        </div>
         </section>
       </main>
       <BrandFooter />

@@ -16,7 +16,7 @@ const PRIVACY_SECTIONS = [
     title: 'Information We Collect',
     body: (
       <p>
-        When you book a demo, create a Merchant OS or Creator Copilot account, or submit
+        When you book a demo, create a Merchant OS or Creator OS account, or submit
         campaign briefs on <strong className="font-medium text-[#161224]">bomie.ai</strong>,
         we collect information you directly provide, including your name, work email,
         business or creator handle, city/region, campaign preferences, and connected
