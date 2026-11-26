@@ -168,8 +168,8 @@ export default function FounderProfileClient() {
             </div>
 
             {/* Right Editorial Manifesto Column */}
-            <div className="flex flex-col justify-center px-6 py-14 sm:px-12 lg:px-16 lg:py-20">
-              <div className="mx-auto w-full max-w-lg space-y-10">
+            <div className="flex flex-col justify-start px-6 py-8 sm:px-12 lg:px-16 lg:py-10">
+              <div className="mx-auto w-full max-w-lg space-y-6">
                 <div className="flex items-start gap-4">
                   <span className={`mt-1 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full border font-mono text-[10px] ${p.badge}`}>
                     01
@@ -180,7 +180,7 @@ export default function FounderProfileClient() {
                   </h1>
                 </div>
 
-                <div className={`pl-10 sm:pl-16 space-y-5 text-[15px] leading-[1.65] ${p.prose}`}>
+                <div className={`pl-10 sm:pl-16 space-y-4 text-[15px] leading-[1.65] ${p.prose}`}>
                   <p>
                     Lucian is a repeat founder and entrepreneur who built a cross-border
                     supply-chain venture across multiple cities and advised SMBs on

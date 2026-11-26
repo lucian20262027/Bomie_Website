@@ -3,6 +3,7 @@ import { ArrowLeft, MapPin, Star } from 'lucide-react';
 import type { Metadata } from 'next';
 import BrandFooter from '../../../components/BrandFooter';
 import CityBookDemoButton from './CityBookDemoButton';
+import CitySwitcher from './CitySwitcher';
 
 type CityKey = 'sf' | 'la' | 'seattle' | 'vegas';
 
@@ -312,28 +313,7 @@ export default async function CityStoriesPage({
               {active.name} Local Commerce
             </h1>
           </div>
-          <div className="inline-flex shrink-0 items-center gap-1 overflow-x-auto whitespace-nowrap rounded-2xl border border-violet-200/70 bg-white shadow-sm p-1.5">
-            {(
-              [
-                { id: 'sf', label: 'San Francisco' },
-                { id: 'la', label: 'Los Angeles' },
-                { id: 'seattle', label: 'Seattle' },
-                { id: 'vegas', label: 'Las Vegas' },
-              ] as const
-            ).map((c) => (
-              <Link
-                key={c.id}
-                href={`/stories/${c.id}`}
-                className={`whitespace-nowrap rounded-xl px-3.5 py-2 text-xs font-semibold transition ${
-                  key === c.id
-                    ? 'bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white shadow-md'
-                    : 'text-slate-600 hover:text-violet-950'
-                }`}
-              >
-                {c.label}
-              </Link>
-            ))}
-          </div>
+          <CitySwitcher activeCity={key} />
         </div>
 
         {/* City Hero Card */}
