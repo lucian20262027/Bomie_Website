@@ -489,8 +489,11 @@ export default function CommerceOsClient() {
             <div className="inline-flex rounded-2xl border border-violet-200 bg-white p-1 shadow-sm">
               <button
                 type="button"
+                onMouseEnter={() => {
+                  if (role !== 'merchant') switchRole('merchant');
+                }}
                 onClick={() => switchRole('merchant')}
-                className={`inline-flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-bold transition ${
+                className={`inline-flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-bold transition cursor-pointer ${
                   role === 'merchant'
                     ? 'bg-gradient-to-r from-[#5b21b6] to-[#d946ef] text-white shadow-sm'
                     : 'text-slate-600 hover:text-violet-900'
@@ -501,8 +504,11 @@ export default function CommerceOsClient() {
               </button>
               <button
                 type="button"
+                onMouseEnter={() => {
+                  if (role !== 'creator') switchRole('creator');
+                }}
                 onClick={() => switchRole('creator')}
-                className={`inline-flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-bold transition ${
+                className={`inline-flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-bold transition cursor-pointer ${
                   role === 'creator'
                     ? 'bg-gradient-to-r from-[#d946ef] to-[#7c3aed] text-white shadow-sm'
                     : 'text-slate-600 hover:text-violet-900'
