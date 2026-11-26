@@ -12,6 +12,8 @@ const cityData: Record<
   {
     name: string;
     slogan: string;
+    sloganPrefix: string;
+    sloganHighlight: string;
     tagline: string;
     heroImage: string;
     overview: string;
@@ -30,6 +32,8 @@ const cityData: Record<
   sf: {
     name: 'San Francisco',
     slogan: 'AI That Builds More Connection, Not More Separation.',
+    sloganPrefix: 'AI That Builds ',
+    sloganHighlight: 'More Connection, Not More Separation.',
     tagline: 'Culinary Craft, Specialty Roasteries & Neighborhood Boutiques',
     heroImage: '/images/pexels/208745.jpg',
     overview:
@@ -85,6 +89,8 @@ const cityData: Record<
   la: {
     name: 'Los Angeles',
     slogan: 'Together with Bomie, Welcoming Athletes and Audiences Worldwide to LA for 2028.',
+    sloganPrefix: 'Together with Bomie, ',
+    sloganHighlight: 'Welcoming Athletes & Audiences Worldwide to LA for 2028.',
     tagline: 'Clean Beauty, Wellness Studios & Trendy Neighborhood Dining',
     heroImage: '/images/pexels/1388030.jpg',
     overview:
@@ -140,6 +146,8 @@ const cityData: Record<
   seattle: {
     name: 'Seattle',
     slogan: 'Where Pacific Northwest Craft Meets the Creators Who Keep Neighborhoods Alive.',
+    sloganPrefix: 'Where Pacific Northwest Craft Meets ',
+    sloganHighlight: 'the Creators Who Keep Neighborhoods Alive.',
     tagline: 'Specialty Coffee, Craft Bakeries & Pacific Northwest Hospitality',
     heroImage: '/images/pexels/656195.jpg',
     overview:
@@ -194,7 +202,9 @@ const cityData: Record<
   },
   vegas: {
     name: 'Las Vegas',
-    slogan: 'Beyond the Strip: Turning Every Local Kitchen and Studio into the City’s Next Must-Visit.',
+    slogan: 'Beyond the Strip: Turning Every Local Kitchen & Studio into the Next Must-Visit.',
+    sloganPrefix: 'Beyond the Strip: ',
+    sloganHighlight: 'Turning Every Local Kitchen & Studio into the Next Must-Visit.',
     tagline: 'Experiential Dining, Off-Strip Gems & Luxury Wellness Spas',
     heroImage: '/images/pexels/415999.jpg',
     overview:
@@ -316,8 +326,11 @@ export default async function CityStoriesPage({
             </h1>
             <CitySwitcher activeCity={key} />
           </div>
-          <p className="text-xl sm:text-2xl lg:text-[28px] font-bold leading-snug tracking-tight bg-gradient-to-r from-violet-700 via-fuchsia-600 to-amber-500 bg-clip-text text-transparent">
-            {active.slogan}
+          <p className="text-xl sm:text-2xl lg:text-[28px] font-bold leading-snug tracking-tight text-[#161224]">
+            {active.sloganPrefix}
+            <span className="bg-gradient-to-r from-violet-700 via-fuchsia-600 to-amber-500 bg-clip-text text-transparent">
+              {active.sloganHighlight}
+            </span>
           </p>
         </div>
 
