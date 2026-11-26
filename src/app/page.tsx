@@ -1671,9 +1671,9 @@ export default function BomieLandingPage() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 8 }}
                     transition={{ duration: 0.18 }}
-                    className="absolute left-0 top-full pt-2 w-56 z-50"
+                    className="absolute left-0 top-full pt-2 w-[340px] z-50"
                   >
-                    <div className="rounded-2xl border border-violet-200/80 bg-white/95 p-2 shadow-2xl shadow-violet-900/10 backdrop-blur-2xl space-y-1">
+                    <div className="grid grid-cols-2 gap-1.5 rounded-2xl border border-violet-200/80 bg-white/95 p-2.5 shadow-2xl shadow-violet-900/10 backdrop-blur-2xl">
                       <Link
                         href="/stories/sf"
                         onClick={() => setOpenNavMenu(null)}
@@ -1736,7 +1736,7 @@ export default function BomieLandingPage() {
                 setDemoError('');
                 setShowDemoModal(true);
               }}
-              className="inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-lg bg-gradient-to-r from-violet-600 via-fuchsia-600 to-violet-700 px-4 sm:px-5 py-2 text-xs sm:text-sm font-bold text-white shadow-lg shadow-violet-600/25 transition hover:opacity-95"
+              className="inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-xl bg-gradient-to-r from-violet-600 via-fuchsia-600 to-violet-700 px-3.5 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm font-bold text-white shadow-lg shadow-violet-600/25 transition hover:opacity-95"
             >
               Book a Demo
             </motion.button>

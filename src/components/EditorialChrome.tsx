@@ -9,21 +9,25 @@ interface EditorialHeaderProps {
 export function EditorialHeader({ activeNav, rightSlot }: EditorialHeaderProps) {
   return (
     <header className="w-full border-b border-[#161224]/10 bg-[#f7f4ff] print:static print:border-[#161224]/15 print:bg-white">
-      <div className="mx-auto flex max-w-[1440px] items-center justify-between px-6 sm:px-10 h-[74px]">
+      <div className="mx-auto flex max-w-[1440px] items-center justify-between px-4 sm:px-6 lg:px-10 h-[74px]">
         <div className="flex items-center gap-10">
-          <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#161224] text-[#f7f4ff] transition group-hover:opacity-85">
-              <svg viewBox="0 0 512 512" fill="none" className="h-4 w-4">
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-tr from-[#5b21b6] via-[#d946ef] to-[#fbbf24] shadow-md shadow-violet-500/30 transition-transform group-hover:scale-105">
+              <svg viewBox="0 0 512 512" fill="none" className="h-5 w-5">
                 <path
-                  fill="currentColor"
+                  fill="#ffffff"
                   fillRule="evenodd"
                   clipRule="evenodd"
                   d="M140 124C140 112.954 148.954 104 160 104H268C321.019 104 360 137.565 360 184C360 214.12 343.39 239.47 317.88 251.42C350.69 263.74 372 292.69 372 330C372 381.915 329.915 416 272 416H160C148.954 416 140 407.046 140 396V124ZM204 162V228H260C281.539 228 296 214.569 296 195C296 175.431 281.539 162 260 162H204ZM204 282V356H268C292.301 356 308 341.673 308 319C308 296.327 292.301 282 268 282H204Z"
                 />
+                <path
+                  fill="#fef08a"
+                  d="M396 76C399.5 103.5 412.5 116.5 440 120C412.5 123.5 399.5 136.5 396 164C392.5 136.5 379.5 123.5 352 120C379.5 116.5 392.5 103.5 396 76Z"
+                />
               </svg>
             </div>
-            <span className="text-base font-semibold tracking-tight text-[#161224]">
-              BOMIE
+            <span className="text-lg font-extrabold tracking-tight text-[#161224]">
+              bomie.ai
             </span>
           </Link>
 
