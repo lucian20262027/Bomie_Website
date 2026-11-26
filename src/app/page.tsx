@@ -1571,20 +1571,22 @@ export default function BomieLandingPage() {
                   }}
                 >
                   <motion.span
+                    key={brandBounceKey}
                     initial={{ x: 200, opacity: 0.2 }}
                     animate={{ x: '-100%', opacity: 1 }}
                     transition={{
                       x: { duration: 12.5, ease: 'linear' },
                       opacity: { duration: 0.25 },
                     }}
-                    className="inline-block whitespace-nowrap bg-gradient-to-r from-violet-600 via-fuchsia-500 to-amber-500 bg-clip-text text-base sm:text-lg font-bold tracking-tight text-transparent"
+                    className="inline-block whitespace-nowrap text-sm sm:text-[15px] font-medium tracking-tight text-[#161224]/85"
                   >
-                    Bomie AI is North America&apos;s first AI Commerce OS for local businesses and creators.
+                    <span className="font-bold text-violet-700">Bomie AI</span> is North America&apos;s first{' '}
+                    <span className="font-bold text-fuchsia-600">AI Commerce OS</span> for local businesses and creators.
                   </motion.span>
                 </div>
               ) : (
                 <span className="text-xl sm:text-[26px] font-extrabold tracking-tight text-[#161224] leading-none whitespace-nowrap">
-                  bomie ai
+                  bomie.ai
                 </span>
               )}
             </motion.div>
