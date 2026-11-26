@@ -27,8 +27,10 @@ import {
   type GeneratedMerchantPlan,
 } from '../../lib/sandboxEngine';
 import FlipPainCard from '../../components/FlipPainCard';
+import DemoShowcase from '../../components/DemoShowcase';
 
 export default function MerchantClient() {
+  const [topVariant, setTopVariant] = useState<'A' | 'B' | 'C'>('A');
   const [guideStep, setGuideStep] = useState<1 | 2 | 3>(1);
   const [presetIdx, setPresetIdx] = useState<number>(-1);
   const [customPrompt, setCustomPrompt] = useState<string>('');
@@ -186,8 +188,89 @@ export default function MerchantClient() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-5xl px-6 py-14 space-y-14">
-        {/* 1. Merchant Pain Points First */}
+      <main className="mx-auto max-w-[1320px] px-4 sm:px-6 lg:px-10 py-10 space-y-12">
+        {/* A/B Test Switcher for Top Pain-Point Section */}
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-violet-200/80 bg-white/80 p-3 backdrop-blur-md">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#161224]/60">
+              A/B Test 顶部痛点区:
+            </span>
+            <div className="inline-flex flex-wrap rounded-xl border border-violet-200/60 bg-[#f7f4ff] p-1 shadow-inner">
+              {([
+                ['A', '方案 A · 直接删除（直奔 Demo）'],
+                ['B', '方案 B · 极简减缩对比条'],
+                ['C', '方案 C · 原版三张痛点卡'],
+              ] as const).map(([v, label]) => (
+                <button
+                  key={v}
+                  type="button"
+                  onClick={() => setTopVariant(v)}
+                  className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition cursor-pointer ${
+                    topVariant === v
+                      ? 'bg-[#5b21b6] text-white shadow-sm'
+                      : 'text-[#161224]/65 hover:text-[#161224]'
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+          </div>
+          <span className="font-mono text-[11px] font-medium text-violet-700">
+            {topVariant === 'A' && '✓ 零废话首屏，打开直接看 4 步视频级 Demo'}
+            {topVariant === 'B' && '✓ 保留痛点对比但高度减缩 70%，不占首屏'}
+            {topVariant === 'C' && '原版大标题 + 3 张翻转痛点卡'}
+          </span>
+        </div>
+
+        {/* TOP VARIANT A: Direct Clean Merchant Hero (痛点区已删除，直奔主题) */}
+        {topVariant === 'A' && (
+          <section className="mx-auto max-w-3xl text-center space-y-3 pt-2">
+            <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#161224] leading-[1.12]">
+              Turn neighborhood Reels into{' '}
+              <span className="bg-gradient-to-r from-violet-700 via-fuchsia-600 to-amber-500 bg-clip-text text-transparent">
+                verified walk-in traffic
+              </span>
+            </h1>
+            <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
+              Watch how Bomie AI runs a full campaign in 4 visual steps—then test your own storefront live right below.
+            </p>
+          </section>
+        )}
+
+        {/* TOP VARIANT B: Slim 1-Row Contrast Strip (极简减缩对比条) */}
+        {topVariant === 'B' && (
+          <section className="space-y-6">
+            <div className="mx-auto max-w-3xl text-center space-y-2.5">
+              <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#161224] leading-[1.15]">
+                Stop burning margin on broad ads &amp;{' '}
+                <span className="bg-gradient-to-r from-violet-700 to-fuchsia-600 bg-clip-text text-transparent">
+                  $3,500/mo agency retainers
+                </span>
+              </h1>
+              <p className="text-sm text-slate-600">
+                Built for local business owners: hyper-local matching, built-in FTC protection, and 30/40/30 Stripe escrow.
+              </p>
+            </div>
+            <div className="mx-auto grid max-w-5xl grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-violet-200/80 rounded-2xl border border-violet-200/70 bg-white/80 py-4 px-2 text-center shadow-2xs">
+              <div className="px-4 py-2 md:py-0">
+                <div className="text-xs font-bold text-[#161224]">No Broad Ad Waste</div>
+                <div className="mt-1 text-[11px] text-slate-500">Match creators 0.5–15 mi from your store</div>
+              </div>
+              <div className="px-4 py-2 md:py-0">
+                <div className="text-xs font-bold text-[#161224]">Zero Cold DM Ghosting</div>
+                <div className="mt-1 text-[11px] text-slate-500">$0 MVP fee · Ready-to-film creators in &lt;5m</div>
+              </div>
+              <div className="px-4 py-2 md:py-0">
+                <div className="text-xs font-bold text-[#161224]">100% FTC &amp; Escrow Safe</div>
+                <div className="mt-1 text-[11px] text-slate-500">30/40/30 milestone payout + QR tracking</div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* TOP VARIANT C: Original 3 Pain-Point Flip Cards */}
+        {topVariant === 'C' && (
         <section className="space-y-7">
           <div className="space-y-4">
             <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#161224] leading-[1.12]">
@@ -230,16 +313,25 @@ export default function MerchantClient() {
             ))}
           </div>
         </section>
+        )}
 
-        {/* 2. Guided Interactive Live Demo */}
-        <section className="space-y-7 border-t border-violet-200/70 pt-14">
+        {/* MIDDLE SECTION: Embedded 4-Stage Auto-Playing Interactive Demo */}
+        <section className="space-y-3">
+          <DemoShowcase showHero={false} hideCustomDrawerButton={true} />
+        </section>
+
+        {/* 2. Hands-On DIY Storefront Tester (Guides Merchants to Try Their Own Store) */}
+        <section className="mx-auto max-w-5xl space-y-7 border-t border-violet-200/70 pt-12">
           <div>
             <span className="font-mono text-xs font-semibold uppercase tracking-widest text-emerald-600">
-              Guided Interactive Walkthrough · Zero Technical Setup
+              Now It&apos;s Your Turn · Hands-On Live Simulator
             </span>
             <h2 className="mt-1.5 text-3xl sm:text-4xl font-extrabold tracking-tight text-[#161224]">
-              How You Leverage Bomie AI in 3 Simple Steps
+              Test With Your Own Storefront in 3 Simple Steps
             </h2>
+            <p className="mt-2 text-sm text-slate-600">
+              Seen how the 4-stage pipeline works above? Type your own store &amp; budget below—or tap a quick example—to generate your custom creator plan.
+            </p>
           </div>
 
           {/* 3-Step Beginner Guide Bar */}
