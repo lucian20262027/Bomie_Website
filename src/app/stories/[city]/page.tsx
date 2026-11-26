@@ -280,28 +280,23 @@ export default async function CityStoriesPage({
     <div className="min-h-screen bg-[#f7f4ff] text-[#161224] selection:bg-violet-500 selection:text-[#161224]">
       <header className="sticky top-0 z-40 bg-[#f7f4ff]/85 backdrop-blur-xl">
         <div className="mx-auto flex max-w-[1440px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-10 py-3.5 sm:py-4">
-          <div className="flex items-center gap-6 lg:gap-10 min-w-0">
-            <Link href="/" className="flex shrink-0 items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-tr from-[#5b21b6] via-[#d946ef] to-[#fbbf24] shadow-md shadow-violet-500/30">
-                <svg viewBox="0 0 512 512" fill="none" className="h-5 w-5">
-                  <path
-                    fill="#ffffff"
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M140 124C140 112.954 148.954 104 160 104H268C321.019 104 360 137.565 360 184C360 214.12 343.39 239.47 317.88 251.42C350.69 263.74 372 292.69 372 330C372 381.915 329.915 416 272 416H160C148.954 416 140 407.046 140 396V124ZM204 162V228H260C281.539 228 296 214.569 296 195C296 175.431 281.539 162 260 162H204ZM204 282V356H268C292.301 356 308 341.673 308 319C308 296.327 292.301 282 268 282H204Z"
-                  />
-                  <path
-                    fill="#fef08a"
-                    d="M396 76C399.5 103.5 412.5 116.5 440 120C412.5 123.5 399.5 136.5 396 164C392.5 136.5 379.5 123.5 352 120C379.5 116.5 392.5 103.5 396 76Z"
-                  />
-                </svg>
-              </div>
-              <span className="text-lg font-extrabold tracking-tight text-[#161224]">bomie.ai</span>
-            </Link>
-            <div className="hidden md:block">
-              <CitySwitcher activeCity={key} />
+          <Link href="/" className="flex shrink-0 items-center gap-3">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-tr from-[#5b21b6] via-[#d946ef] to-[#fbbf24] shadow-md shadow-violet-500/30">
+              <svg viewBox="0 0 512 512" fill="none" className="h-5 w-5">
+                <path
+                  fill="#ffffff"
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M140 124C140 112.954 148.954 104 160 104H268C321.019 104 360 137.565 360 184C360 214.12 343.39 239.47 317.88 251.42C350.69 263.74 372 292.69 372 330C372 381.915 329.915 416 272 416H160C148.954 416 140 407.046 140 396V124ZM204 162V228H260C281.539 228 296 214.569 296 195C296 175.431 281.539 162 260 162H204ZM204 282V356H268C292.301 356 308 341.673 308 319C308 296.327 292.301 282 268 282H204Z"
+                />
+                <path
+                  fill="#fef08a"
+                  d="M396 76C399.5 103.5 412.5 116.5 440 120C412.5 123.5 399.5 136.5 396 164C392.5 136.5 379.5 123.5 352 120C379.5 116.5 392.5 103.5 396 76Z"
+                />
+              </svg>
             </div>
-          </div>
+            <span className="text-lg font-extrabold tracking-tight text-[#161224]">bomie.ai</span>
+          </Link>
           <Link
             href="/"
             className="inline-flex shrink-0 items-center gap-1.5 rounded-xl border border-violet-200/80 bg-white shadow-sm px-4 py-2 text-xs font-semibold text-slate-700 transition hover:bg-violet-50 hover:text-violet-950"
@@ -313,15 +308,15 @@ export default async function CityStoriesPage({
       </header>
 
       <main className="mx-auto max-w-6xl px-6 py-10 sm:py-12 space-y-8">
-        {/* City Title & Slogan */}
-        <div className="space-y-2.5">
-          <div className="md:hidden pb-2">
+        {/* City Title Row + Hover Switcher + Enlarged Slogan */}
+        <div className="space-y-3.5">
+          <div className="flex flex-col justify-between gap-4 lg:flex-row lg:items-center">
+            <h1 className="text-3xl sm:text-4xl lg:text-[42px] font-extrabold tracking-tight text-[#161224]">
+              {active.name}
+            </h1>
             <CitySwitcher activeCity={key} />
           </div>
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-[#161224]">
-            {active.name} Local Commerce
-          </h1>
-          <p className="text-base sm:text-lg font-semibold bg-gradient-to-r from-violet-700 via-fuchsia-600 to-amber-500 bg-clip-text text-transparent">
+          <p className="text-xl sm:text-2xl lg:text-[28px] font-bold leading-snug tracking-tight bg-gradient-to-r from-violet-700 via-fuchsia-600 to-amber-500 bg-clip-text text-transparent">
             {active.slogan}
           </p>
         </div>
