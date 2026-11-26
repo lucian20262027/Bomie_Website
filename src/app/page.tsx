@@ -1476,6 +1476,16 @@ export default function BomieLandingPage() {
   }, [selectedCity, isCityPaused, cityExpanded]);
 
   const [activePilotIndex, setActivePilotIndex] = useState(0);
+  const [isScrolledToVideo, setIsScrolledToVideo] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => {
+      setIsScrolledToVideo(window.scrollY > 320);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   return (
     <div className="min-h-screen overflow-x-clip bg-[#f7f4ff] text-[#161224] selection:bg-violet-600 selection:text-white">
@@ -1728,9 +1738,12 @@ export default function BomieLandingPage() {
                 setDemoError('');
                 setShowDemoModal(true);
               }}
-              className="inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-full border border-violet-200 bg-white/95 px-4 py-2 text-xs sm:text-sm font-semibold text-[#161224] shadow-sm shadow-violet-900/5 transition hover:border-violet-400 hover:bg-violet-50/70 cursor-pointer"
+              className={`inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-full border px-4 py-2 text-xs sm:text-sm font-semibold transition-all duration-300 cursor-pointer ${
+                isScrolledToVideo
+                  ? 'border-transparent bg-gradient-to-r from-violet-600 via-fuchsia-600 to-violet-700 text-white shadow-md shadow-violet-600/25 hover:opacity-95'
+                  : 'border-violet-200 bg-white/95 text-[#161224] shadow-sm shadow-violet-900/5 hover:border-violet-400 hover:bg-violet-50/70'
+              }`}
             >
-              <span className="h-1.5 w-1.5 rounded-full bg-gradient-to-tr from-violet-600 to-fuchsia-500" />
               <span>Book a Demo</span>
             </motion.button>
             <button
