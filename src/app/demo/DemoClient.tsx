@@ -130,16 +130,51 @@ export default function DemoClient() {
 
   const autoTimerRef = useRef<number | null>(null);
 
-  // Smooth auto-play sequencer across Stages 01 -> 02 -> 03 -> 04 (3s per stage)
+  const loadPresetInstant = (preset: DemoPreset) => {
+    const next = evaluateCampaignDemo({
+      businessName: preset.businessName,
+      city: preset.city,
+      category: preset.category,
+      budget: preset.budget,
+      timelineDays: preset.timelineDays,
+      targetTier: preset.targetTier,
+      brief: preset.brief,
+    });
+    setActivePresetId(preset.id);
+    setBusinessName(preset.businessName);
+    setCity(preset.city);
+    setCategory(preset.category);
+    setBudget(preset.budget);
+    setTimelineDays(preset.timelineDays);
+    setTargetTier(preset.targetTier);
+    setBrief(preset.brief);
+    setDiffMode('ai');
+    setResult(next);
+    setMilestoneStage(next.gateStatus === 'PASS' ? 2 : 0);
+    setSimulatedScans(next.gateStatus === 'PASS' ? 142 : 0);
+    setActiveStage(1);
+  };
+
+  // Smooth auto-play sequencer: 01 -> 02 -> 03 -> 04 (3s/stage), then rotates to the next merchant
   useEffect(() => {
     if (!isAutoPlaying) return;
-    autoTimerRef.current = window.setInterval(() => {
-      setActiveStage((prev) => (prev === 4 ? 1 : ((prev + 1) as StageId)));
+    autoTimerRef.current = window.setTimeout(() => {
+      if (activeStage < 4) {
+        setActiveStage((activeStage + 1) as StageId);
+      } else {
+        const idx = DEMO_PRESETS.findIndex((p) => p.id === activePresetId);
+        if (idx !== -1) {
+          const nextPreset = DEMO_PRESETS[(idx + 1) % DEMO_PRESETS.length];
+          loadPresetInstant(nextPreset);
+        } else {
+          setActiveStage(1);
+        }
+      }
     }, 3000);
     return () => {
-      if (autoTimerRef.current) window.clearInterval(autoTimerRef.current);
+      if (autoTimerRef.current) window.clearTimeout(autoTimerRef.current);
     };
-  }, [isAutoPlaying]);
+  }, [isAutoPlaying, activeStage, activePresetId]);
 
   const applyParams = async (
     params: {
@@ -178,28 +213,8 @@ export default function DemoClient() {
   };
 
   const handleSelectPreset = (preset: DemoPreset) => {
-    setActivePresetId(preset.id);
-    setBusinessName(preset.businessName);
-    setCity(preset.city);
-    setCategory(preset.category);
-    setBudget(preset.budget);
-    setTimelineDays(preset.timelineDays);
-    setTargetTier(preset.targetTier);
-    setBrief(preset.brief);
-    setDiffMode('ai');
-    setIsAutoPlaying(false);
-    void applyParams(
-      {
-        businessName: preset.businessName,
-        city: preset.city,
-        category: preset.category,
-        budget: preset.budget,
-        timelineDays: preset.timelineDays,
-        targetTier: preset.targetTier,
-        brief: preset.brief,
-      },
-      1
-    );
+    loadPresetInstant(preset);
+    setIsAutoPlaying(true);
   };
 
   const handleApplyAiFix = () => {
@@ -370,6 +385,9 @@ export default function DemoClient() {
                   <button
                     key={preset.id}
                     type="button"
+                    onMouseEnter={() => {
+                      if (activePresetId !== preset.id) handleSelectPreset(preset);
+                    }}
                     onClick={() => handleSelectPreset(preset)}
                     className={`inline-flex items-center gap-2 rounded-xl px-3.5 py-2 text-xs font-semibold transition cursor-pointer ${
                       active
@@ -602,7 +620,7 @@ export default function DemoClient() {
               <div className="h-1.5 w-full bg-slate-100 overflow-hidden">
                 {isAutoPlaying ? (
                   <motion.div
-                    key={`playhead-${activeStage}`}
+                    key={`playhead-${activePresetId}-${activeStage}`}
                     className="h-full bg-gradient-to-r from-violet-600 via-fuchsia-500 to-amber-400"
                     initial={{ width: `${(activeStage - 1) * 25}%` }}
                     animate={{ width: `${activeStage * 25}%` }}
