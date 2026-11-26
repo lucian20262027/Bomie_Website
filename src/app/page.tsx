@@ -1505,9 +1505,9 @@ export default function BomieLandingPage() {
         className="sticky top-0 z-50 bg-[#f7f4ff]/85 backdrop-blur-xl"
       >
         <div className="mx-auto flex max-w-[1440px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-10 py-3.5 sm:py-4">
-          {/* 1. Enlarged Bespoke Geometric B✦ Logo + Stacked Shimmer Tagline Underneath */}
+          {/* 1. Bespoke Geometric B✦ Logo */}
           <Link href="/" className="group flex min-w-0 items-center gap-3.5">
-            <div className="relative flex h-11 w-11 sm:h-13 sm:w-13 shrink-0 items-center justify-center rounded-xl sm:rounded-2xl bg-gradient-to-tr from-[#5b21b6] via-[#d946ef] to-[#fbbf24] p-[1px] shadow-lg shadow-violet-500/25 transition-transform duration-300 group-hover:scale-105">
+            <div className="relative flex h-11 w-11 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-xl sm:rounded-2xl bg-gradient-to-tr from-[#5b21b6] via-[#d946ef] to-[#fbbf24] p-[1px] shadow-lg shadow-violet-500/25 transition-transform duration-300 group-hover:scale-105">
               <div className="flex h-full w-full items-center justify-center rounded-[11px] sm:rounded-[15px] bg-gradient-to-tr from-violet-700/95 via-fuchsia-500/95 to-amber-400/95 backdrop-blur-sm">
                 <svg
                   viewBox="0 0 512 512"
@@ -1527,34 +1527,13 @@ export default function BomieLandingPage() {
                 </svg>
               </div>
             </div>
-            <div className="flex min-w-0 flex-col justify-center">
-              <span className="text-xl sm:text-[26px] font-extrabold tracking-tight text-[#161224] leading-none whitespace-nowrap">
-                bomie.ai
-              </span>
-              <div className="hidden xl:flex items-center mt-1.5">
-                <motion.span
-                  animate={{ backgroundPosition: ['115% 0%', '-15% 0%'] }}
-                  transition={{
-                    duration: 3.6,
-                    repeat: Infinity,
-                    repeatDelay: 0.8,
-                    ease: 'easeInOut',
-                  }}
-                  style={{
-                    backgroundImage:
-                      'linear-gradient(90deg, #5b21b6 0%, #5b21b6 38%, #db2777 48%, #d97706 51%, #7c3aed 55%, #5b21b6 64%, #5b21b6 100%)',
-                    backgroundSize: '240% 100%',
-                  }}
-                  className="bg-clip-text text-[11px] lg:text-xs font-semibold tracking-wide text-transparent leading-none whitespace-nowrap"
-                >
-                  North America&apos;s First AI Commerce OS for Local Businesses &amp; Creators
-                </motion.span>
-              </div>
-            </div>
+            <span className="text-xl sm:text-[26px] font-extrabold tracking-tight text-[#161224] leading-none whitespace-nowrap">
+              bomie.ai
+            </span>
           </Link>
 
           {/* 2. Three Single-Line Center Dropdown Menus */}
-          <nav className="hidden lg:flex lg:self-end items-end gap-2 xl:gap-5 shrink-0">
+          <nav className="hidden lg:flex self-center items-center gap-2 xl:gap-5 shrink-0">
             {/* Dropdown 1: Commerce OS */}
             <div
               className="relative"
@@ -1730,7 +1709,7 @@ export default function BomieLandingPage() {
             </div>
           </nav>
 
-          <div className="flex shrink-0 self-center lg:self-end lg:translate-y-1.5 items-center gap-2 sm:gap-3">
+          <div className="flex shrink-0 self-center items-center gap-2 sm:gap-3">
             <button
               onClick={() => setShowLoginModal(true)}
               className="hidden sm:inline-flex rounded-lg px-3.5 py-2 text-sm font-semibold leading-none text-[#161224]/85 transition hover:bg-violet-200/40 hover:text-violet-950 cursor-pointer"
@@ -1885,6 +1864,11 @@ export default function BomieLandingPage() {
         />
 
         <div className="mx-auto max-w-[1440px] px-6 lg:px-10 text-center">
+          <div className="mb-4 flex justify-center">
+            <span className="inline-flex items-center rounded-full border border-violet-200/90 bg-white/85 px-4 py-1.5 text-xs font-semibold text-violet-900 shadow-xs">
+              North America&apos;s First AI Commerce OS for Local Businesses &amp; Creators
+            </span>
+          </div>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

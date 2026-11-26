@@ -62,11 +62,18 @@ const infraRails = [
     name: 'Mercury',
     miniIcon: (
       <svg viewBox="0 0 24 24" fill="none" className="h-4.5 w-4.5 shrink-0 text-[#272A37]" aria-hidden="true">
-        <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.5" />
-        <path d="M12 3V6.5M12 17.5V21M3 12H6.5M17.5 12H21" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
-        <path d="M6.2 8.8A6.5 6.5 0 0 1 15.2 6.2" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
-        <path d="M17.8 15.2A6.5 6.5 0 0 1 8.8 17.8" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
-        <circle cx="12" cy="12" r="1.6" stroke="currentColor" strokeWidth="1.3" />
+        <circle cx="12" cy="12" r="9.5" stroke="currentColor" strokeWidth="1.5" />
+        <circle cx="12" cy="12" r="2.7" stroke="currentColor" strokeWidth="1.4" />
+        {[0, 90, 180, 270].map((deg) => (
+          <g key={deg} transform={`rotate(${deg} 12 12)`}>
+            <path
+              d="M12 2.5C14.8 2.5 16.5 4.8 14.9 7.2C13.8 8.8 11.5 9.3 10.1 8.1C8.8 7 9.1 4.8 11.2 4.5"
+              stroke="currentColor"
+              strokeWidth="1.35"
+              strokeLinecap="round"
+            />
+          </g>
+        ))}
       </svg>
     ),
   },
