@@ -78,7 +78,7 @@ export default function HeaderBookDemo() {
         }}
         className={`inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-full border px-4 py-2 text-xs sm:text-sm font-semibold transition-all duration-300 cursor-pointer ${
           isScrolled
-            ? 'border-transparent bg-gradient-to-r from-violet-600 via-fuchsia-600 to-violet-700 text-white shadow-md shadow-violet-600/25 hover:opacity-95'
+            ? 'border-transparent bg-gradient-to-r from-violet-600 via-fuchsia-600 to-violet-700 !text-white shadow-md shadow-violet-600/25 hover:opacity-95'
             : 'border-violet-200 bg-white/95 text-[#161224] shadow-sm shadow-violet-900/5 hover:border-violet-400 hover:bg-violet-50/70'
         }`}
       >
