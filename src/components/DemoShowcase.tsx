@@ -315,7 +315,7 @@ export default function DemoShowcase({ showHero = true, hideCustomDrawerButton =
           )}
 
           {/* Scenario Switcher + Auto-Play / Custom Controls */}
-          <div className="mt-7 flex flex-col lg:flex-row items-center justify-between gap-3">
+          <div className={`${showHero ? 'mt-7 ' : ''}flex flex-col lg:flex-row items-center justify-between gap-3`}>
             {/* 3 Click/Hover Scenario Pills */}
             <div className="inline-flex flex-wrap items-center justify-center gap-1.5 rounded-2xl border border-violet-200/80 bg-white/85 p-1.5 shadow-sm backdrop-blur-sm">
               {DEMO_PRESETS.map((preset) => {

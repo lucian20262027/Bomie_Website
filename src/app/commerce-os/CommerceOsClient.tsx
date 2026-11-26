@@ -418,14 +418,15 @@ export default function CommerceOsClient() {
 
       <main className="mx-auto max-w-[1320px] space-y-14 px-4 sm:px-6 lg:px-10 py-10 sm:py-12">
         {/* Hero: System Overview */}
-        <section className="mx-auto max-w-3xl text-center space-y-3">
+        <section className="mx-auto max-w-5xl text-center space-y-3">
           <h1 className="text-3xl font-extrabold leading-[1.12] tracking-tight text-[#161224] sm:text-5xl">
-            North America&apos;s First AI Operating System for{' '}
+            North America&apos;s First AI Operating System for
+            <br className="hidden sm:inline" />{' '}
             <span className="bg-gradient-to-r from-violet-700 via-fuchsia-600 to-amber-500 bg-clip-text text-transparent">
               Local Merchants &amp; Creators
             </span>
           </h1>
-          <p className="text-sm leading-relaxed text-slate-600 sm:text-base">
+          <p className="mx-auto max-w-2xl text-sm leading-relaxed text-slate-600 sm:text-base">
             Match nearby stores and creators, generate 30s reels, audit FTC compliance, and settle 30/40/30 Stripe Escrow automatically.
           </p>
         </section>
@@ -463,11 +464,13 @@ export default function CommerceOsClient() {
             </div>
           </div>
 
-          {demoSide === 'merchant' ? (
-            <DemoShowcase showHero={false} hideCustomDrawerButton={true} />
-          ) : (
-            <CreatorDemoShowcase />
-          )}
+          <div className="pt-3.5">
+            {demoSide === 'merchant' ? (
+              <DemoShowcase showHero={false} hideCustomDrawerButton={true} />
+            ) : (
+              <CreatorDemoShowcase />
+            )}
+          </div>
         </section>
 
         {/* Interactive Guided System Sandbox (Merged How It Works) */}
