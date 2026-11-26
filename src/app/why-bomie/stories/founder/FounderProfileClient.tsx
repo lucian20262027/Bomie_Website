@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { ArrowLeft } from 'lucide-react';
 
 interface FounderTab {
   id: string;
@@ -92,7 +91,7 @@ export default function FounderProfileClient() {
       {/* Minimal Header with Level-2 Breadcrumb */}
       <header className={`w-full ${p.header}`}>
         <div className="mx-auto flex max-w-[1440px] items-center justify-between px-4 sm:px-6 lg:px-10 h-[74px]">
-          <div className="flex items-center gap-8">
+          <div className="flex items-center gap-10">
             <Link href="/" className="flex items-center gap-3 group">
               <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-tr from-[#5b21b6] via-[#d946ef] to-[#fbbf24] shadow-md shadow-violet-500/30 transition-transform group-hover:scale-105">
                 <svg viewBox="0 0 512 512" fill="none" className="h-5 w-5">
@@ -113,13 +112,20 @@ export default function FounderProfileClient() {
               </span>
             </Link>
 
-            <Link
-              href="/why-bomie/stories"
-              className={`inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.14em] transition ${p.mutedNav}`}
-            >
-              <ArrowLeft className="h-3.5 w-3.5" />
-              MISSION &amp; FOUNDER
-            </Link>
+            <nav className={`hidden md:flex items-center gap-7 text-[13px] ${p.mutedNav}`}>
+              <Link href="/commerce-os" className="hover:text-[#161224] transition">
+                Commerce OS
+              </Link>
+              <Link href="/why-bomie/stories" className="hover:text-[#161224] transition">
+                Mission
+              </Link>
+              <Link href="/why-bomie/stories/founder" className={`${p.ink} font-medium`}>
+                Founder
+              </Link>
+              <Link href="/why-bomie/research" className="hover:text-[#161224] transition">
+                Research
+              </Link>
+            </nav>
           </div>
 
           <a
@@ -183,22 +189,27 @@ export default function FounderProfileClient() {
 
                 <div className={`pl-10 sm:pl-16 space-y-5 text-[15px] leading-[1.65] ${p.prose}`}>
                   <p>
-                    Before founding Bomie AI in San Francisco, I led global seller
-                    analytics and platform governance at TikTok (ByteDance), scaling
-                    trust and operational systems across 350K+ weekly active sellers.
-                    Earlier, I built and ran a cross-border B2B supply-chain business
-                    across eight cities.
+                    I didn&apos;t start in enterprise software—I started in the trenches as a
+                    founder and small-business owner myself, building a cross-border B2B
+                    supply-chain business across eight cities and advising SMBs on
+                    go-to-market and growth. I know firsthand what it feels like to watch every
+                    dollar of rent, payroll, and inventory—and why traditional marketing
+                    agencies rarely work for Main Street.
                   </p>
                   <p>
-                    With a background spanning an MS in Computer Science (City St
-                    George&apos;s, University of London), an MBA (Babson College), and
-                    alumni study at the University of Cambridge, I architect and ship Bomie
-                    end-to-end—combining strict marketplace governance with real-world
-                    merchant empathy.
+                    To bridge hands-on entrepreneurship with scalable systems, I studied
+                    Computer Science (MS, City St George&apos;s, University of London) and
+                    entrepreneurship at Babson College (MBA, ranked #1 globally for
+                    entrepreneurship), alongside alumni study at the University of Cambridge.
+                    Later at TikTok (ByteDance), I worked at the intersection of seller
+                    analytics and creator-commerce across the US, Mexico, Brazil, and
+                    Southeast Asia—helping merchants and local creators turn authentic
+                    storytelling into measurable revenue across 350K+ weekly active sellers.
                   </p>
                   <p className={p.proseStrong}>
-                    Based in the Bay Area, partnering with neighborhood operators and
-                    creators nationwide.
+                    Bomie AI is the synthesis of both worlds: academic rigor and global
+                    platform scale, rebuilt for the neighborhood storefronts and creators who
+                    power our communities.
                   </p>
                 </div>
 
