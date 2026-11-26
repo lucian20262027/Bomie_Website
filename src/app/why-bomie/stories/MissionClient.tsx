@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
+import HeaderBookDemo from '../../../components/HeaderBookDemo';
 
 interface OSPrincipleTab {
   id: string;
@@ -184,8 +185,8 @@ export default function MissionClient() {
 
   return (
     <div className={`min-h-screen ${p.pageBg}`}>
-      {/* Minimal Single-Row Header (non-sticky, editorial clean) */}
-      <header className={`w-full ${p.header}`}>
+      {/* Sticky Borderless Header */}
+      <header className="sticky top-0 z-50 w-full bg-[#f7f4ff]/85 backdrop-blur-xl">
         <div className="mx-auto flex max-w-[1440px] items-center justify-between px-4 sm:px-6 lg:px-10 h-[74px]">
           <div className="flex items-center gap-10">
             <Link href="/" className="flex items-center gap-3 group">
@@ -209,9 +210,6 @@ export default function MissionClient() {
             </Link>
 
             <nav className={`hidden md:flex items-center gap-7 text-[13px] ${p.mutedNav}`}>
-              <Link href="/commerce-os" className="hover:text-[#161224] transition">
-                Commerce OS
-              </Link>
               <Link href="/why-bomie/stories" className={`${p.ink} font-medium`}>
                 Mission
               </Link>
@@ -230,12 +228,7 @@ export default function MissionClient() {
             </nav>
           </div>
 
-          <Link
-            href="/demo"
-            className={`inline-flex items-center justify-center rounded-[10px] border px-4 py-2 font-mono text-[11px] uppercase tracking-[0.12em] transition ${p.ctaBtn}`}
-          >
-            LIVE SANDBOX
-          </Link>
+          <HeaderBookDemo />
         </div>
       </header>
 

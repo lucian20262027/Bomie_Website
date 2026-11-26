@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import HeaderBookDemo from '../../../../components/HeaderBookDemo';
 
 interface FounderTab {
   id: string;
@@ -88,8 +89,8 @@ export default function FounderProfileClient() {
 
   return (
     <div className={`min-h-screen ${p.pageBg}`}>
-      {/* Minimal Header with Level-2 Breadcrumb */}
-      <header className={`w-full ${p.header}`}>
+      {/* Sticky Borderless Header */}
+      <header className="sticky top-0 z-50 w-full bg-[#f7f4ff]/85 backdrop-blur-xl">
         <div className="mx-auto flex max-w-[1440px] items-center justify-between px-4 sm:px-6 lg:px-10 h-[74px]">
           <div className="flex items-center gap-10">
             <Link href="/" className="flex items-center gap-3 group">
@@ -113,9 +114,6 @@ export default function FounderProfileClient() {
             </Link>
 
             <nav className={`hidden md:flex items-center gap-7 text-[13px] ${p.mutedNav}`}>
-              <Link href="/commerce-os" className="hover:text-[#161224] transition">
-                Commerce OS
-              </Link>
               <Link href="/why-bomie/stories" className="hover:text-[#161224] transition">
                 Mission
               </Link>
@@ -128,12 +126,7 @@ export default function FounderProfileClient() {
             </nav>
           </div>
 
-          <a
-            href="mailto:lucian.wang@bomie.ai"
-            className={`inline-flex items-center justify-center rounded-[10px] border px-4 py-2 font-mono text-[11px] uppercase tracking-[0.12em] transition ${p.ctaBtn}`}
-          >
-            CONTACT FOUNDER
-          </a>
+          <HeaderBookDemo />
         </div>
       </header>
 
@@ -189,27 +182,25 @@ export default function FounderProfileClient() {
 
                 <div className={`pl-10 sm:pl-16 space-y-5 text-[15px] leading-[1.65] ${p.prose}`}>
                   <p>
-                    I didn&apos;t start in enterprise software—I started in the trenches as a
-                    founder and small-business owner myself, building a cross-border B2B
-                    supply-chain business across eight cities and advising SMBs on
-                    go-to-market and growth. I know firsthand what it feels like to watch every
-                    dollar of rent, payroll, and inventory—and why traditional marketing
-                    agencies rarely work for Main Street.
+                    Lucian is a repeat founder and former small-business owner who built a
+                    cross-border supply-chain venture across eight cities and advised SMBs
+                    on go-to-market and growth at a consulting firm. Having lived the daily
+                    pressure of rent, payroll, and inventory firsthand, he builds for Main
+                    Street operators—not corporate slide decks.
                   </p>
                   <p>
-                    To bridge hands-on entrepreneurship with scalable systems, I studied
-                    Computer Science (MS, City St George&apos;s, University of London) and
-                    entrepreneurship at Babson College (MBA, ranked #1 globally for
-                    entrepreneurship), alongside alumni study at the University of Cambridge.
-                    Later at TikTok (ByteDance), I worked at the intersection of seller
-                    analytics and creator-commerce across the US, Mexico, Brazil, and
-                    Southeast Asia—helping merchants and local creators turn authentic
-                    storytelling into measurable revenue across 350K+ weekly active sellers.
+                    He honed how to help small businesses scale at the world&apos;s #1
+                    entrepreneurship program (Babson College MBA), pairing that with an MS
+                    in Computer Science (City St George&apos;s, University of London) and
+                    alumni study at the University of Cambridge. At TikTok (ByteDance),
+                    Lucian brought those lessons to sellers and creators across the US,
+                    Mexico, Brazil, and Southeast Asia—turning authentic local storytelling
+                    into measurable revenue across 350K+ weekly active sellers.
                   </p>
                   <p className={p.proseStrong}>
-                    Bomie AI is the synthesis of both worlds: academic rigor and global
-                    platform scale, rebuilt for the neighborhood storefronts and creators who
-                    power our communities.
+                    Lucian believes local businesses and local creators are the strongest
+                    engine to empower neighborhood communities, drive nationwide economic
+                    vitality, and keep people genuinely connected in this fast-changing era.
                   </p>
                 </div>
 

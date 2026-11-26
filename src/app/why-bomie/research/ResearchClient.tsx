@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
+import HeaderBookDemo from '../../../components/HeaderBookDemo';
 
 interface ReportEntry {
   tag: string;
@@ -55,8 +56,8 @@ export default function ResearchClient() {
 
   return (
     <div className="min-h-screen bg-[#f7f4ff] text-[#161224] selection:bg-[#161224] selection:text-[#f7f4ff]">
-      {/* Unified Editorial Top Navigation (matching Mission & Founder) */}
-      <header className="w-full border-b border-[#161224]/10 bg-[#f7f4ff]">
+      {/* Sticky Borderless Header */}
+      <header className="sticky top-0 z-50 w-full bg-[#f7f4ff]/85 backdrop-blur-xl">
         <div className="mx-auto flex max-w-[1440px] items-center justify-between px-4 sm:px-6 lg:px-10 h-[74px]">
           <div className="flex items-center gap-10">
             <Link href="/" className="flex items-center gap-3 group">
@@ -80,9 +81,6 @@ export default function ResearchClient() {
             </Link>
 
             <nav className="hidden md:flex items-center gap-7 text-[13px] text-[#161224]/62">
-              <Link href="/commerce-os" className="hover:text-[#161224] transition">
-                Commerce OS
-              </Link>
               <Link href="/why-bomie/stories" className="hover:text-[#161224] transition">
                 Mission
               </Link>
@@ -95,12 +93,7 @@ export default function ResearchClient() {
             </nav>
           </div>
 
-          <Link
-            href="/demo"
-            className="inline-flex items-center justify-center rounded-[10px] border border-[#161224]/30 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.12em] text-[#161224] transition hover:bg-[#161224] hover:text-[#f7f4ff]"
-          >
-            LIVE SANDBOX
-          </Link>
+          <HeaderBookDemo />
         </div>
       </header>
 

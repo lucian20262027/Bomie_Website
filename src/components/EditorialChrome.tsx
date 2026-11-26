@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import HeaderBookDemo from './HeaderBookDemo';
 
 interface EditorialHeaderProps {
   activeNav?: 'mission' | 'founder' | 'research' | 'legal';
@@ -8,7 +9,7 @@ interface EditorialHeaderProps {
 
 export function EditorialHeader({ activeNav, rightSlot }: EditorialHeaderProps) {
   return (
-    <header className="w-full border-b border-[#161224]/10 bg-[#f7f4ff] print:static print:border-[#161224]/15 print:bg-white">
+    <header className="sticky top-0 z-50 w-full bg-[#f7f4ff]/85 backdrop-blur-xl print:static print:bg-white">
       <div className="mx-auto flex max-w-[1440px] items-center justify-between px-4 sm:px-6 lg:px-10 h-[74px]">
         <div className="flex items-center gap-10">
           <Link href="/" className="flex items-center gap-3 group">
@@ -32,9 +33,6 @@ export function EditorialHeader({ activeNav, rightSlot }: EditorialHeaderProps) 
           </Link>
 
           <nav className="hidden md:flex items-center gap-7 text-[13px] text-[#161224]/62 print:hidden">
-            <Link href="/commerce-os" className="hover:text-[#161224] transition">
-              Commerce OS
-            </Link>
             <Link
               href="/why-bomie/stories"
               className={
@@ -69,14 +67,7 @@ export function EditorialHeader({ activeNav, rightSlot }: EditorialHeaderProps) 
         </div>
 
         <div className="flex items-center gap-2.5 print:hidden">
-          {rightSlot ?? (
-            <Link
-              href="/demo"
-              className="inline-flex items-center justify-center rounded-[10px] border border-[#161224]/30 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.12em] text-[#161224] transition hover:bg-[#161224] hover:text-[#f7f4ff]"
-            >
-              LIVE SANDBOX
-            </Link>
-          )}
+          {rightSlot ?? <HeaderBookDemo />}
         </div>
       </div>
     </header>

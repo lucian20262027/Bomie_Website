@@ -18,7 +18,7 @@ export default function DemoClient() {
   return (
     <div className="min-h-screen bg-[#f7f4ff] text-[#161224] flex flex-col selection:bg-violet-600 selection:text-white">
       {/* Top Navbar */}
-      <header className="sticky top-0 z-40 border-b border-violet-200/70 bg-[#f7f4ff]/85 backdrop-blur-xl">
+      <header className="sticky top-0 z-40 bg-[#f7f4ff]/85 backdrop-blur-xl">
         <div className="mx-auto flex max-w-[1440px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-10 py-3.5">
           <div className="flex items-center gap-3">
             <Link href="/" className="flex items-center gap-2.5 group">
