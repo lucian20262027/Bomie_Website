@@ -1582,14 +1582,6 @@ export default function BomieLandingPage() {
                         <Wallet className="h-4 w-4 shrink-0 text-fuchsia-600" />
                         <span className="text-xs font-bold text-[#161224]">Pricing</span>
                       </Link>
-                      <button
-                        type="button"
-                        onClick={handleOpenFaqChatbot}
-                        className="flex w-full items-center gap-3 rounded-xl px-3.5 py-2.5 text-left transition hover:bg-violet-50"
-                      >
-                        <MessageSquare className="h-4 w-4 shrink-0 text-emerald-600" />
-                        <span className="text-xs font-bold text-[#161224]">FAQ</span>
-                      </button>
                     </div>
                   </motion.div>
                 )}
@@ -1736,9 +1728,10 @@ export default function BomieLandingPage() {
                 setDemoError('');
                 setShowDemoModal(true);
               }}
-              className="inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-xl bg-gradient-to-r from-violet-600 via-fuchsia-600 to-violet-700 px-3.5 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm font-bold text-white shadow-lg shadow-violet-600/25 transition hover:opacity-95"
+              className="inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-full border border-violet-200 bg-white/95 px-4 py-2 text-xs sm:text-sm font-semibold text-[#161224] shadow-sm shadow-violet-900/5 transition hover:border-violet-400 hover:bg-violet-50/70 cursor-pointer"
             >
-              Book a Demo
+              <span className="h-1.5 w-1.5 rounded-full bg-gradient-to-tr from-violet-600 to-fuchsia-500" />
+              <span>Book a Demo</span>
             </motion.button>
             <button
               type="button"
@@ -1783,14 +1776,6 @@ export default function BomieLandingPage() {
                       <Wallet className="h-4 w-4 text-fuchsia-600" />
                       Pricing
                     </Link>
-                    <button
-                      type="button"
-                      onClick={handleOpenFaqChatbot}
-                      className="flex items-center gap-2.5 rounded-xl border border-violet-200/70 bg-white px-3.5 py-2.5 text-left text-xs font-semibold text-[#161224] shadow-xs"
-                    >
-                      <MessageSquare className="h-4 w-4 text-emerald-600" />
-                      FAQ
-                    </button>
                   </div>
                 </div>
 
