@@ -20,7 +20,7 @@ import {
 } from 'lucide-react';
 
 import { buildCreatorPlan, type CreatorDealPlan } from '../../lib/sandboxEngine';
-import FlipPainCard from '../../components/FlipPainCard';
+import CreatorDemoShowcase from '../../components/CreatorDemoShowcase';
 
 export default function CreatorClient() {
   const [guideStep, setGuideStep] = useState<1 | 2 | 3>(1);
@@ -127,7 +127,7 @@ export default function CreatorClient() {
   return (
     <div className="min-h-screen bg-[#f7f4ff] text-[#161224] selection:bg-fuchsia-600 selection:text-white">
       <header className="sticky top-0 z-40 border-b border-violet-200/70 bg-[#f7f4ff]/85 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
+        <div className="mx-auto flex max-w-[1440px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-10 py-3.5 sm:py-4">
           <Link href="/" className="flex items-center gap-3">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-tr from-[#5b21b6] via-[#d946ef] to-[#fbbf24] shadow-md shadow-violet-500/30">
               <svg viewBox="0 0 512 512" fill="none" className="h-5 w-5">
@@ -166,60 +166,35 @@ export default function CreatorClient() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-5xl px-6 py-14 space-y-14">
-        {/* 1. Creator Pain Points First */}
-        <section className="space-y-7">
-          <div className="space-y-4">
-            <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#161224] leading-[1.12]">
-              <span className="block mb-1">My Local Creators:</span>
-              Stop Chasing Cold DMs and Late Invoices
-            </h1>
-            <p className="max-w-2xl text-base leading-relaxed text-slate-600">
-              Your neighborhood trust is worth real money—even at 2K–50K followers. Stop getting ignored by mega-agencies or offered &ldquo;free exposure.&rdquo; Let paid local brand deals come straight to you, with instant escrow payouts.
-            </p>
-          </div>
-
-          <div className="grid gap-5 md:grid-cols-3">
-            {[
-              {
-                title: 'Ignored by Big Agencies',
-                desc: 'Traditional platforms only care about 500K+ mega-influencers—ignoring high-trust local creators.',
-                solutionTitle: 'Built for 2K–50K Local Voices',
-                solutionDesc: 'Neighborhood stores value local trust over vanity follower counts—your community reach is your superpower here.',
-              },
-              {
-                title: 'Ghosted After Cold Pitching',
-                desc: 'Spending hours emailing or DMing local shops only to hear crickets or get offered $0 “exposure.”',
-                solutionTitle: 'Inbound Paid Offers Only',
-                solutionDesc: 'Receive curated, pre-funded local brand invites straight to your dashboard—zero cold pitching, 0% creator fee.',
-              },
-              {
-                title: 'Late Payments & FTC Stress',
-                desc: 'Waiting 60 days for Net-60 invoices or worrying about accidental #ad and audio copyright flags.',
-                solutionTitle: 'Instant Stripe Payout & FTC Shield',
-                solutionDesc: '30/40/30 escrow locks your pay upfront, AI auto-checks #ad & audio rules, and you withdraw in seconds.',
-              },
-            ].map((pain) => (
-              <FlipPainCard
-                key={pain.title}
-                title={pain.title}
-                desc={pain.desc}
-                solutionTitle={pain.solutionTitle}
-                solutionDesc={pain.solutionDesc}
-              />
-            ))}
-          </div>
+      <main className="mx-auto max-w-[1320px] px-4 sm:px-6 lg:px-10 py-10 space-y-12">
+        {/* 1. Positive Creator Hero Hook */}
+        <section className="mx-auto max-w-3xl text-center space-y-3 pt-2">
+          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#161224] leading-[1.12]">
+            Turn your local influence into{' '}
+            <span className="bg-gradient-to-r from-fuchsia-600 via-violet-600 to-amber-500 bg-clip-text text-transparent">
+              guaranteed brand payouts
+            </span>
+          </h1>
+          <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
+            Watch how Bomie AI sends pre-funded local deals to 2K–50K creators, clears FTC rules, and pays via Stripe in 4 visual steps—then test your own handle below.
+          </p>
         </section>
 
-        {/* 2. Guided Interactive Creator Copilot */}
-        <section className="space-y-7 border-t border-violet-200/70 pt-14">
+        {/* 2. Embedded 4-Stage Auto-Playing Creator Demo */}
+        <CreatorDemoShowcase />
+
+        {/* 3. Hands-On DIY Creator Copilot */}
+        <section className="mx-auto max-w-[1320px] px-4 sm:px-6 lg:px-10 space-y-7 border-t border-violet-200/70 pt-12">
           <div>
             <span className="font-mono text-xs font-semibold uppercase tracking-widest text-fuchsia-700">
-              Guided Creator Copilot · 0% Creator Fee (MVP Free)
+              Now It&apos;s Your Turn · 0% Creator Fee (MVP Free)
             </span>
             <h2 className="mt-1.5 text-3xl sm:text-4xl font-extrabold tracking-tight text-[#161224]">
-              How Creators Leverage Bomie AI in 3 Simple Steps
+              Find Paid Local Deals for Your Handle in 3 Steps
             </h2>
+            <p className="mt-2 text-sm text-slate-600">
+              Type your city &amp; niche below—or tap a persona—to preview real local offers and simulate your monthly Stripe payouts.
+            </p>
           </div>
 
           {/* 3-Step Beginner Guide Bar */}
@@ -556,6 +531,81 @@ export default function CreatorClient() {
                 Claim Your Creator Handle (Free)
                 <ArrowRight className="h-3.5 w-3.5" />
               </button>
+            </div>
+          </div>
+        </section>
+
+        {/* 4. CLOSING STAGE: Creator Pain-Point Contrast + Claim Trigger */}
+        <section className="mx-auto max-w-[1320px] px-4 sm:px-6 lg:px-10 pt-4 pb-6">
+          <div className="relative overflow-hidden rounded-3xl border border-fuchsia-400/25 bg-gradient-to-br from-[#161224] via-[#22143a] to-[#120d21] p-8 sm:p-12 text-center text-white shadow-2xl shadow-violet-950/25">
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -top-24 left-1/2 h-64 w-96 -translate-x-1/2 rounded-full bg-fuchsia-600/20 blur-3xl"
+            />
+
+            <div className="relative mx-auto max-w-2xl space-y-3">
+              <span className="inline-flex items-center gap-2 font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-fuchsia-300">
+                <span className="h-1.5 w-1.5 rounded-full bg-amber-300" />
+                Why Creators Leave Cold DMs &amp; Net-60 Invoices
+              </span>
+              <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight leading-[1.15]">
+                Stop chasing cold DMs &amp;{' '}
+                <span className="bg-gradient-to-r from-fuchsia-300 via-violet-300 to-amber-300 bg-clip-text text-transparent">
+                  60-day late invoices
+                </span>
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                Your neighborhood trust is worth real money—even at 2K–50K followers. Let pre-funded local brand deals come straight to you.
+              </p>
+            </div>
+
+            <div className="relative mt-8 grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/10 rounded-2xl border border-white/10 bg-white/[0.04] py-5 px-2 backdrop-blur-sm">
+              <div className="px-5 py-3 md:py-0">
+                <div className="text-sm font-bold text-white">Built for 2K–50K Voices</div>
+                <div className="mt-1 text-xs text-slate-300/80">
+                  Local trust beats vanity follower counts
+                </div>
+              </div>
+              <div className="px-5 py-3 md:py-0">
+                <div className="text-sm font-bold text-white">Inbound Paid Deals Only</div>
+                <div className="mt-1 text-xs text-slate-300/80">
+                  0% creator fee · Zero cold pitching for freebies
+                </div>
+              </div>
+              <div className="px-5 py-3 md:py-0">
+                <div className="text-sm font-bold text-white">Instant Stripe Escrow</div>
+                <div className="mt-1 text-xs text-slate-300/80">
+                  30/40/30 pre-funded pay + FTC #ad shield
+                </div>
+              </div>
+            </div>
+
+            <div className="relative mt-8 flex flex-col items-center gap-3">
+              <div className="flex flex-wrap items-center justify-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setClaimSuccess(false);
+                    setShowClaimModal(true);
+                  }}
+                  className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-fuchsia-500 via-violet-500 to-amber-400 p-[1.5px] shadow-lg shadow-fuchsia-600/30 transition hover:scale-[1.02] cursor-pointer"
+                >
+                  <span className="inline-flex items-center gap-2 rounded-[10.5px] bg-white px-6 py-3 text-sm font-extrabold text-[#161224] transition hover:bg-amber-50">
+                    <Sparkles className="h-4 w-4 text-fuchsia-600" />
+                    Claim Your Creator Handle (Free)
+                    <ArrowRight className="h-4 w-4 text-fuchsia-600" />
+                  </span>
+                </button>
+                <Link
+                  href="/pricing"
+                  className="inline-flex items-center gap-1.5 rounded-xl border border-white/20 bg-white/5 px-5 py-3 text-xs sm:text-sm font-semibold text-white transition hover:bg-white/10"
+                >
+                  View Creator Terms
+                </Link>
+              </div>
+              <span className="font-mono text-[11px] text-slate-400">
+                0% creator fee · Keep 100% of every payout · Instant Stripe &amp; Apple Pay withdrawal
+              </span>
             </div>
           </div>
         </section>
