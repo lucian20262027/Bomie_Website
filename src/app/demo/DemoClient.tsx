@@ -107,7 +107,6 @@ export default function DemoClient() {
 
   const [activeStage, setActiveStage] = useState<StageId>(1);
   const [isAutoPlaying, setIsAutoPlaying] = useState<boolean>(true);
-  const [autoPlayMs, setAutoPlayMs] = useState<2000 | 3000 | 4200>(3000);
   const [diffMode, setDiffMode] = useState<'ai' | 'raw'>('ai');
   const [milestoneStage, setMilestoneStage] = useState<0 | 1 | 2 | 3>(2);
   const [simulatedScans, setSimulatedScans] = useState<number>(142);
@@ -131,16 +130,16 @@ export default function DemoClient() {
 
   const autoTimerRef = useRef<number | null>(null);
 
-  // Smooth auto-play sequencer across Stages 01 -> 02 -> 03 -> 04
+  // Smooth auto-play sequencer across Stages 01 -> 02 -> 03 -> 04 (3s per stage)
   useEffect(() => {
     if (!isAutoPlaying) return;
     autoTimerRef.current = window.setInterval(() => {
       setActiveStage((prev) => (prev === 4 ? 1 : ((prev + 1) as StageId)));
-    }, autoPlayMs);
+    }, 3000);
     return () => {
       if (autoTimerRef.current) window.clearInterval(autoTimerRef.current);
     };
-  }, [isAutoPlaying, autoPlayMs]);
+  }, [isAutoPlaying]);
 
   const applyParams = async (
     params: {
@@ -396,35 +395,8 @@ export default function DemoClient() {
               })}
             </div>
 
-            {/* Playback & Speed A/B Switcher & Customizer Buttons */}
-            <div className="flex flex-wrap items-center justify-center gap-2">
-              <div className="inline-flex items-center gap-1 rounded-xl border border-violet-200 bg-white p-1 shadow-2xs">
-                <span className="px-2 font-mono text-[10px] font-bold uppercase tracking-wider text-slate-400">
-                  Speed A/B:
-                </span>
-                {([
-                  [2000, '2s'],
-                  [3000, '3s'],
-                  [4200, '4.2s'],
-                ] as const).map(([ms, label]) => (
-                  <button
-                    key={ms}
-                    type="button"
-                    onClick={() => {
-                      setAutoPlayMs(ms);
-                      setIsAutoPlaying(true);
-                      setActiveStage(1);
-                    }}
-                    className={`rounded-lg px-2.5 py-1 text-[11px] font-bold transition cursor-pointer ${
-                      autoPlayMs === ms
-                        ? 'bg-violet-600 text-white shadow-xs'
-                        : 'text-slate-600 hover:bg-violet-50 hover:text-violet-900'
-                    }`}
-                  >
-                    {label}
-                  </button>
-                ))}
-              </div>
+            {/* Playback & Customizer Buttons */}
+            <div className="flex items-center gap-2">
               <button
                 type="button"
                 onClick={() => setIsAutoPlaying((prev) => !prev)}
@@ -630,11 +602,11 @@ export default function DemoClient() {
               <div className="h-1.5 w-full bg-slate-100 overflow-hidden">
                 {isAutoPlaying ? (
                   <motion.div
-                    key={`playhead-${activeStage}-${autoPlayMs}`}
+                    key={`playhead-${activeStage}`}
                     className="h-full bg-gradient-to-r from-violet-600 via-fuchsia-500 to-amber-400"
                     initial={{ width: `${(activeStage - 1) * 25}%` }}
                     animate={{ width: `${activeStage * 25}%` }}
-                    transition={{ duration: autoPlayMs / 1000, ease: 'linear' }}
+                    transition={{ duration: 3, ease: 'linear' }}
                   />
                 ) : (
                   <motion.div
