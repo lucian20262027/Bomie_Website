@@ -182,25 +182,26 @@ export default function FounderProfileClient() {
 
                 <div className={`pl-10 sm:pl-16 space-y-5 text-[15px] leading-[1.65] ${p.prose}`}>
                   <p>
-                    Lucian is a repeat founder and former small-business owner who built a
-                    cross-border supply-chain venture across eight cities and advised SMBs
-                    on go-to-market and growth at a consulting firm. Having lived the daily
-                    pressure of rent, payroll, and inventory firsthand, he builds for Main
-                    Street operators—not corporate slide decks.
+                    Lucian is a repeat founder and entrepreneur who built a cross-border
+                    supply-chain venture across multiple cities and advised SMBs on
+                    go-to-market and growth at a consulting firm. Having lived the daily
+                    pressure of a business owner firsthand, he builds Bomie AI for Main
+                    Street operators.
                   </p>
                   <p>
-                    He honed how to help small businesses scale at the world&apos;s #1
-                    entrepreneurship program (Babson College MBA), pairing that with an MS
-                    in Computer Science (City St George&apos;s, University of London) and
-                    alumni study at the University of Cambridge. At TikTok (ByteDance),
-                    Lucian brought those lessons to sellers and creators across the US,
-                    Mexico, Brazil, and Southeast Asia—turning authentic local storytelling
-                    into measurable revenue across 350K+ weekly active sellers.
+                    He honed his ability to help small businesses scale through an MBA at
+                    the world&apos;s #1 entrepreneurship program at Babson College, as well
+                    as an MSc in Computer Science from London and International Relations
+                    studies at the University of Cambridge. At TikTok, Lucian brought those
+                    lessons to sellers and creators across the US, Mexico, Brazil, and
+                    Southeast Asia—turning authentic local storytelling into measurable
+                    revenue across 350K+ weekly active sellers.
                   </p>
                   <p className={p.proseStrong}>
-                    Lucian believes local businesses and local creators are the strongest
-                    engine to empower neighborhood communities, drive nationwide economic
-                    vitality, and keep people genuinely connected in this fast-changing era.
+                    Academically and practically, Lucian believes local businesses and
+                    local creators are the strongest engine to empower neighborhood
+                    communities, drive nationwide—and even global—economic vitality, and
+                    keep people genuinely connected in this fast-changing era.
                   </p>
                 </div>
 
