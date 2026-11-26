@@ -1502,12 +1502,12 @@ export default function BomieLandingPage() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
         onMouseLeave={() => setOpenNavMenu(null)}
-        className="sticky top-0 z-50 bg-[#f7f4ff]/85 backdrop-blur-xl"
+        className="sticky top-0 z-50 bg-[#f7f4ff]/55 backdrop-blur-md"
       >
-        <div className="mx-auto flex max-w-[1440px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-10 py-3.5 sm:py-4">
+        <div className="mx-auto flex max-w-[1440px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-10 py-2.5 sm:py-3">
           {/* 1. Bespoke Geometric B✦ Logo */}
-          <Link href="/" className="group flex min-w-0 items-center gap-3.5">
-            <div className="relative flex h-11 w-11 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-xl sm:rounded-2xl bg-gradient-to-tr from-[#5b21b6] via-[#d946ef] to-[#fbbf24] p-[1px] shadow-lg shadow-violet-500/25 transition-transform duration-300 group-hover:scale-105">
+          <Link href="/" className="group flex min-w-0 items-center gap-3">
+            <div className="relative flex h-10 w-10 sm:h-11 sm:w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-tr from-[#5b21b6] via-[#d946ef] to-[#fbbf24] p-[1px] shadow-md shadow-violet-500/25 transition-transform duration-300 group-hover:scale-105">
               <div className="flex h-full w-full items-center justify-center rounded-[11px] sm:rounded-[15px] bg-gradient-to-tr from-violet-700/95 via-fuchsia-500/95 to-amber-400/95 backdrop-blur-sm">
                 <svg
                   viewBox="0 0 512 512"
@@ -1864,11 +1864,6 @@ export default function BomieLandingPage() {
         />
 
         <div className="mx-auto max-w-[1440px] px-6 lg:px-10 text-center">
-          <div className="mb-4 flex justify-center">
-            <span className="inline-flex items-center rounded-full border border-violet-200/90 bg-white/85 px-4 py-1.5 text-xs font-semibold text-violet-900 shadow-xs">
-              North America&apos;s First AI Commerce OS for Local Businesses &amp; Creators
-            </span>
-          </div>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -1885,8 +1880,11 @@ export default function BomieLandingPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="mx-auto mt-6 max-w-3xl text-base leading-relaxed text-slate-600 sm:text-lg"
+            className="mx-auto mt-6 max-w-4xl text-base leading-relaxed text-slate-600 sm:text-lg"
           >
+            <span className="font-semibold text-[#161224]">
+              Bomie AI is North America&apos;s first AI Commerce OS for local businesses and creators.
+            </span>{' '}
             We empower local businesses and local creators to grow together — through AI smart matching,
             4-stage autonomous campaign orchestration, and built-in FTC compliance.
           </motion.p>
