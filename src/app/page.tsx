@@ -1485,7 +1485,7 @@ export default function BomieLandingPage() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
         onMouseLeave={() => setOpenNavMenu(null)}
-        className="sticky top-0 z-50 border-b border-violet-200/70 bg-[#f7f4ff]/85 backdrop-blur-xl"
+        className="sticky top-0 z-50 bg-[#f7f4ff]/85 backdrop-blur-xl"
       >
         <div className="mx-auto flex max-w-[1440px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-10 py-3.5 sm:py-4">
           {/* 1. Enlarged Bespoke Geometric B✦ Logo + Stacked Shimmer Tagline Underneath */}
@@ -1713,10 +1713,10 @@ export default function BomieLandingPage() {
             </div>
           </nav>
 
-          <div className="flex shrink-0 self-center lg:self-end items-end gap-2 sm:gap-3">
+          <div className="flex shrink-0 self-center lg:self-end lg:translate-y-1.5 items-center gap-2 sm:gap-3">
             <button
               onClick={() => setShowLoginModal(true)}
-              className="hidden sm:inline-flex rounded-lg px-3.5 pt-1.5 pb-1 text-sm font-semibold leading-none text-[#161224]/85 transition hover:bg-violet-200/40 hover:text-violet-950"
+              className="hidden sm:inline-flex rounded-lg px-3.5 py-2 text-sm font-semibold leading-none text-[#161224]/85 transition hover:bg-violet-200/40 hover:text-violet-950 cursor-pointer"
             >
               Log in
             </button>
