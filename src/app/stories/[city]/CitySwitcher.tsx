@@ -15,7 +15,7 @@ export default function CitySwitcher({ activeCity }: { activeCity: string }) {
   const router = useRouter();
 
   return (
-    <nav className="inline-flex shrink-0 items-center gap-5 sm:gap-7 overflow-x-auto whitespace-nowrap text-[13px]">
+    <nav className="inline-flex shrink-0 items-center gap-4 sm:gap-7 overflow-x-auto whitespace-nowrap text-[13px]">
       {CITIES.map((c) => (
         <Link
           key={c.id}

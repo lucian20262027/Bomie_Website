@@ -1564,7 +1564,7 @@ export default function BomieLandingPage() {
             >
               {brandMarqueeActive ? (
                 <div
-                  className="w-[170px] sm:w-[235px] overflow-hidden bg-transparent"
+                  className="w-[130px] sm:w-[225px] overflow-hidden bg-transparent"
                   style={{
                     maskImage: 'linear-gradient(90deg, transparent 0%, black 14%, black 86%, transparent 100%)',
                     WebkitMaskImage: 'linear-gradient(90deg, transparent 0%, black 14%, black 86%, transparent 100%)',
@@ -2213,8 +2213,8 @@ export default function BomieLandingPage() {
               </p>
             </div>
 
-            {/* 4 City Tabs — Strictly 1 Single Row on Desktop */}
-            <div className="inline-flex flex-nowrap shrink-0 items-center gap-1.5 overflow-x-auto rounded-2xl border border-violet-200 bg-white p-1.5 shadow-sm">
+            {/* 4 City Tabs — 2x2 Grid on Mobile, Strictly 1 Single Row on Tablet/Desktop */}
+            <div className="grid grid-cols-2 sm:inline-flex sm:flex-nowrap shrink-0 items-center gap-1.5 rounded-2xl border border-violet-200 bg-white p-1.5 shadow-sm">
               {cityOrder.map((cityId) => {
                 const c = cityStories[cityId];
                 const active = selectedCity === c.id;
@@ -2903,7 +2903,7 @@ export default function BomieLandingPage() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
                       <label className="block text-xs font-bold text-slate-700 mb-1">
                         Business / Creator Handle *
@@ -3328,7 +3328,7 @@ export default function BomieLandingPage() {
           whileHover={{ scale: 1.06 }}
           whileTap={{ scale: 0.94 }}
           onClick={() => setIsChatOpen((prev) => !prev)}
-          className="group relative flex items-center gap-2.5 rounded-full border border-violet-200/90 bg-white/95 p-1.5 pr-4 shadow-xl shadow-violet-900/15 backdrop-blur-xl transition hover:border-violet-400"
+          className="group relative flex items-center gap-2.5 rounded-full border border-violet-200/90 bg-white/95 p-1.5 sm:pr-4 shadow-xl shadow-violet-900/15 backdrop-blur-xl transition hover:border-violet-400 cursor-pointer"
           aria-label="Open Bomie AI FAQ Chatbot"
         >
           <span className="relative flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-tr from-[#5b21b6] via-[#d946ef] to-[#fbbf24] shadow-lg shadow-violet-500/30">
@@ -3350,7 +3350,7 @@ export default function BomieLandingPage() {
             )}
             <span className="absolute -top-0.5 -right-0.5 h-3.5 w-3.5 rounded-full border-2 border-white bg-emerald-500" />
           </span>
-          <div className="flex flex-col text-left">
+          <div className="hidden sm:flex flex-col text-left">
             <span className="text-xs font-extrabold text-[#161224] flex items-center gap-1">
               <Bot className="h-3 w-3 text-violet-600" />
               Ask Bomie AI

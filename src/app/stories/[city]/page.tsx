@@ -322,7 +322,7 @@ export default async function CityStoriesPage({
         </div>
       </header>
 
-      <main className="mx-auto max-w-6xl px-6 py-10 sm:py-12 space-y-8">
+      <main className="mx-auto max-w-6xl px-4 sm:px-6 py-8 sm:py-12 space-y-8">
         {/* City Title + Enlarged Slogan */}
         <div className="space-y-3.5">
           <div className="md:hidden pb-1">
@@ -380,11 +380,11 @@ export default async function CityStoriesPage({
               <div className="relative h-52 w-full overflow-hidden">
                 <img src={cs.image} alt={cs.brand} loading="lazy" className="h-full w-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/35 to-transparent" />
-                <div className="absolute top-4 right-4 rounded-full border border-emerald-400/35 bg-emerald-500/20 px-3 py-1 text-xs font-bold text-emerald-700 backdrop-blur-md">
+                <div className="absolute top-4 right-4 rounded-full border border-emerald-400/40 bg-emerald-950/80 px-3 py-1 text-xs font-bold text-emerald-200 shadow-sm backdrop-blur-md">
                   {cs.metric}
                 </div>
                 <div className="absolute bottom-4 left-5 right-5">
-                  <div className="text-[11px] font-mono uppercase tracking-wider text-amber-700">
+                  <div className="text-[11px] font-mono uppercase tracking-wider text-amber-300">
                     {cs.industry}
                   </div>
                   <h2 className="text-xl font-bold text-white">{cs.brand}</h2>
