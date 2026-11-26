@@ -7,8 +7,6 @@ import {
   DollarSign,
   Lock,
   MapPin,
-  Pause,
-  Play,
   QrCode,
   ShieldCheck,
   Sparkles,
@@ -176,8 +174,8 @@ export default function CreatorDemoShowcase() {
   return (
     <section className="relative overflow-hidden py-4">
       <div className="mx-auto max-w-[1320px] px-4 sm:px-6 lg:px-10">
-        {/* Persona Switcher + Auto-Play Toggle */}
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-3">
+        {/* Persona Switcher */}
+        <div className="flex justify-center">
           <div className="inline-flex flex-wrap items-center justify-center gap-1.5 rounded-2xl border border-violet-200/80 bg-white/85 p-1.5 shadow-sm backdrop-blur-sm">
             {CREATOR_PERSONAS.map((item, idx) => {
               const active = personaIdx === idx;
@@ -208,32 +206,14 @@ export default function CreatorDemoShowcase() {
               );
             })}
           </div>
-
-          <button
-            type="button"
-            onClick={() => setIsAutoPlaying((prev) => !prev)}
-            className={`inline-flex items-center gap-1.5 rounded-xl border px-3.5 py-2 text-xs font-bold transition cursor-pointer ${
-              isAutoPlaying
-                ? 'border-fuchsia-300 bg-fuchsia-50 text-fuchsia-900'
-                : 'border-slate-200 bg-white text-slate-700 hover:border-fuchsia-300'
-            }`}
-          >
-            {isAutoPlaying ? (
-              <>
-                <Pause className="h-3.5 w-3.5 text-fuchsia-700" />
-                <span>Auto-Playing Flow</span>
-              </>
-            ) : (
-              <>
-                <Play className="h-3.5 w-3.5 text-fuchsia-700 fill-fuchsia-700" />
-                <span>Auto-Play Tour</span>
-              </>
-            )}
-          </button>
         </div>
 
         {/* Interactive Workspace Window */}
-        <div className="mt-5 rounded-[28px] border border-fuchsia-200/80 bg-gradient-to-br from-[#F6E8FF]/90 via-white to-[#f5f3ff] p-2.5 sm:p-4 shadow-2xl shadow-violet-950/10">
+        <div
+          onMouseEnter={() => setIsAutoPlaying(false)}
+          onMouseLeave={() => setIsAutoPlaying(true)}
+          className="mt-5 rounded-[28px] border border-fuchsia-200/80 bg-gradient-to-br from-[#F6E8FF]/90 via-white to-[#f5f3ff] p-2.5 sm:p-4 shadow-2xl shadow-violet-950/10"
+        >
           <div className="rounded-2xl border border-slate-200/80 bg-white overflow-hidden shadow-sm">
             {/* Top Window Chrome + 4 Tabs */}
             <div className="border-b border-slate-100 bg-slate-50/70 px-4 sm:px-6 py-3 flex flex-col lg:flex-row lg:items-center justify-between gap-3">

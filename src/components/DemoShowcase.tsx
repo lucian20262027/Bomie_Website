@@ -14,8 +14,6 @@ import {
   Cpu,
   Lock,
   MapPin,
-  Pause,
-  Play,
   QrCode,
   RotateCcw,
   ShieldAlert,
@@ -314,8 +312,8 @@ export default function DemoShowcase({ showHero = true, hideCustomDrawerButton =
           </div>
           )}
 
-          {/* Scenario Switcher + Auto-Play / Custom Controls */}
-          <div className={`${showHero ? 'mt-7 ' : ''}flex flex-col lg:flex-row items-center justify-between gap-3`}>
+          {/* Scenario Switcher + Optional Custom Controls */}
+          <div className={`${showHero ? 'mt-7 ' : ''}flex flex-col lg:flex-row items-center ${hideCustomDrawerButton ? 'justify-center' : 'justify-between'} gap-3`}>
             {/* 3 Click/Hover Scenario Pills */}
             <div className="inline-flex flex-wrap items-center justify-center gap-1.5 rounded-2xl border border-violet-200/80 bg-white/85 p-1.5 shadow-sm backdrop-blur-sm">
               {DEMO_PRESETS.map((preset) => {
@@ -358,40 +356,19 @@ export default function DemoShowcase({ showHero = true, hideCustomDrawerButton =
               })}
             </div>
 
-            {/* Playback & Customizer Buttons */}
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={() => setIsAutoPlaying((prev) => !prev)}
-                className={`inline-flex items-center gap-1.5 rounded-xl border px-3.5 py-2 text-xs font-bold transition cursor-pointer ${
-                  isAutoPlaying
-                    ? 'border-violet-300 bg-violet-100/80 text-violet-900'
-                    : 'border-slate-200 bg-white text-slate-700 hover:border-violet-300'
-                }`}
-              >
-                {isAutoPlaying ? (
-                  <>
-                    <Pause className="h-3.5 w-3.5 text-violet-700" />
-                    <span>Auto-Playing Flow</span>
-                  </>
-                ) : (
-                  <>
-                    <Play className="h-3.5 w-3.5 text-violet-700 fill-violet-700" />
-                    <span>Auto-Play Tour</span>
-                  </>
-                )}
-              </button>
-              {!hideCustomDrawerButton && (
-              <button
-                type="button"
-                onClick={() => setShowCustomDrawer((prev) => !prev)}
-                className="inline-flex items-center gap-1.5 rounded-xl border border-violet-200 bg-white px-3.5 py-2 text-xs font-bold text-[#161224] shadow-2xs transition hover:border-violet-400 cursor-pointer"
-              >
-                <Sliders className="h-3.5 w-3.5 text-violet-600" />
-                <span>{showCustomDrawer ? 'Hide Custom Input' : 'Test Your Own Store'}</span>
-              </button>
-              )}
-            </div>
+            {/* Optional Customizer Button */}
+            {!hideCustomDrawerButton && (
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setShowCustomDrawer((prev) => !prev)}
+                  className="inline-flex items-center gap-1.5 rounded-xl border border-violet-200 bg-white px-3.5 py-2 text-xs font-bold text-[#161224] shadow-2xs transition hover:border-violet-400 cursor-pointer"
+                >
+                  <Sliders className="h-3.5 w-3.5 text-violet-600" />
+                  <span>{showCustomDrawer ? 'Hide Custom Input' : 'Test Your Own Store'}</span>
+                </button>
+              </div>
+            )}
           </div>
 
           {/* Optional Collapsible Custom Input Drawer (Hidden by default so hero stays clean!) */}
@@ -492,7 +469,11 @@ export default function DemoShowcase({ showHero = true, hideCustomDrawerButton =
           </AnimatePresence>
 
           {/* THE FLAGSHIP INTERACTIVE WORKSPACE STAGE */}
-          <div className="mt-5 rounded-[28px] border border-violet-200/90 bg-gradient-to-br from-[#ECE6FC]/90 via-white to-[#f5f3ff] p-2.5 sm:p-4 shadow-2xl shadow-violet-950/10">
+          <div
+            onMouseEnter={() => setIsAutoPlaying(false)}
+            onMouseLeave={() => setIsAutoPlaying(true)}
+            className="mt-5 rounded-[28px] border border-violet-200/90 bg-gradient-to-br from-[#ECE6FC]/90 via-white to-[#f5f3ff] p-2.5 sm:p-4 shadow-2xl shadow-violet-950/10"
+          >
             <div className="rounded-2xl border border-slate-200/80 bg-white overflow-hidden shadow-sm">
               {/* Workspace Top Chrome + 4-Stage Interactive Stepper */}
               <div className="border-b border-slate-100 bg-slate-50/70 px-4 sm:px-6 py-3 flex flex-col lg:flex-row lg:items-center justify-between gap-3">
