@@ -147,7 +147,7 @@ export default function MerchantClient() {
   return (
     <div className="min-h-screen bg-[#f7f4ff] text-[#161224] selection:bg-violet-600 selection:text-white">
       <header className="sticky top-0 z-40 border-b border-violet-200/70 bg-[#f7f4ff]/85 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
+        <div className="mx-auto flex max-w-[1440px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-10 py-3.5 sm:py-4">
           <Link href="/" className="flex items-center gap-3">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-tr from-[#5b21b6] via-[#d946ef] to-[#fbbf24] shadow-md shadow-violet-500/30">
               <svg viewBox="0 0 512 512" fill="none" className="h-5 w-5">
@@ -206,7 +206,7 @@ export default function MerchantClient() {
         </section>
 
         {/* 2. Hands-On DIY Storefront Tester (Guides Merchants to Try Their Own Store) */}
-        <section className="mx-auto max-w-5xl space-y-7 border-t border-violet-200/70 pt-12">
+        <section className="mx-auto max-w-[1320px] px-4 sm:px-6 lg:px-10 space-y-7 border-t border-violet-200/70 pt-12">
           <div>
             <span className="font-mono text-xs font-semibold uppercase tracking-widest text-emerald-600">
               Now It&apos;s Your Turn · Hands-On Live Simulator
@@ -621,7 +621,7 @@ export default function MerchantClient() {
         </section>
 
         {/* CLOSING STAGE: Pain-Point Contrast + High-Converting Join Trigger */}
-        <section className="mx-auto max-w-5xl pt-4 pb-6">
+        <section className="mx-auto max-w-[1320px] px-4 sm:px-6 lg:px-10 pt-4 pb-6">
           <div className="relative overflow-hidden rounded-3xl border border-violet-400/25 bg-gradient-to-br from-[#161224] via-[#1f163b] to-[#120d21] p-8 sm:p-12 text-center text-white shadow-2xl shadow-violet-950/25">
             {/* Subtle Ambient Glow */}
             <div
