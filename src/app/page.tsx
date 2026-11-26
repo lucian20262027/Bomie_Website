@@ -1581,7 +1581,7 @@ export default function BomieLandingPage() {
                     className="inline-block whitespace-nowrap text-sm sm:text-[15px] font-medium tracking-tight text-[#161224]/85"
                   >
                     <span className="font-bold text-violet-700">Bomie AI</span> is North America&apos;s first{' '}
-                    <span className="font-bold text-fuchsia-600">AI Commerce OS</span> for local businesses and creators.
+                    <span className="font-bold text-fuchsia-600">AI Commerce OS</span> for local businesses and creators
                   </motion.span>
                 </div>
               ) : (
