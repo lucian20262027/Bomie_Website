@@ -910,6 +910,7 @@ export default function BomieLandingPage() {
   const [isSubmittingDemo, setIsSubmittingDemo] = useState<boolean>(false);
   const [demoLeadId, setDemoLeadId] = useState<string>('');
   const [demoError, setDemoError] = useState<string>('');
+  const [demoHumanVerified, setDemoHumanVerified] = useState<boolean>(false);
   const [loginRole, setLoginRole] = useState<'merchant' | 'creator'>('merchant');
   const [openNavMenu, setOpenNavMenu] = useState<'os' | 'stories' | 'why' | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
@@ -958,6 +959,10 @@ export default function BomieLandingPage() {
   const handleDemoSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setDemoError('');
+    if (!demoHumanVerified) {
+      setDemoError('Please check "I am not a robot" to continue.');
+      return;
+    }
     setIsSubmittingDemo(true);
     try {
       const res = await fetch('/api/demo', {
@@ -1736,6 +1741,7 @@ export default function BomieLandingPage() {
               onClick={() => {
                 setDemoSubmitted(false);
                 setDemoError('');
+                setDemoHumanVerified(false);
                 setShowDemoModal(true);
               }}
               className={`inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-full border px-4 py-2 text-xs sm:text-sm font-semibold transition-all duration-300 cursor-pointer ${
@@ -2769,10 +2775,7 @@ export default function BomieLandingPage() {
               ) : (
                 <form onSubmit={handleDemoSubmit} className="space-y-4">
                   <div>
-                    <span className="font-mono text-xs font-semibold uppercase tracking-wider text-violet-700">
-                      1-on-1 Founder Walkthrough
-                    </span>
-                    <h3 className="mt-1 text-2xl font-extrabold text-[#161224]">
+                    <h3 className="text-2xl font-extrabold text-[#161224]">
                       Book a Live Bomie AI Demo
                     </h3>
                     <p className="mt-1 text-xs text-slate-600">
@@ -2795,7 +2798,7 @@ export default function BomieLandingPage() {
                       required
                       value={demoName}
                       onChange={(e) => setDemoName(e.target.value)}
-                      placeholder="Alex Chen"
+                      placeholder="Jordan Miller"
                       className="w-full rounded-xl border border-violet-200 bg-[#faf8ff] px-3.5 py-2.5 text-sm text-[#161224] placeholder-slate-400 focus:border-violet-500 focus:outline-none"
                     />
                   </div>
@@ -2810,7 +2813,7 @@ export default function BomieLandingPage() {
                         required
                         value={demoEmail}
                         onChange={(e) => setDemoEmail(e.target.value)}
-                        placeholder="alex@yourbusiness.com"
+                        placeholder="jordan@yourbusiness.com"
                         className="w-full rounded-xl border border-violet-200 bg-[#faf8ff] px-3.5 py-2.5 text-sm text-[#161224] placeholder-slate-400 focus:border-violet-500 focus:outline-none"
                       />
                     </div>
@@ -2885,23 +2888,34 @@ export default function BomieLandingPage() {
                     </div>
                   </div>
 
-                  <div className="pt-2 flex flex-col gap-2">
+                  <div className="pt-1 space-y-3">
+                    <label className="flex items-center justify-between rounded-xl border border-violet-200 bg-[#faf8ff] px-3.5 py-2.5 cursor-pointer select-none transition hover:border-violet-300">
+                      <span className="flex items-center gap-3">
+                        <input
+                          type="checkbox"
+                          checked={demoHumanVerified}
+                          onChange={(e) => {
+                            setDemoHumanVerified(e.target.checked);
+                            if (e.target.checked && demoError) setDemoError('');
+                          }}
+                          className="h-4 w-4 rounded border-violet-300 text-violet-600 focus:ring-violet-500 cursor-pointer accent-violet-600"
+                        />
+                        <span className="text-xs font-semibold text-[#161224]">
+                          I am not a robot
+                        </span>
+                      </span>
+                      <span className="flex items-center gap-1 font-mono text-[10px] font-medium text-slate-400">
+                        <ShieldCheck className="h-3.5 w-3.5 text-violet-500" />
+                        Verified
+                      </span>
+                    </label>
+
                     <button
                       type="submit"
                       disabled={isSubmittingDemo}
-                      className="w-full rounded-xl bg-gradient-to-r from-[#5b21b6] to-[#d946ef] py-3 text-sm font-bold text-white shadow-lg shadow-violet-600/20 transition hover:opacity-95 disabled:opacity-50"
+                      className="w-full rounded-xl bg-gradient-to-r from-[#5b21b6] to-[#d946ef] py-3 text-sm font-bold text-white shadow-lg shadow-violet-600/20 transition hover:opacity-95 disabled:opacity-50 cursor-pointer"
                     >
                       {isSubmittingDemo ? 'Submitting Request...' : 'Schedule My 15-Min Demo'}
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setShowDemoModal(false);
-                        setShowFullStudioModal(true);
-                      }}
-                      className="w-full rounded-xl border border-violet-200 bg-[#f7f4ff] py-2.5 text-xs font-semibold text-violet-800 hover:bg-violet-100"
-                    >
-                      Or Skip Wait &amp; Launch Self-Serve V5 Sandbox &rarr;
                     </button>
                   </div>
                 </form>
