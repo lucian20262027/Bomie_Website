@@ -133,7 +133,7 @@ export default function BrandFooter() {
             </p>
             <div className="flex items-center gap-2 pt-1 text-xs font-medium text-slate-500">
               <ShieldCheck className="h-4 w-4 text-violet-600" />
-              <span>© 2026 BOMIE AI · San Francisco, CA</span>
+              <span>© 2026 BOMIES LLC (Bomie AI) · San Francisco, CA</span>
             </div>
           </div>
 
@@ -198,6 +198,11 @@ export default function BrandFooter() {
               Company &amp; Legal
             </div>
             <ul className="space-y-2 text-xs">
+              <li>
+                <Link href="/team" className="hover:text-violet-700">
+                  Team &amp; Leadership
+                </Link>
+              </li>
               <li>
                 <Link href="/why-bomie/stories" className="hover:text-violet-700">
                   Mission &amp; Founder

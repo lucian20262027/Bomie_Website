@@ -17,6 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/stories/vegas', priority: 0.8, changeFrequency: 'monthly' },
     { path: '/why-bomie/stories', priority: 0.8, changeFrequency: 'monthly' },
     { path: '/why-bomie/stories/founder', priority: 0.8, changeFrequency: 'monthly' },
+    { path: '/team', priority: 0.8, changeFrequency: 'monthly' },
     { path: '/why-bomie/research', priority: 0.8, changeFrequency: 'monthly' },
     { path: '/why-bomie/research/main-street-creator-commerce-2026', priority: 0.9, changeFrequency: 'monthly' },
     { path: '/privacy', priority: 0.3, changeFrequency: 'monthly' },
