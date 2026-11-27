@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { ShieldCheck } from 'lucide-react';
+import { Globe } from 'lucide-react';
+import FooterInsightsForm from './FooterInsightsForm';
 
 const infraRails = [
   {
@@ -131,10 +132,6 @@ export default function BrandFooter() {
             <p className="max-w-sm text-xs leading-relaxed text-slate-600">
               North America&apos;s First AI Commerce OS for Local Businesses &amp; Creators—with built-in FTC compliance and 30/40/30 Stripe Escrow.
             </p>
-            <div className="flex items-center gap-2 pt-1 text-xs font-medium text-slate-500">
-              <ShieldCheck className="h-4 w-4 text-violet-600" />
-              <span>© 2026 BOMIES LLC (Bomie AI)</span>
-            </div>
           </div>
 
           <div className="space-y-3">
@@ -224,6 +221,22 @@ export default function BrandFooter() {
                 </Link>
               </li>
             </ul>
+          </div>
+        </div>
+
+        {/* Stripe-style Industry Insights Email Capture */}
+        <div className="mt-12 border-t border-violet-200/70 pt-8 pb-8">
+          <FooterInsightsForm />
+        </div>
+
+        {/* Stripe-style Bottom Locale + Legal Entity Row */}
+        <div className="border-t border-violet-200/70 pt-6 flex flex-col gap-2 text-xs">
+          <div className="inline-flex items-center gap-2 font-semibold text-violet-700">
+            <Globe className="h-4 w-4" />
+            <span>United States (English)</span>
+          </div>
+          <div className="font-medium text-slate-600">
+            © 2026 BOMIES LLC.
           </div>
         </div>
       </div>
