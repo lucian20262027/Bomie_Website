@@ -133,7 +133,7 @@ export default function BrandFooter() {
             </p>
             <div className="flex items-center gap-2 pt-1 text-xs font-medium text-slate-500">
               <ShieldCheck className="h-4 w-4 text-violet-600" />
-              <span>© 2026 BOMIES LLC (Bomie AI) · San Francisco, CA</span>
+              <span>© 2026 BOMIES LLC (Bomie AI)</span>
             </div>
           </div>
 

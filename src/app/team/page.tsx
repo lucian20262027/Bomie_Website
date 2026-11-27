@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowRight, Building2, ExternalLink, Mail, MapPin, ShieldCheck } from 'lucide-react';
+import { ArrowRight, Building2, ExternalLink, Mail, ShieldCheck } from 'lucide-react';
 import { EditorialHeader } from '../../components/EditorialChrome';
 import BrandFooter from '../../components/BrandFooter';
 
@@ -9,7 +9,7 @@ const TEAM_URL = 'https://www.bomie.ai/team';
 export const metadata: Metadata = {
   title: 'Founding Team & Leadership — BOMIES LLC (Bomie AI)',
   description:
-    'Meet the founding team and leadership behind BOMIES LLC (dba Bomie AI) in San Francisco, CA — led by Founder & CEO Lucian Wang.',
+    'Meet the founding team and leadership behind BOMIES LLC (dba Bomie AI) — led by Founder & CEO Lucian Wang.',
   alternates: {
     canonical: TEAM_URL,
   },
@@ -22,12 +22,6 @@ const orgJsonLd = {
   legalName: 'BOMIES LLC',
   url: 'https://www.bomie.ai',
   email: 'lucian.wang@bomie.ai',
-  address: {
-    '@type': 'PostalAddress',
-    addressLocality: 'San Francisco',
-    addressRegion: 'CA',
-    addressCountry: 'US',
-  },
   sameAs: [
     'https://www.crunchbase.com/organization/bomie-ai',
     'https://www.linkedin.com/in/lucianwang18',
@@ -55,7 +49,7 @@ export default function TeamPage() {
         <div className="max-w-3xl">
           <div className="inline-flex items-center gap-2 rounded-full border border-violet-300/70 bg-white/80 px-3.5 py-1.5 text-xs font-semibold text-violet-900 shadow-2xs">
             <Building2 className="h-3.5 w-3.5 text-violet-700" />
-            <span>BOMIES LLC · dba Bomie AI · San Francisco, CA</span>
+            <span>BOMIES LLC · dba Bomie AI</span>
           </div>
 
           <h1 className="mt-5 text-3xl sm:text-5xl font-extrabold tracking-tight text-[#161224] leading-[1.1]">
@@ -86,10 +80,6 @@ export default function TeamPage() {
                     </span>
                   </div>
                   <div className="mt-1.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs font-medium text-slate-500">
-                    <span className="inline-flex items-center gap-1">
-                      <MapPin className="h-3.5 w-3.5 text-violet-600" />
-                      San Francisco, CA
-                    </span>
                     <span className="inline-flex items-center gap-1">
                       <Building2 className="h-3.5 w-3.5 text-violet-600" />
                       BOMIES LLC (Bomie AI)
@@ -162,10 +152,6 @@ export default function TeamPage() {
                 <div className="border-b border-slate-100 pb-2.5">
                   <dt className="text-xs text-slate-500">Product / DBA</dt>
                   <dd className="font-bold text-[#161224]">Bomie AI (bomie.ai)</dd>
-                </div>
-                <div className="border-b border-slate-100 pb-2.5">
-                  <dt className="text-xs text-slate-500">Headquarters</dt>
-                  <dd className="font-bold text-[#161224]">San Francisco, California, USA</dd>
                 </div>
                 <div className="border-b border-slate-100 pb-2.5">
                   <dt className="text-xs text-slate-500">Leadership &amp; Key Functions</dt>
