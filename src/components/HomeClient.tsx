@@ -1275,52 +1275,6 @@ export default function HomeClient() {
       </section>
       )}
 
-      {/* Success Stories — Minimalist 4 City Hubs */}
-      <section id="stories" className="border-t border-violet-200/70 bg-[#efe9ff]/55 py-12 sm:py-14 scroll-mt-16">
-        <div className="mx-auto max-w-[1440px] px-6 lg:px-10">
-          <div className="mx-auto max-w-4xl space-y-6 text-center">
-            <div className="space-y-2">
-              <span className="text-xs font-mono font-semibold uppercase tracking-widest text-violet-600">
-                City Success Stories
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#161224]">
-                Live Across North America&apos;s{' '}
-                <span className="bg-gradient-to-r from-violet-600 via-fuchsia-600 to-amber-500 bg-clip-text text-transparent">
-                  Cultural Hubs
-                </span>
-              </h2>
-              <p className="text-sm text-slate-600">
-                Explore neighborhood playbooks and local creator ecosystems in each launch city.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 text-left">
-              {cityOrder.map((cityId) => {
-                const c = cityStories[cityId];
-                return (
-                  <Link
-                    key={c.id}
-                    href={`/stories/${c.id}`}
-                    className="group flex items-center justify-between rounded-2xl border border-violet-200/80 bg-white/90 px-4 py-3.5 shadow-2xs transition hover:border-violet-400 hover:bg-white hover:shadow-md"
-                  >
-                    <div className="min-w-0">
-                      <div className="flex items-center gap-1.5 text-sm font-bold text-[#161224] group-hover:text-violet-700">
-                        <MapPin className="h-3.5 w-3.5 shrink-0 text-violet-600" />
-                        <span className="truncate">{c.name}</span>
-                      </div>
-                      <div className="mt-0.5 truncate text-[11px] font-medium text-slate-500">
-                        Verified City Playbook
-                      </div>
-                    </div>
-                    <ArrowRight className="h-4 w-4 shrink-0 text-slate-400 transition group-hover:translate-x-0.5 group-hover:text-violet-700" />
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Pilot Testimonials + Zero Risk & Escrow Protection — Cohesive Centered Editorial Flow */}
       <section id="pricing" className="border-t border-[#161224]/12 py-12 sm:py-16 scroll-mt-16">
         <div className="mx-auto max-w-[1440px] px-6 lg:px-10">
@@ -1419,6 +1373,26 @@ export default function HomeClient() {
                     );
                   })}
                 </div>
+              </div>
+
+              {/* Ultra-Minimal Borderless City Playbook Link Row */}
+              <div id="stories" className="mt-8 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-slate-500 scroll-mt-20">
+                <span className="font-mono text-[10px] font-semibold uppercase tracking-widest text-violet-700/80">
+                  Live City Playbooks
+                </span>
+                {cityOrder.map((cityId) => {
+                  const c = cityStories[cityId];
+                  return (
+                    <Link
+                      key={c.id}
+                      href={`/stories/${c.id}`}
+                      className="inline-flex items-center gap-1 font-medium text-[#161224]/75 transition hover:text-violet-700"
+                    >
+                      <span>{c.name}</span>
+                      <ArrowRight className="h-3 w-3 opacity-60" />
+                    </Link>
+                  );
+                })}
               </div>
             </div>
           </div>
