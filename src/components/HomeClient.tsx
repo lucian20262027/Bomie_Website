@@ -20,6 +20,7 @@ import {
   type MerchantScenario,
 } from '../data/homeScenarios';
 const HomeFaqChatbot = dynamic(() => import('./HomeFaqChatbot'), { ssr: false });
+const SandHeroSection = dynamic(() => import('./SandHeroSection'), { ssr: false });
 import {
   Sparkles,
   ArrowRight,
@@ -176,6 +177,7 @@ export default function HomeClient() {
   const [demoError, setDemoError] = useState<string>('');
   const [demoTurnstileToken, setDemoTurnstileToken] = useState<string>('');
   const [loginRole, setLoginRole] = useState<'merchant' | 'creator'>('merchant');
+  const [isSandHero, setIsSandHero] = useState(false);
   const [openNavMenu, setOpenNavMenu] = useState<'os' | 'stories' | 'why' | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const [selectedCity, setSelectedCity] = useState<CulturalHubId>('sf');
@@ -604,6 +606,7 @@ export default function HomeClient() {
       setIsScrolledToVideo(window.scrollY > 320);
     };
     onScroll();
+    setIsSandHero(new URLSearchParams(window.location.search).get('hero') === 'sand');
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
@@ -993,7 +996,15 @@ export default function HomeClient() {
         </AnimatePresence>
       </motion.header>
 
-      {/* Hero Section with Apple 18 Soft Lavender Glow & Subtle Grid */}
+      {/* Hero Section (Default vs Sand.ai Full-Bleed A/B Variant via ?hero=sand) */}
+      {isSandHero ? (
+        <SandHeroSection
+          onSwitchToDefault={() => {
+            setIsSandHero(false);
+            window.history.replaceState(null, '', '/');
+          }}
+        />
+      ) : (
       <section className="relative pt-8 pb-14 md:pt-11 md:pb-16">
         <div
           className="pointer-events-none absolute inset-0 -z-20 opacity-40"
@@ -1262,6 +1273,7 @@ export default function HomeClient() {
           </motion.div>
         </div>
       </section>
+      )}
 
       {/* Success Stories — Clean Metric Strip + 4 City Hubs */}
       <section id="stories" className="border-t border-violet-200/70 bg-[#efe9ff]/55 py-14 scroll-mt-16">
