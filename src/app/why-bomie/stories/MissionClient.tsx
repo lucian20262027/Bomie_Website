@@ -2,8 +2,9 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, ChevronDown } from 'lucide-react';
 import HeaderBookDemo from '../../../components/HeaderBookDemo';
+import BomieSparkleCanvas from '../../../components/BomieSparkleCanvas';
 
 interface OSPrincipleTab {
   id: string;
@@ -233,8 +234,57 @@ export default function MissionClient() {
       </header>
 
       <main>
+        {/* SECTION 00: Cinematic B✦ Particle Constellation Opening */}
+        <section className="relative flex min-h-[76svh] sm:min-h-[82svh] w-full flex-col items-center justify-center overflow-hidden bg-[#0b0717] px-6 text-center text-[#f7f4ff]">
+          <BomieSparkleCanvas />
+
+          <div className="pointer-events-none relative z-10 mx-auto max-w-3xl space-y-6">
+            <div className="font-mono text-[11px] font-semibold uppercase tracking-[0.26em] text-amber-200/80">
+              BOMIE.AI · MISSION
+            </div>
+
+            <h1
+              className="text-4xl sm:text-6xl lg:text-[64px] font-medium leading-[1.08] tracking-[-0.02em] text-white"
+              style={{ fontFamily: 'var(--font-playfair), Georgia, serif' }}
+            >
+              Illuminate Main Street With Autonomous AI
+            </h1>
+
+            <p className="mx-auto max-w-xl text-sm sm:text-base leading-relaxed text-[#f7f4ff]/70">
+              Connecting neighborhood businesses and local creators through verified matching,
+              built-in FTC governance, and milestone-protected escrow.
+            </p>
+
+            {/* Central B✦ Emblem */}
+            <div className="pt-2 flex justify-center">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/15 bg-white/5 backdrop-blur-md shadow-xl shadow-violet-950/50">
+                <svg viewBox="0 0 512 512" fill="none" className="h-7 w-7">
+                  <path
+                    fill="#ffffff"
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M140 124C140 112.954 148.954 104 160 104H268C321.019 104 360 137.565 360 184C360 214.12 343.39 239.47 317.88 251.42C350.69 263.74 372 292.69 372 330C372 381.915 329.915 416 272 416H160C148.954 416 140 407.046 140 396V124ZM204 162V228H260C281.539 228 296 214.569 296 195C296 175.431 281.539 162 260 162H204ZM204 282V356H268C292.301 356 308 341.673 308 319C308 296.327 292.301 282 268 282H204Z"
+                  />
+                  <path
+                    fill="#fef08a"
+                    d="M396 76C399.5 103.5 412.5 116.5 440 120C412.5 123.5 399.5 136.5 396 164C392.5 136.5 379.5 123.5 352 120C379.5 116.5 392.5 103.5 396 76Z"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <a
+            href="#mission-manifesto"
+            aria-label="Scroll to mission manifesto"
+            className="relative z-10 mt-10 inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white/70 transition hover:border-white/35 hover:text-white"
+          >
+            <ChevronDown className="h-4 w-4 animate-bounce" />
+          </a>
+        </section>
+
         {/* SECTION 01: Moonshot 50/50 Split Hero */}
-        <section className="mx-auto max-w-[1440px]">
+        <section id="mission-manifesto" className="mx-auto max-w-[1440px]">
           <div className="grid lg:grid-cols-2">
             {/* Left 1:1 Matte Crescent Orb Canvas */}
             <div className={`relative aspect-square w-full overflow-hidden ${p.orbBg}`}>
