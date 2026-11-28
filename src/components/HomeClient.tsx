@@ -1275,25 +1275,9 @@ export default function HomeClient() {
       </section>
       )}
 
-      {/* Success Stories — Clean Metric Strip + 4 City Hubs */}
-      <section id="stories" className="border-t border-violet-200/70 bg-[#efe9ff]/55 py-14 scroll-mt-16">
-        <div className="mx-auto max-w-[1440px] px-6 lg:px-10 space-y-10">
-          {/* Lightweight Centered 3-Metric Strip (Desktop & Mobile) */}
-          <div className="mx-auto grid max-w-4xl grid-cols-3 divide-x divide-violet-200/80 border-b border-violet-200/80 pb-8 text-center">
-            <div className="px-2 sm:px-6">
-              <div className="text-2xl sm:text-4xl font-extrabold tracking-tight text-amber-600">3.6x</div>
-              <div className="mt-1 text-[11px] sm:text-sm font-medium text-slate-600">Avg. Store-Visit ROAS</div>
-            </div>
-            <div className="px-2 sm:px-6">
-              <div className="text-2xl sm:text-4xl font-extrabold tracking-tight text-[#161224]">&lt; 5m</div>
-              <div className="mt-1 text-[11px] sm:text-sm font-medium text-slate-600">AI Local Creator Match</div>
-            </div>
-            <div className="px-2 sm:px-6">
-              <div className="text-2xl sm:text-4xl font-extrabold tracking-tight text-emerald-600">100%</div>
-              <div className="mt-1 text-[11px] sm:text-sm font-medium text-slate-600">FTC 16 CFR Pass Rate</div>
-            </div>
-          </div>
-
+      {/* Success Stories — Minimalist 4 City Hubs */}
+      <section id="stories" className="border-t border-violet-200/70 bg-[#efe9ff]/55 py-12 sm:py-14 scroll-mt-16">
+        <div className="mx-auto max-w-[1440px] px-6 lg:px-10">
           <div className="mx-auto max-w-4xl space-y-6 text-center">
             <div className="space-y-2">
               <span className="text-xs font-mono font-semibold uppercase tracking-widest text-violet-600">
@@ -1325,7 +1309,7 @@ export default function HomeClient() {
                         <span className="truncate">{c.name}</span>
                       </div>
                       <div className="mt-0.5 truncate text-[11px] font-medium text-slate-500">
-                        {c.stats[0]?.value} {c.stats[0]?.label.replace('Active ', '')}
+                        Verified City Playbook
                       </div>
                     </div>
                     <ArrowRight className="h-4 w-4 shrink-0 text-slate-400 transition group-hover:translate-x-0.5 group-hover:text-violet-700" />
