@@ -1279,8 +1279,8 @@ export default function HomeClient() {
       <section id="pricing" className="border-t border-[#161224]/12 py-12 sm:py-16 scroll-mt-16">
         <div className="mx-auto max-w-[1440px] px-6 lg:px-10">
           <div className="space-y-10">
-            {/* Top Tier: Lightweight Centered 3-Metric Strip (Mirrors Cultural Hubs Aesthetic) */}
-            <div className="mx-auto grid max-w-4xl grid-cols-3 divide-x divide-violet-200/80 border-b border-violet-200/80 pb-8 text-center">
+            {/* Top Tier: Full-Container-Width 3-Metric Strip (Aligned with Hero & Ocean CTA) */}
+            <div className="grid w-full grid-cols-3 divide-x divide-violet-200/80 border-b border-violet-200/80 pb-9 text-center">
               <div className="px-2 sm:px-6">
                 <div className="text-2xl sm:text-4xl font-extrabold tracking-tight text-violet-700">$0</div>
                 <div className="mt-1 text-[11px] sm:text-sm font-medium text-slate-600">Platform Fee in MVP</div>
@@ -1296,7 +1296,7 @@ export default function HomeClient() {
             </div>
 
             {/* Lower Tier: Centered Editorial Pilot Spotlight + Unified Pill Switcher */}
-            <div className="mx-auto max-w-3xl text-center">
+            <div className="mx-auto max-w-5xl text-center">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activePilotIndex}
