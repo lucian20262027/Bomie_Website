@@ -328,10 +328,10 @@ export default async function CityStoriesPage({
           <img
             src={active.heroImage}
             alt={active.name}
-            className="h-full w-full object-cover scale-105 opacity-50 brightness-[0.85] saturate-[0.9] transition-transform duration-[18000ms] ease-out"
+            className="h-full w-full object-cover scale-105 opacity-75 brightness-95 saturate-105 transition-transform duration-[18000ms] ease-out"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0b0717]/75 via-[#0b0717]/50 to-[#0b0717]/95" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_75%_60%_at_50%_48%,rgba(11,7,23,0.65),transparent_82%)]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0b0717]/45 via-[#0b0717]/25 to-[#0b0717]/80" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_65%_50%_at_50%_48%,rgba(11,7,23,0.48),transparent_78%)]" />
         </div>
 
         {/* Mobile City Switcher / Top Eyebrow */}
