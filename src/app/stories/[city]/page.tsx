@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowLeft, MapPin, Star } from 'lucide-react';
+import { ArrowLeft, ChevronDown, MapPin, Star } from 'lucide-react';
 import type { Metadata } from 'next';
 import BrandFooter from '../../../components/BrandFooter';
 import CityBookDemoButton from './CityBookDemoButton';
@@ -322,52 +322,77 @@ export default async function CityStoriesPage({
         </div>
       </header>
 
-      <main className="mx-auto max-w-6xl px-4 sm:px-6 py-8 sm:py-12 space-y-8">
-        {/* City Title + Enlarged Slogan */}
-        <div className="space-y-3.5">
-          <div className="md:hidden pb-1">
+      {/* Full-Bleed Sand.ai-Style Immersive City Hero */}
+      <section className="relative flex min-h-[76svh] sm:min-h-[82svh] w-full flex-col items-center justify-between overflow-hidden bg-[#0b0717] px-6 pt-10 pb-8 text-center text-white">
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+          <img
+            src={active.heroImage}
+            alt={active.name}
+            className="h-full w-full object-cover scale-105 transition-transform duration-[18000ms] ease-out"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/45 to-[#0b0717]/90" />
+        </div>
+
+        {/* Mobile City Switcher / Top Eyebrow */}
+        <div className="relative z-10 flex flex-col items-center gap-3">
+          <div className="md:hidden">
             <CitySwitcher activeCity={key} />
           </div>
-          <h1 className="text-3xl sm:text-4xl lg:text-[42px] font-extrabold tracking-tight text-[#161224]">
+          <div className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-black/40 px-3.5 py-1 font-mono text-[11px] uppercase tracking-[0.2em] text-amber-200 backdrop-blur-md">
+            <MapPin className="h-3.5 w-3.5" />
+            <span>{active.name} · Verified City Hub</span>
+          </div>
+        </div>
+
+        {/* Centered Editorial City Title + Slogan */}
+        <div className="relative z-10 mx-auto max-w-4xl space-y-5 py-8">
+          <h1
+            className="text-4xl sm:text-6xl lg:text-[68px] font-medium leading-[1.06] tracking-[-0.02em] text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.45)]"
+            style={{ fontFamily: 'var(--font-playfair), Georgia, serif' }}
+          >
             {active.name}
           </h1>
-          <p className="text-xl sm:text-2xl lg:text-[28px] font-bold leading-snug tracking-tight text-[#161224]">
+          <p className="mx-auto max-w-3xl text-lg sm:text-2xl lg:text-[26px] font-semibold leading-snug text-white/95 drop-shadow">
             {active.sloganPrefix}
-            <span className="bg-gradient-to-r from-violet-700 via-fuchsia-600 to-amber-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-violet-300 via-fuchsia-300 to-amber-300 bg-clip-text text-transparent">
               {active.sloganHighlight}
             </span>
           </p>
+          <p className="mx-auto max-w-2xl text-xs sm:text-sm font-medium tracking-wide text-white/75">
+            {active.tagline}
+          </p>
         </div>
 
-        {/* City Hero Card */}
-        <div className="overflow-hidden rounded-3xl border border-violet-200/80 bg-white shadow-sm shadow-2xl">
-          <div className="relative h-64 sm:h-80 w-full overflow-hidden">
-            <img src={active.heroImage} alt={active.name} className="h-full w-full object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent" />
-            <div className="absolute bottom-6 left-6 right-6 flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
-              <div>
-                <div className="flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-amber-300">
-                  <MapPin className="h-3.5 w-3.5" />
-                  <span>{active.name} · Verified City Hub</span>
+        {/* Bottom Glassmorphic City Metrics + Scroll Chevron */}
+        <div className="relative z-10 flex w-full max-w-4xl flex-col items-center gap-5">
+          <div className="grid w-full grid-cols-3 gap-2.5 sm:gap-4">
+            {active.stats.map((st) => (
+              <div
+                key={st.label}
+                className="rounded-2xl border border-white/20 bg-black/45 px-3 py-3 sm:px-5 sm:py-3.5 backdrop-blur-md"
+              >
+                <div className="text-[10px] sm:text-[11px] font-mono uppercase tracking-wider text-white/65">
+                  {st.label}
                 </div>
-                <p className="mt-1 text-lg sm:text-2xl font-bold text-white">{active.tagline}</p>
+                <div className="mt-0.5 text-lg sm:text-2xl font-extrabold text-white">{st.value}</div>
               </div>
-              <div className="flex flex-wrap lg:flex-nowrap gap-3 shrink-0">
-                {active.stats.map((st) => (
-                  <div
-                    key={st.label}
-                    className="rounded-xl border border-white/25 bg-black/65 px-4 py-2.5 backdrop-blur-md whitespace-nowrap"
-                  >
-                    <div className="text-[10px] font-mono uppercase text-slate-300">{st.label}</div>
-                    <div className="text-base font-extrabold text-white">{st.value}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
+            ))}
           </div>
-          <div className="p-6 sm:p-8 text-sm sm:text-base leading-relaxed text-slate-600">
-            {active.overview}
-          </div>
+
+          <a
+            href="#city-cases"
+            aria-label={`Scroll to ${active.name} case studies`}
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/25 bg-black/35 text-white/80 backdrop-blur-sm transition hover:border-white/60 hover:text-white"
+          >
+            <ChevronDown className="h-4 w-4 animate-bounce" />
+          </a>
+        </div>
+      </section>
+
+      <main id="city-cases" className="mx-auto max-w-6xl px-4 sm:px-6 py-10 sm:py-14 space-y-8 scroll-mt-16">
+        {/* City Overview Card */}
+        <div className="rounded-3xl border border-violet-200/80 bg-white p-6 sm:p-8 text-sm sm:text-base leading-relaxed text-slate-600 shadow-sm">
+          {active.overview}
         </div>
 
         {/* 4 Illustrated Brand Case Studies */}
